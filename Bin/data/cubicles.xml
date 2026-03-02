@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<ppkmgroups>
+
+  <instructor id="Instructor" name="Instructor Group">
+    <console ip="192.168.1.10" name="INSTRUKTUR 1"></console>
+    <console ip="192.168.1.20" name="INSTRUKTUR 2"></console>     
+  </instructor>
+
+  <situationBoard id="SituationBoard" name="SituationBoard Group">
+    <console ip="192.168.1.10" name="SITUATION BOARD 1"></console>
+    <console ip="192.168.1.20" name="SITUATION BOARD 2"></console>
+    <console ip="192.168.1.30" name="SITUATION BOARD 3"></console>
+    <console ip="192.168.1.40" name="SITUATION BOARD 4"></console>       
+  </situationBoard>
+
+  <officer id="Officer" name="Officer Group"> 
+    <console ip="192.168.0.107" name="PROGRAMMER" ></console>    
+    <console ip="192.168.0.146" name="OFFICIAL 1"></console>  
+    <console ip="192.168.0.172" name="OFFICIAL 2"></console>
+    <console ip="192.168.0.146" name="OFFICIAL 3"></console>
+    <console ip="192.168.0.233" name="OFFICIAL 4"></console>
+    <console ip="192.168.0.105" name="OFFICIAL 5"></console>
+    <console ip="192.168.0.106" name="OFFICIAL 6"></console>
+    <console ip="192.168.0.107" name="OFFICIAL 7"></console>
+    <console ip="192.168.0.108" name="OFFICIAL 8"></console>
+    <console ip="192.168.0.109" name="OFFICIAL 9"></console>
+    <console ip="192.168.0.110" name="OFFICIAL 10"></console>
+    <console ip="192.168.0.111" name="OFFICIAL 11"></console>  
+    <console ip="192.168.0.112" name="OFFICIAL 12"></console>
+    <console ip="192.168.0.113" name="OFFICIAL 13"></console>
+    <console ip="192.168.0.114" name="OFFICIAL 14"></console>
+    <console ip="192.168.0.115" name="OFFICIAL 15"></console>
+    <console ip="192.168.0.116" name="OFFICIAL 16"></console>
+    <console ip="192.168.0.117" name="OFFICIAL 17"></console>
+    <console ip="192.168.0.118" name="OFFICIAL 18"></console>
+    <console ip="192.168.0.119" name="OFFICIAL 19"></console>
+    <console ip="192.168.0.120" name="OFFICIAL 20"></console>
+    <console ip="192.168.0.121" name="OFFICIAL 21"></console>  
+    <console ip="192.168.0.122" name="OFFICIAL 22"></console>
+    <console ip="192.168.0.123" name="OFFICIAL 23"></console>
+    <console ip="192.168.0.124" name="OFFICIAL 24"></console>
+    <console ip="192.168.0.125" name="OFFICIAL 25"></console>
+    <console ip="192.168.0.126" name="OFFICIAL 26"></console>
+  </officer>
+
+</ppkmgroups>

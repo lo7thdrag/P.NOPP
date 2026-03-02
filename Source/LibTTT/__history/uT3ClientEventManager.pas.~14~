@@ -1,0 +1,97 @@
+unit uT3ClientEventManager;
+
+interface
+
+uses
+  uConstantaData, SysUtils, Variants, ComCtrls, Classes,Math, Windows,
+  uT3Listener, uT3EventManager,uT3SimManager, uBaseCoordSystem, uDataTypes;
+
+type
+  TT3ClientEventManager = class(TT3EventManager)
+
+    procedure RefreshEmbarkList();
+    procedure OnNonRealTimeAdded(Sender : TObject); override;
+    procedure OnUpdateTvCubicleGroup; override;
+    procedure onUpdateStateServer(msg : string);
+    procedure OnUpdateBombProperty(value : Integer);                   override;
+    procedure OnUpdateTacticalTote;                                     override;
+    procedure OnUpdateDatalinkTote(idOrderDL : Integer);                override;
+    procedure OnCameraTrackPosition; override;
+    procedure OnWriteEventSummary;
+    procedure OnUpdateEnvironment; override;
+  end;
+
+implementation
+
+uses
+  ufTacticalDisplay, uSimObjects, uSimMgr_Client, ufToteDisplay, uLibSettingTTT;
+
+{ TT3ClientEventManager }
+
+procedure TT3ClientEventManager.OnCameraTrackPosition;
+begin
+  frmTacticalDisplay.Map1.CurrentTool := mtCameraPosition;
+end;
+
+procedure TT3ClientEventManager.OnUpdateBombProperty(value: Integer);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnUpdateDatalinkTote(idOrderDL: Integer);
+begin
+  inherited;
+
+  case idOrderDL of
+    odlStop:
+      begin
+//        frmToteDisplay.btnStopDataLink.Enabled := false;
+//        frmToteDisplay.btnPlayDataLink.Enabled := true;
+      end;
+    odlPlay:
+      begin
+//        frmToteDisplay.btnStopDataLink.Enabled := true;
+//        frmToteDisplay.btnPlayDataLink.Enabled := false;
+      end;
+  end;
+end;
+
+procedure TT3ClientEventManager.onUpdateStateServer(msg: string);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnUpdateTacticalTote;
+begin
+  
+end;
+
+procedure TT3ClientEventManager.OnUpdateEnvironment;
+begin
+  inherited;
+//  frmToteDisplay.RefreshEnvironment;
+end;
+
+procedure TT3ClientEventManager.OnUpdateTvCubicleGroup;
+begin
+  inherited;
+
+//  frmToteDisplay.SetupTvCubicleGroup;
+end;
+
+procedure TT3ClientEventManager.OnWriteEventSummary;
+begin
+//  frmToteDisplay.WriteEventSummary;
+end;
+
+procedure TT3ClientEventManager.RefreshEmbarkList;
+begin
+//  frmToteDisplay.RefreshPlatformList
+end;
+
+procedure TT3ClientEventManager.OnNonRealTimeAdded(Sender: TObject);
+begin
+  inherited;
+  //frmTacticalDisplay.Refresh_AssumeControl;
+end;
+end.

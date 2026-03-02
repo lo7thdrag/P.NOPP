@@ -1,0 +1,21 @@
+unit uT3ClientEventManager;
+
+interface
+
+uses
+  uConstantaData, SysUtils, Variants, ComCtrls, Classes,Math, Windows,
+  uT3Listener, uT3EventManager,uT3SimManager, uBaseCoordSystem, uDataTypes;
+
+type
+  TT3ClientEventManager = class(TT3EventManager)
+
+  end;
+
+implementation
+
+uses
+  ufTacticalDisplay, uSimObjects, uSimMgr_Client, ufToteDisplay, uLibSettingTTT;
+
+{ TT3ClientEventManager }
+
+end.

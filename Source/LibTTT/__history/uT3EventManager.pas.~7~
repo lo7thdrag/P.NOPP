@@ -1,0 +1,407 @@
+unit uT3EventManager;
+
+interface
+
+uses
+  uConstantaData, Classes, SYsUtils, Windows,
+
+  uT3Listener, uSimObjects, uDataTypes;
+
+type
+
+  TT3EventManager = class
+  private
+    FOnLogEventStr: TLogStrProc;
+    procedure SetOnLogEventStr(const Value: TLogStrProc);
+
+  public
+    procedure OnClientConnect(IpAddres : string); virtual;
+
+    // game setting event handle
+    procedure OnPropGameSettingIntChange(Sender : TObject;Props : TPropsID; Value : Integer);        virtual;
+    procedure OnPropGameSettingDoubleChange(Sender : TObject;Props : TPropsID; Value : Double);      virtual;
+    procedure OnPropGameSettingBoolChange(Sender : TObject;Props : TPropsID; Value : Boolean);       virtual;
+    procedure OnPropGameSettingByteChange(Sender : TObject;Props : TPropsID; Value : Byte);          virtual;
+
+    //Non Real Time Changed
+    procedure OnNonRealTimeChanged(Sender : TObject); virtual;
+    procedure OnNonRealTimeAdded(Sender : TObject);   virtual;
+    procedure OnMapNeedUpdate(Sender : TObject);      virtual;
+
+    procedure OnRadarRemoveAssignedPlatform(radar : TObject); virtual;
+    procedure OnAfterLanding(Sender : TObject); virtual;
+
+	  //added by choco
+    procedure OnWeaponHitByServer(SenderID, TargetID, Lethality : integer; ParentName : string) ;    virtual;
+    procedure OnWeaponInOut(SenderID : Integer; reasondestroy : Byte) ;         virtual;
+    procedure OnPlatformHancurin(SenderID : Integer; Target: string; reasondestroy : Byte);virtual;
+    procedure OnPlatformPositonChange(Sender : TObject);                        virtual;
+    procedure OnVectactChange(Sender : TObject); overload; virtual;
+//    procedure OnVectactChange(r : TRecVectac); overload; virtual;
+    procedure AbortMissileLaunch(aParentId, aMissileId : Integer); virtual;
+
+    //Added Nando & Andi
+    procedure OnIFFSensorDetect(aShip, aSensor, aTarget : TObject ;value, value2 : boolean; mode1,mode,mode3,mode3C:string); virtual;
+    procedure OnModeSearchIFF(aSensor : TObject; value : byte); virtual;
+    procedure OnDeploySonar(VIndex, SensorType, SensorIndex, ControlMode, Status : integer); virtual;
+    procedure OnUpdateFormSonar (VIndex, SensorType, SensorIndex, Counter, param, order : Integer); virtual;
+    procedure OnUpdateActualCable(VIndex, SensorType, SensorIndex : integer; aValue : Double); virtual;
+
+    procedure OnWaypointRemoveOwner(aShipID : Integer); virtual;
+    procedure OnWaypointEnd(aShipID : Integer; aSpeed, aHeading : Double); virtual;
+    procedure OnWaypointDestinationChange(aShipID : Integer; Long, Lat : Double); virtual;
+
+    procedure OnUpdateTvCubicleGroup; virtual;
+
+//    procedure OnVehicleRampChange (ve: TT3Vehicle); virtual;
+
+    procedure OnDepthChecker(Sender : TObject);virtual;
+
+    //decoy
+    procedure OnDecoysDeployed(aParent: TObject); virtual;
+
+    property  OnLogEventStr: TLogStrProc  read FOnLogEventStr write SetOnLogEventStr;
+
+	  {Nando}
+//    procedure OnReceiveGameSpeedForRecord(Cmd : TRecCmd_GameCtrl); virtual;
+//    procedure OnReceiveMessageHandling(Cmd : TRecSendMessage);virtual;
+//    procedure OnReceiveModifComm(Cmd : TRecModifComm);virtual;
+
+    //choco : Guidance stale time reach
+//    procedure OnGuidanceStaleTimeReached(aParent, aTarget : TT3PlatformInstance; aDT : Double); virtual;
+//    procedure OnGuidanceStandoffReached(aParent, aTarget : TT3PlatformInstance); virtual;
+//    procedure OnGuidanceLaunchWeapon(aParent, aTarget : TT3PlatformInstance); virtual;
+
+    procedure OnUpdateRadarNoiseJammer(jammer : TObject; value : byte); virtual;
+    procedure OnUpdateBombProperty(value : Integer);                    virtual;
+    procedure OnUpdateMineProperty(value : Double);                     virtual;
+//    procedure OnUpdateTorpedoProperty(rec : TRecTorpedoProperty);       virtual;
+    procedure OnECMCommand(JammerObj : TObject);                        virtual;
+
+    procedure OnUpdateTacticalTote;                                     virtual;
+    procedure OnLogStatusTactical(str : string);                        virtual;
+    procedure OnUpdateDatalinkTote(idOrderDL : Integer);                virtual;
+
+    //Formation Update form
+    procedure OnUpdateFormationList;                                    virtual;
+//    procedure OnUpdateFormationMembers(formation : TFormationRefine);   virtual;
+    //procedure OnDeleteDogBox();
+//    procedure OnDetectabilityChange(aShip: TT3PlatformInstance);        virtual;
+
+    procedure OnMissileSynchVBS(Sender: TObject); virtual;
+    procedure OnEventSendPlatformcmd(const pi_id: integer;
+      const ordID, ordType, DiveMode: Byte; const cmdParam: single); virtual;
+
+    procedure OnCameraTrackPosition; virtual;
+
+//    procedure OnCekLandAndDepth(x, y : Double ;r : TRec_MapData); virtual;
+
+    procedure OnDeletVehicle3D(PlatformID : Integer); virtual;
+    procedure OnlogDataMissile(ts: TStringList); virtual;
+    procedure OnUpdateEnvironment; virtual;
+  end;
+
+implementation
+
+uses
+  uBaseCoordSystem, uT3SimManager;
+
+
+{ TT3EventManager }
+
+procedure TT3EventManager.OnDecoysDeployed(aParent: TObject);
+begin
+
+end;
+
+procedure TT3EventManager.OnDeletVehicle3D(PlatformID: Integer);
+begin
+//
+end;
+
+procedure TT3EventManager.OnDeploySonar(VIndex, SensorType, SensorIndex,
+  ControlMode, Status: integer);
+begin
+  if Assigned(OnLogEventStr) then
+    OnLogEventStr('TT3EventManager.OnDeploySonar', 'Sensor Deploy');
+end;
+
+procedure TT3EventManager.OnDepthChecker(Sender: TObject);
+begin
+
+end;
+
+//procedure TT3EventManager.OnDetectabilityChange(aShip: TT3PlatformInstance);
+//begin
+////x
+//end;
+
+procedure TT3EventManager.OnECMCommand(JammerObj: TObject);
+begin
+
+end;
+
+procedure TT3EventManager.OnEventSendPlatformcmd(const pi_id: integer;
+  const ordID, ordType, DiveMode: Byte; const cmdParam: single);
+begin
+
+end;
+
+//procedure TT3EventManager.OnGuidanceLaunchWeapon(aParent,
+//  aTarget: TT3PlatformInstance);
+//begin
+//
+//end;
+
+//procedure TT3EventManager.OnGuidanceStaleTimeReached(aParent,
+//  aTarget: TT3PlatformInstance; aDT : Double);
+//begin
+//
+//end;
+
+//procedure TT3EventManager.OnGuidanceStandoffReached(aParent,
+//  aTarget: TT3PlatformInstance);
+//begin
+//
+//end;
+
+procedure TT3EventManager.OnIFFSensorDetect(aShip, aSensor, aTarget : TObject ;value, value2 : boolean; mode1,mode,mode3,mode3C:string);
+begin
+
+end;
+
+procedure TT3EventManager.OnlogDataMissile(ts: TStringList);
+begin
+
+end;
+
+procedure TT3EventManager.OnLogStatusTactical(str : string);
+begin
+
+end;
+
+procedure TT3EventManager.OnMapNeedUpdate(Sender: TObject);
+begin
+
+end;
+
+procedure TT3EventManager.OnMissileSynchVBS(Sender: TObject);
+begin
+
+end;
+
+procedure TT3EventManager.OnModeSearchIFF(aSensor: TObject; value: byte);
+begin
+
+end;
+
+procedure TT3EventManager.OnNonRealTimeAdded(Sender: TObject);
+begin
+
+end;
+
+procedure TT3EventManager.OnNonRealTimeChanged(Sender: TObject);
+begin
+
+end;
+
+procedure TT3EventManager.OnPlatformHancurin(SenderID : Integer;
+          Target: string; reasondestroy : Byte);
+begin
+end;
+
+procedure TT3EventManager.OnPlatformPositonChange(Sender: TObject);
+begin
+  // x
+end;
+
+procedure TT3EventManager.OnPropGameSettingBoolChange(Sender : TObject;Props: TPropsID;
+  Value: Boolean);
+begin
+
+  if Assigned(OnLogEventStr) then
+    OnLogEventStr('TT3EventManager.OnPropGameSettingBoolChange',
+       'Game Setting ID : ' + IntToStr(Byte(Props)) + ' set to ' + BoolToStr(Value));
+
+end;
+
+procedure TT3EventManager.OnPropGameSettingByteChange(Sender : TObject;Props: TPropsID;
+  Value: Byte);
+begin
+
+  if Assigned(OnLogEventStr) then
+    OnLogEventStr('TT3EventManager.OnPropGameSettingByteChange',
+       'Game Setting ID : ' + IntToStr(Byte(Props)) + ' set to ' + IntToStr(Value));
+
+end;
+
+procedure TT3EventManager.OnPropGameSettingDoubleChange(Sender : TObject;Props: TPropsID;
+  Value: Double);
+begin
+
+  if Assigned(OnLogEventStr) then
+    OnLogEventStr('TT3EventManager.OnPropGameSettingDoubleChange',
+     'Game Setting ID : ' + IntToStr(Byte(Props)) + ' set to ' + FloatToStr(Value));
+
+end;
+
+procedure TT3EventManager.OnPropGameSettingIntChange(Sender : TObject;Props: TPropsID;
+  Value: Integer);
+begin
+
+  if Assigned(OnLogEventStr) then
+    OnLogEventStr('TT3EventManager.OnPropGameSettingIntChange',
+     'Game Setting ID : ' + IntToStr(Byte(Props)) + ' set to ' + IntToStr(Value));
+end;
+
+procedure TT3EventManager.OnRadarRemoveAssignedPlatform(radar: TObject);
+begin
+
+end;
+
+//procedure TT3EventManager.OnReceiveGameSpeedForRecord(Cmd: TRecCmd_GameCtrl);
+//begin
+//
+//end;
+
+//procedure TT3EventManager.OnReceiveMessageHandling(Cmd: TRecSendMessage);
+//begin
+//
+//end;
+
+//procedure TT3EventManager.OnReceiveModifComm(Cmd: TRecModifComm);
+//begin
+//
+//end;
+
+procedure TT3EventManager.OnUpdateActualCable(VIndex, SensorType, SensorIndex: integer; aValue: Double);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateBombProperty(value: Integer);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateDatalinkTote(idOrderDL: Integer);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateEnvironment;
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateFormationList;
+begin
+
+end;
+
+//procedure TT3EventManager.OnUpdateFormationMembers(formation: TFormationRefine);
+//begin
+//
+//end;
+
+procedure TT3EventManager.OnUpdateFormSonar(VIndex, SensorType, SensorIndex,
+  Counter, param, order: Integer);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateMineProperty(value: Double);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateRadarNoiseJammer(jammer: TObject; value: byte);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateTacticalTote;
+begin
+
+end;
+
+//procedure TT3EventManager.OnUpdateTorpedoProperty(rec: TRecTorpedoProperty);
+//begin
+//
+//end;
+
+procedure TT3EventManager.OnUpdateTvCubicleGroup;
+begin
+
+end;
+
+procedure TT3EventManager.AbortMissileLaunch(aParentId, aMissileId: Integer);
+begin
+
+end;
+
+//procedure TT3EventManager.OnCekLandAndDepth(x, y: Double; r: TRec_MapData);
+//begin
+////
+//end;
+
+procedure TT3EventManager.OnAfterLanding(Sender: TObject);
+begin
+
+end;
+
+procedure TT3EventManager.OnVectactChange(Sender: TObject);
+begin
+
+end;
+
+//procedure TT3EventManager.OnVectactChange(r: TRecVectac);
+//begin
+////x
+//end;
+
+procedure TT3EventManager.OnCameraTrackPosition;
+begin
+//
+end;
+
+procedure TT3EventManager.OnClientConnect(IpAddres: string);
+begin
+//
+end;
+
+procedure TT3EventManager.OnWaypointDestinationChange(aShipID: Integer;
+  Long, Lat: Double);
+begin
+  //x
+end;
+
+procedure TT3EventManager.OnWaypointEnd(aShipID: Integer; aSpeed,
+  aHeading: Double);
+begin
+  //x
+end;
+
+procedure TT3EventManager.OnWaypointRemoveOwner(aShipID: Integer);
+begin
+  //x
+end;
+
+procedure TT3EventManager.OnWeaponHitByServer(SenderID, TargetID, Lethality : integer; ParentName : string) ;
+begin
+end;
+
+procedure TT3EventManager.OnWeaponInOut(SenderID: integer; reasondestroy: Byte);
+begin
+end;
+
+procedure TT3EventManager.SetOnLogEventStr(const Value: TLogStrProc);
+begin
+  FOnLogEventStr := Value;
+end;
+
+end.
+
+
+
+

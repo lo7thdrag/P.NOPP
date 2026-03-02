@@ -1,0 +1,331 @@
+﻿unit uT3SimManager;
+
+interface
+
+uses
+  Classes, SysUtils, System.Win.Registry, System.Variants, Graphics, WbemScripting_TLB, Dialogs,
+
+   MapXLib_TLB, uThreadTimer,  uVirtualTime, uLibSettingTTT, uSimManager , uSimObjects, uT3UnitContainer,
+   uT3EventManager, uT3Listener, uSteppers, uNetBaseSocket, uConsoleData;
+
+type
+
+
+  TT3SimManager = class(TSimManager)
+  protected
+
+    procedure FGameThread_OnTerminate(sender: TObject);
+    procedure FGameThread_OnRunning(const dt: double); virtual;
+    procedure FGameThread_OnPaused(const dt: double); virtual;
+
+    procedure FNetworkThread_OnRunning(const dt: double);virtual;
+    procedure FNetworkThread_OnPaused(const dt: double); virtual;
+    procedure FNetworkThread_OnTerminate(sender: TObject);
+
+    procedure CreateMapConverter(Map : TMap);
+
+  private
+
+    FReg              : TRegistry;
+//    FConverter        : TCoordConverter;
+    FOnLogTemporary   : TGetStrProc;
+    FLoadFromSnapshot : Boolean;
+
+    FDelayer          : TDelayer;
+
+    procedure SetOnLogTemporary(const Value: TGetStrProc);
+
+  protected
+//    FOnReplayStr,
+//    FOnLogInitStr  : TGetStrProc;
+    FSessionID     : integer;
+
+    FGotoTimeMode  : boolean;
+    FGotoTimeIndex : integer;
+    FTimeToGo      : TDateTime;
+    FElapseTimeToGo: Extended;
+
+    FGDefList : TList;
+    FStateOrderIDRequestDataPosFromVBS : Byte;
+
+    FVersion : string;
+    FKeyVersion : Integer;
+
+    procedure setSessionID(const Value: integer);
+
+    //network procedures.
+
+    procedure AssignGameSettingChange(Listener : TEventListener);
+
+
+    { use by goto time }
+    procedure Run(const dt : Double);virtual;
+
+  public
+
+    SimConsole : TConsoleContainer;
+
+    SimEventSummary       : TList;
+
+    EventManager    : TT3EventManager;
+
+    constructor Create(Map : TMap);
+    destructor Destroy; override;
+
+    procedure ResetScenario;   override;
+
+    procedure LoadConsoleID; virtual;
+    procedure LoadScenarioID(const vSet: TGameDataSetting); virtual;
+
+    procedure GameStart; override;
+    procedure GamePause; override;
+    procedure GameTerminate; override;
+
+    procedure InitNetwork; virtual;
+    procedure StopNetwork;  virtual;
+
+    property SessionID: integer read FSessionID write setSessionID;
+
+//    property OnReplayStr: TGetStrProc read FOnReplayStr write FOnReplayStr;
+//    property OnLogInitStr: TGetStrProc read FOnLogInitStr write FOnLogInitStr;
+//    property OnLogTemporary: TGetStrProc read FOnLogTemporary write SetOnLogTemporary;
+
+    property Version : string read FVersion;
+    function IsGameStart: Boolean; virtual;
+
+//    property Converter : TCoordConverter read FConverter;
+
+end;
+
+var
+  SimManager: TT3SimManager;
+
+implementation
+
+ uses
+   Windows, forms, StrUtils, Math,
+
+   uGameSetting, DateUtils;
+
+{ TT3SimManager }
+
+procedure TT3SimManager.AssignGameSettingChange(Listener: TEventListener);
+begin
+  if Listener is TPropertyEventListener then
+  begin
+    with TPropertyEventListener(Listener) do begin
+//      OnPropertyIntChange   := EventManager.OnPropGameSettingIntChange;
+//      OnPropertyDblChange   := EventManager.OnPropGameSettingDoubleChange;
+//      OnPropertyBoolChange  := EventManager.OnPropGameSettingBoolChange;
+//      OnPropertyByteChange  := EventManager.OnPropGameSettingByteChange;
+    end;
+  end;
+end;
+
+constructor TT3SimManager.Create(Map : TMap);
+begin
+  inherited Create;
+
+  CreateMapConverter(Map);
+
+  GameSetting := TGameSetting.Create;
+
+  FGameThread.Interval := 10;
+  FGameThread.OnRunning   := FGameThread_OnPaused;
+  FGameThread.OnTerminate := FGameThread_OnTerminate;
+
+  FDelayer := TDelayer.Create;
+  FDelayer.DInterval := 1;
+  FDelayer.Enabled := True;
+
+  FNetworkThread.OnRunning := FNetworkThread_OnRunning;
+  FNetworkThread.OnTerminate := FNetworkThread_OnTerminate;
+  FNetworkThread.Enabled := True;
+
+  SimConsole := TConsoleContainer.Create;
+
+  SimEventSummary := TList.Create;
+
+  FVersion := '1.7';
+  FKeyVersion := 2;
+end;
+
+procedure TT3SimManager.CreateMapConverter(Map: TMap);
+begin
+//  FConverter      := TCoordConverter.Create;
+//  FConverter.FMap := Map;
+end;
+
+destructor TT3SimManager.Destroy;
+begin
+
+  SimConsole.Free;
+  SimEventSummary.Free;
+
+  inherited;
+end;
+
+
+procedure TT3SimManager.FGameThread_OnTerminate(sender: TObject);
+begin
+
+end;
+
+procedure TT3SimManager.FGameThread_OnPaused(const dt: double);
+begin
+
+end;
+
+procedure TT3SimManager.FGameThread_OnRunning(const dt: double);
+var
+  i, gS: integer;
+begin
+  // d
+  if GameSPEED < 1.0 then
+  begin
+    // slow down baby...
+  end
+  else
+  begin
+//    SimPlatforms.Validate;
+//    simNonRealPlatform.Validate;
+//    SimSnapshotData.Validate;
+
+    gS := Round(GameSPEED);
+    for I := 0 to gs - 1 do begin
+      FMainVTime.IncreaseMillisecond(dt * 1000.0 );
+//      FMainVTime.IncreaseMillisecond(dt);
+//      OnLogStr('FGameThread_OnRunning', FloatToStr(dt * 1000.0));
+
+//      SimPlatforms.Moves(dt);
+//      simNonRealPlatform.Moves(dt);
+//      SimPlatforms.GameTime(FMainVTime.GetTime);
+
+      FDelayer.Run(dt);
+    end;
+
+    {$IFDEF SERVER}
+//    DataLinkManager.PoolDataLink(dt);
+    {$ENDIF}
+
+  end;
+end;
+
+
+procedure TT3SimManager.GameStart;
+begin
+  if FGameState = gsStop then
+  begin
+    FGameThread.OnRunning := FGameThread_OnRunning;
+
+    if FGameThread.Suspended then
+      FGameThread.Start;
+  end
+  else
+  begin
+
+  end;
+  FGameState := gsPlaying;
+end;
+
+procedure TT3SimManager.GamePause;
+begin
+  if FGameState = gsPlaying then
+  begin
+
+    FGameThread.OnRunning := FGameThread_OnPaused;
+    // thread do nothing. :P
+  end;
+  FGameState := gsStop;
+
+end;
+
+procedure TT3SimManager.GameTerminate;
+begin
+  FGameState := gsTerminated;
+  FGameThread.Terminate;
+end;
+
+
+procedure TT3SimManager.ResetScenario;
+begin
+  inherited;
+
+//  SimDevices.ClearAndRemove;
+//  SimWeapons.ClearAndRemove;
+//  SimPlatforms.ClearAndRemove;
+//  simNonRealPlatform.ClearAndRemove;
+end;
+
+procedure TT3SimManager.Run(const dt: Double);
+begin
+  FMainVTime.IncreaseMillisecond(dt * 1000.0 );
+//  SimPlatforms.Moves(dt);
+//  simNonRealPlatform.Moves(dt);
+//  SimDevices.Moves(dt);
+//  SimWeapons.Moves(dt);
+//  SimPlatforms.GameTime(FMainVTime.GetTime);
+  FDelayer.Run(dt);
+end;
+
+procedure TT3SimManager.setSessionID(const Value: integer);
+begin
+  FSessionID := Value;
+end;
+
+procedure TT3SimManager.LoadConsoleID;
+begin
+  SimConsole.LoadFromFile(vGameDataSetting.GroupSetting);
+end;
+
+procedure TT3SimManager.LoadScenarioID(const vSet: TGameDataSetting);
+var
+  i : Integer;
+begin
+  ResetScenario;
+
+  FMainVTime.Reset(0);
+end;
+
+procedure TT3SimManager.InitNetwork;
+begin
+  // some of register packet
+end;
+
+
+function TT3SimManager.IsGameStart: Boolean;
+begin
+  if FGameState = gsPlaying then
+    Result := True
+  else
+    Result := False;
+end;
+
+procedure TT3SimManager.StopNetwork;
+begin
+ // unregister all packet
+end;
+
+procedure TT3SimManager.FNetworkThread_OnPaused(const dt: double);
+begin
+//x
+end;
+
+procedure TT3SimManager.FNetworkThread_OnRunning(const dt: double);
+begin
+//x
+end;
+
+procedure TT3SimManager.FNetworkThread_OnTerminate(sender: TObject);
+begin
+//x
+end;
+
+procedure TT3SimManager.SetOnLogTemporary(const Value: TGetStrProc);
+begin
+  FOnLogTemporary := Value;
+end;
+
+{$ENDREGION}
+
+end.

@@ -1,0 +1,41 @@
+object frmTacticalDisplay: TfrmTacticalDisplay
+  Left = 44
+  Top = -238
+  BorderStyle = bsSingle
+  Caption = 'Tactical Display'
+  ClientHeight = 662
+  ClientWidth = 968
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poScreenCenter
+  ShowHint = True
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 968
+    Height = 662
+    Align = alClient
+    Caption = 'Pause'
+    Color = clHighlight
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -21
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentBackground = False
+    ParentFont = False
+    TabOrder = 0
+    ExplicitLeft = 384
+    ExplicitTop = 248
+    ExplicitWidth = 185
+    ExplicitHeight = 41
+  end
+end

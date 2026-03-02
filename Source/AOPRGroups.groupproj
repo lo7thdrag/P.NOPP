@@ -1,0 +1,144 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{CDAB0AC9-29D8-4F0E-9AFE-07204AAE1D94}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="CameraController\CameraController.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AOPRGameController\GC.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AOPRRemote\AOPRRClient.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AOPRRemote\AOPRRServer.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AOPRSessionServer\SessionServer.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AOPRSimClient.src\AOPRSimClient.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AOPRSimReplay\AOPRSimReplay.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AOPRSimServer.src\AOPRSimServer.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AOPRSupportMap\AOPRMapStub.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="AOPRGameTimeV\AOPRGameTime.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="CameraController">
+			<MSBuild Projects="CameraController\CameraController.dproj"/>
+		</Target>
+		<Target Name="CameraController:Clean">
+			<MSBuild Targets="Clean" Projects="CameraController\CameraController.dproj"/>
+		</Target>
+		<Target Name="CameraController:Make">
+			<MSBuild Targets="Make" Projects="CameraController\CameraController.dproj"/>
+		</Target>
+		<Target Name="GC">
+			<MSBuild Projects="AOPRGameController\GC.dproj"/>
+		</Target>
+		<Target Name="GC:Clean">
+			<MSBuild Targets="Clean" Projects="AOPRGameController\GC.dproj"/>
+		</Target>
+		<Target Name="GC:Make">
+			<MSBuild Targets="Make" Projects="AOPRGameController\GC.dproj"/>
+		</Target>
+		<Target Name="AOPRRClient">
+			<MSBuild Projects="AOPRRemote\AOPRRClient.dproj"/>
+		</Target>
+		<Target Name="AOPRRClient:Clean">
+			<MSBuild Targets="Clean" Projects="AOPRRemote\AOPRRClient.dproj"/>
+		</Target>
+		<Target Name="AOPRRClient:Make">
+			<MSBuild Targets="Make" Projects="AOPRRemote\AOPRRClient.dproj"/>
+		</Target>
+		<Target Name="AOPRRServer">
+			<MSBuild Projects="AOPRRemote\AOPRRServer.dproj"/>
+		</Target>
+		<Target Name="AOPRRServer:Clean">
+			<MSBuild Targets="Clean" Projects="AOPRRemote\AOPRRServer.dproj"/>
+		</Target>
+		<Target Name="AOPRRServer:Make">
+			<MSBuild Targets="Make" Projects="AOPRRemote\AOPRRServer.dproj"/>
+		</Target>
+		<Target Name="SessionServer">
+			<MSBuild Projects="AOPRSessionServer\SessionServer.dproj"/>
+		</Target>
+		<Target Name="SessionServer:Clean">
+			<MSBuild Targets="Clean" Projects="AOPRSessionServer\SessionServer.dproj"/>
+		</Target>
+		<Target Name="SessionServer:Make">
+			<MSBuild Targets="Make" Projects="AOPRSessionServer\SessionServer.dproj"/>
+		</Target>
+		<Target Name="AOPRSimClient">
+			<MSBuild Projects="AOPRSimClient.src\AOPRSimClient.dproj"/>
+		</Target>
+		<Target Name="AOPRSimClient:Clean">
+			<MSBuild Targets="Clean" Projects="AOPRSimClient.src\AOPRSimClient.dproj"/>
+		</Target>
+		<Target Name="AOPRSimClient:Make">
+			<MSBuild Targets="Make" Projects="AOPRSimClient.src\AOPRSimClient.dproj"/>
+		</Target>
+		<Target Name="AOPRSimReplay">
+			<MSBuild Projects="AOPRSimReplay\AOPRSimReplay.dproj"/>
+		</Target>
+		<Target Name="AOPRSimReplay:Clean">
+			<MSBuild Targets="Clean" Projects="AOPRSimReplay\AOPRSimReplay.dproj"/>
+		</Target>
+		<Target Name="AOPRSimReplay:Make">
+			<MSBuild Targets="Make" Projects="AOPRSimReplay\AOPRSimReplay.dproj"/>
+		</Target>
+		<Target Name="AOPRSimServer">
+			<MSBuild Projects="AOPRSimServer.src\AOPRSimServer.dproj"/>
+		</Target>
+		<Target Name="AOPRSimServer:Clean">
+			<MSBuild Targets="Clean" Projects="AOPRSimServer.src\AOPRSimServer.dproj"/>
+		</Target>
+		<Target Name="AOPRSimServer:Make">
+			<MSBuild Targets="Make" Projects="AOPRSimServer.src\AOPRSimServer.dproj"/>
+		</Target>
+		<Target Name="AOPRMapStub">
+			<MSBuild Projects="AOPRSupportMap\AOPRMapStub.dproj"/>
+		</Target>
+		<Target Name="AOPRMapStub:Clean">
+			<MSBuild Targets="Clean" Projects="AOPRSupportMap\AOPRMapStub.dproj"/>
+		</Target>
+		<Target Name="AOPRMapStub:Make">
+			<MSBuild Targets="Make" Projects="AOPRSupportMap\AOPRMapStub.dproj"/>
+		</Target>
+		<Target Name="AOPRGameTime">
+			<MSBuild Projects="AOPRGameTimeV\AOPRGameTime.dproj"/>
+		</Target>
+		<Target Name="AOPRGameTime:Clean">
+			<MSBuild Targets="Clean" Projects="AOPRGameTimeV\AOPRGameTime.dproj"/>
+		</Target>
+		<Target Name="AOPRGameTime:Make">
+			<MSBuild Targets="Make" Projects="AOPRGameTimeV\AOPRGameTime.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="CameraController;GC;AOPRRClient;AOPRRServer;SessionServer;AOPRSimClient;AOPRSimReplay;AOPRSimServer;AOPRMapStub;AOPRGameTime"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="CameraController:Clean;GC:Clean;AOPRRClient:Clean;AOPRRServer:Clean;SessionServer:Clean;AOPRSimClient:Clean;AOPRSimReplay:Clean;AOPRSimServer:Clean;AOPRMapStub:Clean;AOPRGameTime:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="CameraController:Make;GC:Make;AOPRRClient:Make;AOPRRServer:Make;SessionServer:Make;AOPRSimClient:Make;AOPRSimReplay:Make;AOPRSimServer:Make;AOPRMapStub:Make;AOPRGameTime:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

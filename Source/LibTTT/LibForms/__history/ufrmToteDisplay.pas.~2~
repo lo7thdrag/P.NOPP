@@ -1,0 +1,128 @@
+unit ufrmToteDisplay;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, ComCtrls, StdCtrls, ExtCtrls, Grids, Buttons, Mask,
+  XMLIntf, msxmldom, XMLDoc, ImgList,commctrl, Math,
+  System.ImageList, RzBmpBtn, Vcl.Imaging.pngimage, Vcl.Imaging.jpeg,
+
+  uDataTypes, uNetUDPnode, uRecordData, uLibSettingTTT, uT3Listener, uDataModuleTTT;
+
+type
+
+  TfrmToteDisplay = class(TForm)
+    pnlTooop: TPanel;
+    pnlSparatorVer1: TPanel;
+    pnlSideBar: TPanel;
+    pnlRightBorder: TPanel;
+    btnAOTC: TSpeedButton;
+    pnlSeparator1: TPanel;
+    pnlTopSide: TPanel;
+    pnlStatusOp: TPanel;
+    btnPlatformOp: TSpeedButton;
+    btnLogisticOp: TSpeedButton;
+    btnTransportOp: TSpeedButton;
+    btnEnvironmentOp: TSpeedButton;
+    btnEventOp: TSpeedButton;
+    pnlBottomSep: TPanel;
+    pnlStatusCub: TPanel;
+    btnPlatformCub: TSpeedButton;
+    btnLogisticCub: TSpeedButton;
+    btnTransportCub: TSpeedButton;
+    btnEnviCub: TSpeedButton;
+    btnEmitterCub: TSpeedButton;
+    pnlBottomSep2: TPanel;
+    lblAOTC: TLabel;
+    lblPlatformOp: TLabel;
+    lblLogisticOp: TLabel;
+    lblTransportOp: TLabel;
+    lblEnviOp: TLabel;
+    lblEventOp: TLabel;
+    lblEnviCub: TLabel;
+    lblEmitterCub: TLabel;
+    lblLogisticCub: TLabel;
+    lblPlatformCub: TLabel;
+    lblTransportCub: TLabel;
+    pnlWeaponOp: TPanel;
+    btnSAMOp: TSpeedButton;
+    btnSSMOp: TSpeedButton;
+    lblSSMOp: TLabel;
+    lblSAMOp: TLabel;
+    Panel110: TPanel;
+    pnlWeaponCub: TPanel;
+    btnSAMCub: TSpeedButton;
+    btnSSMCub: TSpeedButton;
+    lblSSMCub: TLabel;
+    lblSAMCub: TLabel;
+    pnl3: TPanel;
+    pnlContent: TPanel;
+    pnlCommunicationOp: TPanel;
+    btnMessageOp: TSpeedButton;
+    btnCommDefOp: TSpeedButton;
+    btnCommMapOp: TSpeedButton;
+    btnCommInterOp: TSpeedButton;
+    btnDatalinkOp: TSpeedButton;
+    lblMessageOp: TLabel;
+    lblCommDefOp: TLabel;
+    lblCommMapOp: TLabel;
+    lblCommInterOp: TLabel;
+    lblDatalinkOp: TLabel;
+    pnl2: TPanel;
+    btnAudioOp: TSpeedButton;
+    lblAudioOp: TLabel;
+    pnlCommunicationCub: TPanel;
+    btnMessageCub: TSpeedButton;
+    btnCommMapCub: TSpeedButton;
+    btnDatalinkCub: TSpeedButton;
+    lblMessageCub: TLabel;
+    lblCommMapCub: TLabel;
+    lblDatalinkCub: TLabel;
+    pnl4: TPanel;
+    pnlManagement: TPanel;
+    btnCubicle: TSpeedButton;
+    btnEnviControl: TSpeedButton;
+    lblEnviControl: TLabel;
+    lblCubicle: TLabel;
+    pnl5: TPanel;
+    pnlView: TPanel;
+    btnView: TSpeedButton;
+    lblView: TLabel;
+
+  private
+
+  public
+
+  end;
+
+var
+  frmToteDisplay: TfrmToteDisplay;
+
+implementation
+
+function DeleteAmpersand(Value: string): string;
+var
+  i: integer;
+  found: Boolean;
+begin
+  //i := -1;
+  found := false;
+
+  for i := 0 to Length(Value) - 1 do  begin
+    if Value[i] = '&' then
+    begin
+      found := true;
+      break;
+    end;
+  end;
+
+  if found then
+    Delete(Value, i, 1);
+
+  result := Value;
+end;
+
+{$R *.dfm}
+
+end.

@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{42CC2C04-7EC6-48D3-80F7-5E4005B4E784}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="tttGameController\GC.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="tttSessionServer\SessionServer.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="GC">
+			<MSBuild Projects="tttGameController\GC.dproj"/>
+		</Target>
+		<Target Name="GC:Clean">
+			<MSBuild Targets="Clean" Projects="tttGameController\GC.dproj"/>
+		</Target>
+		<Target Name="GC:Make">
+			<MSBuild Targets="Make" Projects="tttGameController\GC.dproj"/>
+		</Target>
+		<Target Name="SessionServer">
+			<MSBuild Projects="tttSessionServer\SessionServer.dproj"/>
+		</Target>
+		<Target Name="SessionServer:Clean">
+			<MSBuild Targets="Clean" Projects="tttSessionServer\SessionServer.dproj"/>
+		</Target>
+		<Target Name="SessionServer:Make">
+			<MSBuild Targets="Make" Projects="tttSessionServer\SessionServer.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="GC;SessionServer"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="GC:Clean;SessionServer:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="GC:Make;SessionServer:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

@@ -1,0 +1,256 @@
+unit ufrmTacticalDisplay;
+
+interface
+
+uses
+
+  Tlhelp32, ShellAPI,MapXLib_TLB, Windows, Messages, SysUtils, Variants, Classes, Graphics,
+  Controls, Forms, uTMapTouch2, Dialogs, StdCtrls, ExtCtrls, Buttons, ComCtrls, OleCtrls, Menus,
+  ToolWin, ImgList, ActnMan, VrControls, VrAnalog, Keyboard, VrWheel, RzButton, jpeg,
+  System.ImageList, Vcl.Imaging.pngimage, RzBmpBtn, Printers,
+
+  uSimObjects, uDataModuleTTT ;
+
+type
+
+  TfrmTacticalDisplay = class(TForm)
+    Panel1: TPanel;
+
+    procedure FormCreate(Sender: TObject);
+
+    procedure edtFormKeyPress(Sender: TObject; var Key: Char);
+
+  private
+
+
+  public
+
+    Map1 : TMapXTouch;
+
+    procedure Initialize;
+
+    procedure UpdateGameState(Sender: TObject);
+    procedure UpdateFormData(Sender: TObject);
+
+    procedure MapMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; x, y: Integer);
+    procedure Be_A_FullMap(const full: Boolean);
+
+  end;
+
+var
+  frmTacticalDisplay: TfrmTacticalDisplay;
+
+implementation
+
+uses
+  Math,
+  uSimMgr_Client, uT3SimManager, uBaseCoordSystem,
+
+
+  uCoordConvertor, uMapXHandler, ufrmToteDisplay, uLibSettingTTT;
+
+{$R *.dfm}
+
+const
+  CMin_Z = 0;
+  CMax_Z = 14;
+
+Function DecToOct(Inp : String): String;
+
+Var
+  HasilBagi,SisaBagi : Integer;
+  Oct,Oktal : String;
+  i : integer;
+  Des : integer;
+Begin
+  Oct := '';
+  Oktal := '';
+  Des:= StrToInt(inp);
+  Repeat
+    SisaBagi := des Mod 8;
+    Oct:= Oct + intToStr(SisaBagi);
+    HasilBagi := Des Div 8;
+    des:= HasilBagi;
+  Until HasilBagi = 0;
+
+  For I := length (Oct) Downto 1 Do
+  Begin
+    Oktal := Oktal+ Oct[i];
+  End;
+  Result:= Oktal;
+End;
+
+procedure EnableComposited(WinControl:TWinControl);
+var
+  i:Integer;
+  NewExStyle:DWORD;
+begin
+  NewExStyle := GetWindowLong(WinControl.Handle, GWL_EXSTYLE) or WS_EX_COMPOSITED;
+  SetWindowLong(WinControl.Handle, GWL_EXSTYLE, NewExStyle);
+
+  for I := 0 to WinControl.ControlCount - 1 do
+    if WinControl.Controls[i] is TWinControl then
+      EnableComposited(TWinControl(WinControl.Controls[i]));
+end;
+
+
+
+function ZoomIndexToScale(const i: Integer): double;
+begin
+  if i < -3 then
+    result := 0.125
+  else if i > 14 then
+    result := 2500.0
+  else
+    result := Power(2.0, (i - 3));
+end;
+
+function FindClosestZoomIndex(const z: double): Integer;
+var
+  i: Integer;
+begin
+  if z >= 2500 then
+    result := CMax_Z
+  else if z <= 0.125 then
+    result := CMin_Z
+  else
+  begin
+    i := Round(Log2(z));
+    result := i + 3;
+  end;
+end;
+
+function FixMapZoom(z: double): double;
+begin
+  if z >= 1.0 then
+    result := Round(z)
+  else
+    result := 0.001 * Round(z * 1000);
+end;
+
+procedure TfrmTacticalDisplay.Be_A_FullMap(const full: Boolean);
+begin
+
+  if full then
+  begin
+    WindowState := wsMaximized;
+    BorderStyle := bsNone;
+  end
+  else
+  begin
+    WindowState := wsNormal;
+    BorderStyle := bsSingle;
+  end;
+end;
+
+procedure TfrmTacticalDisplay.FormCreate(Sender: TObject);
+var
+  i: Integer;
+  z: double;
+
+  tempString1 ,tempString2, tempString3,tempString4, tempString5 : TStrings;
+  k,l : Integer;
+  readPath : string;
+  subHelp : TMenuItem;
+begin
+  SetExceptionMask(exAllArithmeticExceptions);
+
+//  Map1 := TMapXTouch.Create(Self);
+//  Map1.Parent := pnlMap;
+//  Map1.Align := alClient;
+//  Map1.Visible := True;
+//  Map1.DoubleBuffered := False;
+//
+//  if not Map1.WinXP then
+//    RegisterTouchWindow(Map1.Handle, 0);
+
+//  width := Screen.Monitors[vGameDataSetting.TacticalScreen].width;
+//  height := Screen.Monitors[vGameDataSetting.TacticalScreen].height;
+//  left := Screen.Monitors[vGameDataSetting.TacticalScreen].left;
+//  top := Screen.Monitors[vGameDataSetting.TacticalScreen].top;
+
+//  FormStyle := fsStayOnTop;
+
+  for i := CMin_Z to CMax_Z do
+  begin
+    z := ZoomIndexToScale(i);
+  end;
+
+  Self.OnKeyPress := edtFormKeyPress;
+
+  Show;
+end;
+
+procedure TfrmTacticalDisplay.Initialize;
+var
+  i : Integer;
+begin
+//  width := Screen.Monitors[vGameDataSetting.TacticalScreen].width;
+//  height := Screen.Monitors[vGameDataSetting.TacticalScreen].height;
+//  left := Screen.Monitors[vGameDataSetting.TacticalScreen].left;
+//  top := Screen.Monitors[vGameDataSetting.TacticalScreen].top;
+end;
+
+
+procedure TfrmTacticalDisplay.MapMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; x, y: Integer);
+begin
+
+  case Button of
+
+    {$REGION ' Mouse down klik kiri '}
+    mbLeft :
+    begin
+      if (ssShift in Shift) then
+      begin
+
+      end
+      else if (ssCtrl in Shift) then
+      begin
+
+      end
+      else
+      begin
+
+      end;
+    end;
+    {$ENDREGION}
+
+    {$REGION ' Mouse down klik kanan '}
+    mbRight :
+    begin
+      if (ssShift in Shift) then
+      begin
+
+      end
+      else
+      begin
+
+      end;
+    end;
+    {$ENDREGION}
+
+  end;
+
+end;
+
+procedure TfrmTacticalDisplay.UpdateFormData(Sender: TObject);
+begin
+  //
+end;
+
+procedure TfrmTacticalDisplay.UpdateGameState(Sender: TObject);
+begin
+  Panel1.Visible := not SimManager.GetGameState;
+end;
+
+procedure TfrmTacticalDisplay.edtFormKeyPress(Sender: TObject; var Key: Char);
+var
+  key1 : Char;
+begin
+  key1 := Key;
+
+//  if Assigned(simMgrClient.OnLogStr) then
+//    simMgrClient.OnLogStr('TfrmTacticalDisplay.edtFormKeyPress', 'coba keypressed form');
+end;
+
+end.

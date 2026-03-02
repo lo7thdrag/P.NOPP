@@ -1,0 +1,156 @@
+unit uT3ClientEventManager;
+
+interface
+
+uses
+  uConstantaData, SysUtils, Variants, ComCtrls, Classes,Math, Windows,
+  uT3Listener, uT3EventManager,uT3SimManager, uBaseCoordSystem, uDataTypes;
+
+type
+  TT3ClientEventManager = class(TT3EventManager)
+//    procedure OnChangeHeading(Sender : TObject; OrderType: Byte; Value : Double); override;
+//    procedure OnChangePosition(Sender : TObject; IdAction: Byte; x, y: Double); override;
+//    procedure OnIsCollision(Sender : TObject); override;
+//    procedure OnPlatformDestroy(Sender : TObject);      override;
+//    procedure OnPlatformControlled(Sender : TObject);   override;
+//    procedure OnPlatformOrderedControl(Sender : TObject;
+//                                       Order : TPlatformOrderedControl;
+//                                       Value : double); override;
+
+//    procedure OnPlatformDamageChanged(sender: TObject;
+//       const dmgType: TDamageItemType); override;
+    //ecm event
+
+
+//    procedure OnDetectedRemoved(Sender : TObject);  //detected track
+//    procedure OnTerminateOverlay; override;
+
+    {Transport Procedure}
+//    procedure OnUpdateTransportStatus(PlatformID: Integer);
+
+
+//    procedure onRefreshAssumeControll;
+//    procedure OnEmbarkPersonelTemporary(rec: Integer);
+//    procedure onLaunchEmbark(rec : TRecCmd_Embark);
+//    procedure onLaunchEmbarkPersonel(rec : TRecCmd_DisembarkPersonelTemporary);
+
+    procedure RefreshEmbarkList();
+
+//    procedure BringToFront_OverlayDynamicShape(r: TRecCmd_OverlayDynamicShape);
+//    procedure BringToFront_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+//    procedure SendToBack_OverlayDynamicShape(r: TRecCmd_OverlayDynamicShape);
+//    procedure SendToBack_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+
+//    procedure OnTransferSonobuoy(OldParentID, NewParentID, SonoID: Integer; Flag: Boolean);
+//    procedure OnTorpedoSyncPanel(ParentID, Tipe, WeaponIndex : Integer; Param1 : string);
+
+//    procedure OnPlatformHancurin(SenderID : Integer; Target: string; reasondestroy : Byte);override;
+//    procedure OnAfterLanding(Sender : TObject);                                 override;
+    procedure OnNonRealTimeAdded(Sender : TObject);                             override;
+
+    //Added Nando & Andi
+//    procedure OnIFFSensorDetect(aShip, aSensor, aTarget : TObject; value, value2 : boolean; mode1,mode2,mode3,mode3C : string);  override;
+
+    procedure OnUpdateTvCubicleGroup; override;
+
+//    procedure OnRemoteViewerRun();
+//    procedure OnSnapshotEventDone( msg : string );
+    procedure onUpdateStateServer(msg : string);
+
+    {Nando}
+//    procedure OnReceiveGameSpeedForRecord(Cmd : TRecCmd_GameCtrl); override;
+//    procedure OnReceiveMessageHandling(Cmd : TRecSendMessage);override;
+//    procedure OnReceiveModifComm(Cmd : TRecModifComm);override;
+
+    //NIL FOCUS TRACK
+    procedure OnUpdateBombProperty(value : Integer);                   override;
+//    procedure OnUpdateTorpedoProperty(rec : TRecTorpedoProperty);      override;
+
+    procedure OnUpdateTacticalTote;                                     override;
+    procedure OnUpdateDatalinkTote(idOrderDL : Integer);                override;
+
+//    procedure OnDetectabilityChange(aShip: TT3PlatformInstance);        override;
+
+    procedure OnCameraTrackPosition; override;
+
+    procedure OnWriteEventSummary;
+//    procedure OnRefreshBase;
+
+//    procedure OnlogDataMissile(ts: TStringList); override;
+    procedure OnUpdateEnvironment; override;
+  end;
+
+implementation
+
+uses
+  ufTacticalDisplay, uSimObjects, uSimMgr_Client, ufToteDisplay, uLibSettingTTT;
+
+{ TT3ClientEventManager }
+
+procedure TT3ClientEventManager.OnCameraTrackPosition;
+begin
+  frmTacticalDisplay.Map1.CurrentTool := mtCameraPosition;
+end;
+
+procedure TT3ClientEventManager.OnUpdateBombProperty(value: Integer);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnUpdateDatalinkTote(idOrderDL: Integer);
+begin
+  inherited;
+
+  case idOrderDL of
+    odlStop:
+      begin
+        frmToteDisplay.btnStopDataLink.Enabled := false;
+        frmToteDisplay.btnPlayDataLink.Enabled := true;
+      end;
+    odlPlay:
+      begin
+        frmToteDisplay.btnStopDataLink.Enabled := true;
+        frmToteDisplay.btnPlayDataLink.Enabled := false;
+      end;
+  end;
+end;
+
+procedure TT3ClientEventManager.onUpdateStateServer(msg: string);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnUpdateTacticalTote;
+begin
+  
+end;
+
+procedure TT3ClientEventManager.OnUpdateEnvironment;
+begin
+  inherited;
+  frmToteDisplay.RefreshEnvironment;
+end;
+
+procedure TT3ClientEventManager.OnUpdateTvCubicleGroup;
+begin
+  inherited;
+
+  frmToteDisplay.SetupTvCubicleGroup;
+end;
+
+procedure TT3ClientEventManager.OnWriteEventSummary;
+begin
+  frmToteDisplay.WriteEventSummary;
+end;
+
+procedure TT3ClientEventManager.RefreshEmbarkList;
+begin
+//  frmToteDisplay.RefreshPlatformList
+end;
+
+procedure TT3ClientEventManager.OnNonRealTimeAdded(Sender: TObject);
+begin
+  inherited;
+  //frmTacticalDisplay.Refresh_AssumeControl;
+end;
+end.

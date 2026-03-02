@@ -1,0 +1,48 @@
+﻿	<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+		<PropertyGroup>
+			<ProjectGuid>{7CDEF405-A85E-4810-9DB5-09C50D22067D}</ProjectGuid>
+		</PropertyGroup>
+		<ItemGroup>
+			<Projects Include="tttSimServer.src\tttSimServer.dproj">
+				<Dependencies/>
+			</Projects>
+			<Projects Include="tttSimClient.src\tttSimClient.dproj">
+				<Dependencies/>
+			</Projects>
+		</ItemGroup>
+		<ProjectExtensions>
+			<Borland.Personality>Default.Personality.12</Borland.Personality>
+			<Borland.ProjectType/>
+			<BorlandProject>
+				<Default.Personality/>
+			</BorlandProject>
+		</ProjectExtensions>
+		<Target Name="tttSimServer">
+			<MSBuild Projects="tttSimServer.src\tttSimServer.dproj"/>
+		</Target>
+		<Target Name="tttSimServer:Clean">
+			<MSBuild Targets="Clean" Projects="tttSimServer.src\tttSimServer.dproj"/>
+		</Target>
+		<Target Name="tttSimServer:Make">
+			<MSBuild Targets="Make" Projects="tttSimServer.src\tttSimServer.dproj"/>
+		</Target>
+		<Target Name="tttSimClient">
+			<MSBuild Projects="tttSimClient.src\tttSimClient.dproj"/>
+		</Target>
+		<Target Name="tttSimClient:Clean">
+			<MSBuild Targets="Clean" Projects="tttSimClient.src\tttSimClient.dproj"/>
+		</Target>
+		<Target Name="tttSimClient:Make">
+			<MSBuild Targets="Make" Projects="tttSimClient.src\tttSimClient.dproj"/>
+		</Target>
+		<Target Name="Build">
+			<CallTarget Targets="tttSimServer;tttSimClient"/>
+		</Target>
+		<Target Name="Clean">
+			<CallTarget Targets="tttSimServer:Clean;tttSimClient:Clean"/>
+		</Target>
+		<Target Name="Make">
+			<CallTarget Targets="tttSimServer:Make;tttSimClient:Make"/>
+		</Target>
+		<Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+	</Project>

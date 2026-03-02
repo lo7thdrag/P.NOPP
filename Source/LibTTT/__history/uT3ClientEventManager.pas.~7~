@@ -1,0 +1,1161 @@
+unit uT3ClientEventManager;
+
+interface
+
+uses uT3EventManager, tttData, SysUtils, Variants, uT3Listener, uT3Radar,
+  uT3SimManager, uT3Unit, uBaseCoordSystem, uDBAsset_Fitted, uT3MissileDetail,
+  uT3Vehicle, uGameData_TTT, ComCtrls, uT3OtherSensor,
+  uT3CounterMeasure, Classes, uDBAsset_GameEnvironment, uT3RadarNoiseJammer,
+  uMainStrategi, uMainLogisticTemplate, uMainDynamicShape, uMainStaticShape, uMainOverlay,
+  Math, uDBFormation, Windows, uDataTypes,uEventSummary, uT3GroupVehicle;
+
+type
+  TT3ClientEventManager = class(TT3EventManager)
+    procedure OnChangeHeading(Sender : TObject; OrderType: Byte; Value : Double); override;
+    procedure OnChangePosition(Sender : TObject; IdAction: Byte; x, y: Double); override;
+    procedure OnIsCollision(Sender : TObject); override;
+    procedure OnPlatformDestroy(Sender : TObject);      override;
+    procedure OnPlatformControlled(Sender : TObject);   override;
+    procedure OnPlatformOrderedControl(Sender : TObject;
+                                       Order : TPlatformOrderedControl;
+                                       Value : double); override;
+    procedure OnVehicleSensorStateChange(Sender : TT3Vehicle); override;
+
+    procedure OnPlatformDamageChanged(sender: TObject;
+       const dmgType: TDamageItemType); override;
+    //ecm event
+
+
+    procedure OnDetectedRemoved(Sender : TObject);  //detected track
+    procedure OnTerminateOverlay; override;
+
+    {Transport Procedure}
+    procedure OnUpdateTransportStatus(PlatformID: Integer);
+
+
+    procedure onRefreshAssumeControll;
+    procedure OnEmbarkPersonelTemporary(rec: Integer);
+    procedure onLaunchEmbark(rec : TRecCmd_Embark);
+    procedure onLaunchEmbarkPersonel(rec : TRecCmd_DisembarkPersonelTemporary);
+
+    procedure RefreshEmbarkList();
+
+    procedure BringToFront_OverlayDynamicShape(r: TRecCmd_OverlayDynamicShape);
+    procedure BringToFront_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+    procedure SendToBack_OverlayDynamicShape(r: TRecCmd_OverlayDynamicShape);
+    procedure SendToBack_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+
+    procedure OnTransferSonobuoy(OldParentID, NewParentID, SonoID: Integer; Flag: Boolean);
+    procedure OnTorpedoSyncPanel(ParentID, Tipe, WeaponIndex : Integer; Param1 : string);
+
+    procedure OnPlatformHancurin(SenderID : Integer; Target: string; reasondestroy : Byte);override;
+    procedure OnAfterLanding(Sender : TObject);                                 override;
+    procedure OnNonRealTimeAdded(Sender : TObject);                             override;
+
+    //Added Nando & Andi
+    procedure OnIFFSensorDetect(aShip, aSensor, aTarget : TObject; value, value2 : boolean; mode1,mode2,mode3,mode3C : string);  override;
+
+    procedure OnUpdateTvCubicleGroup; override;
+    procedure OnVehicleHealthChange(ve: TT3Vehicle); override;
+    procedure OnVehicleSystemStateChange(ve: TT3Vehicle); override;
+    procedure OnVehicleLogisticChange(ve: TT3Vehicle); override;
+
+    procedure OnRemoteViewerRun();
+    procedure OnSnapshotEventDone( msg : string );
+    procedure onUpdateStateServer(msg : string);
+
+    {Nando}
+    procedure OnReceiveGameSpeedForRecord(Cmd : TRecCmd_GameCtrl); override;
+    procedure OnReceiveMessageHandling(Cmd : TRecSendMessage);override;
+    procedure OnReceiveModifComm(Cmd : TRecModifComm);override;
+
+    //NIL FOCUS TRACK
+    procedure OnRefreshIFFForm(sensor : TT3IFFSensor);                  override;
+    procedure OnUpdateSonarDeploy(piObj : TT3Vehicle; value : byte; cable : Double); override;
+    procedure OnUpdateBombProperty(value : Integer);                   override;
+    procedure OnUpdateTorpedoProperty(rec : TRecTorpedoProperty);      override;
+
+    procedure OnUpdateTacticalTote;                                     override;
+    procedure OnUpdateDatalinkTote(idOrderDL : Integer);                override;
+
+    procedure OnDetectabilityChange(aShip: TT3PlatformInstance);        override;
+
+    procedure OnCameraTrackPosition; override;
+
+    procedure OnWriteEventSummary;
+    procedure OnRefreshBase;
+
+    procedure OnlogDataMissile(ts: TStringList); override;
+    procedure OnUpdateEnvironment; override;
+  end;
+
+implementation
+
+uses ufTacticalDisplay,
+     uSimObjects, uSimMgr_Client, uT3Sonar, uT3Sensor, uT3Weapon, uT3Sonobuoy,
+     uT3Missile, uT3DetectedTrack, ufToteDisplay,
+     uT3Torpedo, uT3Gun, uT3Bomb,
+     uT3DataLink, uDBAssetObject,
+     uLibSettingTTT;
+
+{ TT3ClientEventManager }
+
+procedure TT3ClientEventManager.OnCameraTrackPosition;
+begin
+  frmTacticalDisplay.Map1.CurrentTool := mtCameraPosition;
+end;
+
+procedure TT3ClientEventManager.OnChangeHeading(Sender : TObject; OrderType: Byte; Value : Double);
+begin
+  inherited;
+
+  if sender is TT3Vehicle then
+  begin
+    SimMgrClient.netSend_CmdPlatform(TT3Vehicle(Sender).InstanceIndex, CORD_ID_MOVE, OrderType, Value);
+  end;
+end;
+
+procedure TT3ClientEventManager.OnChangePosition(Sender : TObject; IdAction: Byte; x, y: Double);
+begin
+  inherited;
+  if sender is TT3Vehicle then
+  begin
+    case IdAction of
+      0 :
+      begin
+        SimMgrClient.netSend_CmdPlatform_Move(TT3Vehicle(Sender).InstanceIndex, CORD_ID_REPOS, x, y, 0);
+      end;
+      1 :
+      begin
+        {Repost}
+        SimMgrClient.netSend_CmdPlatform_Move(TT3Vehicle(Sender).InstanceIndex, CORD_ID_REPOS, x, y, 0);
+
+        {Set Speed}
+        SimMgrClient.netSend_CmdPlatform(TT3Vehicle(Sender).InstanceIndex, CORD_ID_MOVE, CORD_SPEED_FORMATION,
+        TT3Vehicle(Sender).LeaderPlatform.Speed);
+
+        {Set Heading}
+        SimMgrClient.netSend_CmdPlatform(TT3Vehicle(Sender).InstanceIndex, CORD_ID_MOVE, CORD_HEADING_FORMATION,
+        TT3Vehicle(Sender).LeaderPlatform.Heading);
+      end;
+    end;
+
+  end;
+end;
+
+procedure TT3ClientEventManager.OnIsCollision(Sender: TObject);
+begin
+  inherited;
+
+  if Sender is TT3Vehicle then
+  begin
+    if Sender is TT3Vehicle then
+    begin
+      if TT3Vehicle(Sender).TrackCollision <> nil then
+      begin
+//        if TVehicle_Definition(TT3Vehicle(Sender).UnitDefinition).GuidanceType <> vgtFormation then
+//        frmTacticalDisplay.OnCollision(TT3Vehicle(Sender).Track_ID,
+//          TT3Vehicle(TT3Vehicle(Sender).TrackCollision).Track_ID);
+      end;
+
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnUpdateBombProperty(value: Integer);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnUpdateDatalinkTote(idOrderDL: Integer);
+begin
+  inherited;
+
+  case idOrderDL of
+    odlStop:
+      begin
+        frmToteDisplay.btnStopDataLink.Enabled := false;
+        frmToteDisplay.btnPlayDataLink.Enabled := true;
+      end;
+    odlPlay:
+      begin
+        frmToteDisplay.btnStopDataLink.Enabled := true;
+        frmToteDisplay.btnPlayDataLink.Enabled := false;
+      end;
+  end;
+end;
+
+
+procedure TT3ClientEventManager.OnUpdateSonarDeploy(piObj: TT3Vehicle;
+  value: byte; cable: Double);
+begin
+  inherited;
+
+  if value = 1 then     //deploying
+  begin
+//    frmTacticalDisplay.fmSensor1.editCableOrdered.Text := IntToStr(Round(cable));
+  end
+  else if value = 2 then   // stowing
+  begin
+//    frmTacticalDisplay.fmSensor1.editCableOrdered.Text := IntToStr(Round(cable));
+  end
+  else
+  begin
+//    frmTacticalDisplay.fmSensor1.editCableOrdered.Text := '000';
+  end;
+end;
+
+procedure TT3ClientEventManager.onUpdateStateServer(msg: string);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnUpdateTacticalTote;
+begin
+  
+end;
+
+procedure TT3ClientEventManager.OnUpdateEnvironment;
+begin
+  inherited;
+  frmToteDisplay.RefreshEnvironment;
+end;
+
+procedure TT3ClientEventManager.OnUpdateTorpedoProperty(
+  rec: TRecTorpedoProperty);
+begin
+  
+end;
+
+procedure TT3ClientEventManager.OnUpdateTvCubicleGroup;
+begin
+  inherited;
+
+  frmToteDisplay.SetupTvCubicleGroup;
+end;
+
+procedure TT3ClientEventManager.OnVehicleHealthChange(ve: TT3Vehicle);
+begin
+  inherited;
+
+  with frmToteDisplay do
+  begin
+    if ve = TT3Vehicle(ToteSelectedPlatform) then
+    begin
+      UpdateSensorVehicle(ve);
+      UpdateWeaponVehicle(ve);
+      UpdateCountermeasureVehicle(ve);
+      UpdateStatusVehicle(ve);
+      UpdateEmbarkVehicle(ve);
+//      UpdateLogisticToteDisplay(ve);
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnVehicleLogisticChange(ve: TT3Vehicle);
+begin
+  inherited;
+
+  with frmToteDisplay do
+  begin
+    RefreshPlatformList;
+    UpdateLogisticToteDisplay(ve);
+  end;
+end;
+
+procedure TT3ClientEventManager.OnVehicleSensorStateChange(Sender: TT3Vehicle);
+var
+  vSelect : TSimObject;
+begin
+  inherited;
+
+  if frmToteDisplay.lvPlatforms.Selected <> nil then
+  begin
+    if frmToteDisplay.lvPlatforms.Selected.Data <> nil then
+    begin
+      vSelect := frmToteDisplay.lvPlatforms.Selected.Data;
+
+      if Assigned(vSelect) then
+      begin
+        if vSelect is TT3Vehicle then
+        begin
+          if TT3Vehicle(vSelect).InstanceIndex = Sender.InstanceIndex then
+          begin
+            ufToteDisplay.frmToteDisplay.UpdateSensorVehicle(Sender);
+          end;
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnVehicleSystemStateChange(ve: TT3Vehicle);
+begin
+  inherited;
+
+  with frmToteDisplay do
+  begin
+    if ve = TT3Vehicle(ToteSelectedPlatform) then
+    begin
+      UpdateStatusVehicle(ve);
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnEmbarkPersonelTemporary(rec: Integer);
+var
+  ve : TT3Vehicle;
+begin
+  ve := simMgrClient.FindT3PlatformByID(rec) as TT3Vehicle;
+
+  if Assigned(ve) then
+    frmToteDisplay.UpdateTransportToteDisplay(ve);
+  {event summarynya di uSimMgr_Client procedure AddEmbarkTemporary }
+end;
+
+procedure TT3ClientEventManager.OnUpdateTransportStatus(PlatformID: Integer);
+var
+  ve : TT3Vehicle;
+begin
+  
+end;
+
+procedure TT3ClientEventManager.onLaunchEmbark(rec : TRecCmd_Embark);
+begin
+
+//  frmToteDisplay.onLaunchEmbark(rec);
+//  frmToteDisplay.RefreshBase;
+    {event summarynya di uSimMgr_Client procedure LaunchEmbarkPlatformTemporary }
+end;
+
+procedure TT3ClientEventManager.onLaunchEmbarkPersonel(
+  rec: TRecCmd_DisembarkPersonelTemporary);
+begin
+  frmToteDisplay.onLaunchDebarkPersonel(rec);
+end;
+
+procedure TT3ClientEventManager.OnPlatformControlled(Sender: TObject);
+var
+  pi : TT3PlatformInstance;
+begin
+  
+end;
+
+procedure TT3ClientEventManager.OnPlatformDestroy(Sender: TObject);
+var
+  newPi, pf, ftrack, newPlatform : TT3PlatformInstance;
+  v : TT3Vehicle;
+  wpn : TT3Weapon;
+  i : Integer;
+begin
+  
+end;
+
+procedure TT3ClientEventManager.OnPlatformHancurin(SenderID : Integer ;
+          Target: string; reasondestroy : Byte);
+var
+  Sender : TT3PlatformInstance;
+  news : TEventSummary;
+  strAction : string;
+begin
+  inherited;
+  Sender := simMgrClient.FindT3PlatformByID(SenderID);
+
+  if Assigned(Sender) and TT3PlatformInstance(Sender).FlagShowStatusDestroy then
+  begin
+    Sender.FlagShowStatusDestroy := False;
+
+    if Target <> '' then
+    begin
+      Sender.reasonDestroy := 21;
+      frmToteDisplay.OnPlatformDestroy(Sender, Target);
+    end
+    else
+    begin
+      case reasonDestroy of
+        1:
+        begin
+          Sender.reasonDestroy := 1;
+          strAction := 'Deleted By User';
+        end;
+        2:
+        begin
+          Sender.reasonDestroy := 2;
+          strAction := 'Destroyed';
+        end;
+        3:
+        begin
+          Sender.reasonDestroy := 3;
+          strAction := 'Out Of Fuel';
+        end;
+        4:
+        begin
+          Sender.reasonDestroy := 4;
+          strAction := 'Crash';
+        end;
+        5:
+        begin
+          Sender.reasonDestroy := 5;
+          strAction := 'Altitude of ' + Sender.InstanceName + ' = 0';
+        end;
+        6:
+        begin
+          Sender.reasonDestroy := 6;
+          strAction := 'RCS of ' + Sender.InstanceName + 'is < 0';
+        end;
+        21:
+        begin
+          Sender.reasonDestroy := 21;
+          strAction := 'Undefined Reason'
+        end;
+        22: Sender.reasonDestroy := 22;
+        23: Sender.reasonDestroy := 23;
+      else
+        Sender.reasonDestroy := 0;
+      end;
+
+      frmToteDisplay.OnPlatformDestroy(Sender);
+      {Menampilkan event summary}
+      news := TEventSummary.create;
+      news.Time := simMgrClient.GameTIME;
+      news.VehicleIdentifier := Sender.InstanceName;
+      news.Force := Sender.Force_Designation;
+      news.Action := strAction;
+      SimManager.SimEventSummary.Add(news);
+      OnWriteEventSummary;
+    end;
+  end;
+
+  if Assigned(Sender) then     //30052012
+  begin
+    if Sender is TT3Vehicle then
+    begin
+      //simMgrClient.SimPlatforms.deleteObject(Sender);       //BUAT EROR IINI
+      simMgrClient.RemoveESMTracks(Sender);
+      Sender.FreeMe := True;
+//      TT3Vehicle(Sender).FreeChilds;
+    end
+    else if Sender is TT3NonRealVehicle then
+      Sender.FreeMe := True
+    else
+    begin
+      Sender.FreeMe := True;
+      Sender.AbsoluteFree := True;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnPlatformOrderedControl(Sender: TObject;
+  Order: TPlatformOrderedControl; Value: double);
+begin
+  inherited;
+  case Order of
+    pocSpeed  :
+      if Assigned(Sender) then begin
+        if Sender is TT3Vehicle then begin
+          SimMgrClient.netSend_CmdPlatform( TT3Vehicle(Sender).InstanceIndex,
+            CORD_ID_MOVE, CORD_TYPE_SPEED, Value);
+        end;
+      end;
+    pocAltitude :
+      if Assigned(Sender) then begin
+        if Sender is TT3Vehicle then begin
+          SimMgrClient.netSend_CmdPlatform(TT3Vehicle(Sender).InstanceIndex,
+            CORD_ID_MOVE, CORD_TYPE_ALTITUDE, Value);
+        end;
+      end;
+    pocHeading :
+      if Assigned(Sender) then begin
+        if Sender is TT3Vehicle then begin
+          SimMgrClient.netSend_CmdPlatform(TT3Vehicle(Sender).InstanceIndex,
+            CORD_ID_MOVE, CORD_TYPE_COURSE, Value);
+        end;
+      end;
+  end;
+end;
+
+
+procedure TT3ClientEventManager.OnIFFSensorDetect(aShip, aSensor,
+  aTarget: TObject; value, value2 : boolean; mode1,mode2,mode3,mode3C : string);
+var
+  i : Integer;
+  SimTrack : TT3DetectedTrack;
+  detTrack : TT3PlatformInstance;
+begin
+  inherited;
+
+  //menggambar topi di object target
+  if aTarget is TT3PlatformInstance then
+  begin
+    detTrack := TT3PlatformInstance(aTarget);
+
+    for i := 0 to simMgrClient.SimDetectedTrackList.itemCount - 1 do
+    begin
+      SimTrack := TT3DetectedTrack(simMgrClient.SimDetectedTrackList.getObject(i));
+
+      if detTrack = SimTrack.TrackObject then
+      begin
+        SimTrack.isShowIFF := value;
+        SimTrack.isMode4IFF := value2;
+        SimTrack.TransMode1Detected := mode1;
+        SimTrack.TransMode2Detected := mode2;
+        SimTrack.TransMode3Detected := mode3;
+        SimTrack.TransMode3CDetected := mode3C;
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnWriteEventSummary;
+begin
+  frmToteDisplay.WriteEventSummary;
+end;
+
+procedure TT3ClientEventManager.RefreshEmbarkList;
+begin
+  frmToteDisplay.RefreshPlatformList
+end;
+
+procedure TT3ClientEventManager.OnPlatformDamageChanged(sender: TObject; const dmgType: TDamageItemType);
+begin
+  frmToteDisplay.UpdateSystemState(sender, dmgType);
+
+  if (sender is TT3Vehicle) then
+  begin
+    OnVehicleHealthChange(TT3Vehicle(sender))
+  end;
+
+  {SEMENTARA
+  if simMgrClient.ISInstructor then
+  begin
+    case dmgType of
+      diOverall:
+      begin
+        if TT3Vehicle(sender).HealthPercent <= 0 then
+          frmTacticalDisplay.addStatus('Vehicle is damage');
+      end;
+      diSensor:
+        frmTacticalDisplay.addStatus('Sensor is damage');
+      diECM:
+        frmTacticalDisplay.addStatus('CounterMeasure is damage');
+      diWeapon:
+        frmTacticalDisplay.addStatus('Weapon is damage');
+      diCommm:
+        frmTacticalDisplay.addStatus('Communication is damage');
+      diHelm:
+        frmTacticalDisplay.addStatus('Helm is damage');
+      diPropulsion:
+        frmTacticalDisplay.addStatus('Propulsion is damage');
+    end;
+  end;}
+end;
+
+procedure TT3ClientEventManager.OnlogDataMissile(ts: TStringList);
+var
+  v : TT3Vehicle;
+  i : Integer;
+  str: string;
+begin
+  inherited;
+
+  for i := 0 to ts.Count - 1 do
+  begin
+    v := TT3Vehicle(ts.Objects[i]);
+    str := 'Vehicle Name = ' + v.InstanceName + ' ; ' + ts[i];
+
+    //simMgrClient.OnLogStr('TT3ClientEventManager.OnlogDataMissile', str);
+  end;
+end;
+
+procedure TT3ClientEventManager.OnTerminateOverlay;
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnTorpedoSyncPanel(ParentID, Tipe,
+      WeaponIndex : Integer; Param1: string);
+var
+  OwnPlatform   : TT3PlatformInstance;
+  OwnVehicle    : TT3Vehicle;
+  Focused_weapon  : TObject;
+
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnTransferSonobuoy(OldParentID, NewParentID, SonoID: Integer; Flag: Boolean);
+var
+  Son   : TT3PlatformInstance;
+  I, J  : Integer;
+  o, p, v  : TSimObject;
+  Gam   : Boolean;
+
+begin
+  {Menentukan yg sdg diselect parentnya ato bukan}
+  if Assigned(simMgrClient.ControlledPlatform) then
+    v := simMgrClient.ControlledPlatform
+  else
+    Exit;
+
+  if TT3PlatformInstance(v).InstanceIndex = NewParentID then
+    Gam := True
+  else
+    Gam := False;
+
+  Son := simMgrClient.FindT3PlatformByID(SonoID);
+
+  with simMgrClient do begin
+
+    for I := 0 to SimPlatforms.itemCount - 1 do begin
+      p := SimPlatforms.getObject(I);
+
+      if TT3Vehicle(p).InstanceIndex = NewParentID then begin
+        if flag then
+        begin
+          TT3Sonobuoy(Son).ParentIndex              := NewParentID;
+          TT3Sonobuoy(Son).TacticalSymbol.Color     := TT3Vehicle(p).TacticalSymbol.Color;
+          TT3Sonobuoy(Son).HalfTacticalSymbol.Color := TT3Vehicle(p).TacticalSymbol.Color;
+
+//          TT3Sonobuoy(Son).TacticalSymbol.Symbol.LoadBitmap (vSymbolSetting.ImgPath + 'SonoMonitorCtrl.bmp',TT3Vehicle(p).TacticalSymbol.Color);
+//          TT3Sonobuoy(Son).HalfTacticalSymbol.Symbol.LoadBitmap (vSymbolSetting.ImgPath + 'SonoMonitorOther.bmp',TT3Vehicle(p).TacticalSymbol.Color);
+
+          TT3Sonobuoy(Son).Gambar := Gam
+        end
+        else
+        begin
+          for J := 0 to SimPlatforms.itemCount - 1 do begin
+            o := SimPlatforms.getObject(J);
+
+            if o is TT3Sonobuoy then begin
+              if (TT3Sonobuoy(o).InstanceName = TT3Sonobuoy(Son).InstanceName) and (TT3Sonobuoy(o).ParentIndex = OldParentID) then
+              begin
+                TT3Sonobuoy(o).ParentIndex              := NewParentID;
+                TT3Sonobuoy(o).TacticalSymbol.Color     := TT3Vehicle(p).TacticalSymbol.Color;
+                TT3Sonobuoy(o).HalfTacticalSymbol.Color := TT3Vehicle(p).TacticalSymbol.Color;
+
+//                TT3Sonobuoy(o).TacticalSymbol.Symbol.LoadBitmap (vSymbolSetting.ImgPath + 'SonoMonitorCtrl.bmp',TT3Vehicle(p).TacticalSymbol.Color);
+//                TT3Sonobuoy(o).HalfTacticalSymbol.Symbol.LoadBitmap (vSymbolSetting.ImgPath + 'SonoMonitorOther.bmp',TT3Vehicle(p).TacticalSymbol.Color);
+
+                TT3Sonobuoy(o).Gambar := Gam;
+              end
+              else
+                Continue;
+            end;
+          end;
+        end;
+      end
+      else
+       Continue;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnNonRealTimeAdded(Sender: TObject);
+begin
+  inherited;
+  //frmTacticalDisplay.Refresh_AssumeControl;
+end;
+
+procedure TT3ClientEventManager.BringToFront_OverlayDynamicShape(r: TRecCmd_OverlayDynamicShape);
+var
+  i,j : Integer;
+  TextShape : TTextDynamic;
+  LineShape : TLineDynamic;
+  RectShape : TRectangleDynamic;
+  CircleShape : TCircleDynamic;
+  EllipseShape : TEllipseDynamic;
+  ArcShape : TArcDynamic;
+  SectorShape : TSectorDynamic;
+  GridShape : TGridDynamic;
+  PolygonShape : TPolygonDynamic;
+
+  OverlayTemplate : TMainOverlayTemplate;
+  itemD : TMainDynamicShape;
+begin
+  for i := 0 to simMgrClient.SimOverlayTemplate.FList.Count - 1 do
+  begin
+    OverlayTemplate := simMgrClient.SimOverlayTemplate.FList.Items[i];
+
+    if OverlayTemplate.OverlayIndex = r.TemplateId then
+    begin
+      if r.IdAction = 4 then
+      begin
+
+        itemD := OverlayTemplate.DynamicList[r.IdSelectShape];
+        case r.ShapeID of
+          ovText :
+          begin
+            TextShape := TTextDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(TextShape);
+          end;
+          ovLine :
+          begin
+            LineShape := TLineDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(LineShape);
+          end;
+          ovRectangle :
+          begin
+            RectShape := TRectangleDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(RectShape);
+          end;
+          ovCircle :
+          begin
+            CircleShape := TCircleDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(CircleShape);
+          end;
+          ovEllipse :
+          begin
+            EllipseShape := TEllipseDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(EllipseShape);
+          end;
+          ovArc :
+          begin
+            ArcShape := TArcDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(ArcShape);
+          end;
+          ovSector :
+          begin
+            SectorShape := TSectorDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(SectorShape);
+          end;
+          ovGrid :
+          begin
+            GridShape := TGridDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(GridShape);
+          end;
+          ovPolygon :
+          begin
+            PolygonShape := TPolygonDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(PolygonShape);
+          end;
+        end;
+        OverlayTemplate.DynamicList.Delete(r.IdSelectShape);
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.BringToFront_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+var
+  i,j : Integer;
+  TextShape : TTextStatic;
+  LineShape : TLineStatic;
+  RectShape : TRectangleStatic;
+  CircleShape : TCircleStatic;
+  EllipseShape : TEllipseStatic;
+  ArcShape : TArcStatic;
+  SectorShape : TSectorStatic;
+  GridShape : TGridStatic;
+  PolygonShape : TPolygonStatic;
+
+  OverlayTemplate : TMainOverlayTemplate;
+  itemS : TMainStaticShape;
+begin
+  OverlayTemplate := simMgrClient.SimOverlayTemplate.GetOverlayTemplate(r.TemplateId);
+
+  if Assigned(OverlayTemplate) then
+  begin
+    itemS := OverlayTemplate.StaticList[r.IdSelectShape];
+
+    case r.ShapeType of
+      ovText :
+      begin
+        TextShape := TTextStatic(itemS);
+        OverlayTemplate.StaticList.Add(TextShape);
+      end;
+      ovLine :
+      begin
+        LineShape := TLineStatic(itemS);
+        OverlayTemplate.StaticList.Add(LineShape);
+      end;
+      ovRectangle :
+      begin
+        RectShape := TRectangleStatic(itemS);
+        OverlayTemplate.StaticList.Add(RectShape);
+      end;
+      ovCircle :
+      begin
+        CircleShape := TCircleStatic(itemS);
+        OverlayTemplate.StaticList.Add(CircleShape);
+      end;
+      ovEllipse :
+      begin
+        EllipseShape := TEllipseStatic(itemS);
+        OverlayTemplate.StaticList.Add(EllipseShape);
+      end;
+      ovArc :
+      begin
+        ArcShape := TArcStatic(itemS);
+        OverlayTemplate.StaticList.Add(ArcShape);
+      end;
+      ovSector :
+      begin
+        SectorShape := TSectorStatic(itemS);
+        OverlayTemplate.StaticList.Add(SectorShape);
+      end;
+      ovGrid :
+      begin
+        GridShape := TGridStatic(itemS);
+        OverlayTemplate.StaticList.Add(GridShape);
+      end;
+      ovPolygon :
+      begin
+        PolygonShape := TPolygonStatic(itemS);
+        OverlayTemplate.StaticList.Add(PolygonShape);
+      end;
+    end;
+    OverlayTemplate.StaticList.Delete(r.IdSelectShape);
+  end;
+end;
+
+procedure TT3ClientEventManager.SendToBack_OverlayDynamicShape(
+  r: TRecCmd_OverlayDynamicShape);
+var
+  i,j : Integer;
+  TextShape : TTextDynamic;
+  LineShape : TLineDynamic;
+  RectShape : TRectangleDynamic;
+  CircleShape : TCircleDynamic;
+  EllipseShape : TEllipseDynamic;
+  ArcShape : TArcDynamic;
+  SectorShape : TSectorDynamic;
+  GridShape : TGridDynamic;
+  PolygonShape : TPolygonDynamic;
+
+  OverlayTemplate : TMainOverlayTemplate;
+  itemD : TMainDynamicShape;
+begin
+  for i := 0 to simMgrClient.SimOverlayTemplate.FList.Count - 1 do
+  begin
+    OverlayTemplate := simMgrClient.SimOverlayTemplate.FList.Items[i];
+
+    if OverlayTemplate.OverlayIndex = r.TemplateId then
+    begin
+      if r.IdAction =5 then
+      begin
+
+        itemD := OverlayTemplate.DynamicList[r.IdSelectShape];
+        OverlayTemplate.DynamicList.Delete(r.IdSelectShape);
+        case r.ShapeID of
+          ovText :
+          begin
+            TextShape := TTextDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,TextShape);
+          end;
+          ovLine :
+          begin
+            LineShape := TLineDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,LineShape);
+          end;
+          ovRectangle :
+          begin
+            RectShape := TRectangleDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,RectShape);
+          end;
+          ovCircle :
+          begin
+            CircleShape := TCircleDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,CircleShape);
+          end;
+          ovEllipse :
+          begin
+            EllipseShape := TEllipseDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,EllipseShape);
+          end;
+          ovArc :
+          begin
+            ArcShape := TArcDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,ArcShape);
+          end;
+          ovSector :
+          begin
+            SectorShape := TSectorDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,SectorShape);
+          end;
+          ovGrid :
+          begin
+            GridShape := TGridDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,GridShape);
+          end;
+          ovPolygon :
+          begin
+            PolygonShape := TPolygonDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,PolygonShape);
+          end;
+        end;
+
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.SendToBack_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+var
+  i,j : Integer;
+  TextShape : TTextStatic;
+  LineShape : TLineStatic;
+  RectShape : TRectangleStatic;
+  CircleShape : TCircleStatic;
+  EllipseShape : TEllipseStatic;
+  ArcShape : TArcStatic;
+  SectorShape : TSectorStatic;
+  GridShape : TGridStatic;
+  PolygonShape : TPolygonStatic;
+
+  OverlayTemplate : TMainOverlayTemplate;
+  itemS : TMainStaticShape;
+begin
+  OverlayTemplate := simMgrClient.SimOverlayTemplate.GetOverlayTemplate(r.TemplateId);
+
+  if Assigned(OverlayTemplate) then
+  begin
+    itemS := OverlayTemplate.StaticList[r.IdSelectShape];
+
+    OverlayTemplate.StaticList.Delete(r.IdSelectShape);
+    case r.ShapeType of
+      ovText :
+      begin
+        TextShape := TTextStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,TextShape);
+      end;
+      ovLine :
+      begin
+        LineShape := TLineStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,LineShape);
+      end;
+      ovRectangle :
+      begin
+        RectShape := TRectangleStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,RectShape);
+      end;
+      ovCircle :
+      begin
+        CircleShape := TCircleStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,CircleShape);
+      end;
+      ovEllipse :
+      begin
+        EllipseShape := TEllipseStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,EllipseShape);
+      end;
+      ovArc :
+      begin
+        ArcShape := TArcStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,ArcShape);
+      end;
+      ovSector :
+      begin
+        SectorShape := TSectorStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,SectorShape);
+      end;
+      ovGrid :
+      begin
+        GridShape := TGridStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,GridShape);
+      end;
+      ovPolygon :
+      begin
+        PolygonShape := TPolygonStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,PolygonShape);
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnAfterLanding(Sender: TObject);
+begin
+  if Sender is TT3EmbarkedVehicle then
+  begin
+//    frmTacticalDisplay.addStatus('Landing '+ TT3EmbarkedVehicle(Sender).EmbarkedIdentifier);
+  end;
+end;
+
+procedure TT3ClientEventManager.OnDetectabilityChange(aShip: TT3PlatformInstance);
+begin
+  inherited;
+
+  with frmToteDisplay do
+  begin
+    if not Assigned(SensorOverrideSelectedPlatform) then
+      Exit;
+
+    if SensorOverrideSelectedPlatform.InstanceIndex = aShip.InstanceIndex then
+    begin
+      case SensorOverrideSelectedPlatform.DetectabilityType of
+        dtNormalDetection:
+        begin
+          edtDetectionStatus.Text := 'Normal';
+        end;
+        dtUndetectable:
+        begin
+          edtDetectionStatus.Text := 'Never Detected';
+        end;
+        dtPassiveDetection:
+        begin
+          edtDetectionStatus.Text := 'Detected by passive sensor only';
+        end;
+        dtAlwaysVisible:
+        begin
+          edtDetectionStatus.Text := 'Always Detected';
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnDetectedRemoved(Sender: TObject);
+begin
+  inherited;
+
+  if Sender is TT3Sensor then
+  begin
+    simMgrClient.RemoveDetectedTracks(TSimObject(Sender));
+  end;
+end;
+
+procedure TT3ClientEventManager.OnReceiveGameSpeedForRecord(Cmd: TRecCmd_GameCtrl);
+begin
+  inherited;
+  frmToteDisplay.ReceiveGameSpeedForRecording(cmd);
+end;
+
+procedure TT3ClientEventManager.OnReceiveMessageHandling(Cmd: TRecSendMessage);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnReceiveModifComm(Cmd: TRecModifComm);
+var
+  GrpName : string;
+  aIdRow : Integer;
+begin
+  inherited;
+
+  if ((cmd.ModifStat = mcsAdd) or
+      (cmd.ModifStat = mcsRemove))
+  then
+  begin
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+  end
+  else
+  if (cmd.ModifStat = mcsChangeLabel) then
+  begin
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+
+    with frmToteDisplay.sgCommChannelDef do
+    begin
+      Cells[2, Cmd.Channel_Number + 1] := Cmd.Channel_Ident;
+      Cells[3, Cmd.Channel_Number + 1] := Cmd.Channel_Code;
+      Cells[5, Cmd.Channel_Number + 1] := FloatToStr(Cmd.Channel_Frek);
+    end;
+  end
+  else
+  if (cmd.ModifStat = mcsChangeBand) then
+  begin
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+
+    with frmToteDisplay.sgCommChannelDef do
+    begin
+      case cmd.Channel_band of
+        0 : Cells[4, Cmd.Channel_Number + 1] := 'HF';
+        1 : Cells[4, Cmd.Channel_Number + 1] := 'VHF/UHF';
+        2 : Cells[4, Cmd.Channel_Number + 1] := 'SATCOM';
+        3 : Cells[4, Cmd.Channel_Number + 1] := 'UWT';
+        4 : Cells[4, Cmd.Channel_Number + 1] := 'FM';
+      end;
+    end;
+  end
+  else
+  if Cmd.ModifStat = mcsCreate then
+  begin
+    aIdRow :=  Cmd.Channel_Number + 1;
+    frmToteDisplay.sgCommChannelDef.Objects[0, aIdRow] := TObject(1);
+    frmToteDisplay.sgCommChannelDef.Cells[2, aIdRow] := Cmd.Channel_Ident;
+    frmToteDisplay.sgCommChannelDef.Cells[3, aIdRow] := Cmd.Channel_Code;
+
+    case Cmd.Channel_band of
+      0 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'HF';
+      1 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'VHF/UHF';
+      2 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'SATCOM';
+      3 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'UWT';
+      4 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'FM';
+    end;
+
+    frmToteDisplay.sgCommChannelDef.Cells[5, aIdRow] := FloatToStr(cmd.Channel_Frek);
+
+    if Cmd.Channel_Security then
+      frmToteDisplay.sgCommChannelDef.Objects[6, aIdRow] := TObject(1)
+    else
+      frmToteDisplay.sgCommChannelDef.Objects[6, aIdRow] := TObject(0);
+
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+  end
+  else
+  if Cmd.ModifStat = mcsOff then
+  begin
+    aIdRow :=  Cmd.Channel_Number + 1;
+    frmToteDisplay.sgCommChannelDef.Objects[0, aIdRow] := TObject(0);
+
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+  end
+  else
+  if cmd.ModifStat = mcsChangeSecure then
+  begin
+    if simMgrClient.ISInstructor or simMgrClient.ISWasdal then
+    begin
+      aIdRow :=  Cmd.Channel_Number + 1;
+      if Cmd.Channel_Security then
+        frmToteDisplay.sgCommChannelDef.Objects[6, aIdRow] := TObject(1)
+      else
+        frmToteDisplay.sgCommChannelDef.Objects[6, aIdRow] := TObject(0);
+
+      GrpName := frmToteDisplay.edtGroupName.Text;
+      frmToteDisplay.RefreshChannelMapping(GrpName);
+    end
+    else
+    begin
+      GrpName := frmToteDisplay.edtGroupName.Text;
+      frmToteDisplay.RefreshChannelMapping(GrpName);
+    end;
+  end
+  else
+  if Cmd.ModifStat = mcsInterference then
+  begin
+    if simMgrClient.ISInstructor or simMgrClient.ISWasdal then
+    begin
+      GrpName := frmToteDisplay.edtGroupName.Text;
+      frmToteDisplay.RefreshChannelMapping(GrpName);
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.onRefreshAssumeControll;
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnRefreshBase;
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnRefreshIFFForm(sensor: TT3IFFSensor);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnRemoteViewerRun();
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnSnapshotEventDone( msg : string );
+begin
+end;
+
+end.

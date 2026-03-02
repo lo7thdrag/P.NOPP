@@ -1,0 +1,40 @@
+unit uT3EventManager;
+
+interface
+
+uses
+  Classes, SYsUtils, Windows,
+
+  uConstantaData, uT3Listener, uDataTypes;
+
+type
+
+  TT3EventManager = class
+  private
+
+  public
+
+    procedure OnClientConnect(IpAddres : string; State : Boolean); virtual;
+
+  end;
+
+implementation
+
+uses
+  uBaseCoordSystem, uT3SimManager;
+
+
+{ TT3EventManager }
+
+{ TT3EventManager }
+
+procedure TT3EventManager.OnClientConnect(IpAddres : string; State : Boolean);
+begin
+
+end;
+
+end.
+
+
+
+

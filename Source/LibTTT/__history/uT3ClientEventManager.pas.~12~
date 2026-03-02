@@ -1,0 +1,627 @@
+unit uT3ClientEventManager;
+
+interface
+
+uses uT3EventManager, tttData, SysUtils, Variants, uT3Listener,
+  uT3SimManager, uT3Unit, uBaseCoordSystem, uDBAsset_Fitted, uGameData_TTT, ComCtrls, Classes,
+  uDBAsset_GameEnvironment,
+  uMainStrategi, uMainLogisticTemplate, uMainDynamicShape, uMainStaticShape, uMainOverlay,
+  Math, uDBFormation, Windows, uDataTypes;
+
+type
+  TT3ClientEventManager = class(TT3EventManager)
+//    procedure OnChangeHeading(Sender : TObject; OrderType: Byte; Value : Double); override;
+//    procedure OnChangePosition(Sender : TObject; IdAction: Byte; x, y: Double); override;
+//    procedure OnIsCollision(Sender : TObject); override;
+//    procedure OnPlatformDestroy(Sender : TObject);      override;
+//    procedure OnPlatformControlled(Sender : TObject);   override;
+//    procedure OnPlatformOrderedControl(Sender : TObject;
+//                                       Order : TPlatformOrderedControl;
+//                                       Value : double); override;
+
+//    procedure OnPlatformDamageChanged(sender: TObject;
+//       const dmgType: TDamageItemType); override;
+    //ecm event
+
+
+//    procedure OnDetectedRemoved(Sender : TObject);  //detected track
+//    procedure OnTerminateOverlay; override;
+
+    {Transport Procedure}
+//    procedure OnUpdateTransportStatus(PlatformID: Integer);
+
+
+//    procedure onRefreshAssumeControll;
+//    procedure OnEmbarkPersonelTemporary(rec: Integer);
+//    procedure onLaunchEmbark(rec : TRecCmd_Embark);
+//    procedure onLaunchEmbarkPersonel(rec : TRecCmd_DisembarkPersonelTemporary);
+
+    procedure RefreshEmbarkList();
+
+    procedure BringToFront_OverlayDynamicShape(r: TRecCmd_OverlayDynamicShape);
+    procedure BringToFront_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+    procedure SendToBack_OverlayDynamicShape(r: TRecCmd_OverlayDynamicShape);
+    procedure SendToBack_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+
+//    procedure OnTransferSonobuoy(OldParentID, NewParentID, SonoID: Integer; Flag: Boolean);
+//    procedure OnTorpedoSyncPanel(ParentID, Tipe, WeaponIndex : Integer; Param1 : string);
+
+//    procedure OnPlatformHancurin(SenderID : Integer; Target: string; reasondestroy : Byte);override;
+//    procedure OnAfterLanding(Sender : TObject);                                 override;
+    procedure OnNonRealTimeAdded(Sender : TObject);                             override;
+
+    //Added Nando & Andi
+//    procedure OnIFFSensorDetect(aShip, aSensor, aTarget : TObject; value, value2 : boolean; mode1,mode2,mode3,mode3C : string);  override;
+
+    procedure OnUpdateTvCubicleGroup; override;
+
+//    procedure OnRemoteViewerRun();
+//    procedure OnSnapshotEventDone( msg : string );
+    procedure onUpdateStateServer(msg : string);
+
+    {Nando}
+    procedure OnReceiveGameSpeedForRecord(Cmd : TRecCmd_GameCtrl); override;
+    procedure OnReceiveMessageHandling(Cmd : TRecSendMessage);override;
+    procedure OnReceiveModifComm(Cmd : TRecModifComm);override;
+
+    //NIL FOCUS TRACK
+    procedure OnUpdateBombProperty(value : Integer);                   override;
+    procedure OnUpdateTorpedoProperty(rec : TRecTorpedoProperty);      override;
+
+    procedure OnUpdateTacticalTote;                                     override;
+    procedure OnUpdateDatalinkTote(idOrderDL : Integer);                override;
+
+    procedure OnDetectabilityChange(aShip: TT3PlatformInstance);        override;
+
+    procedure OnCameraTrackPosition; override;
+
+    procedure OnWriteEventSummary;
+//    procedure OnRefreshBase;
+
+//    procedure OnlogDataMissile(ts: TStringList); override;
+    procedure OnUpdateEnvironment; override;
+  end;
+
+implementation
+
+uses ufTacticalDisplay,
+     uSimObjects, uSimMgr_Client, ufToteDisplay,
+     uDBAssetObject,
+     uLibSettingTTT;
+
+{ TT3ClientEventManager }
+
+procedure TT3ClientEventManager.OnCameraTrackPosition;
+begin
+  frmTacticalDisplay.Map1.CurrentTool := mtCameraPosition;
+end;
+
+procedure TT3ClientEventManager.OnUpdateBombProperty(value: Integer);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnUpdateDatalinkTote(idOrderDL: Integer);
+begin
+  inherited;
+
+  case idOrderDL of
+    odlStop:
+      begin
+        frmToteDisplay.btnStopDataLink.Enabled := false;
+        frmToteDisplay.btnPlayDataLink.Enabled := true;
+      end;
+    odlPlay:
+      begin
+        frmToteDisplay.btnStopDataLink.Enabled := true;
+        frmToteDisplay.btnPlayDataLink.Enabled := false;
+      end;
+  end;
+end;
+
+procedure TT3ClientEventManager.onUpdateStateServer(msg: string);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnUpdateTacticalTote;
+begin
+  
+end;
+
+procedure TT3ClientEventManager.OnUpdateEnvironment;
+begin
+  inherited;
+  frmToteDisplay.RefreshEnvironment;
+end;
+
+procedure TT3ClientEventManager.OnUpdateTorpedoProperty(
+  rec: TRecTorpedoProperty);
+begin
+  
+end;
+
+procedure TT3ClientEventManager.OnUpdateTvCubicleGroup;
+begin
+  inherited;
+
+  frmToteDisplay.SetupTvCubicleGroup;
+end;
+
+procedure TT3ClientEventManager.OnWriteEventSummary;
+begin
+  frmToteDisplay.WriteEventSummary;
+end;
+
+procedure TT3ClientEventManager.RefreshEmbarkList;
+begin
+//  frmToteDisplay.RefreshPlatformList
+end;
+
+procedure TT3ClientEventManager.OnNonRealTimeAdded(Sender: TObject);
+begin
+  inherited;
+  //frmTacticalDisplay.Refresh_AssumeControl;
+end;
+
+procedure TT3ClientEventManager.BringToFront_OverlayDynamicShape(r: TRecCmd_OverlayDynamicShape);
+var
+  i,j : Integer;
+  TextShape : TTextDynamic;
+  LineShape : TLineDynamic;
+  RectShape : TRectangleDynamic;
+  CircleShape : TCircleDynamic;
+  EllipseShape : TEllipseDynamic;
+  ArcShape : TArcDynamic;
+  SectorShape : TSectorDynamic;
+  GridShape : TGridDynamic;
+  PolygonShape : TPolygonDynamic;
+
+  OverlayTemplate : TMainOverlayTemplate;
+  itemD : TMainDynamicShape;
+begin
+  for i := 0 to simMgrClient.SimOverlayTemplate.FList.Count - 1 do
+  begin
+    OverlayTemplate := simMgrClient.SimOverlayTemplate.FList.Items[i];
+
+    if OverlayTemplate.OverlayIndex = r.TemplateId then
+    begin
+      if r.IdAction = 4 then
+      begin
+
+        itemD := OverlayTemplate.DynamicList[r.IdSelectShape];
+        case r.ShapeID of
+          ovText :
+          begin
+            TextShape := TTextDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(TextShape);
+          end;
+          ovLine :
+          begin
+            LineShape := TLineDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(LineShape);
+          end;
+          ovRectangle :
+          begin
+            RectShape := TRectangleDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(RectShape);
+          end;
+          ovCircle :
+          begin
+            CircleShape := TCircleDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(CircleShape);
+          end;
+          ovEllipse :
+          begin
+            EllipseShape := TEllipseDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(EllipseShape);
+          end;
+          ovArc :
+          begin
+            ArcShape := TArcDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(ArcShape);
+          end;
+          ovSector :
+          begin
+            SectorShape := TSectorDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(SectorShape);
+          end;
+          ovGrid :
+          begin
+            GridShape := TGridDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(GridShape);
+          end;
+          ovPolygon :
+          begin
+            PolygonShape := TPolygonDynamic(itemD);
+            OverlayTemplate.DynamicList.Add(PolygonShape);
+          end;
+        end;
+        OverlayTemplate.DynamicList.Delete(r.IdSelectShape);
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.BringToFront_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+var
+  i,j : Integer;
+  TextShape : TTextStatic;
+  LineShape : TLineStatic;
+  RectShape : TRectangleStatic;
+  CircleShape : TCircleStatic;
+  EllipseShape : TEllipseStatic;
+  ArcShape : TArcStatic;
+  SectorShape : TSectorStatic;
+  GridShape : TGridStatic;
+  PolygonShape : TPolygonStatic;
+
+  OverlayTemplate : TMainOverlayTemplate;
+  itemS : TMainStaticShape;
+begin
+  OverlayTemplate := simMgrClient.SimOverlayTemplate.GetOverlayTemplate(r.TemplateId);
+
+  if Assigned(OverlayTemplate) then
+  begin
+    itemS := OverlayTemplate.StaticList[r.IdSelectShape];
+
+    case r.ShapeType of
+      ovText :
+      begin
+        TextShape := TTextStatic(itemS);
+        OverlayTemplate.StaticList.Add(TextShape);
+      end;
+      ovLine :
+      begin
+        LineShape := TLineStatic(itemS);
+        OverlayTemplate.StaticList.Add(LineShape);
+      end;
+      ovRectangle :
+      begin
+        RectShape := TRectangleStatic(itemS);
+        OverlayTemplate.StaticList.Add(RectShape);
+      end;
+      ovCircle :
+      begin
+        CircleShape := TCircleStatic(itemS);
+        OverlayTemplate.StaticList.Add(CircleShape);
+      end;
+      ovEllipse :
+      begin
+        EllipseShape := TEllipseStatic(itemS);
+        OverlayTemplate.StaticList.Add(EllipseShape);
+      end;
+      ovArc :
+      begin
+        ArcShape := TArcStatic(itemS);
+        OverlayTemplate.StaticList.Add(ArcShape);
+      end;
+      ovSector :
+      begin
+        SectorShape := TSectorStatic(itemS);
+        OverlayTemplate.StaticList.Add(SectorShape);
+      end;
+      ovGrid :
+      begin
+        GridShape := TGridStatic(itemS);
+        OverlayTemplate.StaticList.Add(GridShape);
+      end;
+      ovPolygon :
+      begin
+        PolygonShape := TPolygonStatic(itemS);
+        OverlayTemplate.StaticList.Add(PolygonShape);
+      end;
+    end;
+    OverlayTemplate.StaticList.Delete(r.IdSelectShape);
+  end;
+end;
+
+procedure TT3ClientEventManager.SendToBack_OverlayDynamicShape(
+  r: TRecCmd_OverlayDynamicShape);
+var
+  i,j : Integer;
+  TextShape : TTextDynamic;
+  LineShape : TLineDynamic;
+  RectShape : TRectangleDynamic;
+  CircleShape : TCircleDynamic;
+  EllipseShape : TEllipseDynamic;
+  ArcShape : TArcDynamic;
+  SectorShape : TSectorDynamic;
+  GridShape : TGridDynamic;
+  PolygonShape : TPolygonDynamic;
+
+  OverlayTemplate : TMainOverlayTemplate;
+  itemD : TMainDynamicShape;
+begin
+  for i := 0 to simMgrClient.SimOverlayTemplate.FList.Count - 1 do
+  begin
+    OverlayTemplate := simMgrClient.SimOverlayTemplate.FList.Items[i];
+
+    if OverlayTemplate.OverlayIndex = r.TemplateId then
+    begin
+      if r.IdAction =5 then
+      begin
+
+        itemD := OverlayTemplate.DynamicList[r.IdSelectShape];
+        OverlayTemplate.DynamicList.Delete(r.IdSelectShape);
+        case r.ShapeID of
+          ovText :
+          begin
+            TextShape := TTextDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,TextShape);
+          end;
+          ovLine :
+          begin
+            LineShape := TLineDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,LineShape);
+          end;
+          ovRectangle :
+          begin
+            RectShape := TRectangleDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,RectShape);
+          end;
+          ovCircle :
+          begin
+            CircleShape := TCircleDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,CircleShape);
+          end;
+          ovEllipse :
+          begin
+            EllipseShape := TEllipseDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,EllipseShape);
+          end;
+          ovArc :
+          begin
+            ArcShape := TArcDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,ArcShape);
+          end;
+          ovSector :
+          begin
+            SectorShape := TSectorDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,SectorShape);
+          end;
+          ovGrid :
+          begin
+            GridShape := TGridDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,GridShape);
+          end;
+          ovPolygon :
+          begin
+            PolygonShape := TPolygonDynamic(itemD);
+            OverlayTemplate.DynamicList.Insert(0,PolygonShape);
+          end;
+        end;
+
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.SendToBack_OverlayStaticShape(r: TRecCmd_OverlayStaticShape);
+var
+  i,j : Integer;
+  TextShape : TTextStatic;
+  LineShape : TLineStatic;
+  RectShape : TRectangleStatic;
+  CircleShape : TCircleStatic;
+  EllipseShape : TEllipseStatic;
+  ArcShape : TArcStatic;
+  SectorShape : TSectorStatic;
+  GridShape : TGridStatic;
+  PolygonShape : TPolygonStatic;
+
+  OverlayTemplate : TMainOverlayTemplate;
+  itemS : TMainStaticShape;
+begin
+  OverlayTemplate := simMgrClient.SimOverlayTemplate.GetOverlayTemplate(r.TemplateId);
+
+  if Assigned(OverlayTemplate) then
+  begin
+    itemS := OverlayTemplate.StaticList[r.IdSelectShape];
+
+    OverlayTemplate.StaticList.Delete(r.IdSelectShape);
+    case r.ShapeType of
+      ovText :
+      begin
+        TextShape := TTextStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,TextShape);
+      end;
+      ovLine :
+      begin
+        LineShape := TLineStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,LineShape);
+      end;
+      ovRectangle :
+      begin
+        RectShape := TRectangleStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,RectShape);
+      end;
+      ovCircle :
+      begin
+        CircleShape := TCircleStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,CircleShape);
+      end;
+      ovEllipse :
+      begin
+        EllipseShape := TEllipseStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,EllipseShape);
+      end;
+      ovArc :
+      begin
+        ArcShape := TArcStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,ArcShape);
+      end;
+      ovSector :
+      begin
+        SectorShape := TSectorStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,SectorShape);
+      end;
+      ovGrid :
+      begin
+        GridShape := TGridStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,GridShape);
+      end;
+      ovPolygon :
+      begin
+        PolygonShape := TPolygonStatic(itemS);
+        OverlayTemplate.StaticList.Insert(0,PolygonShape);
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnDetectabilityChange(aShip: TT3PlatformInstance);
+begin
+  inherited;
+
+  with frmToteDisplay do
+  begin
+    if not Assigned(SensorOverrideSelectedPlatform) then
+      Exit;
+
+    if SensorOverrideSelectedPlatform.InstanceIndex = aShip.InstanceIndex then
+    begin
+      case SensorOverrideSelectedPlatform.DetectabilityType of
+        dtNormalDetection:
+        begin
+          edtDetectionStatus.Text := 'Normal';
+        end;
+        dtUndetectable:
+        begin
+          edtDetectionStatus.Text := 'Never Detected';
+        end;
+        dtPassiveDetection:
+        begin
+          edtDetectionStatus.Text := 'Detected by passive sensor only';
+        end;
+        dtAlwaysVisible:
+        begin
+          edtDetectionStatus.Text := 'Always Detected';
+        end;
+      end;
+    end;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnReceiveGameSpeedForRecord(Cmd: TRecCmd_GameCtrl);
+begin
+  inherited;
+  frmToteDisplay.ReceiveGameSpeedForRecording(cmd);
+end;
+
+procedure TT3ClientEventManager.OnReceiveMessageHandling(Cmd: TRecSendMessage);
+begin
+
+end;
+
+procedure TT3ClientEventManager.OnReceiveModifComm(Cmd: TRecModifComm);
+var
+  GrpName : string;
+  aIdRow : Integer;
+begin
+  inherited;
+
+  if ((cmd.ModifStat = mcsAdd) or
+      (cmd.ModifStat = mcsRemove))
+  then
+  begin
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+  end
+  else
+  if (cmd.ModifStat = mcsChangeLabel) then
+  begin
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+
+    with frmToteDisplay.sgCommChannelDef do
+    begin
+      Cells[2, Cmd.Channel_Number + 1] := Cmd.Channel_Ident;
+      Cells[3, Cmd.Channel_Number + 1] := Cmd.Channel_Code;
+      Cells[5, Cmd.Channel_Number + 1] := FloatToStr(Cmd.Channel_Frek);
+    end;
+  end
+  else
+  if (cmd.ModifStat = mcsChangeBand) then
+  begin
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+
+    with frmToteDisplay.sgCommChannelDef do
+    begin
+      case cmd.Channel_band of
+        0 : Cells[4, Cmd.Channel_Number + 1] := 'HF';
+        1 : Cells[4, Cmd.Channel_Number + 1] := 'VHF/UHF';
+        2 : Cells[4, Cmd.Channel_Number + 1] := 'SATCOM';
+        3 : Cells[4, Cmd.Channel_Number + 1] := 'UWT';
+        4 : Cells[4, Cmd.Channel_Number + 1] := 'FM';
+      end;
+    end;
+  end
+  else
+  if Cmd.ModifStat = mcsCreate then
+  begin
+    aIdRow :=  Cmd.Channel_Number + 1;
+    frmToteDisplay.sgCommChannelDef.Objects[0, aIdRow] := TObject(1);
+    frmToteDisplay.sgCommChannelDef.Cells[2, aIdRow] := Cmd.Channel_Ident;
+    frmToteDisplay.sgCommChannelDef.Cells[3, aIdRow] := Cmd.Channel_Code;
+
+    case Cmd.Channel_band of
+      0 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'HF';
+      1 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'VHF/UHF';
+      2 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'SATCOM';
+      3 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'UWT';
+      4 : frmToteDisplay.sgCommChannelDef.Cells[4, aIdRow] := 'FM';
+    end;
+
+    frmToteDisplay.sgCommChannelDef.Cells[5, aIdRow] := FloatToStr(cmd.Channel_Frek);
+
+    if Cmd.Channel_Security then
+      frmToteDisplay.sgCommChannelDef.Objects[6, aIdRow] := TObject(1)
+    else
+      frmToteDisplay.sgCommChannelDef.Objects[6, aIdRow] := TObject(0);
+
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+  end
+  else
+  if Cmd.ModifStat = mcsOff then
+  begin
+    aIdRow :=  Cmd.Channel_Number + 1;
+    frmToteDisplay.sgCommChannelDef.Objects[0, aIdRow] := TObject(0);
+
+    GrpName := frmToteDisplay.edtGroupName.Text;
+    frmToteDisplay.RefreshChannelMapping(GrpName);
+  end
+  else
+  if cmd.ModifStat = mcsChangeSecure then
+  begin
+    if simMgrClient.ISInstructor or simMgrClient.ISWasdal then
+    begin
+      aIdRow :=  Cmd.Channel_Number + 1;
+      if Cmd.Channel_Security then
+        frmToteDisplay.sgCommChannelDef.Objects[6, aIdRow] := TObject(1)
+      else
+        frmToteDisplay.sgCommChannelDef.Objects[6, aIdRow] := TObject(0);
+
+      GrpName := frmToteDisplay.edtGroupName.Text;
+      frmToteDisplay.RefreshChannelMapping(GrpName);
+    end
+    else
+    begin
+      GrpName := frmToteDisplay.edtGroupName.Text;
+      frmToteDisplay.RefreshChannelMapping(GrpName);
+    end;
+  end
+  else
+  if Cmd.ModifStat = mcsInterference then
+  begin
+    if simMgrClient.ISInstructor or simMgrClient.ISWasdal then
+    begin
+      GrpName := frmToteDisplay.edtGroupName.Text;
+      frmToteDisplay.RefreshChannelMapping(GrpName);
+    end;
+  end;
+end;
+
+end.

@@ -1,0 +1,70 @@
+unit uSimDBEditor;
+
+
+interface
+
+ uses
+  Controls, Classes,sysutils;
+
+ procedure StartInitialize;
+
+implementation
+
+uses
+  uLibSetting, ufrmDatabaseLogin, uDataModule;
+
+procedure StartInitialize;
+var
+  resultTemp1: Integer;
+  connectTemp : Boolean;
+begin
+
+  {}//later ambil dari server, sementara ambil dari file dulu
+  vSettingFile := getFileSetting;
+
+  LoadFF_dBaseSetting(vSettingFile, vDatabaseSetting);
+
+  frmDatabaseSetting := TfrmDatabaseSetting.Create(nil);
+
+  resultTemp1 := mrNone;
+
+  repeat
+    with vDatabaseSetting do
+    begin
+      connectTemp := dmPPKM.InitZDB(dbServer, dbProto, dbName, dbUser, dbPass);
+    end;
+
+    if not connectTemp then
+    begin
+      with vDatabaseSetting do
+      begin
+        frmDatabaseSetting.dbServer := DBServer;
+        frmDatabaseSetting.dbName   := DBName;
+        frmDatabaseSetting.dbUser   := DBUser;
+        frmDatabaseSetting.dbPass   := DBPass;
+      end;
+
+      resultTemp1 := frmDatabaseSetting.ShowModal;
+
+      if resultTemp1 = mrOk then
+      begin
+        vDatabaseSetting.DBServer  := frmDatabaseSetting.dbServer ;
+        vDatabaseSetting.DBName    := frmDatabaseSetting.dbName   ;
+        vDatabaseSetting.DBUser    := frmDatabaseSetting.dbUser   ;
+        vDatabaseSetting.DBPass    := frmDatabaseSetting.dbPass   ;
+        vDatabaseSetting.dbProto   := c_defaultDBProto ;
+      end;
+    end
+    else
+    begin
+      if (resultTemp1 = mrOk) then
+        SaveFF_dBaseSetting(vSettingFile, vDatabaseSetting);
+    end;
+  until  connectTemp or (resultTemp1 = mrCancel);
+
+  frmDatabaseSetting.Free;
+
+  LoadFF_AppDBSetting('setting.ini' , vAppDBSetting);
+end;
+
+end.
