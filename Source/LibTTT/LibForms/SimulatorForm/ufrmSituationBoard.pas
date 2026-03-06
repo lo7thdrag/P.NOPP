@@ -60,6 +60,10 @@ type
     pmTabProperties: TPopupMenu;
     miRename: TMenuItem;
     miDelete: TMenuItem;
+    Panel1: TPanel;
+    lblUserRole: TLabel;
+    lblJumTab: TLabel;
+    lblTabSelect: TLabel;
 
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -176,6 +180,7 @@ procedure TfrmSituationBoard.btnTabClick(Sender: TObject);
 begin
   FSelectedTabProperties := SimManager.SimTabProperties.GetTapProperties(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, TSpeedButton(Sender).Tag);
 
+  lblTabSelect.Caption := FSelectedTabProperties.CaptionTab;
   RefreshTab;
 end;
 
@@ -599,12 +604,13 @@ var
   i, tagTemp : Integer;
   widthTemp : Integer;
 
+  tabPropertiesTemp : TTabProperties;
+
 begin
   pnlHome.BringToFront;
 
   widthTemp := Round(pnlHeaderSituationBoard.Width/13);
 
-  tagTemp := 1;
   for i := 0 to ComponentCount-1 do
   begin
     if Components[i] is TSpeedButton then
@@ -612,18 +618,116 @@ begin
       if TSpeedButton(Components[i]).Tag < 14 then
       begin
         TSpeedButton(Components[i]).Width := 0;
-        if SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp) then
-        begin
-          if TSpeedButton(Components[i]).Tag = tagTemp then
-          begin
-            TSpeedButton(Components[i]).Width := widthTemp;
-            TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp);
-          end;
-        end;
-        inc(tagTemp);
       end;
     end;
   end;
+
+  tagTemp := 0;
+
+  for i := 0 to SimManager.SimTabProperties.TabList.Count-1 do
+  begin
+    tabPropertiesTemp := SimManager.SimTabProperties.TabList[i];
+
+    if tabPropertiesTemp.IdUserRoleTab = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+    begin
+
+      if not tabPropertiesTemp.ActiveTab then
+        Continue;
+
+      Inc(tagTemp);
+
+      case tabPropertiesTemp.IdTab of
+        1 :
+        begin
+          btn1.Width := widthTemp;
+          btn1.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        2 :
+        begin
+          btn2.Width := widthTemp;
+          btn2.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        3 :
+        begin
+          btn3.Width := widthTemp;
+          btn3.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        4 :
+        begin
+          btn4.Width := widthTemp;
+          btn4.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        5 :
+        begin
+          btn5.Width := widthTemp;
+          btn5.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        6 :
+        begin
+          btn6.Width := widthTemp;
+          btn6.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        7 :
+        begin
+          btn7.Width := widthTemp;
+          btn7.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        8 :
+        begin
+          btn8.Width := widthTemp;
+          btn8.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        9 :
+        begin
+          btn9.Width := widthTemp;
+          btn9.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        10 :
+        begin
+          btn10.Width := widthTemp;
+          btn10.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        11 :
+        begin
+          btn11.Width := widthTemp;
+          btn11.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        12 :
+        begin
+          btn12.Width := widthTemp;
+          btn12.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+        13 :
+        begin
+          btn13.Width := widthTemp;
+          btn13.Caption := tabPropertiesTemp.CaptionTab;
+        end;
+      end;
+    end;
+  end;
+
+  lblJumTab.Caption := 'Number of Tabs : ' + IntToStr(tagTemp) + '   ';
+
+//  tagTemp := 1;
+//  for i := 0 to ComponentCount-1 do
+//  begin
+//    if Components[i] is TSpeedButton then
+//    begin
+//      if TSpeedButton(Components[i]).Tag < 14 then
+//      begin
+////        TSpeedButton(Components[i]).Width := 0;
+//        if SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp) then
+//        begin
+//          if TSpeedButton(Components[i]).Tag = tagTemp then
+//          begin
+//            TSpeedButton(Components[i]).Width := widthTemp;
+//            TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp);
+//          end;
+//        end;
+//        inc(tagTemp);
+//      end;
+//    end;
+//  end;
 end;
 
 procedure TfrmSituationBoard.Map1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);

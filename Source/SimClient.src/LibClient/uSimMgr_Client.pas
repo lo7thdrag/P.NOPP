@@ -359,29 +359,8 @@ begin
 end;
 
 procedure TSimMgr_Client.LoadDataAsset(const vSet: TGameDataSetting);
-//var
-//  i : Integer;
-//  listTemp : TList;
-//  userRoleTemp : TUserRole;
-
 begin
   inherited;
-
-//  {$REGION ' Load User Role '}
-//  listTemp := TList.Create;
-//  dmINWO.GetAllUserRole(listTemp);
-//
-//  for i := 0 to listTemp.Count-1 do
-//  begin
-//    userRoleTemp := listTemp.Items[i];
-//
-//    if Assigned(userRoleTemp) then
-//    begin
-//      SimUserRole.addUserRole(userRoleTemp);
-//    end;
-//  end;
-//  listTemp.Free;
-//  {$ENDREGION}
 
 end;
 

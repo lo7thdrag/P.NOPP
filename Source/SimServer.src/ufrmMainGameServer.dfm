@@ -1,11 +1,10 @@
 object frmMainGameServer: TfrmMainGameServer
-  Left = 390
-  Top = 165
-  Align = alRight
+  Left = 700
+  Top = 0
+  Anchors = [akTop, akRight]
   BorderIcons = []
-  BorderStyle = bsDialog
-  ClientHeight = 739
-  ClientWidth = 752
+  ClientHeight = 874
+  ClientWidth = 742
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -20,18 +19,21 @@ object frmMainGameServer: TfrmMainGameServer
   object pnlHeader: TPanel
     Left = 0
     Top = 0
-    Width = 752
+    Width = 742
     Height = 87
     Align = alTop
     BevelOuter = bvNone
     Caption = 'pnlHeader'
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 583
+    ExplicitWidth = 752
+    DesignSize = (
+      742
+      87)
     object imgHeaderBackground: TImage
       Left = 0
       Top = 0
-      Width = 752
+      Width = 742
       Height = 87
       Align = alClient
       Picture.Data = {
@@ -1194,12 +1196,13 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object btnLock: TImage
-      Left = 718
-      Top = 20
-      Width = 25
-      Height = 25
+      Left = 686
+      Top = 18
+      Width = 35
+      Height = 35
       Cursor = crHandPoint
       Hint = 'Lock Application'
+      Anchors = [akTop, akRight]
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000000190000
         00190806000001B3EEB5F5000000097048597300002E2300002E230178A53F76
@@ -1262,12 +1265,13 @@ object frmMainGameServer: TfrmMainGameServer
       OnClick = btnLockClick
     end
     object btnUnlock: TImage
-      Left = 687
-      Top = 20
-      Width = 25
-      Height = 25
+      Left = 645
+      Top = 18
+      Width = 35
+      Height = 35
       Cursor = crHandPoint
       Hint = 'Unlock Application'
+      Anchors = [akTop, akRight]
       Picture.Data = {
         0954506E67496D61676589504E470D0A1A0A0000000D49484452000000190000
         00190806000001B3EEB5F5000000097048597300002E2300002E230178A53F76
@@ -1373,8 +1377,8 @@ object frmMainGameServer: TfrmMainGameServer
   object lvConsole: TListView
     Left = 0
     Top = 87
-    Width = 752
-    Height = 652
+    Width = 742
+    Height = 787
     Align = alClient
     BevelInner = bvNone
     BevelOuter = bvNone
@@ -1383,7 +1387,7 @@ object frmMainGameServer: TfrmMainGameServer
     Columns = <
       item
         Caption = 'Console Name'
-        Width = 130
+        Width = 190
       end
       item
         Alignment = taCenter
@@ -1397,12 +1401,12 @@ object frmMainGameServer: TfrmMainGameServer
       item
         Alignment = taCenter
         Caption = 'User Role'
-        Width = 250
+        Width = 200
       end
       item
         Alignment = taCenter
         Caption = 'Operation'
-        Width = 200
+        Width = 170
       end>
     Font.Charset = ANSI_CHARSET
     Font.Color = clWhite
@@ -1416,7 +1420,6 @@ object frmMainGameServer: TfrmMainGameServer
     StateImages = ilClientStateColor
     TabOrder = 1
     ViewStyle = vsReport
-    ExplicitWidth = 583
   end
   object ilClientStateColor: TImageList
     ShareImages = True

@@ -46,13 +46,13 @@ type
 
   public
 
-    SimConsole : TConsoleContainer;
-    SimRole : TRoleContainer;
-    SimSubRole : TSubRoleContainer;
-    SimUserRole : TUserRoleContainer;
-    SimTabProperties : TTabPropertiesContainer;
-    SimChatting : TChattingContainer;
-    SimOverlay : TOverlayTabContainer;
+    SimConsole : TConsoleContainer; {load dari xml}
+    SimRole : TRoleContainer; {load dari database}
+    SimSubRole : TSubRoleContainer; {load dari database}
+    SimUserRole : TUserRoleContainer; {load dari database}
+    SimTabProperties : TTabPropertiesContainer; {load saat running}
+    SimChatting : TChattingContainer; {load saat running}
+    SimOverlay : TOverlayTabContainer; {load saat running}
 
     EventManager    : TT3EventManager;
 

@@ -501,14 +501,14 @@ begin
     lblSubRole.Caption := UserRoleData.FSubRoleData.SubRoleAcronim;
     lblUserRoleIdentifier.Caption := UserRoleData.FData.UserRoleAcronim;
 
-//    if UserRoleData.FData.SubRoleIndex = 5 then
-//      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperNTWODisplayArea.png')
-//    else if UserRoleData.FData.SubRoleIndex = 6 then
-//      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperATWODisplayArea.png')
-//    else if UserRoleData.FData.SubRoleIndex = 1 then
-//      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWODisplayArea.png')
-//    else if UserRoleData.FData.SubRoleIndex = 2 then
-//      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWODisplayArea.png')
+    if UserRoleData.FData.SubRoleIndex = 5 then
+      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperNTWODisplayArea.png')
+    else if UserRoleData.FData.SubRoleIndex = 6 then
+      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperATWODisplayArea.png')
+    else if UserRoleData.FData.SubRoleIndex = 1 then
+      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWODisplayArea.png')
+    else if UserRoleData.FData.SubRoleIndex = 2 then
+      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWODisplayArea.png')
   end;
 
   if simMgrClient.MyConsoleData.Group = cgInstructor then
@@ -691,13 +691,30 @@ begin
   for i := 0 to FFileDataList.Count - 1 do
   begin
     fileDataTemp := FFileDataList.Items[i];
-    li := lvFileData.Items.Add;
-    li.SubItems.Add(fileDataTemp.FData.Nama_File);
-    li.StateIndex := Integer(SetFileExtentionToEnum(fileDataTemp.FData.Tipe_File));
-    li.SubItems.Add(fileDataTemp.FData.Directory_Path);
-    li.SubItems.Add(fileDataTemp.FData.Modified_Date);
-    li.SubItems.Add(fileDataTemp.FData.Modified_By);
-    li.Data := fileDataTemp;
+
+    if simMgrClient.MyConsoleData.Group = cgInstructor then
+    begin
+      li := lvFileData.Items.Add;
+      li.SubItems.Add(fileDataTemp.FData.Nama_File);
+      li.StateIndex := Integer(SetFileExtentionToEnum(fileDataTemp.FData.Tipe_File));
+      li.SubItems.Add(fileDataTemp.FData.Directory_Path);
+      li.SubItems.Add(fileDataTemp.FData.Modified_Date);
+      li.SubItems.Add(fileDataTemp.FData.Modified_By);
+      li.Data := fileDataTemp;
+    end
+    else
+    begin
+      if simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim = fileDataTemp.FData.Modified_By then
+      begin
+        li := lvFileData.Items.Add;
+        li.SubItems.Add(fileDataTemp.FData.Nama_File);
+        li.StateIndex := Integer(SetFileExtentionToEnum(fileDataTemp.FData.Tipe_File));
+        li.SubItems.Add(fileDataTemp.FData.Directory_Path);
+        li.SubItems.Add(fileDataTemp.FData.Modified_Date);
+        li.SubItems.Add(fileDataTemp.FData.Modified_By);
+        li.Data := fileDataTemp;
+      end;
+    end;
   end;
 end;
 
@@ -1968,6 +1985,8 @@ end;
 
 procedure TfrmDisplayArea.SituationBoardClick(Sender: TObject);
 begin
+  frmSituationBoard.lblUserRole.Caption := '   User Role : ' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+  frmSituationBoard.lblTabSelect.Caption := ' --- ';
   frmSituationBoard.Show;
 //  frmSituationBoard := TfrmSituationBoard.Create(Self);
 //  try

@@ -201,6 +201,8 @@ begin
 
   simMgrClient.MyConsoleData.assignUserRoleData(userRoleTemp);
 
+  frmSituationBoard.lblUserRole.Caption := '   User Role : ' + userRoleTemp.FData.UserRoleAcronim;
+  frmSituationBoard.lblTabSelect.Caption := ' --- ';
   frmSituationBoard.Show;
 end;
 
@@ -477,14 +479,14 @@ begin
 
       lblUserIdentifier.Caption := FselectedUserRole.FData.UserRoleIdentifier + ' - ' + FselectedUserRole.FSubRoleData.SubRoleAcronim;
 
-//      if FselectedUserRole.FData.SubRoleIndex = 5 then
-//        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperNTWOLogin.png')
-//      else if FselectedUserRole.FData.SubRoleIndex = 6 then
-//        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperATWOLogin.png')
-//      else if FselectedUserRole.FData.SubRoleIndex = 1 then
-//        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png')
-//      else if FselectedUserRole.FData.SubRoleIndex = 2 then
-//        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png');
+      if FselectedUserRole.FData.SubRoleIndex = 5 then
+        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperNTWOLogin.png')
+      else if FselectedUserRole.FData.SubRoleIndex = 6 then
+        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperATWOLogin.png')
+      else if FselectedUserRole.FData.SubRoleIndex = 1 then
+        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png')
+      else if FselectedUserRole.FData.SubRoleIndex = 2 then
+        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png');
   end;
 
   pnlBackgroundLogin.BringToFront;
