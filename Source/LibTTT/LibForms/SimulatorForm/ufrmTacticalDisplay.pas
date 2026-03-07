@@ -51,6 +51,7 @@ type
     pnlButton: TPanel;
     cbbSubRole: TComboBox;
     lstUserRoleLogin: TListBox;
+    btnLoad: TButton;
     btnConnect: TButton;
 
     procedure FormCreate(Sender: TObject);
@@ -69,6 +70,7 @@ type
     procedure btnBackClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnLoadClick(Sender: TObject);
     procedure btnConnectClick(Sender: TObject);
 
   private
@@ -143,6 +145,11 @@ begin
     lstUserRoleLogin.Visible := False;
   end;
 
+end;
+
+procedure TfrmTacticalDisplay.btnConnectClick(Sender: TObject);
+begin
+  simMgrClient.CekGameState;
 end;
 
 procedure TfrmTacticalDisplay.cbbConsoleNameDropDown(Sender: TObject);
@@ -280,13 +287,34 @@ begin
   pnlHome.BringToFront;
 end;
 
-procedure TfrmTacticalDisplay.btnConnectClick(Sender: TObject);
+procedure TfrmTacticalDisplay.btnLoadClick(Sender: TObject);
 var
-//  record
+  rec : TRecTCP_Reconnect;
+
 begin
   if SimManager.GetGameState then
   begin
-    simMgrClient.netSend_CmdUserState(rec)
+    rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
+    simMgrClient.netSend_CmdReconnect(rec);
+
+    if simMgrClient.MyConsoleData.Group = cgSituationBoard then
+    begin
+      Label5.Visible := False;
+      pnlBackgroundLogin.BringToFront;
+      pnlSituationBoard.BringToFront;
+    end
+    else
+    begin
+      pnlHome.BringToFront;
+      pnlLogin.BringToFront;
+    end;
+
+    btnPlanning.Visible := SimManager.GetGameState;
+    btnPreparation.Visible := SimManager.GetGameState;
+    btnImplementation.Visible := SimManager.GetGameState;
+    btnTermination.Visible := SimManager.GetGameState;
+
+    btnLoad.Visible := False;
   end;
 end;
 
@@ -503,14 +531,14 @@ begin
 
       lblUserIdentifier.Caption := FselectedUserRole.FData.UserRoleIdentifier + ' - ' + FselectedUserRole.FSubRoleData.SubRoleAcronim;
 
-      if FselectedUserRole.FData.SubRoleIndex = 5 then
-        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperNTWOLogin.png')
-      else if FselectedUserRole.FData.SubRoleIndex = 6 then
-        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperATWOLogin.png')
-      else if FselectedUserRole.FData.SubRoleIndex = 1 then
-        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png')
-      else if FselectedUserRole.FData.SubRoleIndex = 2 then
-        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png');
+//      if FselectedUserRole.FData.SubRoleIndex = 5 then
+//        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperNTWOLogin.png')
+//      else if FselectedUserRole.FData.SubRoleIndex = 6 then
+//        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperATWOLogin.png')
+//      else if FselectedUserRole.FData.SubRoleIndex = 1 then
+//        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png')
+//      else if FselectedUserRole.FData.SubRoleIndex = 2 then
+//        imgBackgroundLogin.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWOLogin.png');
   end;
 
   pnlBackgroundLogin.BringToFront;
@@ -542,10 +570,14 @@ end;
 
 procedure TfrmTacticalDisplay.UpdateGameState(Sender: TObject);
 begin
-  btnPlanning.Visible := SimManager.GetGameState;
-  btnPreparation.Visible := SimManager.GetGameState;
-  btnImplementation.Visible := SimManager.GetGameState;
-  btnTermination.Visible := SimManager.GetGameState;
+
+  btnConnect.Visible := not SimManager.GetGameState;
+  btnLoad.Visible := SimManager.GetGameState;
+
+  btnPlanning.Visible := False;
+  btnPreparation.Visible := False;
+  btnImplementation.Visible := False;
+  btnTermination.Visible := False;
 end;
 
 end.

@@ -909,7 +909,7 @@ begin
     ovPlatform:
     begin
       {$REGION ' Platform'}
-      if (edtLattPlatform.Text = '') or (edtLongPlatform.Text = '') or (lblTacticalSymbolPlatform.Caption = '') then
+      if (edtLattPlatform.Text = '') or (edtLongPlatform.Text = '') or (lblTacticalSymbolPlatform.Caption = '') or (edtHeading.Text = '') then
       begin
         ShowMessage ('Data yang dimasukan tidak lengkap');
         Result := True;

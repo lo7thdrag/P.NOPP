@@ -6,7 +6,7 @@ uses
    MapXLib_TLB, Classes, SysUtils, Windows, Forms,
 
    uSteppers, uLibSetting, uThreadTimer , uVirtualTime, uSimContainers, uT3simManager, uT3UnitContainer, uT3Listener,
-   uDataModule, uRecordData, uClassData ;
+   uDataModule, uRecordData, uClassData, uSimManager ;
 
 type
 //==============================================================================
@@ -48,15 +48,16 @@ type
 //    procedure NetSendTCP_Sycnh_Platform();
 
     {$REGION ' Receive UDP '}
-//    procedure netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);
+
     {$ENDREGION}
 
     {$REGION ' Receive TCP '}
+    procedure netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdUserState(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdChatUserRole(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: Word);
-//    procedure netRecv_CmdClientStateInfo(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdReconnect(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     procedure FOnConnectDelay(sender: TObject);
@@ -176,6 +177,7 @@ end;
 procedure TSimMgr_Server.FNetServerOnClientConnect(const S: string);
 var
   consoleInfoTemp : TConsoleInfo;
+
 begin
   consoleInfoTemp := SimConsole.GetConsoleInfo(s);
 
@@ -253,11 +255,13 @@ begin
   {$REGION ' TCP SECTION '}
 //  VNetServer.RegisterTCPPacket(CPID_CMD_CLIENT_STATE_INFO, SizeOf(TRecTCP_ClientState_Info), nil);
 //  VNetServer.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
-  VNetServer.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),nil);
+  VNetServer.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
   VNetServer.RegisterTCPPacket(CPID_CMD_USER_STATE, SizeOf(TRecTCP_UserState), netRecv_CmdUserState);
   VNetServer.RegisterTCPPacket(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
   VNetServer.RegisterTCPPacket(CPID_CMD_CHAT_USER_ROLE, SizeOf(TrecTCPSendChatUserRole), netRecv_CmdChatUserRole);
   VNetServer.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape), netRecv_CmdOverlayShape);
+
+  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_Reconnect), netRecv_CmdReconnect);
   {$ENDREGION}
 
   VNetServer.StartListen;
@@ -284,6 +288,23 @@ begin
 
 end;
 
+procedure TSimMgr_Server.netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecCmd_GameCtrl;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  if GameState = gsPlaying then
+    rec.GameCtrl := CORD_ID_start
+  else if GameState = gsStop then
+    rec.GameCtrl := CORD_ID_pause;
+
+  VNetServer.SendBroadcastCommand(CPID_CMD_GAME_CTRL, apRec);
+
+end;
+
 procedure TSimMgr_Server.netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: Word);
 var
   rec : ^TRecTCPSendOverlayShape;
@@ -296,6 +317,98 @@ begin
 
   VNetServer.SendBroadcastCommand(CPID_CMD_OVERLAYSHAPE, apRec);
 
+end;
+
+procedure TSimMgr_Server.netRecv_CmdReconnect(apRec: PAnsiChar; aSize: word);
+var
+  i : Integer;
+  rec : ^TRecTCP_Reconnect;
+  sIP : String;
+
+  userRoleTemp : TUserRole;
+  chatTemp : TChatting;
+  tabPropertiesTemp : TTabProperties;
+
+  recUserTemp : TRecTCP_UserState;
+  recChatTemp : TRecTCPSendChatUserRole;
+  recTabTemp: TRecTCPSendSituationBoardTabProperties;
+
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  {$REGION ' Syncronizing User Role '}
+  for i := 0 to SimManager.SimUserRole.UserList.Count - 1 do
+  begin
+    userRoleTemp := SimManager.SimUserRole.UserList[i];
+
+    if Assigned(userRoleTemp) then
+    begin
+      recUserTemp.UserRoleId := userRoleTemp.FData.UserRoleIndex;
+      recUserTemp.UserRoleInUse := userRoleTemp.isInUse;
+      recUserTemp.ConsoleIP := userRoleTemp.ConsoleIP;
+
+      VNetServer.SendTo(CPID_CMD_RECONNECT, @recUserTemp, sIP);
+    end;
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Syncronizing Chatting '}
+  for i := 0 to SimManager.SimChatting.ChattingList.Count - 1 do
+  begin
+    chatTemp := SimManager.SimChatting.ChattingList[i];
+
+    if Assigned(chatTemp) then
+    begin
+      recChatTemp.ChatId := chatTemp.IdChat;
+      recChatTemp.SenderUserRoleId := chatTemp.IdUserRoleSending;
+      recChatTemp.ReceiverUserRoleId := chatTemp.IdUserRoleReceive;
+      recChatTemp.ChatMessage := chatTemp.ChatMessage;
+
+      VNetServer.SendTo(CPID_CMD_RECONNECT, @recChatTemp, sIP);
+    end;
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Syncronizing Tab Situationboard '}
+  for i := 0 to SimManager.SimTabProperties.TabList.Count - 1 do
+  begin
+    tabPropertiesTemp := SimManager.SimTabProperties.TabList[i];
+
+    if Assigned(tabPropertiesTemp) then
+    begin
+      recTabTemp.TabId := tabPropertiesTemp.IdTab;
+      recTabTemp.UserRoleId := tabPropertiesTemp.IdUserRoleTab;
+      recTabTemp.OverlayTab := tabPropertiesTemp.IdOverlayTab;
+      recTabTemp.TabCaption := tabPropertiesTemp.CaptionTab;
+      recTabTemp.TabType := tabPropertiesTemp.TypeTab;
+      recTabTemp.TabActive := tabPropertiesTemp.ActiveTab;
+      recTabTemp.TabAddres := tabPropertiesTemp.AddressTab;
+
+      VNetServer.SendTo(CPID_CMD_RECONNECT, @recTabTemp, sIP);
+    end;
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Syncronizing Overlay '}
+  for i := 0 to SimManager.SimOverlay.TabList.Count - 1 do
+  begin
+    tabPropertiesTemp := SimManager.SimTabProperties.TabList[i];
+
+    if Assigned(tabPropertiesTemp) then
+    begin
+      recTabTemp.TabId := tabPropertiesTemp.IdTab;
+      recTabTemp.UserRoleId := tabPropertiesTemp.IdUserRoleTab;
+      recTabTemp.OverlayTab := tabPropertiesTemp.IdOverlayTab;
+      recTabTemp.TabCaption := tabPropertiesTemp.CaptionTab;
+      recTabTemp.TabType := tabPropertiesTemp.TypeTab;
+      recTabTemp.TabActive := tabPropertiesTemp.ActiveTab;
+      recTabTemp.TabAddres := tabPropertiesTemp.AddressTab;
+
+      VNetServer.SendTo(CPID_CMD_RECONNECT, @recTabTemp, sIP);
+    end;
+  end;
+  {$ENDREGION}
 end;
 
 procedure TSimMgr_Server.netRecv_CmdSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);

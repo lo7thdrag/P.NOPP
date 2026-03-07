@@ -36,6 +36,10 @@ type
     procedure netRecv_CmdSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdChatUserRole(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: word);
+
+    procedure netRecv_CmdSyncUserState(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdSyncSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdSyncChatUserRole(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     procedure FGameThread_OnRunning(const dt: double); override;
@@ -83,14 +87,23 @@ type
     procedure OnUserRoleChatChange(const rec : TRecTCPSendChatUserRole); override;
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); override;
 
+    procedure OnSyncUserState(const rec : TRecTCP_UserState); override;
+    procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); override;
+    procedure OnSyncUserChat(const rec : TRecTCPSendChatUserRole); override;
+//    procedure OnSyncOverlayShape(const rec : TRecTCPSendOverlayShape); override;
+
     procedure DrawAll(aCnv: TCanvas);
 
+    procedure CekGameState;
+
     {$REGION ' Send TCP '}
+    procedure netSend_CmdGameState(r: TRecCmd_GameCtrl);
     procedure netSend_CmdUserState(r: TRecTCP_UserState);
     procedure netSend_CmdRemote(r : TRecTCPSendRemote);
     procedure netSend_CmdSituationBoardTabProperties(r : TRecTCPSendSituationBoardTabProperties);
     procedure netSend_CmdSendMessage(r : TRecTCPSendChatUserRole);
     procedure netSend_CmdOverlayShape(r: TRecTCPSendOverlayShape);
+    procedure netSend_CmdReconnect(r: TRecTCP_Reconnect);
 
     {$ENDREGION}
 
@@ -111,6 +124,15 @@ implementation
 uses
   uSimManager, uBaseCoordSystem, uCoordConvertor, uMapXhandler, uNetHandle_Client, uNetBaseSocket, uT3ClientEventManager,
   uAppUtils, uT3Listener;
+
+procedure TSimMgr_Client.CekGameState;
+var
+  rec : TRecCmd_GameCtrl;
+
+begin
+  VNetClient.GameCtrl := 0;
+  simMgrClient.netSend_CmdGameState(rec)
+end;
 
 constructor TSimMgr_Client.Create(Map : TMap);
 var
@@ -225,9 +247,7 @@ procedure TSimMgr_Client.InitNetwork;
 begin
 
   {$REGION ' UDP SECTION '}
-//  VNetClient.RegisterUDPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl), netRecv_CmdGameControl);
   VNetClient.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
-//  VNetClient.RegisterUDPPacket(CPID_CMD_CLIENT_STATE_INFO, SizeOf(TRecUDP_ClientState_Info),netRecv_CmdClientStateInfo);
   {$ENDREGION}
 
   {$REGION ' TCP SECTION '}
@@ -236,6 +256,10 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
    VNetClient.RegisterTCPPacket(CPID_CMD_CHAT_USER_ROLE, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdChatUserRole);
    VNetClient.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape),netRecv_CmdOverlayShape);
+
+   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_UserState),netRecv_CmdSyncUserState);
+   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdSyncChatUserRole);
+   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSyncSituationBoardTabProperties);
   {$ENDREGION}
 
   FConnectDelay.Enabled := True;
@@ -477,6 +501,42 @@ begin
 
 end;
 
+procedure TSimMgr_Client.netRecv_CmdSyncChatUserRole(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCPSendChatUserRole;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnSyncUserChat(rec^);
+
+end;
+
+procedure TSimMgr_Client.netRecv_CmdSyncSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCPSendSituationBoardTabProperties;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnSyncSituationBoardTabProperties(rec^);
+
+end;
+
+procedure TSimMgr_Client.netRecv_CmdSyncUserState(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCP_UserState;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnSyncUserState(rec^);
+
+end;
+
 procedure TSimMgr_Client.netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: word);
 var
   rec : ^TRecTCPSendOverlayShape;
@@ -493,10 +553,22 @@ end;
 
 {$REGION ' Send TCP '}
 
+procedure TSimMgr_Client.netSend_CmdGameState(r: TRecCmd_GameCtrl);
+begin
+  r.SessionID := FSessionID;
+  VNetClient.SendCommand(CPID_CMD_GAME_CTRL, @r);
+end;
+
 procedure TSimMgr_Client.netSend_CmdOverlayShape(r: TRecTCPSendOverlayShape);
 begin
   r.SessionID := FSessionID;
   VNetClient.SendCommand(CPID_CMD_OVERLAYSHAPE, @r);
+end;
+
+procedure TSimMgr_Client.netSend_CmdReconnect(r: TRecTCP_Reconnect);
+begin
+  r.SessionID := FSessionID;
+  VNetClient.SendCommand(CPID_CMD_RECONNECT, @r);
 end;
 
 procedure TSimMgr_Client.netSend_CmdRemote(r: TRecTCPSendRemote);
@@ -546,6 +618,24 @@ begin
   end;
   {$ENDREGION}
 
+end;
+
+procedure TSimMgr_Client.OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);
+begin
+  inherited;
+  //
+end;
+
+procedure TSimMgr_Client.OnSyncUserChat(const rec: TRecTCPSendChatUserRole);
+begin
+  inherited;
+  //
+end;
+
+procedure TSimMgr_Client.OnSyncUserState(const rec: TRecTCP_UserState);
+begin
+  inherited;
+  //
 end;
 
 procedure TSimMgr_Client.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole);

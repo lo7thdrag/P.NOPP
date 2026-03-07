@@ -75,8 +75,8 @@ object frmToteDisplay: TfrmToteDisplay
         object Label2: TLabel
           Left = 8
           Top = 16
-          Width = 218
-          Height = 35
+          Width = 281
+          Height = 36
           Caption = 'USER ROLE AKTIF'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWhite
@@ -157,8 +157,8 @@ object frmToteDisplay: TfrmToteDisplay
         object Label1: TLabel
           Left = 8
           Top = 16
-          Width = 116
-          Height = 16
+          Width = 131
+          Height = 17
           Caption = 'Console Destination'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWhite
@@ -2283,8 +2283,8 @@ object frmToteDisplay: TfrmToteDisplay
     object lblFileTransfer: TLabel
       Left = 37
       Top = 64
-      Width = 80
-      Height = 16
+      Width = 81
+      Height = 17
       Cursor = crHandPoint
       Caption = 'File Transfer'
       Font.Charset = ANSI_CHARSET
@@ -2298,8 +2298,8 @@ object frmToteDisplay: TfrmToteDisplay
     object lblConcoleList: TLabel
       Left = 39
       Top = 32
-      Width = 77
-      Height = 16
+      Width = 81
+      Height = 17
       Cursor = crHandPoint
       Caption = 'Concole List'
       Font.Charset = ANSI_CHARSET
@@ -2466,8 +2466,8 @@ object frmToteDisplay: TfrmToteDisplay
       Tag = 9
       Left = 35
       Top = 94
-      Width = 34
-      Height = 16
+      Width = 38
+      Height = 17
       Cursor = crHandPoint
       Caption = 'Close'
       Font.Charset = ANSI_CHARSET

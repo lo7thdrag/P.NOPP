@@ -199,6 +199,7 @@ type
     constructor Create;
     destructor  Destroy; override;
 
+    function GetChattingById(ChatId : Integer):TChatting;
     function GetChattingBySending(IdRoleReceiving, IdRoleSending : Integer; var chatList : TList): Boolean;
     function GetChattingByUserRole(UserRoleId : Integer; var chatList : TList): Boolean;
 
@@ -1059,6 +1060,25 @@ destructor TChattingContainer.Destroy;
 begin
   ChattingList.Free;
   inherited;
+end;
+
+function TChattingContainer.GetChattingById(ChatId: Integer): TChatting;
+var
+  i : Integer;
+  chattingTemp : TChatting;
+begin
+  Result := nil;
+
+  for i := 0 to FChattingList.Count - 1 do
+  begin
+    chattingTemp := FChattingList.Items[i];
+
+    if chattingTemp.FIdChat = ChatId then
+    begin
+      Result := chattingTemp;
+      Break;
+    end;
+  end;
 end;
 
 function TChattingContainer.GetChattingBySending(IdRoleReceiving, IdRoleSending : Integer; var chatList : TList): Boolean;

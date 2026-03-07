@@ -49,7 +49,7 @@ type
     btnIncrease: TToolButton;
     btnPan: TToolButton;
     btnZoomIn: TToolButton;
-    btnZoomOut: TToolButton;
+    btnLayer: TToolButton;
     btnGameArea: TToolButton;
     btnRuller: TToolButton;
     ImageList1: TImageList;
@@ -78,7 +78,7 @@ type
     procedure btnPanClick(Sender: TObject);
     procedure btnGameCenterClick(Sender: TObject);
     procedure btnZoomInClick(Sender: TObject);
-    procedure btnZoomOutClick(Sender: TObject);
+    procedure btnLayerClick(Sender: TObject);
     procedure btnGameAreaClick(Sender: TObject);
     procedure btnRullerClick(Sender: TObject);
     procedure Map1DrawUserLayer(ASender: TObject; const Layer: IDispatch; hOutputDC, hAttributeDC: Integer; const RectFull, RectInvalid: IDispatch);
@@ -189,9 +189,11 @@ begin
   RefreshButton(2)
 end;
 
-procedure TfrmSituationBoard.btnZoomOutClick(Sender: TObject);
+procedure TfrmSituationBoard.btnLayerClick(Sender: TObject);
+var
+  vHelpFile, vHelpID : OleVariant;
 begin
-  RefreshButton(3)
+  Map1.Layers.LayersDlg(vHelpFile, vHelpID);
 end;
 
 procedure TfrmSituationBoard.btnPanClick(Sender: TObject);
@@ -274,6 +276,9 @@ end;
 procedure TfrmSituationBoard.FormShow(Sender: TObject);
 begin
   pnlHome.BringToFront;
+
+  if simMgrClient.MyConsoleData.Group = cgSituationBoard then
+    pnlToolBar.Align := alBottom;
 
   UpdateTab;
   RefreshTab;
@@ -443,7 +448,6 @@ begin
   if Assigned(FSelectedTabProperties) then
   begin
     LoadMap(vMapSetting.MapGSTGame + FSelectedTabProperties.AddressTab);
-  //  LoadOverlay(FSelectedTabProperties.IdOverlayTab);
     FSelectedOverlayTab := SimManager.SimOverlay.GetOverlayTabByID(FSelectedTabProperties.IdOverlayTab);
   end;
 
@@ -464,7 +468,6 @@ begin
   if Assigned(FSelectedTabProperties) then
     SimManager.SimOverlay.Draw(FCanvas, Map1, FSelectedTabProperties.IdOverlayTab);
 
-//  DrawOverlay.drawAll(FCanvas, Map1);
   simMgrClient.DrawFlagPoint.Draw(FCanvas);
 
 end;
@@ -518,7 +521,7 @@ begin
   btnSelect.ImageIndex := 2;
   btnPan.ImageIndex := 4;
   btnZoomIn.ImageIndex := 6;
-  btnZoomOut.ImageIndex := 8;
+//  btnlayer.ImageIndex := 8;
 
   case IdButton of
     0: {btnSelect}
@@ -531,7 +534,7 @@ begin
     1: {btnPan}
     begin
       btnPan.Down := not btnPan.Down;
-      btnZoomOut.Down := false;
+      btnlayer.Down := false;
       btnZoomIn.Down := False;
 
       FMapCursor := mcSelect;
@@ -547,7 +550,7 @@ begin
     begin
       btnZoomIn.Down := not btnZoomIn.Down;
       btnPan.Down := false;
-      btnZoomOut.Down := false;
+//      btnlayer.Down := false;
 
       FMapCursor := mcSelect;
       Map1.CurrentTool := miZoomInTool;
@@ -558,20 +561,20 @@ begin
       else
         btnZoomIn.ImageIndex := 6;
     end;
-    3: {btnZoomOut}
+    3: {btnlayer}
     begin
-      btnZoomOut.Down := not btnZoomOut.Down;
-      btnPan.Down := false;
-      btnZoomIn.Down := False;
-
-      FMapCursor := mcSelect;
-      Map1.CurrentTool := miZoomoutTool;
-      Map1.MousePointer := miZoomoutCursor;
-
-      if btnZoomOut.Down then
-        btnZoomOut.ImageIndex := 9
-      else
-        btnZoomOut.ImageIndex := 8;
+//      btnlayer.Down := not btnlayer.Down;
+//      btnPan.Down := false;
+//      btnZoomIn.Down := False;
+//
+//      FMapCursor := mcSelect;
+//      Map1.CurrentTool := miZoomoutTool;
+//      Map1.MousePointer := miZoomoutCursor;
+//
+//      if btnlayer.Down then
+//        btnlayer.ImageIndex := 9
+//      else
+//        btnlayer.ImageIndex := 8;
     end;
   end;
 end;
@@ -705,27 +708,6 @@ begin
   end;
 
   lblJumTab.Caption := 'Number of Tabs : ' + IntToStr(tagTemp) + '   ';
-
-//  tagTemp := 1;
-//  for i := 0 to ComponentCount-1 do
-//  begin
-//    if Components[i] is TSpeedButton then
-//    begin
-//      if TSpeedButton(Components[i]).Tag < 14 then
-//      begin
-////        TSpeedButton(Components[i]).Width := 0;
-//        if SimManager.SimTabProperties.GetActiveTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp) then
-//        begin
-//          if TSpeedButton(Components[i]).Tag = tagTemp then
-//          begin
-//            TSpeedButton(Components[i]).Width := widthTemp;
-//            TSpeedButton(Components[i]).Caption := SimManager.SimTabProperties.GetCaptionTab(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tagTemp);
-//          end;
-//        end;
-//        inc(tagTemp);
-//      end;
-//    end;
-//  end;
 end;
 
 procedure TfrmSituationBoard.Map1MouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);

@@ -50,15 +50,11 @@ type
     GameCtrl  : word;   {start / stop}
   end;
 
-  // CPID_CMD_LOGIN
-  TRecTCP_UserState = record
+  // CPID_CMD_RECONNECT
+  TRecTCP_Reconnect = record
     pid         : TPacketID;
     SessionID   : Integer;
-    OrderID     : Integer;
-    UserRoleId  : Integer;
     ConsoleIP   : string[20];
-    ConsoleGroup : TConsoleGroup;
-    UserRoleInUse : Boolean;
   end;
 
   // CPID_CMD_LOGIN
@@ -122,6 +118,7 @@ type
     OrderID             : Byte;
     SenderUserRoleId    : Integer;
     ReceiverUserRoleId  : Integer;
+    ChatId              : Integer;
     ChatMessage         : string[255];
   end;
 
@@ -1035,7 +1032,8 @@ const
   CPID_CMD_OVERLAYSHAPE                   = CPID_TCP + 7;
   CPID_CMD_TELEGRAM_USER_ROLE             = CPID_TCP + 8;
     SEND_TELEGRAM = 0;
-  CPID_TCP_MAX              	            = CPID_TCP + 9;
+  CPID_CMD_RECONNECT                      = CPID_TCP + 9;
+  CPID_TCP_MAX              	            = CPID_TCP + 10;
 
   {$ENDREGION}
 
@@ -1062,7 +1060,8 @@ const
   'CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES ',   // + 5
   'CPID_CMD_CHAT_USER_ROLE                ',   // + 6
   'CPID_CMD_OVERLAYSHAPE                  ',   // + 7
-  'CPID_CMD_TELEGRAM_USER_ROLE            '    // + 8
+  'CPID_CMD_TELEGRAM_USER_ROLE            ',   // + 8
+  'CPID_CMD_RECONNECT                     '    // + 9
 );
 
 begin

@@ -69,6 +69,10 @@ type
     procedure OnSituationBoardTabPropertiesChange(const rec : TRecTCPSendSituationBoardTabProperties); virtual;
     procedure OnUserRoleChatChange(const rec : TRecTCPSendChatUserRole); virtual;
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); virtual;
+
+    procedure OnSyncUserState(const rec : TRecTCP_UserState); virtual;
+    procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); virtual;
+    procedure OnSyncUserChat(const rec : TRecTCPSendChatUserRole); virtual;
     {$ENDREGION}
 
     function GetSerialTabSituationBoardID : Integer;
@@ -841,6 +845,72 @@ begin
   end;
 end;
 
+procedure TT3SimManager.OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);
+var
+  IdTemp : Integer;
+  tabPropertiesTemp : TTabProperties;
+  tabOverlayTemp : TOverlayTab;
+
+begin
+  SimTabProperties.TabList.Clear;
+  SimOverlay.TabList.Clear;
+
+  tabPropertiesTemp := TTabProperties.Create;
+
+  tabPropertiesTemp.IdTab := rec.TabId;
+  tabPropertiesTemp.IdUserRoleTab := rec.UserRoleId;
+  tabPropertiesTemp.IdOverlayTab := rec.OverlayTab;
+  tabPropertiesTemp.CaptionTab := rec.TabCaption;
+  tabPropertiesTemp.TypeTab := rec.TabType;
+  tabPropertiesTemp.ActiveTab := True;
+  tabPropertiesTemp.AddressTab := rec.TabAddres;
+
+  SimTabProperties.TabList.Add(tabPropertiesTemp);
+
+  tabOverlayTemp := TOverlayTab.Create;
+
+  tabOverlayTemp.IdOverlayTab := rec.OverlayTab;
+  tabOverlayTemp.IdUserRole := rec.UserRoleId;
+
+  SimOverlay.TabList.Add(tabOverlayTemp);
+end;
+
+procedure TT3SimManager.OnSyncUserChat(const rec: TRecTCPSendChatUserRole);
+var
+  chatTemp : Tchatting;
+
+begin
+  SimChatting.ChattingList.Clear;
+
+  chatTemp := TChatting.Create;
+
+  chatTemp.IdChat := rec.ChatId;
+  chatTemp.IdUserRoleSending := rec.SenderUserRoleId;
+  chatTemp.IdUserRoleReceive := rec.ReceiverUserRoleId;
+  chatTemp.ChatMessage := rec.ChatMessage;
+
+  SimChatting.ChattingList.Add(chatTemp);
+
+end;
+
+procedure TT3SimManager.OnSyncUserState(const rec: TRecTCP_UserState);
+var
+  userRoleTemp : TUserRole;
+
+begin
+
+  {$REGION ' Merubah data yang ada di list user role '}
+  userRoleTemp := SimUserRole.getUserRoleByID(rec.UserRoleId);
+
+  if Assigned(userRoleTemp) then
+  begin
+    userRoleTemp.isInUse := rec.UserRoleInUse;
+    userRoleTemp.ConsoleIP := rec.ConsoleIP;
+  end;
+  {$ENDREGION}
+
+end;
+
 procedure TT3SimManager.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole);
 var
 chatTemp : Tchatting;
@@ -877,7 +947,7 @@ begin
     case rec.OrderID of
       CORD_ID_LOGIN :
       begin
-        userRoleTemp.isInUse := True;
+        userRoleTemp.isInUse := rec.UserRoleInUse;
         userRoleTemp.ConsoleIP := rec.ConsoleIP;
       end;
       CORD_ID_LOGOUT :

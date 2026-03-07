@@ -47,16 +47,6 @@ begin
 
   simMgrClient.InitNetwork;
 
-  if simMgrClient.MyConsoleData.Group = cgSituationBoard then
-  begin
-    frmTacticalDisplay.pnlBackgroundLogin.BringToFront;
-    frmTacticalDisplay.pnlSituationBoard.BringToFront;
-  end
-  else
-  begin
-    frmTacticalDisplay.pnlHome.BringToFront;
-    frmTacticalDisplay.pnlLogin.BringToFront;
-  end;
 end;
 
 procedure EndGame;
