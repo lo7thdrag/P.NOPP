@@ -57,6 +57,18 @@ type
     OrderID     : Integer;
     UserRoleId  : Integer;
     ConsoleIP   : string[20];
+    ConsoleGroup : TConsoleGroup;
+    UserRoleInUse : Boolean;
+  end;
+
+  // CPID_CMD_LOGIN
+  TRecTCP_UserState = record
+    pid         : TPacketID;
+    SessionID   : Integer;
+    OrderID     : Integer;
+    UserRoleId  : Integer;
+    ConsoleIP   : string[20];
+    ConsoleGroup : TConsoleGroup;
     UserRoleInUse : Boolean;
   end;
 

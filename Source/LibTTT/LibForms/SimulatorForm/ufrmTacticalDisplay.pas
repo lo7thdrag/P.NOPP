@@ -51,6 +51,7 @@ type
     pnlButton: TPanel;
     cbbSubRole: TComboBox;
     lstUserRoleLogin: TListBox;
+    btnConnect: TButton;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -68,6 +69,7 @@ type
     procedure btnBackClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure btnConnectClick(Sender: TObject);
 
   private
     FSelectedSubRole : TSubRole;
@@ -278,6 +280,16 @@ begin
   pnlHome.BringToFront;
 end;
 
+procedure TfrmTacticalDisplay.btnConnectClick(Sender: TObject);
+var
+//  record
+begin
+  if SimManager.GetGameState then
+  begin
+    simMgrClient.netSend_CmdUserState(rec)
+  end;
+end;
+
 procedure TfrmTacticalDisplay.btnImplementationClick(Sender: TObject);
 begin
   if btnImplementation.Down then
@@ -305,6 +317,7 @@ end;
 procedure TfrmTacticalDisplay.btnLoginClick(Sender: TObject);
 var
   rec : TRecTCP_UserState;
+  userRoleTemp : TUserRole;
 
 begin
   if not SimManager.GetGameState then
@@ -313,32 +326,42 @@ begin
     Exit;
   end;
 
-  if Assigned(FselectedUserRole) then
+  if not Assigned(FselectedUserRole) then
   begin
-    if (FselectedUserRole.FData.Username = edtUsername.Text)  and (FselectedUserRole.FData.Password = edtPassword.Text) then
-    begin
-      if not FselectedUserRole.isInUse then
-      begin
-        rec.OrderID       := CORD_ID_LOGIN;
-        rec.UserRoleId    := FselectedUserRole.FData.UserRoleIndex;
-        rec.ConsoleIP     := simMgrClient.MyConsoleData.IpAdrres;
-        rec.UserRoleInUse := True;
+    ShowMessage('User role not found, please return to the home page and re-select the user role.');
+    Exit;
+  end;
 
-        simMgrClient.netSend_CmdUserState(rec);
-      end
-      else
-      begin
-        ShowMessage('User Role is in use ');
-      end;
-    end
-    else
+  userRoleTemp := SimManager.SimUserRole.getUserRoleByID(FselectedUserRole.FData.UserRoleIndex);
+
+  if not Assigned(userRoleTemp) then
+  begin
+    ShowMessage('User role inactive, please return to the home page and re-select the other user role.');
+    Exit;
+  end;
+
+  if simMgrClient.MyConsoleData.Group <>  cgWasdal then
+  begin
+    if userRoleTemp.isInUse then
     begin
-      ShowMessage('Invalid username and password ');
-    end;
+      ShowMessage('User Role is in use ');
+      Exit
+    end
+  end;
+
+  if (userRoleTemp.FData.Username = edtUsername.Text)  and (userRoleTemp.FData.Password = edtPassword.Text) then
+  begin
+    rec.OrderID       := CORD_ID_LOGIN;
+    rec.UserRoleId    := FselectedUserRole.FData.UserRoleIndex;
+    rec.ConsoleIP     := simMgrClient.MyConsoleData.IpAdrres;
+    rec.ConsoleGroup  := simMgrClient.MyConsoleData.Group;
+    rec.UserRoleInUse := True;
+
+    simMgrClient.netSend_CmdUserState(rec);
   end
   else
   begin
-    ShowMessage('Role not found, please check username and password again');
+    ShowMessage('Invalid username and password ');
   end;
 
 end;
@@ -353,6 +376,7 @@ begin
     rec.OrderID := CORD_ID_LOGOUT;
     rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
     rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
+    rec.ConsoleGroup  := simMgrClient.MyConsoleData.Group;
     rec.UserRoleInUse := False;
 
     simMgrClient.netSend_CmdUserState(rec);

@@ -2771,7 +2771,7 @@ object frmSituationBoard: TfrmSituationBoard
           end
           object cbSetScale: TComboBox
             Left = 42
-            Top = 0
+            Top = 7
             Width = 95
             Height = 21
             Cursor = crHandPoint

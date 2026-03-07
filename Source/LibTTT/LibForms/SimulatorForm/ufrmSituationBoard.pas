@@ -578,8 +578,6 @@ end;
 
 procedure TfrmSituationBoard.RefreshTab;
 begin
-//  pnlHome.BringToFront;
-
   if Assigned(FSelectedTabProperties) then
   begin
     if FSelectedTabProperties.TypeTab = 0 then

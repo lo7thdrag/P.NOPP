@@ -129,6 +129,7 @@ begin
   end;
 
   FConsoleData := TConsoleData.Create;
+
   EventManager := TT3ClientEventManager.Create;
 
   DrawFlagPoint := TFlagPointbContainer.Create;
@@ -210,6 +211,8 @@ begin
         FConsoleData.Group := cgSituationBoard
       else if (SimConsole.GetConsoleRoleName(ip)= 'Instructor Group') then
         FConsoleData.Group := cgInstructor
+      else if (SimConsole.GetConsoleRoleName(ip)= 'Wasdal Group') then
+        FConsoleData.Group := cgWasdal
       else
         FConsoleData.Group := cgOfficial;
     end;
@@ -570,7 +573,7 @@ begin
   inherited;
 
   {$REGION ' Khusus Console yg bersangkutan '}
-  if MyConsoleData.IpAdrres = rec.ConsoleIP then
+  if (MyConsoleData.IpAdrres = rec.ConsoleIP) or (rec.ConsoleGroup = cgWasdal) then
   begin
     userRoleTemp := SimUserRole.getUserRoleByID(rec.UserRoleId);
 

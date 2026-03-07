@@ -24,7 +24,10 @@ begin
   frmSituationBoard_Instance;
   simMgrClient := TSimMgr_Client.Create(frmSituationBoard.Map1);
 
+  {Load Console Identifier}
   simMgrClient.LoadConsoleID;
+
+
   simMgrClient.LoadDataAsset(vGameDataSetting);
 
   simMgrClient.SessionID := vGameDataSetting.SessionID;

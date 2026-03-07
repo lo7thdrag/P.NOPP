@@ -47,9 +47,9 @@ type
   public
 
     SimConsole : TConsoleContainer; {load dari xml}
-    SimRole : TRoleContainer; {load dari database}
-    SimSubRole : TSubRoleContainer; {load dari database}
-    SimUserRole : TUserRoleContainer; {load dari database}
+    SimRole : TRoleContainer; {load dari database, Project}
+    SimSubRole : TSubRoleContainer; {load dari database, Kogas}
+    SimUserRole : TUserRoleContainer; {load dari database, Jabatan}
     SimTabProperties : TTabPropertiesContainer; {load saat running}
     SimChatting : TChattingContainer; {load saat running}
     SimOverlay : TOverlayTabContainer; {load saat running}
@@ -865,6 +865,9 @@ var
   userRoleTemp : TUserRole;
 
 begin
+
+  if rec.ConsoleGroup = cgWasdal then
+    Exit;
 
   {$REGION ' Merubah data yang ada di list user role '}
   userRoleTemp := SimUserRole.getUserRoleByID(rec.UserRoleId);
