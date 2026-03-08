@@ -17,10 +17,6 @@ type
   TfrmTacticalDisplay = class(TForm)
     pnlMainLogin: TPanel;
     pnlLeft: TPanel;
-    pnlCenter: TPanel;
-    pnlLogo: TPanel;
-    Image6: TImage;
-    Image1: TImage;
     pnlLogin: TPanel;
     btnShowPassword: TImage;
     btnLogin: TButton;
@@ -44,15 +40,24 @@ type
     btnPreparation: TRzBmpButton;
     btnImplementation: TRzBmpButton;
     btnTermination: TRzBmpButton;
-    lblUserIdentifier: TLabel;
     btnBack: TButton;
     lblConsoleName: TLabel;
-    Label5: TLabel;
     pnlButton: TPanel;
     cbbSubRole: TComboBox;
     lstUserRoleLogin: TListBox;
     btnLoad: TButton;
     btnConnect: TButton;
+    pbLoadSystem: TProgressBar;
+    tmrProgressbar: TTimer;
+    tmrPBSituationBoard: TTimer;
+    pnlCenter: TPanel;
+    lblUserIdentifier: TLabel;
+    Label5: TLabel;
+    pnlLogo: TPanel;
+    Image6: TImage;
+    pbSituationBoard: TProgressBar;
+    lblPb: TLabel;
+    lblPbLoadSystem: TLabel;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -72,8 +77,12 @@ type
     procedure FormShow(Sender: TObject);
     procedure btnLoadClick(Sender: TObject);
     procedure btnConnectClick(Sender: TObject);
+    procedure tmrProgressbarTimer(Sender: TObject);
+    procedure Image6Click(Sender: TObject);
+    procedure tmrPBSituationBoardTimer(Sender: TObject);
 
   private
+//    FTimerbutton : Integer;
     FSelectedSubRole : TSubRole;
     FselectedUserRole : TUserRole;
 
@@ -150,6 +159,16 @@ end;
 procedure TfrmTacticalDisplay.btnConnectClick(Sender: TObject);
 begin
   simMgrClient.CekGameState;
+
+//  FTimerbutton := 0;
+
+  pbLoadSystem.Visible := True;
+  lblPbLoadSystem.Visible := True;
+
+  pbLoadSystem.Position := 0;
+
+  tmrProgressbar.Enabled := True;
+  btnConnect.Visible := False;
 end;
 
 procedure TfrmTacticalDisplay.cbbConsoleNameDropDown(Sender: TObject);
@@ -297,23 +316,11 @@ begin
     rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
     simMgrClient.netSend_CmdReconnect(rec);
 
-    if simMgrClient.MyConsoleData.Group = cgSituationBoard then
-    begin
-      Label5.Visible := False;
-      pnlBackgroundLogin.BringToFront;
-      pnlSituationBoard.BringToFront;
-    end
-    else
-    begin
-      pnlHome.BringToFront;
-      pnlLogin.BringToFront;
-    end;
+//    FTimerbutton := 1;
+    pbLoadSystem.Visible := True;
+    pbLoadSystem.Position := 0;
 
-    btnPlanning.Visible := SimManager.GetGameState;
-    btnPreparation.Visible := SimManager.GetGameState;
-    btnImplementation.Visible := SimManager.GetGameState;
-    btnTermination.Visible := SimManager.GetGameState;
-
+    tmrProgressbar.Enabled := True;
     btnLoad.Visible := False;
   end;
 end;
@@ -486,6 +493,15 @@ begin
   pnlButton.Left := (pnlHome.Width-pnlButton.Width)div 2;
 end;
 
+procedure TfrmTacticalDisplay.Image6Click(Sender: TObject);
+begin
+  simMgrClient.CekGameState;
+
+  tmrPBSituationBoard.Enabled := True;
+  pbSituationBoard.Visible := True;
+  lblPb.Visible := True;
+end;
+
 procedure TfrmTacticalDisplay.Initialize;
 var
   i : Integer;
@@ -544,6 +560,150 @@ begin
   pnlBackgroundLogin.BringToFront;
 end;
 
+procedure TfrmTacticalDisplay.tmrPBSituationBoardTimer(Sender: TObject);
+var
+  rec : TRecTCP_Reconnect;
+
+begin
+  pbSituationBoard.Position := pbSituationBoard.Position + 1 ;
+
+  if pbSituationBoard.Position < 50 then
+  begin
+
+    lblPb.Caption := 'Connecting to Server ....'
+  end
+  else if pbSituationBoard.Position = 50 then
+  begin
+    if SimManager.GetGameState then
+    begin
+      rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
+      simMgrClient.netSend_CmdReconnect(rec);
+    end;
+  end
+  else if (pbSituationBoard.Position > 50) and (pbSituationBoard.Position < 100) then
+  begin
+    lblPb.Caption := 'Loading data ....'
+  end
+  else if pbSituationBoard.Position = 100 then
+  begin
+    pbSituationBoard.Visible := False;
+    lblPb.Visible := False;
+    tmrPBSituationBoard.Enabled := False;
+  end;
+end;
+
+procedure TfrmTacticalDisplay.tmrProgressbarTimer(Sender: TObject);
+var
+  rec : TRecTCP_Reconnect;
+
+begin
+  pbLoadSystem.Position := pbLoadSystem.Position + 1;
+
+  if pbLoadSystem.Position < 50 then
+  begin
+
+    lblPbLoadSystem.Caption := 'Connecting to Server ....'
+  end
+  else if pbLoadSystem.Position = 50 then
+  begin
+    if SimManager.GetGameState then
+    begin
+      rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
+      simMgrClient.netSend_CmdReconnect(rec);
+    end;
+  end
+  else if (pbLoadSystem.Position > 50) and (pbLoadSystem.Position < 100) then
+  begin
+    lblPbLoadSystem.Caption := 'Loading data ....'
+  end
+  else if pbLoadSystem.Position = 100 then
+  begin
+    tmrProgressbar.Enabled := False;
+    lblPbLoadSystem.Visible := False;
+    pbLoadSystem.Visible := False;
+
+    if not SimManager.GetGameState then
+    begin
+      ShowMessage('Server System is stop ');
+      btnConnect.Visible := not SimManager.GetGameState;
+    end
+    else
+    begin
+      if simMgrClient.MyConsoleData.Group = cgSituationBoard then
+      begin
+        Label5.Visible := False;
+        pnlBackgroundLogin.BringToFront;
+        pnlSituationBoard.BringToFront;
+        pnlLogo.Visible := True;
+      end
+      else
+      begin
+        pnlHome.BringToFront;
+        pnlLogin.BringToFront;
+        pnlLogo.Visible := False;
+      end;
+
+      btnPlanning.Visible := SimManager.GetGameState;
+      btnPreparation.Visible := SimManager.GetGameState;
+      btnImplementation.Visible := SimManager.GetGameState;
+      btnTermination.Visible := SimManager.GetGameState;
+    end;
+  end;
+
+//  case FTimerbutton of
+//    0 : {Timer button connect}
+//    begin
+//      if pbLoadSystem.Position = 100 then
+//      begin
+//        pbLoadSystem.Visible := False;
+//        tmrProgressbar.Enabled := False;
+//        btnLoad.Visible := SimManager.GetGameState;
+//        btnConnect.Visible := not SimManager.GetGameState;
+//
+//        if not SimManager.GetGameState then
+//        begin
+//          ShowMessage('Server System is stop ');
+//        end;
+//      end;
+//    end;
+//    1 : {Timer button load}
+//    begin
+//      if pbLoadSystem.Position = 100 then
+//      begin
+//
+//        tmrProgressbar.Enabled := False;
+//        pbLoadSystem.Visible := False;
+//
+//        if simMgrClient.MyConsoleData.Group = cgSituationBoard then
+//        begin
+//          Label5.Visible := False;
+//          pnlBackgroundLogin.BringToFront;
+//          pnlSituationBoard.BringToFront;
+//          pnlLogo.Visible := True;
+//        end
+//        else
+//        begin
+//          pnlHome.BringToFront;
+//          pnlLogin.BringToFront;
+//          pnlLogo.Visible := False;
+//        end;
+//
+//        btnPlanning.Visible := SimManager.GetGameState;
+//        btnPreparation.Visible := SimManager.GetGameState;
+//        btnImplementation.Visible := SimManager.GetGameState;
+//        btnTermination.Visible := SimManager.GetGameState;
+//
+//        if not SimManager.GetGameState then
+//        begin
+//          ShowMessage('Server System is stop ');
+//          btnConnect.Visible := not SimManager.GetGameState;
+//        end;
+//      end;
+//    end;
+//  end;
+
+end;
+
 procedure TfrmTacticalDisplay.UpdateClientLogin(Sender: TObject);
 begin
   frmDisplayArea_Instance.Show;
@@ -571,8 +731,8 @@ end;
 procedure TfrmTacticalDisplay.UpdateGameState(Sender: TObject);
 begin
 
-  btnConnect.Visible := not SimManager.GetGameState;
-  btnLoad.Visible := SimManager.GetGameState;
+  btnConnect.Visible := True;
+  btnLoad.Visible := True;
 
   btnPlanning.Visible := False;
   btnPreparation.Visible := False;

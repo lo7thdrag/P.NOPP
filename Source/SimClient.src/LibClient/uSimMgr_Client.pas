@@ -131,7 +131,7 @@ var
 
 begin
   VNetClient.GameCtrl := 0;
-  simMgrClient.netSend_CmdGameState(rec)
+  netSend_CmdGameState(rec)
 end;
 
 constructor TSimMgr_Client.Create(Map : TMap);
