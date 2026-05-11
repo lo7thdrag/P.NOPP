@@ -395,6 +395,42 @@ type
     Label77: TLabel;
     edtHeading: TEdit;
     Label73: TLabel;
+    btnStartCopyArrow: TImage;
+    btnStartPasteArrow: TImage;
+    btnEndCopyArrow: TImage;
+    btnEndPasteArrow: TImage;
+    btnCopyBase: TImage;
+    btnPasteBase: TImage;
+    btnCopyInformation: TImage;
+    btnPasteInformation: TImage;
+    btnCopyLog: TImage;
+    btnPasteLog: TImage;
+    btnCopyPlatform: TImage;
+    btnPastePlatform: TImage;
+    btnCopyRad: TImage;
+    btnPasteRad: TImage;
+    btnCopyArc: TImage;
+    btnPasteArc: TImage;
+    btnCopyCircle: TImage;
+    btnPasteCircle: TImage;
+    btnCopyEll: TImage;
+    btnPasteEllip: TImage;
+    btnCopyGrid: TImage;
+    btnPasteGrid: TImage;
+    btnCopyStartLine: TImage;
+    btnPasteStartLine: TImage;
+    btnCopyEndLine: TImage;
+    btnPasteEndLine: TImage;
+    btnCopyPoly: TImage;
+    btnPastePoly: TImage;
+    btnCopyStartRec: TImage;
+    btnPasteStartRec: TImage;
+    btnCopyEndRec: TImage;
+    btnPasteEndRec: TImage;
+    btnCopySector: TImage;
+    btnPasteSector: TImage;
+    btnCopyText: TImage;
+    btnPasteText: TImage;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
@@ -412,6 +448,43 @@ type
       Selected: Boolean);
     procedure btnplatformClick(Sender: TObject);
     procedure MoveTableShape(OldX, OldY, NewX, NewY: Double);
+    procedure btnCopyPositionClick(Sender: TObject);
+    procedure btnPasteRadpClick(Sender: TObject);
+    procedure btnStartCopyArrowpClick(Sender: TObject);
+    procedure btnStartPasteArrowpClick(Sender: TObject);
+    procedure btnEndCopyArrowpClick(Sender: TObject);
+    procedure btnEndPasteArrowpClick(Sender: TObject);
+    procedure btnCopyClick(Sender: TObject);
+    procedure btnPasteBasepClick(Sender: TObject);
+    procedure btnCopyInformationpClick(Sender: TObject);
+    procedure btnPasteInformationpClick(Sender: TObject);
+    procedure btnCopyLogpClick(Sender: TObject);
+    procedure btnPasteLogpClick(Sender: TObject);
+    procedure btnCopyPlatformpClick(Sender: TObject);
+    procedure btnPastePlatformpClick(Sender: TObject);
+    procedure btnCopyEllpClick(Sender: TObject);
+    procedure btnPasteEllippClick(Sender: TObject);
+    procedure btnCopyArcpClick(Sender: TObject);
+    procedure btnPasteArcpClick(Sender: TObject);
+    procedure btnCopyCirclepClick(Sender: TObject);
+    procedure btnPasteCirclepClick(Sender: TObject);
+    procedure btnCopyGridpClick(Sender: TObject);
+    procedure btnPasteGridpClick(Sender: TObject);
+    procedure btnCopyStartLinepClick(Sender: TObject);
+    procedure btnCopyEndLinepClick(Sender: TObject);
+    procedure btnPasteEndLinepClick(Sender: TObject);
+    procedure btnPasteStartLinepClick(Sender: TObject);
+    procedure btnPastePolypClick(Sender: TObject);
+    procedure btnCopyPolypClick(Sender: TObject);
+    procedure btnCopyStartRecpClick(Sender: TObject);
+    procedure btnPasteStartRecpClick(Sender: TObject);
+    procedure btnCopyEndRecpClick(Sender: TObject);
+    procedure btnPasteEndRecpClick(Sender: TObject);
+    procedure btnPasteSectorpClick(Sender: TObject);
+    procedure btnCopySectorpClick(Sender: TObject);
+    procedure btnPasteTextpClick(Sender: TObject);
+    procedure btnCopyTextpClick(Sender: TObject);
+    procedure btnCopyRadpClick(Sender: TObject);
   private
     FShapeType : Integer;
     FisInputProblem : Boolean;
@@ -421,6 +494,10 @@ type
     FSelectedOverlayTab : TOverlayTab;
     FAction : Byte;
     FIdSelectedLogistic, FIdSelectedEmbark : Integer;
+
+    FLatCopy : string;
+    FLongCopy : string;
+
   protected
     procedure CreateParams(var Params : TCreateParams); override;
   public
@@ -568,6 +645,120 @@ begin
   Close;
 end;
 
+procedure TfrmOverlayTools.btnCopyArcpClick(Sender: TObject);
+begin
+  FLatCopy  := edtArcPosLat.Text;
+  FLongCopy := edtArcPosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyClick(Sender: TObject);
+begin
+  FLatCopy  := edtLattBase.Text;
+  FLongCopy := edtLongBase.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyCirclepClick(Sender: TObject);
+begin
+  FLatCopy  := edtCirclePosLat.Text;
+  FLongCopy := edtCirclePosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyEllpClick(Sender: TObject);
+begin
+  FLatCopy  := edtEllipsePosLat.Text;
+  FLongCopy := edtEllipsePosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyEndLinepClick(Sender: TObject);
+begin
+  FLatCopy  := edtLineEndPosLat.Text;
+  FLongCopy := edtLineEndPosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyEndRecpClick(Sender: TObject);
+begin
+  FLatCopy  := edtRectEndPosLat.Text;
+  FLongCopy := edtRectEndPosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyGridpClick(Sender: TObject);
+begin
+  FLatCopy  := edtTablePosLat.Text;
+  FLongCopy := edtTablePosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyInformationpClick(Sender: TObject);
+begin
+  FLatCopy  := edtLattIntel.Text;
+  FLongCopy := edtLongIntel.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyLogpClick(Sender: TObject);
+begin
+  FLatCopy  := edtLattLog.Text;
+  FLongCopy := edtLongLog.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyPlatformpClick(Sender: TObject);
+begin
+  FLatCopy  := edtLattPlatform.Text;
+  FLongCopy := edtLongPlatform.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyPolypClick(Sender: TObject);
+begin
+  FLatCopy  := edtPolyPosLat.Text;
+  FLongCopy := edtPolyPosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyPositionClick(Sender: TObject);
+begin
+  FLatCopy  := edtLattRadar.Text;
+  FLongCopy := edtLongRadar.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyRadpClick(Sender: TObject);
+begin
+  FLatCopy  := edtLattRadar.Text;
+  FLongCopy := edtLongRadar.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopySectorpClick(Sender: TObject);
+begin
+  FLatCopy  := edtSectorPosLat.Text;
+  FLongCopy := edtSectorPosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyStartLinepClick(Sender: TObject);
+begin
+  FLatCopy  := edtLineStartPosLat.Text;
+  FLongCopy := edtLineStartPosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyStartRecpClick(Sender: TObject);
+begin
+  FLatCopy  := edtRectStartPosLat.Text;
+  FLongCopy := edtRectStartPosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnCopyTextpClick(Sender: TObject);
+begin
+  FLatCopy  := edtTextPosLAt.Text;
+  FLongCopy := edtTextPosLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnEndCopyArrowpClick(Sender: TObject);
+begin
+  FLatCopy  := edtEndLatt.Text;
+  FLongCopy := edtEndLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnEndPasteArrowpClick(Sender: TObject);
+begin
+  edtEndLatt.Text :=  FLatCopy;
+  edtEndLong.Text :=  FLongCopy;
+end;
+
 procedure TfrmOverlayTools.btnFillClick(Sender: TObject);
 begin
   FShapeColor := scFill;
@@ -636,6 +827,102 @@ begin
   FShapeColor := scOutline;
 end;
 
+procedure TfrmOverlayTools.btnPasteArcpClick(Sender: TObject);
+begin
+  edtArcPosLat.Text   := FLatCopy;
+  edtArcPosLong.Text  := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteBasepClick(Sender: TObject);
+begin
+  edtLattBase.Text := FLatCopy;
+  edtLongBase.Text := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteCirclepClick(Sender: TObject);
+begin
+  edtCirclePosLat.Text   := FLatCopy;
+  edtCirclePosLong.Text  := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteEllippClick(Sender: TObject);
+begin
+  edtEllipsePosLat.Text   := FLatCopy;
+  edtEllipsePosLong.Text  := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteEndLinepClick(Sender: TObject);
+begin
+  edtLineEndPosLat.Text   := FLatCopy;
+  edtLineEndPosLong.Text  := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteEndRecpClick(Sender: TObject);
+begin
+  edtRectEndPosLat.Text   := FLatCopy;
+  edtRectEndPosLong.Text  := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteGridpClick(Sender: TObject);
+begin
+  edtTablePosLat.Text   := FLatCopy;
+  edtTablePosLong.Text  := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteInformationpClick(Sender: TObject);
+begin
+  edtLattIntel.Text := FLatCopy;
+  edtLongIntel.Text := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteLogpClick(Sender: TObject);
+begin
+  edtLattLog.Text := FLatCopy;
+  edtLongLog.Text := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPastePlatformpClick(Sender: TObject);
+begin
+  edtLattPlatform.Text := FLatCopy;
+  edtLongPlatform.Text := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPastePolypClick(Sender: TObject);
+begin
+  edtPolyPosLat.Text  := FLatCopy;
+  edtPolyPosLong.Text := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteRadpClick(Sender: TObject);
+begin
+  edtLattRadar.Text := FLatCopy;
+  edtLongRadar.Text := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteSectorpClick(Sender: TObject);
+begin
+  edtSectorPosLat.Text   := FLatCopy;
+  edtSectorPosLong.Text  := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteStartLinepClick(Sender: TObject);
+begin
+  edtLineStartPosLat.Text   := FLatCopy;
+  edtLineStartPosLong.Text  := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteStartRecpClick(Sender: TObject);
+begin
+  edtRectStartPosLat.Text   := FLatCopy;
+  edtRectStartPosLong.Text  := FLongCopy;
+end;
+
+procedure TfrmOverlayTools.btnPasteTextpClick(Sender: TObject);
+begin
+  edtTextPosLAt.Text   := FLatCopy;
+  edtTextPosLong.Text  := FLongCopy;
+end;
+
 procedure TfrmOverlayTools.btnplatformClick(Sender: TObject);
 begin
   if not Assigned(frmSelectSimbolTaktis) then
@@ -687,6 +974,8 @@ begin
 end;
 
 function TfrmOverlayTools.CekInput(IdObject: Integer): Boolean;
+ var
+      InnerRadius, OuterRadius: Double;
 begin
   Result := False;
 
@@ -752,10 +1041,15 @@ begin
         ShowMessage('Data yang dimasukan tidak lengkap');
         Result := True;
       end
-      else if (edtCircleRadius.Text = '0' ) then
+         // Radius tidak boleh 0
+      else if StrToFloat(edtArcRadius.Text) = 0 then
       begin
-        ShowMessage('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+        ShowMessage('Radius tidak boleh sama dengan 0');
         Result := True;
+//      else if (edtCircleRadius.Text = '0' ) then
+//      begin
+//        ShowMessage('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+//        Result := True;
       end;
       {$ENDREGION}
     end;
@@ -780,36 +1074,63 @@ begin
     ovArc:{Arc}
     begin
       {$REGION ' Arc '}
-      if (edtArcPosLong.Text = '') or (edtArcPosLat.Text = '')or
-      (edtArcRadius.Text = '')or(edtArcStartAngle.Text = '')or
-      (edtArcEndAngle.Text = '')then
+
+      if (edtArcPosLong.Text = '') or (edtArcPosLat.Text = '') or
+         (edtArcRadius.Text = '') or (edtArcStartAngle.Text = '') or
+         (edtArcEndAngle.Text = '') then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage('Data yang dimasukan tidak lengkap');
         Result := True;
       end
-      else if (edtArcRadius.Text = '0') then
+
+      // Radius tidak boleh 0
+      else if StrToFloat(edtArcRadius.Text) = 0 then
       begin
-        ShowMessage ('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+        ShowMessage('Radius tidak boleh sama dengan 0');
         Result := True;
       end
-      else if (edtArcEndAngle.Text = edtArcStartAngle.Text) then
+
+      // Start Angle dan End Angle tidak boleh sama
+      else if StrToFloat(edtArcStartAngle.Text) =
+              StrToFloat(edtArcEndAngle.Text) then
       begin
-        ShowMessage ('Data yang dimasukkan tidak sesuai, Posisi Start dan End Angle tidak boleh sama');
+        ShowMessage('Start Angle dan End Angle tidak boleh sama');
         Result := True;
       end;
+//      if (edtArcPosLong.Text = '') or (edtArcPosLat.Text = '')or
+//      (edtArcRadius.Text = '')or(edtArcStartAngle.Text = '')or
+//      (edtArcEndAngle.Text = '')then
+//      begin
+//        ShowMessage ('Data yang dimasukan tidak lengkap');
+//        Result := True;
+//      end
+//      else if (edtArcRadius.Text = '0') then
+//      begin
+//        ShowMessage ('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+//        Result := True;
+//      end
+//      else if (edtArcEndAngle.Text = edtArcStartAngle.Text) then
+//      begin
+//        ShowMessage ('Data yang dimasukkan tidak sesuai, Posisi Start dan End Angle tidak boleh sama');
+//        Result := True;
+//      end;
       {$ENDREGION}
     end;
     ovSector:{Sector}
     begin
       {$REGION ' Sector '}
+      begin
+      InnerRadius := StrToFloat(edtSectorInner.Text);
+      OuterRadius := StrToFloat(edtSectorOuter.Text);
+
       if(edtSectorInner.Text = '') or (edtSectorOuter.Text = '')or
-      (edtSectorStartAngle.Text = '') or (edtSectorEndAngle.Text = '')or
-      (edtSectorPosLat.Text = '')or (edtSectorPosLong.Text = '')then
+        (edtSectorStartAngle.Text = '') or (edtSectorEndAngle.Text = '')or
+        (edtSectorPosLat.Text = '')or (edtSectorPosLong.Text = '')then
       begin
         ShowMessage ('Data yang dimasukan tidak lengkap');
         Result := True;
       end
-      else if (edtSectorInner.Text = '0')or (edtSectorOuter.Text = '0')then
+      else if (InnerRadius <= 0) or (OuterRadius <= 0) then
       begin
         ShowMessage ('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
         Result := True;
@@ -819,11 +1140,44 @@ begin
         ShowMessage('Data yang dimasukkan tidak sesuai, Posisi Start dan End Angle tidak boleh sama');
         Result := True;
       end
-      else if (edtSectorInner.Text = edtSectorOuter.Text) then
+      else if (InnerRadius = OuterRadius) then
       begin
-        ShowMessage ('Data Inner, Outer atau Radius yang dimasukan tidak sesuai');
+        ShowMessage ('Radius Inner dan Outer tidak boleh sama');
+        Result := True;
+      end
+      else if (InnerRadius > OuterRadius) then
+      begin
+        ShowMessage ('Radius Inner tidak boleh lebih besar dari Radius Outer');
+        Result := True;
+      end
+      else if (OuterRadius < InnerRadius) then
+      begin
+        ShowMessage ('Radius Outer tidak boleh lebih kecil dari Radius Inner');
         Result := True;
       end;
+      end;
+//      if(edtSectorInner.Text = '') or (edtSectorOuter.Text = '')or
+//      (edtSectorStartAngle.Text = '') or (edtSectorEndAngle.Text = '')or
+//      (edtSectorPosLat.Text = '')or (edtSectorPosLong.Text = '')then
+//      begin
+//        ShowMessage ('Data yang dimasukan tidak lengkap');
+//        Result := True;
+//      end
+//      else if (edtSectorInner.Text = '0')or (edtSectorOuter.Text = '0')then
+//      begin
+//        ShowMessage ('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+//        Result := True;
+//      end
+//      else if (edtSectorStartAngle.Text = edtSectorEndAngle.Text) then
+//      begin
+//        ShowMessage('Data yang dimasukkan tidak sesuai, Posisi Start dan End Angle tidak boleh sama');
+//        Result := True;
+//      end
+//      else if (edtSectorInner.Text = edtSectorOuter.Text) then
+//      begin
+//        ShowMessage ('Data Inner, Outer atau Radius yang dimasukan tidak sesuai');
+//        Result := True;
+//      end;
       {$ENDREGION}
     end;
     ovGrid:{Grid}
@@ -883,7 +1237,12 @@ begin
       begin
         ShowMessage ('Data yang dimasukan tidak lengkap');
         Result := True;
-      end;
+      end
+      else if StrToFloat(edtArcRadius.Text) = 0 then
+      begin
+        ShowMessage('Radius tidak boleh sama dengan 0');
+        Result := True;
+      end
       {$ENDREGION}
     end;
     ovPangkalan:
@@ -1138,6 +1497,9 @@ begin
   cbbTypeTools.ItemIndex := 0;
   cbbTypeToolsChange(nil);
   btnHandleShape(btnSelect);
+
+  FLatCopy := '';
+  FLongCopy := '';
 end;
 
 {$REGION ' Procedure Gbr '}
@@ -3071,6 +3433,18 @@ begin
     end;
   end;
   RefreshEmbark;
+end;
+
+procedure TfrmOverlayTools.btnStartCopyArrowpClick(Sender: TObject);
+begin
+  FLatCopy  := edtStartLatt.Text;
+  FLongCopy := edtStartLong.Text;
+end;
+
+procedure TfrmOverlayTools.btnStartPasteArrowpClick(Sender: TObject);
+begin
+  edtStartLatt.Text :=  FLatCopy;
+  edtStartLong.Text :=  FLongCopy;
 end;
 
 end.
