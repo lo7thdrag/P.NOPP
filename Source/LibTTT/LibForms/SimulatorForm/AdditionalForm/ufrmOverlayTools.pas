@@ -485,6 +485,17 @@ type
     procedure btnPasteTextpClick(Sender: TObject);
     procedure btnCopyTextpClick(Sender: TObject);
     procedure btnCopyRadpClick(Sender: TObject);
+    procedure edtRadiusKeyPress(Sender: TObject; var Key: Char);
+    procedure edtArcRadiusKeyPress(Sender: TObject; var Key: Char);
+    procedure edtCircleRadiusKeyPress(Sender: TObject; var Key: Char);
+    procedure edtSectorInnerKeyPress(Sender: TObject; var Key: Char);
+    procedure edtSectorOuterKeyPress(Sender: TObject; var Key: Char);
+    procedure edtSectorStartAngleKeyPress(Sender: TObject; var Key: Char);
+    procedure edtSectorEndAngleKeyPress(Sender: TObject; var Key: Char);
+    procedure edtHeadingKeyPress(Sender: TObject; var Key: Char);
+    procedure edtHeadingExit(Sender: TObject);
+//    procedure edtHeadingKeyPress(Sender: TObject; var Key: Char; ShipHeading: double);
+
   private
     FShapeType : Integer;
     FisInputProblem : Boolean;
@@ -506,7 +517,7 @@ type
     IdAction: Byte; { 1: add; 2: Edit; 3: Delete }
 
     FShapeId : Integer;
-
+    ShipHeading : Double;
     FSelectedShape : TMainShape;
     FSelectIntelijenShape: TIntelijenShape;
     FSelectLogisticShape : TLogisticShape;
@@ -559,9 +570,12 @@ type
     procedure SelectShape(mx, my :Double);
     procedure SetPosition(mx, my :Double);
 
+
+    function GetInput(s : string): Boolean;
     function FindIdSelectedShape: Boolean;
     function GetPlottingColor:Integer;
     function CekInput(IdObject : Integer): Boolean;
+    function ValidateDegree(Value: Double): Double;
     procedure RefreshLvPolyVertexList;
     procedure RefreshLogistic;
     procedure RefreshEmbark;
@@ -636,6 +650,7 @@ begin
   end;
   ClearEditText;
   ClearFlagPoint;
+
 end;
 
 procedure TfrmOverlayTools.btnCloseClick(Sender: TObject);
@@ -975,7 +990,7 @@ end;
 
 function TfrmOverlayTools.CekInput(IdObject: Integer): Boolean;
  var
-      InnerRadius, OuterRadius: Double;
+      InnerRadius, OuterRadius, InputHeading: Double;
 begin
   Result := False;
 
@@ -987,12 +1002,12 @@ begin
       if(edtTextPosLong.Text = '') or (edtTextPosLAt.Text= '')or
         (edtTextField.Text = '')or(cbbTextSize.Text = '')then
       begin
-        ShowMessage('Data yang dimasukkan tidak lengkap');
+        ShowMessage('The provided input data is incomplete');
         Result := True;
       end
       else if (StrToInt(cbbTextSize.Text) > 72 )or (StrToInt(cbbTextSize.Text) = 0 )then
       begin
-        ShowMessage('Ukuran tulisan tidak sesuai');
+        ShowMessage('Invalid input. Font size is not valid.');
         Result := True;
       end;
       {$ENDREGION}
@@ -1003,12 +1018,12 @@ begin
       if (edtLineStartPosLong.Text ='') or (edtLineStartPosLat.Text = '')or
       (edtLineEndPosLong.Text = '') or (edtLineEndPosLat.Text = '')then
       begin
-        ShowMessage('Data yang dimasukkan tidak lengkap');
+        ShowMessage('The provided input data is incomplete.');
         Result := True;
       end
       else if (edtLineStartPosLong.Text = edtLineEndPosLong.Text) and (edtLineStartPosLat.Text = edtLineEndPosLat.Text)then
       begin
-        ShowMessage('Data yang dimasukkan tidak sesuai, Posisi Start dan End tidak boleh sama');
+        ShowMessage('Invalid input. Start and End positions must not be same.');
         Result := True;
       end;
       {$ENDREGION}
@@ -1021,12 +1036,12 @@ begin
       (edtRectStartPosLong.Text= '')or (edtRectStartPosLat.Text= '')or
       (edtRectEndPosLat.Text= '')or(edtRectEndPosLong.Text= '') then
       begin
-        ShowMessage('Data yang dimasukkan tidak lengkap');
+        ShowMessage('The provided input data is incomplete.');
         Result := True;
       end
       else if (edtRectStartPosLong.Text = edtRectEndPosLong.Text ) and (edtRectStartPosLat.Text = edtRectEndPosLat.Text )then
       begin
-        ShowMessage('Data yang dimasukkan tidak sesuai, Posisi Top-Left dan Bottom-Right tidak boleh sama');
+        ShowMessage('Invalid input. Top-Left and Bottom-Right positions must not be same.');
         Result := True;;
       end;
       {$ENDREGION}
@@ -1038,13 +1053,13 @@ begin
       (edtCircleRadius.Text = '')or(edtCirclePosLong.text='')or
       (edtCirclePosLat.Text= '') then
       begin
-        ShowMessage('Data yang dimasukan tidak lengkap');
+        ShowMessage('The provided input data is incomplete.');
         Result := True;
       end
          // Radius tidak boleh 0
       else if StrToFloat(edtArcRadius.Text) = 0 then
       begin
-        ShowMessage('Radius tidak boleh sama dengan 0');
+        ShowMessage('Invalid input. Radius must not be 0.');
         Result := True;
 //      else if (edtCircleRadius.Text = '0' ) then
 //      begin
@@ -1061,12 +1076,12 @@ begin
       (edtEllipsePosLat.text= '')or
       (edtEllipsePosLong.Text= '') then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete.');
         Result := True;
       end
       else if (edtHorizontal.Text = '0') or (edtVertical.Text = '0')then
       begin
-        ShowMessage ('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+        ShowMessage ('Invalid input. Radius must be greater than 0.');
         Result := True;
       end;
       {$ENDREGION}
@@ -1079,14 +1094,14 @@ begin
          (edtArcRadius.Text = '') or (edtArcStartAngle.Text = '') or
          (edtArcEndAngle.Text = '') then
       begin
-        ShowMessage('Data yang dimasukan tidak lengkap');
+        ShowMessage('The provided input data is incomplete.');
         Result := True;
       end
 
       // Radius tidak boleh 0
       else if StrToFloat(edtArcRadius.Text) = 0 then
       begin
-        ShowMessage('Radius tidak boleh sama dengan 0');
+        ShowMessage('Invalid input. Radius must not be 0.');
         Result := True;
       end
 
@@ -1094,7 +1109,7 @@ begin
       else if StrToFloat(edtArcStartAngle.Text) =
               StrToFloat(edtArcEndAngle.Text) then
       begin
-        ShowMessage('Start Angle dan End Angle tidak boleh sama');
+        ShowMessage('Invalid input. Start Angle and End Angle must not be same.');
         Result := True;
       end;
 //      if (edtArcPosLong.Text = '') or (edtArcPosLat.Text = '')or
@@ -1127,32 +1142,32 @@ begin
         (edtSectorStartAngle.Text = '') or (edtSectorEndAngle.Text = '')or
         (edtSectorPosLat.Text = '')or (edtSectorPosLong.Text = '')then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete');
         Result := True;
       end
       else if (InnerRadius <= 0) or (OuterRadius <= 0) then
       begin
-        ShowMessage ('Data radius yang dimasukan tidak sesuai, radius minimum > 0');
+        ShowMessage ('Invalid radius value. Radius must be greater than 0.');
         Result := True;
       end
       else if (edtSectorStartAngle.Text = edtSectorEndAngle.Text) then
       begin
-        ShowMessage('Data yang dimasukkan tidak sesuai, Posisi Start dan End Angle tidak boleh sama');
+        ShowMessage ('Invalid input. Start Angle and End Angle cannot be same.');
         Result := True;
       end
       else if (InnerRadius = OuterRadius) then
       begin
-        ShowMessage ('Radius Inner dan Outer tidak boleh sama');
+        ShowMessage ('Invalid input. Inner Radius and Outer Radius must not be same.');
         Result := True;
       end
       else if (InnerRadius > OuterRadius) then
       begin
-        ShowMessage ('Radius Inner tidak boleh lebih besar dari Radius Outer');
+        ShowMessage ('Invalid input data. The Inner Radius value cannot exceed the Outer Radius value.');
         Result := True;
       end
       else if (OuterRadius < InnerRadius) then
       begin
-        ShowMessage ('Radius Outer tidak boleh lebih kecil dari Radius Inner');
+        ShowMessage ('Invalid input. Outer Radius must not be smaller than Inner Radius.');
         Result := True;
       end;
       end;
@@ -1189,13 +1204,13 @@ begin
       (edtTableRotationAngle.Text = '')or(edtTablePosLat.Text ='')
       or(edtTablePosLong.Text='') then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete.');
         Result := True;
       end
       else if (edtTableHeight.Text = '0') or (edtTableColumn.Text = '0') or (edtTableWidth.Text = '0')
       or (edtTableRow.Text = '0') then
       begin
-        ShowMessage ('Data Col, Row atau Height yang dimasukan tidak sesuai');
+        ShowMessage ('Invalid input. The Col, Row, or Height values are not valid.');
         Result := True;
       end;
       {$ENDREGION}
@@ -1205,7 +1220,7 @@ begin
       {$REGION ' Polygon '}
       if lvPolyVertex.Items.Count < 1 then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete.');
         Result := True;
       end;
       {$ENDREGION}
@@ -1215,7 +1230,7 @@ begin
       {$REGION ' Intelijen '}
       if (edtLattIntel.Text = '') or (edtLongIntel.Text = '') or (mmoInfo.Text = '')then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete.');
         Result := True;
       end;
       {$ENDREGION}
@@ -1225,7 +1240,7 @@ begin
       {$REGION ' Logistic '}
       if (edtLattLog.Text = '') or (edtLongLog.Text = '') or (lvLogistic.Items.Count < 1) then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete.');
         Result := True;
       end;
       {$ENDREGION}
@@ -1235,12 +1250,12 @@ begin
       {$REGION ' Radar '}
       if (edtLattRadar.Text = '') or (edtLongRadar.Text = '') or (edtRadius.Text = '') then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete.');
         Result := True;
       end
-      else if StrToFloat(edtArcRadius.Text) = 0 then
+      else if StrToFloat(edtRadius.Text) = 0 then
       begin
-        ShowMessage('Radius tidak boleh sama dengan 0');
+        ShowMessage('Invalid input. Radius must not be 0.');
         Result := True;
       end
       {$ENDREGION}
@@ -1250,7 +1265,7 @@ begin
       {$REGION ' Pangkalan '}
       if (edtLattBase.Text = '') or (edtLongBase.Text = '') or (lvEmbark.Items.Count < 1) then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete.');
         Result := True;
       end;
       {$ENDREGION}
@@ -1260,7 +1275,7 @@ begin
       {$REGION ' Panah '}
       if (edtStartLatt.Text = '') or (edtStartLong.Text = '') or (edtEndLatt.Text = '') or (edtEndLong.Text = '') then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete.');
         Result := True;
       end;
       {$ENDREGION}
@@ -1270,9 +1285,15 @@ begin
       {$REGION ' Platform'}
       if (edtLattPlatform.Text = '') or (edtLongPlatform.Text = '') or (lblTacticalSymbolPlatform.Caption = '') or (edtHeading.Text = '') then
       begin
-        ShowMessage ('Data yang dimasukan tidak lengkap');
+        ShowMessage ('The provided input data is incomplete.');
         Result := True;
+        Exit
       end;
+        InputHeading := StrToFloatDef(edtHeading.Text,0);
+
+        // normalisasi heading
+        ShipHeading := ValidateDegree(InputHeading);
+        edtHeading.Text := FloatToStr(ShipHeading);
       {$ENDREGION}
     end;
   end;
@@ -1291,6 +1312,7 @@ begin
   edtTextPosLAt.Text := '';
   edtTextPosLong.Text := '';
   edtTextField.Text := 'None';
+  edtHeading.Text := '';
   {$ENDREGION}
 
   {$REGION ' Line '}
@@ -2078,6 +2100,145 @@ begin
   end;
 end;
 
+procedure TfrmOverlayTools.edtArcRadiusKeyPress(Sender: TObject; var Key: Char);
+begin
+  if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtCircleRadiusKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+
+procedure TfrmOverlayTools.edtHeadingExit(Sender: TObject);
+var
+  ShipHeading : Double;
+begin
+  ShipHeading := StrToFloatDef(edtHeading.Text, 0);
+
+  ShipHeading := ValidateDegree(ShipHeading);
+  edtHeading.Text := FloatToStr(ShipHeading);
+end;
+
+procedure TfrmOverlayTools.edtHeadingKeyPress(Sender: TObject; var Key: Char);
+var
+    Heading : Double;
+begin
+  // tekan ENTER
+  if Key = #13 then
+  begin
+    Heading := StrToFloatDef(edtHeading.Text, 0);
+
+    Heading := ValidateDegree(Heading);
+
+    edtHeading.Text := FloatToStr(Heading);
+
+    Key := #0; // mencegah bunyi beep Enter
+end;
+end;
+
+procedure TfrmOverlayTools.edtRadiusKeyPress(Sender: TObject; var Key: Char);
+begin
+ if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+
+end;
+
+procedure TfrmOverlayTools.edtSectorEndAngleKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+ if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtSectorInnerKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtSectorOuterKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtSectorStartAngleKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+ if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
 procedure TfrmOverlayTools.RefreshEmbark;
 begin
   edtPlatform.Text := '';
@@ -2356,6 +2517,23 @@ begin
     btnEditLogistic.Enabled := False;
     btnDeleteLogistic.Enabled := False;
   end;
+end;
+
+function TfrmOverlayTools.GetInput(s: string): Boolean;
+var
+  a, i : Integer;
+begin
+  Result := False;
+  a := 0;
+
+  for i := 1 to length(s) do
+  begin
+    if s[i] = '.' then
+      a := a + 1;
+  end;
+
+  if a > 0 then
+    Result := True;
 end;
 
 function TfrmOverlayTools.GetPlottingColor: Integer;
@@ -3151,7 +3329,7 @@ begin
           edtPlatformIdentifier.Text := PlatformTemp.Identifier;
           edtLongPlatform.Text := formatDMS_long(PlatformTemp.postCenter.X);
           edtLattPlatform.Text := formatDMS_latt(PlatformTemp.postCenter.Y);
-
+          edtHeading.Text := FloatToStr(ShipHeading);
           lblTacticalSymbolPlatform.Caption := PlatformTemp.simbol;
 
           pnlOutline.Color := PlatformTemp.ShapeOutline;
@@ -3332,6 +3510,17 @@ begin
       end;
   end;
   show
+end;
+
+function TfrmOverlayTools.ValidateDegree(Value: Double): Double;
+begin
+  Result := Value;
+
+  while Result < 0 do
+    Result := Result + 360;
+
+  while Result >= 360 do
+    Result := Result - 360;
 end;
 
 procedure TfrmOverlayTools.btnHandleShapePosition(Sender: TObject);
