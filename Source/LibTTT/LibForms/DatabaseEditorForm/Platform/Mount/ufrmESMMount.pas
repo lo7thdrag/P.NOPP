@@ -38,8 +38,6 @@ type
     edtClassName: TLabel;
     lblPlatform: TLabel;
 
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -84,27 +82,6 @@ uses
 
 
 {$REGION ' Form Handle '}
-
-procedure TfrmESMMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FBlindZoneView.Free;
-  Action := cafree;
-end;
-
-procedure TfrmESMMount.FormCreate(Sender: TObject);
-begin
-//  FBlindZoneView := TBlindZoneView.Create(Self);
-//
-//  with FBlindZoneView do
-//  begin
-//    Parent := pnlBlindZone;
-//    Left := 0;
-//    Top := 0;
-//    Height := pnlBlindZone.Height;
-//    Width := pnlBlindZone.Width;
-//    OnClick := pnlBlindZoneClick;
-//  end;
-end;
 
 procedure TfrmESMMount.FormShow(Sender: TObject);
 begin

@@ -431,6 +431,15 @@ type
     btnPasteSector: TImage;
     btnCopyText: TImage;
     btnPasteText: TImage;
+    lbl66: TLabel;
+    lbl67: TLabel;
+    lbl68: TLabel;
+    lbl69: TLabel;
+    lbl70: TLabel;
+    lbl71: TLabel;
+    lbl72: TLabel;
+    lbl73: TLabel;
+    lbl74: TLabel;
     procedure btnHandleShape(Sender: TObject);
     procedure cbbTypeToolsChange(Sender: TObject);
     procedure btnOutlineClick(Sender: TObject);
@@ -508,6 +517,8 @@ type
 
     FLatCopy : string;
     FLongCopy : string;
+    FSelectedShapeType : Integer;
+    FSelectedShapeId   : Integer;
 
   protected
     procedure CreateParams(var Params : TCreateParams); override;
@@ -948,6 +959,7 @@ begin
     begin
       drwgrdFontTaktis.RowCount := 184;
       Show;
+      frmSelectSimbolTaktis.FormStyle := fsStayOnTop;
     end;
   finally
   end;
@@ -1057,7 +1069,7 @@ begin
         Result := True;
       end
          // Radius tidak boleh 0
-      else if StrToFloat(edtArcRadius.Text) = 0 then
+      else if StrToFloat(edtCircleRadius.Text) = 0 then
       begin
         ShowMessage('Invalid input. Radius must not be 0.');
         Result := True;
@@ -1458,7 +1470,12 @@ var
 begin
 
   if not FindIdSelectedShape then
+  begin
+      MessageDlg('Pilih object terlebih dahulu.', mtWarning, [mbOK], 0);
       Exit;
+  end;
+
+  FillChar(recShape, SizeOf(recShape), 0);
 
   if Assigned(FSelectedOverlayTab) then
   begin
@@ -1468,8 +1485,10 @@ begin
     recShape.ShapeType := FShapeType;
 
     simMgrClient.netSend_CmdOverlayShape(recShape);
-  end;
 
+    MessageDlg('Object berhasil dihapus.', mtInformation, [mbOK], 0);
+    btnHandleShape(btnSelect);
+  end;
 end;
 
 function TfrmOverlayTools.FindIdSelectedShape: Boolean;

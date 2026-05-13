@@ -24,7 +24,7 @@ type
     ImgBackgroundForm: TImage;
     lblPlatform: TLabel;
 
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -65,11 +65,6 @@ uses
 {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmAcousticDecoyMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmAcousticDecoyMount.FormShow(Sender: TObject);
 begin

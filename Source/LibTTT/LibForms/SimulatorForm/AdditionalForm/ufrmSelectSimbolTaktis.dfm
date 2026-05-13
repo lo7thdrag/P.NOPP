@@ -85,6 +85,7 @@ object frmSelectSimbolTaktis: TfrmSelectSimbolTaktis
     Font.Style = []
     ParentFont = False
     TabOrder = 2
+    OnClick = btnCancelClick
   end
   object edt_searchsimbol: TEdit
     Left = 76

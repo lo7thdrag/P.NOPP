@@ -25,7 +25,6 @@ type
     btnOK: TButton;
     lblPlatform: TLabel;
 
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -67,11 +66,6 @@ uses
 
 
 {$REGION ' Form Handle '}
-
-procedure TfrmMADMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmMADMount.FormShow(Sender: TObject);
 begin

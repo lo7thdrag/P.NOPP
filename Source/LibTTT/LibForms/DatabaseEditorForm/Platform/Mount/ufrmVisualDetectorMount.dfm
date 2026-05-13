@@ -15,8 +15,6 @@ object frmVisualDetectorMount: TfrmVisualDetectorMount
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
-  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14193,10 +14191,6 @@ object frmVisualDetectorMount: TfrmVisualDetectorMount
       TabWidth = 100
       object General: TTabSheet
         Caption = 'General'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object lblBlindZones: TStaticText
           Left = 14
           Top = 48

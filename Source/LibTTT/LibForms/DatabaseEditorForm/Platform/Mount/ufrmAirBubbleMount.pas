@@ -24,7 +24,6 @@ type
     btnOK: TButton;
     lblPlatform: TLabel;
 
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -63,11 +62,6 @@ uses
 {$R *.dfm}
 
 {$REGION ' Form Handle '}
-
-procedure TfrmAirBubbleMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmAirBubbleMount.FormShow(Sender: TObject);
 begin

@@ -136,90 +136,6 @@ object frmOverlayTools: TfrmOverlayTools
       Align = alClient
       Color = 3683636
       TabOrder = 2
-      object grpLineEditing: TGroupBox
-        Left = 7
-        Top = 96
-        Width = 353
-        Height = 47
-        TabOrder = 12
-        object pnlPenEditing: TPanel
-          Left = 2
-          Top = 15
-          Width = 349
-          Height = 30
-          Align = alClient
-          BevelOuter = bvNone
-          Color = 3091499
-          TabOrder = 0
-          object Label32: TLabel
-            Left = 15
-            Top = 1
-            Width = 54
-            Height = 16
-            Caption = 'Dashes : '
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWhite
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object Label33: TLabel
-            Left = 219
-            Top = 1
-            Width = 49
-            Height = 16
-            Caption = 'Weight :'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWhite
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-          end
-          object cbbWeightPen: TComboBox
-            Left = 274
-            Top = -2
-            Width = 56
-            Height = 24
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ItemIndex = 0
-            ParentFont = False
-            TabOrder = 1
-            Text = '1'
-            Items.Strings = (
-              '1'
-              '2'
-              '4'
-              '8')
-          end
-          object cbbDashesPen: TComboBox
-            Left = 75
-            Top = -3
-            Width = 92
-            Height = 24
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ItemIndex = 0
-            ParentFont = False
-            TabOrder = 0
-            Text = 'Solid'
-            Items.Strings = (
-              'Solid'
-              'Dash'
-              'Dot'
-              'Dash Dot'
-              'Dash Dot Dot')
-          end
-        end
-      end
       object grpColorEditing: TGroupBox
         Left = 7
         Top = 6
@@ -698,6 +614,91 @@ object frmOverlayTools: TfrmOverlayTools
         ParentColor = False
         TabOrder = 13
       end
+      object grpLineEditing: TGroupBox
+        Left = 7
+        Top = 96
+        Width = 353
+        Height = 47
+        TabOrder = 12
+        object pnlPenEditing: TPanel
+          Left = 2
+          Top = 15
+          Width = 349
+          Height = 30
+          Align = alClient
+          BevelOuter = bvNone
+          Color = 3091499
+          TabOrder = 0
+          ExplicitTop = 14
+          object Label32: TLabel
+            Left = 15
+            Top = 3
+            Width = 54
+            Height = 16
+            Caption = 'Dashes : '
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object Label33: TLabel
+            Left = 219
+            Top = 3
+            Width = 49
+            Height = 16
+            Caption = 'Weight :'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWhite
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+          end
+          object cbbWeightPen: TComboBox
+            Left = 274
+            Top = -1
+            Width = 56
+            Height = 24
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ItemIndex = 0
+            ParentFont = False
+            TabOrder = 1
+            Text = '1'
+            Items.Strings = (
+              '1'
+              '2'
+              '4'
+              '8')
+          end
+          object cbbDashesPen: TComboBox
+            Left = 75
+            Top = -1
+            Width = 92
+            Height = 24
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ItemIndex = 2
+            ParentFont = False
+            TabOrder = 0
+            Text = 'Solid'
+            Items.Strings = (
+              'Solid'
+              'Dash'
+              'Dot'
+              'Dash Dot'
+              'Dash Dot Dot')
+          end
+        end
+      end
       object grpArc: TGroupBox
         Left = 61
         Top = 149
@@ -722,8 +723,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl4: TLabel
-          Left = 111
-          Top = 290
+          Left = 112
+          Top = 296
           Width = 23
           Height = 14
           Caption = 'deg'
@@ -735,8 +736,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl5: TLabel
-          Left = 110
-          Top = 322
+          Left = 112
+          Top = 328
           Width = 23
           Height = 14
           Caption = 'deg'
@@ -761,10 +762,10 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl9: TLabel
-          Left = 111
-          Top = 193
+          Left = 114
+          Top = 196
           Width = 19
-          Height = 14
+          Height = 20
           Caption = 'nm'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -775,7 +776,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl7: TLabel
           Left = 21
-          Top = 290
+          Top = 296
           Width = 32
           Height = 14
           Caption = 'Start'
@@ -788,7 +789,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl8: TLabel
           Left = 21
-          Top = 322
+          Top = 328
           Width = 23
           Height = 14
           Caption = 'End'
@@ -964,7 +965,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl11: TLabel
           Left = 21
-          Top = 119
+          Top = 123
           Width = 31
           Height = 14
           Caption = 'Long'
@@ -992,7 +993,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl75: TLabel
           Left = 55
-          Top = 119
+          Top = 123
           Width = 4
           Height = 14
           Caption = ':'
@@ -1004,8 +1005,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl77: TLabel
-          Left = 63
-          Top = 322
+          Left = 64
+          Top = 328
           Width = 4
           Height = 14
           Caption = ':'
@@ -1018,7 +1019,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl78: TLabel
           Left = 64
-          Top = 290
+          Top = 296
           Width = 4
           Height = 14
           Caption = ':'
@@ -1031,9 +1032,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl12: TLabel
           Left = 21
-          Top = 193
+          Top = 196
           Width = 39
-          Height = 14
+          Height = 20
           Caption = 'Range'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -1069,9 +1070,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object Label38: TLabel
           Left = 64
-          Top = 193
+          Top = 196
           Width = 4
-          Height = 14
+          Height = 20
           Caption = ':'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -1114,7 +1115,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyArc: TImage
           Left = 257
-          Top = 86
+          Top = 89
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -1189,7 +1190,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPasteArc: TImage
           Left = 257
-          Top = 120
+          Top = 118
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -1267,9 +1268,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtArcPosLat: TEdit
           Left = 65
-          Top = 86
+          Top = 87
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -1280,9 +1281,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtArcPosLong: TEdit
           Left = 65
-          Top = 117
+          Top = 118
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -1375,8 +1376,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl36: TLabel
-          Left = 111
-          Top = 193
+          Left = 117
+          Top = 198
           Width = 19
           Height = 14
           Caption = 'nm'
@@ -1570,8 +1571,8 @@ object frmOverlayTools: TfrmOverlayTools
           Height = 2
         end
         object lbl84: TLabel
-          Left = 21
-          Top = 193
+          Left = 22
+          Top = 198
           Width = 39
           Height = 14
           Caption = 'Range'
@@ -1609,8 +1610,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl16: TLabel
-          Left = 64
-          Top = 193
+          Left = 65
+          Top = 198
           Width = 4
           Height = 14
           Caption = ':'
@@ -1642,7 +1643,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyCircle: TImage
           Left = 257
-          Top = 86
+          Top = 87
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -1717,7 +1718,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPasteCircle: TImage
           Left = 257
-          Top = 120
+          Top = 119
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -1795,9 +1796,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtCirclePosLong: TEdit
           Left = 65
-          Top = 117
+          Top = 118
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -1807,8 +1808,8 @@ object frmOverlayTools: TfrmOverlayTools
           TabOrder = 1
         end
         object edtCircleRadius: TEdit
-          Left = 74
-          Top = 189
+          Left = 75
+          Top = 192
           Width = 35
           Height = 26
           Font.Charset = ANSI_CHARSET
@@ -1824,9 +1825,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtCirclePosLat: TEdit
           Left = 65
-          Top = 86
+          Top = 87
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -1859,7 +1860,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lblHorizontal: TLabel
           Left = 21
-          Top = 193
+          Top = 199
           Width = 22
           Height = 14
           Caption = 'Hor'
@@ -1871,8 +1872,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl18: TLabel
-          Left = 111
-          Top = 193
+          Left = 105
+          Top = 199
           Width = 19
           Height = 14
           Caption = 'nm'
@@ -1885,7 +1886,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lblVertical: TLabel
           Left = 21
-          Top = 228
+          Top = 234
           Width = 20
           Height = 14
           Caption = 'Ver'
@@ -1897,8 +1898,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl19: TLabel
-          Left = 111
-          Top = 228
+          Left = 105
+          Top = 234
           Width = 19
           Height = 14
           Caption = 'nm'
@@ -2094,7 +2095,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl22: TLabel
           Left = 21
-          Top = 119
+          Top = 123
           Width = 31
           Height = 14
           Caption = 'Long'
@@ -2120,7 +2121,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl106: TLabel
           Left = 55
-          Top = 119
+          Top = 123
           Width = 4
           Height = 14
           Caption = ':'
@@ -2132,8 +2133,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl107: TLabel
-          Left = 64
-          Top = 193
+          Left = 55
+          Top = 199
           Width = 4
           Height = 14
           Caption = ':'
@@ -2145,8 +2146,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl108: TLabel
-          Left = 64
-          Top = 228
+          Left = 55
+          Top = 234
           Width = 4
           Height = 14
           Caption = ':'
@@ -2178,7 +2179,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyEll: TImage
           Left = 257
-          Top = 86
+          Top = 87
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -2253,7 +2254,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPasteEllip: TImage
           Left = 257
-          Top = 120
+          Top = 119
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -2331,9 +2332,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtEllipsePosLat: TEdit
           Left = 65
-          Top = 86
+          Top = 87
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -2344,9 +2345,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtEllipsePosLong: TEdit
           Left = 65
-          Top = 117
+          Top = 118
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -2356,7 +2357,7 @@ object frmOverlayTools: TfrmOverlayTools
           TabOrder = 1
         end
         object edtHorizontal: TEdit
-          Left = 74
+          Left = 65
           Top = 193
           Width = 35
           Height = 26
@@ -2366,12 +2367,13 @@ object frmOverlayTools: TfrmOverlayTools
           Font.Name = 'Berlin Sans FB'
           Font.Style = []
           MaxLength = 4
+          NumbersOnly = True
           ParentFont = False
           TabOrder = 2
           Text = '0'
         end
         object edtVertical: TEdit
-          Left = 74
+          Left = 65
           Top = 228
           Width = 35
           Height = 26
@@ -2381,6 +2383,7 @@ object frmOverlayTools: TfrmOverlayTools
           Font.Name = 'Berlin Sans FB'
           Font.Style = []
           MaxLength = 4
+          NumbersOnly = True
           ParentFont = False
           TabOrder = 3
           Text = '0'
@@ -2410,9 +2413,9 @@ object frmOverlayTools: TfrmOverlayTools
         object lbl24: TLabel
           Left = 21
           Top = 284
-          Width = 45
+          Width = 37
           Height = 14
-          Caption = 'Width :'
+          Caption = 'Width'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -2421,7 +2424,7 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl25: TLabel
-          Left = 111
+          Left = 117
           Top = 189
           Width = 19
           Height = 14
@@ -2436,9 +2439,9 @@ object frmOverlayTools: TfrmOverlayTools
         object lbl26: TLabel
           Left = 21
           Top = 189
-          Width = 49
+          Width = 41
           Height = 14
-          Caption = 'Height :'
+          Caption = 'Height'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -2449,9 +2452,9 @@ object frmOverlayTools: TfrmOverlayTools
         object lbl27: TLabel
           Left = 21
           Top = 314
-          Width = 46
+          Width = 38
           Height = 14
-          Caption = 'Count :'
+          Caption = 'Count'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -2460,7 +2463,7 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl28: TLabel
-          Left = 111
+          Left = 117
           Top = 284
           Width = 19
           Height = 14
@@ -2475,9 +2478,9 @@ object frmOverlayTools: TfrmOverlayTools
         object lbl29: TLabel
           Left = 21
           Top = 218
-          Width = 50
+          Width = 38
           Height = 14
-          Caption = 'Count  :'
+          Caption = 'Count'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -2506,7 +2509,7 @@ object frmOverlayTools: TfrmOverlayTools
           Transparent = True
         end
         object lbl31: TLabel
-          Left = 111
+          Left = 115
           Top = 367
           Width = 23
           Height = 14
@@ -2683,7 +2686,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl33: TLabel
           Left = 21
-          Top = 119
+          Top = 123
           Width = 31
           Height = 14
           Caption = 'Long'
@@ -2696,7 +2699,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl117: TLabel
           Left = 55
-          Top = 119
+          Top = 123
           Width = 4
           Height = 14
           Caption = ':'
@@ -2723,9 +2726,9 @@ object frmOverlayTools: TfrmOverlayTools
         object lbl37: TLabel
           Left = 21
           Top = 367
-          Width = 47
+          Width = 35
           Height = 14
-          Caption = 'Angle : '
+          Caption = 'Angle'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -2769,7 +2772,7 @@ object frmOverlayTools: TfrmOverlayTools
           Transparent = True
         end
         object Label44: TLabel
-          Left = 111
+          Left = 117
           Top = 314
           Width = 19
           Height = 14
@@ -2782,7 +2785,7 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object Label45: TLabel
-          Left = 111
+          Left = 117
           Top = 218
           Width = 19
           Height = 14
@@ -2821,7 +2824,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyGrid: TImage
           Left = 255
-          Top = 86
+          Top = 87
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -2896,7 +2899,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPasteGrid: TImage
           Left = 255
-          Top = 120
+          Top = 119
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -2972,11 +2975,76 @@ object frmOverlayTools: TfrmOverlayTools
           Stretch = True
           OnClick = btnPasteGridpClick
         end
+        object lbl70: TLabel
+          Left = 65
+          Top = 189
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl71: TLabel
+          Left = 65
+          Top = 218
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl72: TLabel
+          Left = 65
+          Top = 284
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl73: TLabel
+          Left = 65
+          Top = 314
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl74: TLabel
+          Left = 65
+          Top = 367
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object edtTablePosLat: TEdit
           Left = 65
-          Top = 86
+          Top = 87
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -2987,9 +3055,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtTablePosLong: TEdit
           Left = 65
-          Top = 117
+          Top = 118
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -3009,6 +3077,7 @@ object frmOverlayTools: TfrmOverlayTools
           Font.Name = 'Berlin Sans FB'
           Font.Style = []
           MaxLength = 4
+          NumbersOnly = True
           ParentFont = False
           TabOrder = 3
           Text = '1'
@@ -3072,6 +3141,7 @@ object frmOverlayTools: TfrmOverlayTools
           Font.Name = 'Berlin Sans FB'
           Font.Style = []
           MaxLength = 4
+          NumbersOnly = True
           ParentFont = False
           TabOrder = 2
           Text = '1'
@@ -3420,7 +3490,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl44: TLabel
           Left = 21
-          Top = 121
+          Top = 123
           Width = 31
           Height = 14
           Caption = 'Long'
@@ -3472,7 +3542,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl48: TLabel
           Left = 55
-          Top = 121
+          Top = 123
           Width = 4
           Height = 14
           Caption = ':'
@@ -3535,8 +3605,8 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object btnCopyStartLine: TImage
-          Left = 256
-          Top = 86
+          Left = 258
+          Top = 87
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -3610,8 +3680,8 @@ object frmOverlayTools: TfrmOverlayTools
           OnClick = btnCopyStartLinepClick
         end
         object btnPasteStartLine: TImage
-          Left = 256
-          Top = 120
+          Left = 258
+          Top = 119
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -3688,8 +3758,8 @@ object frmOverlayTools: TfrmOverlayTools
           OnClick = btnPasteStartLinepClick
         end
         object btnCopyEndLine: TImage
-          Left = 256
-          Top = 187
+          Left = 258
+          Top = 188
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -3763,8 +3833,8 @@ object frmOverlayTools: TfrmOverlayTools
           OnClick = btnCopyEndLinepClick
         end
         object btnPasteEndLine: TImage
-          Left = 256
-          Top = 221
+          Left = 258
+          Top = 220
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -3842,9 +3912,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtLineStartPosLat: TEdit
           Left = 65
-          Top = 86
+          Top = 87
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -3855,9 +3925,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtLineStartPosLong: TEdit
           Left = 65
-          Top = 117
+          Top = 118
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -3868,9 +3938,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtLineEndPosLat: TEdit
           Left = 65
-          Top = 187
+          Top = 188
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -3881,9 +3951,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtLineEndPosLong: TEdit
           Left = 65
-          Top = 218
+          Top = 219
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -4079,7 +4149,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl51: TLabel
           Left = 21
-          Top = 119
+          Top = 123
           Width = 31
           Height = 14
           Caption = 'Long'
@@ -4092,7 +4162,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl122: TLabel
           Left = 55
-          Top = 119
+          Top = 123
           Width = 4
           Height = 14
           Caption = ':'
@@ -4137,7 +4207,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyPoly: TImage
           Left = 257
-          Top = 86
+          Top = 87
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -4212,7 +4282,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPastePoly: TImage
           Left = 257
-          Top = 120
+          Top = 119
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -4290,9 +4360,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtPolyPosLat: TEdit
           Left = 65
-          Top = 86
+          Top = 87
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -4303,9 +4373,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtPolyPosLong: TEdit
           Left = 65
-          Top = 117
+          Top = 118
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -4766,7 +4836,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl64: TLabel
           Left = 21
-          Top = 193
+          Top = 192
           Width = 20
           Height = 14
           Caption = 'Lat'
@@ -4811,7 +4881,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl101: TLabel
           Left = 55
-          Top = 193
+          Top = 192
           Width = 4
           Height = 14
           Caption = ':'
@@ -4881,7 +4951,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyStartRec: TImage
           Left = 257
-          Top = 86
+          Top = 87
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -4956,7 +5026,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPasteStartRec: TImage
           Left = 257
-          Top = 120
+          Top = 118
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -5034,7 +5104,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyEndRec: TImage
           Left = 257
-          Top = 187
+          Top = 188
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -5109,7 +5179,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPasteEndRec: TImage
           Left = 257
-          Top = 221
+          Top = 220
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -5187,9 +5257,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtRectStartPosLat: TEdit
           Left = 65
-          Top = 86
+          Top = 87
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -5200,9 +5270,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtRectStartPosLong: TEdit
           Left = 65
-          Top = 117
+          Top = 118
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -5215,7 +5285,7 @@ object frmOverlayTools: TfrmOverlayTools
           Left = 65
           Top = 187
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -5226,9 +5296,529 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtRectEndPosLong: TEdit
           Left = 65
-          Top = 218
+          Top = 219
           Width = 139
+          Height = 24
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 3
+        end
+      end
+      object grpText: TGroupBox
+        Left = 61
+        Top = 149
+        Width = 299
+        Height = 396
+        Color = 3683636
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -13
+        Font.Name = 'Berlin Sans FB'
+        Font.Style = []
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 0
+        object lblTextPosition: TLabel
+          Left = 13
+          Top = 61
+          Width = 50
+          Height = 14
+          Caption = 'Position'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblTextField: TLabel
+          Left = 13
+          Top = 166
+          Width = 27
+          Height = 14
+          Caption = 'Text'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lblTextSize: TLabel
+          Left = 13
+          Top = 240
+          Width = 24
+          Height = 14
+          Caption = 'Size'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl1: TLabel
+          Left = 21
+          Top = 89
+          Width = 24
+          Height = 14
+          Caption = 'Lat '
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl2: TLabel
+          Left = 21
+          Top = 123
+          Width = 31
+          Height = 14
+          Caption = 'Long'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl92: TLabel
+          Left = 21
+          Top = 265
+          Width = 33
+          Height = 14
+          Caption = 'Value'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object bvl12: TBevel
+          Left = 53
+          Top = 173
+          Width = 225
+          Height = 2
+        end
+        object bvl13: TBevel
+          Left = 53
+          Top = 247
+          Width = 225
+          Height = 2
+        end
+        object lbl96: TLabel
+          Left = 55
+          Top = 123
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl97: TLabel
+          Left = 55
+          Top = 89
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object SpeedButton: TSpeedButton
+          Left = 209
+          Top = 84
+          Width = 43
+          Height = 59
+          Cursor = crHandPoint
+          AllowAllUp = True
+          GroupIndex = 1
+          Glyph.Data = {
+            36100000424D3610000000000000360000002800000020000000200000000100
+            2000000000000010000000000000000000000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC3C3C3FFA0A0A0FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD5D5D5FF000000FF000000FF8383
+            83FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF040404FF020202FF050505FF0000
+            00FFF3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF070707FF0000
+            00FF1D1D1DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFE0E0E0FF000000FF060606FF070707FF070707FF0606
+            06FF000000FF919191FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF0C0C0CFF010101FF070707FF070707FF070707FF0707
+            07FF050505FF000000FFFDFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFF797979FF000000FF060606FF070707FF070707FF070707FF0707
+            07FF070707FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFEBEBEBFF000000FF060606FF070707FF070707FF070707FF070707FF0707
+            07FF070707FF060606FF000000FF9E9E9EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF151515FF000000FF070707FF070707FF070707FF070707FF070707FF0707
+            07FF070707FF070707FF050505FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8585
+            85FF000000FF060606FF070707FF060606FF050505FF000000FF000000FF0404
+            04FF070707FF070707FF060606FF000000FF333333FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEDEDEDFF0000
+            00FF060606FF070707FF060606FF000000FF000000FF2F2F2FFF373737FF0000
+            00FF000000FF050505FF070707FF060606FF000000FFB1B1B1FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF353535FF0000
+            00FF070707FF060606FF000000FF7B7B7BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA8A8A8FF000000FF040404FF070707FF030303FF000000FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8FF000000FF0606
+            06FF060606FF000000FFA2A2A2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFE2E2E2FF000000FF060606FF060606FF000000FFB6B6B6FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA0A0A0FF000000FF0606
+            06FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF6B6B6BFF000000FF060606FF000000FF626262FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7B7B7BFF000000FF0606
+            06FF000000FF999999FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFD9D9D9FF000000FF070707FF000000FF3A3A3AFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF797979FF000000FF0606
+            06FF000000FFB8B8B8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFF9F9F9FF000000FF070707FF000000FF343434FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8B8B8BFF000000FF0606
+            06FF000000FF989898FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFD8D8D8FF000000FF070707FF000000FF4D4D4DFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDCDCDFF000000FF0606
+            06FF000000FF272727FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF000000FF8E8E8EFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF0303
+            03FF060606FF000000FF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFE0E0E0FF000000FF060606FF060606FF000000FFFAFAFAFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF999999FF0000
+            00FF060606FF060606FF000000FF787878FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA5A5A5FF000000FF050505FF060606FF000000FF545454FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2A2A
+            2AFF000000FF060606FF060606FF000000FF000000FF2C2C2CFF353535FF0000
+            00FF000000FF050505FF060606FF000000FF000000FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF1E1E1EFF000000FF060606FF060606FF060606FF000000FF000000FF0505
+            05FF060606FF060606FF000000FF000000FFFAFAFAFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFF707070FF000000FF000000FF000000FF000000FF000000FF0000
+            00FF000000FF000000FF464646FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF878787FF3B3B3BFF232323FF222222FF3232
+            32FF757575FFE9E9E9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
+          OnClick = btnHandleShapePosition
+        end
+        object Label34: TLabel
+          Left = 121
+          Top = 23
+          Width = 53
+          Height = 14
+          Caption = '.: TEXT :.'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Bevel2: TBevel
+          Left = 68
+          Top = 67
+          Width = 210
+          Height = 2
+        end
+        object btnCopyText: TImage
+          Left = 257
+          Top = 85
+          Width = 25
+          Height = 23
+          Cursor = crHandPoint
+          Hint = 'Copy Position'
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
+            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
+            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+            2241646F626520584D5020436F726520392E312D633030312037392E31343632
+            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
+            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
+            2857696E646F7773292220786D703A437265617465446174653D22323032352D
+            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
+            446174653D22323032362D30352D31315431343A35303A32302B30373A303022
+            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
+            3A35303A32302B30373A3030222064633A666F726D61743D22696D6167652F70
+            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+            4D3A496E7374616E636549443D22786D702E6969643A32396535643362322D39
+            3636362D313734652D393737662D3939363830636562666632652220786D704D
+            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+            686F703A30376631373437642D666635322D636434302D383834342D38333035
+            33366262376262622220786D704D4D3A4F726967696E616C446F63756D656E74
+            49443D22786D702E6469643A37323464373464302D393037632D373934352D61
+            6532342D643863313061633233356431223E203C786D704D4D3A486973746F72
+            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
+            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
+            702E6969643A37323464373464302D393037632D373934352D616532342D6438
+            63313061633233356431222073744576743A7768656E3D22323032352D30392D
+            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
+            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
+            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
+            7361766564222073744576743A696E7374616E636549443D22786D702E696964
+            3A32396535643362322D393636362D313734652D393737662D39393638306365
+            6266663265222073744576743A7768656E3D22323032362D30352D3131543134
+            3A35303A32302B30373A3030222073744576743A736F6674776172654167656E
+            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
+            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
+            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
+            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
+            787061636B657420656E643D2272223F3E3CB2F26E0000018F4944415478DADD
+            D6CB2B44511CC0F133A1290B2CA66C3CCBC2524AA2E415B143595B492C9492B2
+            B1B153B230895853584D445E654811A5A8210BC53F209147797C4FE72CEFCCFD
+            DDE94CCAAF3E8B69EECC77EE997BE74C289A78517F31214178067D82F7DAB5C7
+            BDBB0A1F218CA514C70CA20ADBE896C4A5E12B0CA538660E1D28441C5DF8081A
+            CEC23CF2EDE3762C0BC22598C6060EED99278D7B8575F00927B8410F5604E172
+            74A215311BD767FE1934DC80636CE1DE273C8A711BD51FB60D6B384816978425
+            DF711EF650E3F1DC04263315D693ADCC955D805CBC29732BC6BD5EEB32EC35FA
+            427B70111E419D20B88A7597E101652EA054F3A5CC5D107319FEB3A56E42AD4F
+            EC073BB874195E448BE04C1730F52F965A6F024582E01D9E5D86F7854B3D8B61
+            97E11C14FB44F5EDF4886F97E12013C2353631964E58FFD696E2346058AF4C35
+            EA71914EB85F996D4E3211342361574ADF7EE79ECB210807993265F6EE46BB52
+            49275538AACC772B1DBD2DF6A21215780D1A0EDB6024E0D9EAABF856991DECCC
+            EF60C9BFCC8CCC2FEEBFD7C1A9D578600000000049454E44AE426082}
+          ShowHint = True
+          Stretch = True
+          OnClick = btnCopyTextpClick
+        end
+        object btnPasteText: TImage
+          Left = 257
+          Top = 117
+          Width = 25
+          Height = 23
+          Cursor = crHandPoint
+          Hint = 'Paste Position'
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
+            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
+            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+            2241646F626520584D5020436F726520392E312D633030312037392E31343632
+            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
+            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
+            2857696E646F7773292220786D703A437265617465446174653D22323032352D
+            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
+            446174653D22323032362D30352D31315431343A35313A32372B30373A303022
+            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
+            3A35313A32372B30373A3030222064633A666F726D61743D22696D6167652F70
+            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+            4D3A496E7374616E636549443D22786D702E6969643A31306162646665312D34
+            3730352D643934632D613166342D6338666461396337626330642220786D704D
+            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+            686F703A36383163373861622D643764342D363634632D393738352D66383365
+            61303533656337312220786D704D4D3A4F726967696E616C446F63756D656E74
+            49443D22786D702E6469643A38653635663335322D376130302D663034332D39
+            3936372D616262653234623136616461223E203C786D704D4D3A486973746F72
+            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
+            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
+            702E6969643A38653635663335322D376130302D663034332D393936372D6162
+            62653234623136616461222073744576743A7768656E3D22323032352D30392D
+            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
+            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
+            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
+            7361766564222073744576743A696E7374616E636549443D22786D702E696964
+            3A31306162646665312D343730352D643934632D613166342D63386664613963
+            3762633064222073744576743A7768656E3D22323032362D30352D3131543134
+            3A35313A32372B30373A3030222073744576743A736F6674776172654167656E
+            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
+            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
+            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
+            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
+            787061636B657420656E643D2272223F3ED67FA66E000001F24944415478DAC5
+            964B28845114C7CF646C896CA4C86BE3AD24166A588CE499255928E4514A4914
+            B6CAC26A22499294AC3D56228F3229162312162C5879B3F1FE9FEE9D3CE67EE3
+            7BCC9753BFE6FBE6BBDFF97FF7DC73EEB90ECFE123FD8739740A8F807A10AE78
+            F602664077A885A3C01518077B8AE799A003C480EB500837821E902C675A0116
+            15E3CAC1829CF9291806536685CBC0129800BB604C867A5931D60DE64027C800
+            CDA052E323FF149E95A12B95F7FB203D889F13902AAFF9E36E409D19610EDD39
+            6897F79120173815635F49ACFD9DBC1F0569C0654678051C7D1336622CCC0957
+            64467803F84C0A73F6279258FB900AB7C9FFE3347C46B05FE9A31F6C8642D805
+            56818744C27D6888732ED4801C39FB27ABC283A081BE323898C583335008B6AD
+            0A0F91D830B274087325DC9248B280705B116E027D8A77DF412D8972B4453805
+            9428DE7D06F324B6595B84FF2DD46E196ED58C7BC1835DC2C5A00584FD1AC30E
+            07E4AF61E135706031D4B1E0C2A83037894B122D4E4B9893AB8A024F25EC701A
+            4493A86343C293D2793EFDDC9DF494D31B8972BA37239C07B68017EC90385DB0
+            7142397586DABF731912662B005D248E3E7E4B2091307AB64C5E8A63E9C76B44
+            5865FCF5EB249A842FC8385EF76A900D92C8409308669CE9AD24DAA243630CD7
+            3257053715436DD176FB04BB1CC2C16E0E0FF70000000049454E44AE426082}
+          ShowHint = True
+          Stretch = True
+          OnClick = btnPasteTextpClick
+        end
+        object edtTextField: TEdit
+          Left = 65
+          Top = 187
+          Width = 213
           Height = 26
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          MaxLength = 30
+          ParentFont = False
+          TabOrder = 0
+          Text = 'None'
+        end
+        object cbbTextSize: TComboBox
+          Left = 65
+          Top = 261
+          Width = 45
+          Height = 26
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ItemIndex = 0
+          MaxLength = 2
+          ParentFont = False
+          TabOrder = 1
+          Text = '8'
+          Items.Strings = (
+            '8'
+            '9'
+            '10'
+            '11'
+            '12'
+            '14'
+            '16'
+            '18'
+            '20'
+            '22'
+            '24'
+            '26'
+            '28'
+            '36'
+            '48'
+            '72')
+        end
+        object edtTextPosLAt: TEdit
+          Left = 65
+          Top = 84
+          Width = 139
+          Height = 24
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBlack
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
+        end
+        object edtTextPosLong: TEdit
+          Left = 65
+          Top = 118
+          Width = 139
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -5312,11 +5902,11 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl52: TLabel
-          Left = 111
+          Left = 113
           Top = 193
-          Width = 19
+          Width = 23
           Height = 14
-          Caption = 'nm'
+          Caption = 'nm.'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -5325,11 +5915,11 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl53: TLabel
-          Left = 111
+          Left = 113
           Top = 224
-          Width = 19
+          Width = 23
           Height = 14
-          Caption = 'nm'
+          Caption = 'nm.'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -5338,7 +5928,7 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl54: TLabel
-          Left = 111
+          Left = 109
           Top = 288
           Width = 27
           Height = 14
@@ -5351,7 +5941,7 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
         object lbl55: TLabel
-          Left = 111
+          Left = 109
           Top = 319
           Width = 27
           Height = 14
@@ -5562,7 +6152,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl59: TLabel
           Left = 21
-          Top = 119
+          Top = 123
           Width = 35
           Height = 14
           Caption = 'Long '
@@ -5607,7 +6197,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object lbl111: TLabel
           Left = 55
-          Top = 119
+          Top = 123
           Width = 4
           Height = 14
           Caption = ':'
@@ -5684,7 +6274,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopySector: TImage
           Left = 255
-          Top = 86
+          Top = 87
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -5759,7 +6349,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPasteSector: TImage
           Left = 255
-          Top = 120
+          Top = 119
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -5837,9 +6427,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtSectorPosLat: TEdit
           Left = 65
-          Top = 86
+          Top = 87
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -5900,9 +6490,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtSectorPosLong: TEdit
           Left = 65
-          Top = 117
+          Top = 118
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clBlack
           Font.Height = -16
@@ -7933,526 +8523,6 @@ object frmOverlayTools: TfrmOverlayTools
           OnClick = btnHandleShape
         end
       end
-      object grpText: TGroupBox
-        Left = 61
-        Top = 149
-        Width = 299
-        Height = 396
-        Color = 3683636
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWhite
-        Font.Height = -13
-        Font.Name = 'Berlin Sans FB'
-        Font.Style = []
-        ParentColor = False
-        ParentFont = False
-        TabOrder = 0
-        object lblTextPosition: TLabel
-          Left = 13
-          Top = 61
-          Width = 50
-          Height = 14
-          Caption = 'Position'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblTextField: TLabel
-          Left = 13
-          Top = 166
-          Width = 27
-          Height = 14
-          Caption = 'Text'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lblTextSize: TLabel
-          Left = 13
-          Top = 240
-          Width = 24
-          Height = 14
-          Caption = 'Size'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lbl1: TLabel
-          Left = 21
-          Top = 88
-          Width = 24
-          Height = 14
-          Caption = 'Lat '
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lbl2: TLabel
-          Left = 21
-          Top = 121
-          Width = 31
-          Height = 14
-          Caption = 'Long'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lbl92: TLabel
-          Left = 21
-          Top = 265
-          Width = 33
-          Height = 14
-          Caption = 'Value'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object bvl12: TBevel
-          Left = 53
-          Top = 173
-          Width = 225
-          Height = 2
-        end
-        object bvl13: TBevel
-          Left = 53
-          Top = 247
-          Width = 225
-          Height = 2
-        end
-        object lbl96: TLabel
-          Left = 55
-          Top = 121
-          Width = 4
-          Height = 14
-          Caption = ':'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object lbl97: TLabel
-          Left = 55
-          Top = 88
-          Width = 4
-          Height = 14
-          Caption = ':'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object SpeedButton: TSpeedButton
-          Left = 209
-          Top = 84
-          Width = 43
-          Height = 59
-          Cursor = crHandPoint
-          AllowAllUp = True
-          GroupIndex = 1
-          Glyph.Data = {
-            36100000424D3610000000000000360000002800000020000000200000000100
-            2000000000000010000000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC3C3C3FFA0A0A0FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD5D5D5FF000000FF000000FF8383
-            83FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF040404FF020202FF050505FF0000
-            00FFF3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF070707FF0000
-            00FF1D1D1DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFE0E0E0FF000000FF060606FF070707FF070707FF0606
-            06FF000000FF919191FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF0C0C0CFF010101FF070707FF070707FF070707FF0707
-            07FF050505FF000000FFFDFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFF797979FF000000FF060606FF070707FF070707FF070707FF0707
-            07FF070707FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFEBEBEBFF000000FF060606FF070707FF070707FF070707FF070707FF0707
-            07FF070707FF060606FF000000FF9E9E9EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF151515FF000000FF070707FF070707FF070707FF070707FF070707FF0707
-            07FF070707FF070707FF050505FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8585
-            85FF000000FF060606FF070707FF060606FF050505FF000000FF000000FF0404
-            04FF070707FF070707FF060606FF000000FF333333FFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEDEDEDFF0000
-            00FF060606FF070707FF060606FF000000FF000000FF2F2F2FFF373737FF0000
-            00FF000000FF050505FF070707FF060606FF000000FFB1B1B1FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF353535FF0000
-            00FF070707FF060606FF000000FF7B7B7BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFA8A8A8FF000000FF040404FF070707FF030303FF000000FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8FF000000FF0606
-            06FF060606FF000000FFA2A2A2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFE2E2E2FF000000FF060606FF060606FF000000FFB6B6B6FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA0A0A0FF000000FF0606
-            06FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF6B6B6BFF000000FF060606FF000000FF626262FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7B7B7BFF000000FF0606
-            06FF000000FF999999FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFD9D9D9FF000000FF070707FF000000FF3A3A3AFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF797979FF000000FF0606
-            06FF000000FFB8B8B8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFF9F9F9FF000000FF070707FF000000FF343434FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8B8B8BFF000000FF0606
-            06FF000000FF989898FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFD8D8D8FF000000FF070707FF000000FF4D4D4DFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDCDCDFF000000FF0606
-            06FF000000FF272727FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF000000FF8E8E8EFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF0303
-            03FF060606FF000000FF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFE0E0E0FF000000FF060606FF060606FF000000FFFAFAFAFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF999999FF0000
-            00FF060606FF060606FF000000FF787878FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFA5A5A5FF000000FF050505FF060606FF000000FF545454FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2A2A
-            2AFF000000FF060606FF060606FF000000FF000000FF2C2C2CFF353535FF0000
-            00FF000000FF050505FF060606FF000000FF000000FFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF1E1E1EFF000000FF060606FF060606FF060606FF000000FF000000FF0505
-            05FF060606FF060606FF000000FF000000FFFAFAFAFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFF707070FF000000FF000000FF000000FF000000FF000000FF0000
-            00FF000000FF000000FF464646FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFF878787FF3B3B3BFF232323FF222222FF3232
-            32FF757575FFE9E9E9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnHandleShapePosition
-        end
-        object Label34: TLabel
-          Left = 121
-          Top = 23
-          Width = 53
-          Height = 14
-          Caption = '.: TEXT :.'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Bevel2: TBevel
-          Left = 68
-          Top = 67
-          Width = 210
-          Height = 2
-        end
-        object btnCopyText: TImage
-          Left = 257
-          Top = 84
-          Width = 25
-          Height = 23
-          Cursor = crHandPoint
-          Hint = 'Copy Position'
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
-            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
-            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-            2241646F626520584D5020436F726520392E312D633030312037392E31343632
-            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
-            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
-            2857696E646F7773292220786D703A437265617465446174653D22323032352D
-            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
-            446174653D22323032362D30352D31315431343A35303A32302B30373A303022
-            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
-            3A35303A32302B30373A3030222064633A666F726D61743D22696D6167652F70
-            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-            4D3A496E7374616E636549443D22786D702E6969643A32396535643362322D39
-            3636362D313734652D393737662D3939363830636562666632652220786D704D
-            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-            686F703A30376631373437642D666635322D636434302D383834342D38333035
-            33366262376262622220786D704D4D3A4F726967696E616C446F63756D656E74
-            49443D22786D702E6469643A37323464373464302D393037632D373934352D61
-            6532342D643863313061633233356431223E203C786D704D4D3A486973746F72
-            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
-            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
-            702E6969643A37323464373464302D393037632D373934352D616532342D6438
-            63313061633233356431222073744576743A7768656E3D22323032352D30392D
-            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
-            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
-            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
-            7361766564222073744576743A696E7374616E636549443D22786D702E696964
-            3A32396535643362322D393636362D313734652D393737662D39393638306365
-            6266663265222073744576743A7768656E3D22323032362D30352D3131543134
-            3A35303A32302B30373A3030222073744576743A736F6674776172654167656E
-            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
-            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
-            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
-            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
-            787061636B657420656E643D2272223F3E3CB2F26E0000018F4944415478DADD
-            D6CB2B44511CC0F133A1290B2CA66C3CCBC2524AA2E415B143595B492C9492B2
-            B1B153B230895853584D445E654811A5A8210BC53F209147797C4FE72CEFCCFD
-            DDE94CCAAF3E8B69EECC77EE997BE74C289A78517F31214178067D82F7DAB5C7
-            BDBB0A1F218CA514C70CA20ADBE896C4A5E12B0CA538660E1D28441C5DF8081A
-            CEC23CF2EDE3762C0BC22598C6060EED99278D7B8575F00927B8410F5604E172
-            74A215311BD767FE1934DC80636CE1DE273C8A711BD51FB60D6B384816978425
-            DF711EF650E3F1DC04263315D693ADCC955D805CBC29732BC6BD5EEB32EC35FA
-            427B70111E419D20B88A7597E101652EA054F3A5CC5D107319FEB3A56E42AD4F
-            EC073BB874195E448BE04C1730F52F965A6F024582E01D9E5D86F7854B3D8B61
-            97E11C14FB44F5EDF4886F97E12013C2353631964E58FFD696E2346058AF4C35
-            EA71914EB85F996D4E3211342361574ADF7EE79ECB210807993265F6EE46BB52
-            49275538AACC772B1DBD2DF6A21215780D1A0EDB6024E0D9EAABF856991DECCC
-            EF60C9BFCC8CCC2FEEBFD7C1A9D578600000000049454E44AE426082}
-          ShowHint = True
-          Stretch = True
-          OnClick = btnCopyTextpClick
-        end
-        object btnPasteText: TImage
-          Left = 257
-          Top = 118
-          Width = 25
-          Height = 23
-          Cursor = crHandPoint
-          Hint = 'Paste Position'
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
-            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
-            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-            2241646F626520584D5020436F726520392E312D633030312037392E31343632
-            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
-            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
-            2857696E646F7773292220786D703A437265617465446174653D22323032352D
-            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
-            446174653D22323032362D30352D31315431343A35313A32372B30373A303022
-            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
-            3A35313A32372B30373A3030222064633A666F726D61743D22696D6167652F70
-            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-            4D3A496E7374616E636549443D22786D702E6969643A31306162646665312D34
-            3730352D643934632D613166342D6338666461396337626330642220786D704D
-            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-            686F703A36383163373861622D643764342D363634632D393738352D66383365
-            61303533656337312220786D704D4D3A4F726967696E616C446F63756D656E74
-            49443D22786D702E6469643A38653635663335322D376130302D663034332D39
-            3936372D616262653234623136616461223E203C786D704D4D3A486973746F72
-            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
-            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
-            702E6969643A38653635663335322D376130302D663034332D393936372D6162
-            62653234623136616461222073744576743A7768656E3D22323032352D30392D
-            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
-            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
-            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
-            7361766564222073744576743A696E7374616E636549443D22786D702E696964
-            3A31306162646665312D343730352D643934632D613166342D63386664613963
-            3762633064222073744576743A7768656E3D22323032362D30352D3131543134
-            3A35313A32372B30373A3030222073744576743A736F6674776172654167656E
-            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
-            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
-            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
-            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
-            787061636B657420656E643D2272223F3ED67FA66E000001F24944415478DAC5
-            964B28845114C7CF646C896CA4C86BE3AD24166A588CE499255928E4514A4914
-            B6CAC26A22499294AC3D56228F3229162312162C5879B3F1FE9FEE9D3CE67EE3
-            7BCC9753BFE6FBE6BBDFF97FF7DC73EEB90ECFE123FD8739740A8F807A10AE78
-            F602664077A885A3C01518077B8AE799A003C480EB500837821E902C675A0116
-            15E3CAC1829CF9291806536685CBC0129800BB604C867A5931D60DE64027C800
-            CDA052E323FF149E95A12B95F7FB203D889F13902AAFF9E36E409D19610EDD39
-            6897F79120173815635F49ACFD9DBC1F0569C0654678051C7D1336622CCC0957
-            64467803F84C0A73F6279258FB900AB7C9FFE3347C46B05FE9A31F6C8642D805
-            56818744C27D6888732ED4801C39FB27ABC283A081BE323898C583335008B6AD
-            0A0F91D830B274087325DC9248B280705B116E027D8A77DF412D8972B4453805
-            9428DE7D06F324B6595B84FF2DD46E196ED58C7BC1835DC2C5A00584FD1AC30E
-            07E4AF61E135706031D4B1E0C2A83037894B122D4E4B9893AB8A024F25EC701A
-            4493A86343C293D2793EFDDC9DF494D31B8972BA37239C07B68017EC90385DB0
-            7142397586DABF731912662B005D248E3E7E4B2091307AB64C5E8A63E9C76B44
-            5865FCF5EB249A842FC8385EF76A900D92C8409308669CE9AD24DAA243630CD7
-            3257053715436DD176FB04BB1CC2C16E0E0FF70000000049454E44AE426082}
-          ShowHint = True
-          Stretch = True
-          OnClick = btnPasteTextpClick
-        end
-        object edtTextField: TEdit
-          Left = 65
-          Top = 187
-          Width = 213
-          Height = 26
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          MaxLength = 30
-          ParentFont = False
-          TabOrder = 0
-          Text = 'None'
-        end
-        object cbbTextSize: TComboBox
-          Left = 65
-          Top = 261
-          Width = 45
-          Height = 26
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ItemIndex = 0
-          MaxLength = 2
-          ParentFont = False
-          TabOrder = 1
-          Text = '8'
-          Items.Strings = (
-            '8'
-            '9'
-            '10'
-            '11'
-            '12'
-            '14'
-            '16'
-            '18'
-            '20'
-            '22'
-            '24'
-            '26'
-            '28'
-            '36'
-            '48'
-            '72')
-        end
-        object edtTextPosLAt: TEdit
-          Left = 65
-          Top = 84
-          Width = 139
-          Height = 26
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 2
-        end
-        object edtTextPosLong: TEdit
-          Left = 65
-          Top = 115
-          Width = 139
-          Height = 26
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clBlack
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 3
-        end
-      end
     end
     object pnlObject: TPanel
       Left = 0
@@ -8482,791 +8552,41 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
         end
       end
-      object grpArrow: TGroupBox
-        Left = 62
-        Top = 71
-        Width = 299
-        Height = 475
-        Color = 3683636
-        ParentColor = False
-        TabOrder = 4
-        object Label15: TLabel
-          Left = 113
-          Top = 23
-          Width = 72
-          Height = 14
-          Caption = '.: ARROW :.'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label3: TLabel
-          Left = 21
-          Top = 123
+      object grpColorForce: TGroupBox
+        Left = 7
+        Top = 14
+        Width = 355
+        Height = 51
+        TabOrder = 0
+        object rbBlue: TRadioButton
+          Left = 222
+          Top = 17
           Width = 67
-          Height = 14
-          Caption = 'Start Long'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label54: TLabel
-          Left = 95
-          Top = 92
-          Width = 4
-          Height = 14
-          Caption = ':'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object btnStartPos: TSpeedButton
-          Tag = 13
-          Left = 219
-          Top = 85
-          Width = 43
-          Height = 59
-          Cursor = crHandPoint
-          Glyph.Data = {
-            36100000424D3610000000000000360000002800000020000000200000000100
-            2000000000000010000000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC3C3C3FFA0A0A0FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD5D5D5FF000000FF000000FF8383
-            83FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF040404FF020202FF050505FF0000
-            00FFF3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF070707FF0000
-            00FF1D1D1DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFE0E0E0FF000000FF060606FF070707FF070707FF0606
-            06FF000000FF919191FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF0C0C0CFF010101FF070707FF070707FF070707FF0707
-            07FF050505FF000000FFFDFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFF797979FF000000FF060606FF070707FF070707FF070707FF0707
-            07FF070707FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFEBEBEBFF000000FF060606FF070707FF070707FF070707FF070707FF0707
-            07FF070707FF060606FF000000FF9E9E9EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF151515FF000000FF070707FF070707FF070707FF070707FF070707FF0707
-            07FF070707FF070707FF050505FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8585
-            85FF000000FF060606FF070707FF060606FF050505FF000000FF000000FF0404
-            04FF070707FF070707FF060606FF000000FF333333FFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEDEDEDFF0000
-            00FF060606FF070707FF060606FF000000FF000000FF2F2F2FFF373737FF0000
-            00FF000000FF050505FF070707FF060606FF000000FFB1B1B1FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF353535FF0000
-            00FF070707FF060606FF000000FF7B7B7BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFA8A8A8FF000000FF040404FF070707FF030303FF000000FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8FF000000FF0606
-            06FF060606FF000000FFA2A2A2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFE2E2E2FF000000FF060606FF060606FF000000FFB6B6B6FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA0A0A0FF000000FF0606
-            06FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF6B6B6BFF000000FF060606FF000000FF626262FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7B7B7BFF000000FF0606
-            06FF000000FF999999FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFD9D9D9FF000000FF070707FF000000FF3A3A3AFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF797979FF000000FF0606
-            06FF000000FFB8B8B8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFF9F9F9FF000000FF070707FF000000FF343434FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8B8B8BFF000000FF0606
-            06FF000000FF989898FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFD8D8D8FF000000FF070707FF000000FF4D4D4DFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDCDCDFF000000FF0606
-            06FF000000FF272727FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF000000FF8E8E8EFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF0303
-            03FF060606FF000000FF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFE0E0E0FF000000FF060606FF060606FF000000FFFAFAFAFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF999999FF0000
-            00FF060606FF060606FF000000FF787878FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFA5A5A5FF000000FF050505FF060606FF000000FF545454FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2A2A
-            2AFF000000FF060606FF060606FF000000FF000000FF2C2C2CFF353535FF0000
-            00FF000000FF050505FF060606FF000000FF000000FFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF1E1E1EFF000000FF060606FF060606FF060606FF000000FF000000FF0505
-            05FF060606FF060606FF000000FF000000FFFAFAFAFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFF707070FF000000FF000000FF000000FF000000FF000000FF0000
-            00FF000000FF000000FF464646FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFF878787FF3B3B3BFF232323FF222222FF3232
-            32FF757575FFE9E9E9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnHandleShapePosition
-        end
-        object Label4: TLabel
-          Left = 21
-          Top = 92
-          Width = 56
-          Height = 14
-          Caption = 'Start Lat'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label55: TLabel
-          Left = 95
-          Top = 123
-          Width = 4
-          Height = 14
-          Caption = ':'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label5: TLabel
-          Left = 20
-          Top = 227
-          Width = 58
-          Height = 14
-          Caption = 'End Long'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label56: TLabel
-          Left = 94
-          Top = 227
-          Width = 4
-          Height = 14
-          Caption = ':'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label6: TLabel
-          Left = 21
-          Top = 194
-          Width = 47
-          Height = 14
-          Caption = 'End Lat'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label57: TLabel
-          Left = 95
-          Top = 194
-          Width = 4
-          Height = 14
-          Caption = ':'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object btnEndPos: TSpeedButton
-          Tag = 14
-          Left = 219
-          Top = 188
-          Width = 43
-          Height = 59
-          Cursor = crHandPoint
-          Glyph.Data = {
-            36100000424D3610000000000000360000002800000020000000200000000100
-            2000000000000010000000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC3C3C3FFA0A0A0FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD5D5D5FF000000FF000000FF8383
-            83FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF040404FF020202FF050505FF0000
-            00FFF3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF070707FF0000
-            00FF1D1D1DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFE0E0E0FF000000FF060606FF070707FF070707FF0606
-            06FF000000FF919191FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF0C0C0CFF010101FF070707FF070707FF070707FF0707
-            07FF050505FF000000FFFDFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFF797979FF000000FF060606FF070707FF070707FF070707FF0707
-            07FF070707FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFEBEBEBFF000000FF060606FF070707FF070707FF070707FF070707FF0707
-            07FF070707FF060606FF000000FF9E9E9EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF151515FF000000FF070707FF070707FF070707FF070707FF070707FF0707
-            07FF070707FF070707FF050505FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8585
-            85FF000000FF060606FF070707FF060606FF050505FF000000FF000000FF0404
-            04FF070707FF070707FF060606FF000000FF333333FFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEDEDEDFF0000
-            00FF060606FF070707FF060606FF000000FF000000FF2F2F2FFF373737FF0000
-            00FF000000FF050505FF070707FF060606FF000000FFB1B1B1FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF353535FF0000
-            00FF070707FF060606FF000000FF7B7B7BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFA8A8A8FF000000FF040404FF070707FF030303FF000000FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8FF000000FF0606
-            06FF060606FF000000FFA2A2A2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFE2E2E2FF000000FF060606FF060606FF000000FFB6B6B6FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA0A0A0FF000000FF0606
-            06FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF6B6B6BFF000000FF060606FF000000FF626262FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7B7B7BFF000000FF0606
-            06FF000000FF999999FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFD9D9D9FF000000FF070707FF000000FF3A3A3AFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF797979FF000000FF0606
-            06FF000000FFB8B8B8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFF9F9F9FF000000FF070707FF000000FF343434FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8B8B8BFF000000FF0606
-            06FF000000FF989898FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFD8D8D8FF000000FF070707FF000000FF4D4D4DFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDCDCDFF000000FF0606
-            06FF000000FF272727FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF000000FF8E8E8EFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF0303
-            03FF060606FF000000FF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFE0E0E0FF000000FF060606FF060606FF000000FFFAFAFAFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF999999FF0000
-            00FF060606FF060606FF000000FF787878FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFA5A5A5FF000000FF050505FF060606FF000000FF545454FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2A2A
-            2AFF000000FF060606FF060606FF000000FF000000FF2C2C2CFF353535FF0000
-            00FF000000FF050505FF060606FF000000FF000000FFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF1E1E1EFF000000FF060606FF060606FF060606FF000000FF000000FF0505
-            05FF060606FF060606FF000000FF000000FFFAFAFAFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFF707070FF000000FF000000FF000000FF000000FF000000FF0000
-            00FF000000FF000000FF464646FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFF878787FF3B3B3BFF232323FF222222FF3232
-            32FF757575FFE9E9E9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnHandleShapePosition
-        end
-        object Label1: TLabel
-          Left = 13
-          Top = 62
-          Width = 45
-          Height = 14
-          Caption = 'Center '
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Bevel19: TBevel
-          Left = 68
-          Top = 68
-          Width = 210
-          Height = 2
-        end
-        object btnStartCopyArrow: TImage
-          Left = 265
-          Top = 86
-          Width = 25
-          Height = 23
-          Cursor = crHandPoint
-          Hint = 'Copy Position'
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
-            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
-            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-            2241646F626520584D5020436F726520392E312D633030312037392E31343632
-            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
-            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
-            2857696E646F7773292220786D703A437265617465446174653D22323032352D
-            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
-            446174653D22323032362D30352D31315431343A35303A32302B30373A303022
-            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
-            3A35303A32302B30373A3030222064633A666F726D61743D22696D6167652F70
-            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-            4D3A496E7374616E636549443D22786D702E6969643A32396535643362322D39
-            3636362D313734652D393737662D3939363830636562666632652220786D704D
-            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-            686F703A30376631373437642D666635322D636434302D383834342D38333035
-            33366262376262622220786D704D4D3A4F726967696E616C446F63756D656E74
-            49443D22786D702E6469643A37323464373464302D393037632D373934352D61
-            6532342D643863313061633233356431223E203C786D704D4D3A486973746F72
-            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
-            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
-            702E6969643A37323464373464302D393037632D373934352D616532342D6438
-            63313061633233356431222073744576743A7768656E3D22323032352D30392D
-            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
-            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
-            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
-            7361766564222073744576743A696E7374616E636549443D22786D702E696964
-            3A32396535643362322D393636362D313734652D393737662D39393638306365
-            6266663265222073744576743A7768656E3D22323032362D30352D3131543134
-            3A35303A32302B30373A3030222073744576743A736F6674776172654167656E
-            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
-            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
-            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
-            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
-            787061636B657420656E643D2272223F3E3CB2F26E0000018F4944415478DADD
-            D6CB2B44511CC0F133A1290B2CA66C3CCBC2524AA2E415B143595B492C9492B2
-            B1B153B230895853584D445E654811A5A8210BC53F209147797C4FE72CEFCCFD
-            DDE94CCAAF3E8B69EECC77EE997BE74C289A78517F31214178067D82F7DAB5C7
-            BDBB0A1F218CA514C70CA20ADBE896C4A5E12B0CA538660E1D28441C5DF8081A
-            CEC23CF2EDE3762C0BC22598C6060EED99278D7B8575F00927B8410F5604E172
-            74A215311BD767FE1934DC80636CE1DE273C8A711BD51FB60D6B384816978425
-            DF711EF650E3F1DC04263315D693ADCC955D805CBC29732BC6BD5EEB32EC35FA
-            427B70111E419D20B88A7597E101652EA054F3A5CC5D107319FEB3A56E42AD4F
-            EC073BB874195E448BE04C1730F52F965A6F024582E01D9E5D86F7854B3D8B61
-            97E11C14FB44F5EDF4886F97E12013C2353631964E58FFD696E2346058AF4C35
-            EA71914EB85F996D4E3211342361574ADF7EE79ECB210807993265F6EE46BB52
-            49275538AACC772B1DBD2DF6A21215780D1A0EDB6024E0D9EAABF856991DECCC
-            EF60C9BFCC8CCC2FEEBFD7C1A9D578600000000049454E44AE426082}
-          ShowHint = True
-          Stretch = True
-          OnClick = btnStartCopyArrowpClick
-        end
-        object btnStartPasteArrow: TImage
-          Left = 265
-          Top = 120
-          Width = 25
-          Height = 23
-          Cursor = crHandPoint
-          Hint = 'Paste Start Arrow'
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
-            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
-            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-            2241646F626520584D5020436F726520392E312D633030312037392E31343632
-            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
-            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
-            2857696E646F7773292220786D703A437265617465446174653D22323032352D
-            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
-            446174653D22323032362D30352D31315431343A35313A32372B30373A303022
-            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
-            3A35313A32372B30373A3030222064633A666F726D61743D22696D6167652F70
-            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-            4D3A496E7374616E636549443D22786D702E6969643A31306162646665312D34
-            3730352D643934632D613166342D6338666461396337626330642220786D704D
-            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-            686F703A36383163373861622D643764342D363634632D393738352D66383365
-            61303533656337312220786D704D4D3A4F726967696E616C446F63756D656E74
-            49443D22786D702E6469643A38653635663335322D376130302D663034332D39
-            3936372D616262653234623136616461223E203C786D704D4D3A486973746F72
-            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
-            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
-            702E6969643A38653635663335322D376130302D663034332D393936372D6162
-            62653234623136616461222073744576743A7768656E3D22323032352D30392D
-            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
-            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
-            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
-            7361766564222073744576743A696E7374616E636549443D22786D702E696964
-            3A31306162646665312D343730352D643934632D613166342D63386664613963
-            3762633064222073744576743A7768656E3D22323032362D30352D3131543134
-            3A35313A32372B30373A3030222073744576743A736F6674776172654167656E
-            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
-            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
-            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
-            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
-            787061636B657420656E643D2272223F3ED67FA66E000001F24944415478DAC5
-            964B28845114C7CF646C896CA4C86BE3AD24166A588CE499255928E4514A4914
-            B6CAC26A22499294AC3D56228F3229162312162C5879B3F1FE9FEE9D3CE67EE3
-            7BCC9753BFE6FBE6BBDFF97FF7DC73EEB90ECFE123FD8739740A8F807A10AE78
-            F602664077A885A3C01518077B8AE799A003C480EB500837821E902C675A0116
-            15E3CAC1829CF9291806536685CBC0129800BB604C867A5931D60DE64027C800
-            CDA052E323FF149E95A12B95F7FB203D889F13902AAFF9E36E409D19610EDD39
-            6897F79120173815635F49ACFD9DBC1F0569C0654678051C7D1336622CCC0957
-            64467803F84C0A73F6279258FB900AB7C9FFE3347C46B05FE9A31F6C8642D805
-            56818744C27D6888732ED4801C39FB27ABC283A081BE323898C583335008B6AD
-            0A0F91D830B274087325DC9248B280705B116E027D8A77DF412D8972B4453805
-            9428DE7D06F324B6595B84FF2DD46E196ED58C7BC1835DC2C5A00584FD1AC30E
-            07E4AF61E135706031D4B1E0C2A83037894B122D4E4B9893AB8A024F25EC701A
-            4493A86343C293D2793EFDDC9DF494D31B8972BA37239C07B68017EC90385DB0
-            7142397586DABF731912662B005D248E3E7E4B2091307AB64C5E8A63E9C76B44
-            5865FCF5EB249A842FC8385EF76A900D92C8409308669CE9AD24DAA243630CD7
-            3257053715436DD176FB04BB1CC2C16E0E0FF70000000049454E44AE426082}
-          ShowHint = True
-          Stretch = True
-          OnClick = btnStartPasteArrowpClick
-        end
-        object btnEndCopyArrow: TImage
-          Left = 265
-          Top = 188
-          Width = 25
-          Height = 23
-          Cursor = crHandPoint
-          Hint = 'Copy Position'
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
-            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
-            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-            2241646F626520584D5020436F726520392E312D633030312037392E31343632
-            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
-            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
-            2857696E646F7773292220786D703A437265617465446174653D22323032352D
-            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
-            446174653D22323032362D30352D31315431343A35303A32302B30373A303022
-            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
-            3A35303A32302B30373A3030222064633A666F726D61743D22696D6167652F70
-            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-            4D3A496E7374616E636549443D22786D702E6969643A32396535643362322D39
-            3636362D313734652D393737662D3939363830636562666632652220786D704D
-            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-            686F703A30376631373437642D666635322D636434302D383834342D38333035
-            33366262376262622220786D704D4D3A4F726967696E616C446F63756D656E74
-            49443D22786D702E6469643A37323464373464302D393037632D373934352D61
-            6532342D643863313061633233356431223E203C786D704D4D3A486973746F72
-            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
-            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
-            702E6969643A37323464373464302D393037632D373934352D616532342D6438
-            63313061633233356431222073744576743A7768656E3D22323032352D30392D
-            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
-            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
-            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
-            7361766564222073744576743A696E7374616E636549443D22786D702E696964
-            3A32396535643362322D393636362D313734652D393737662D39393638306365
-            6266663265222073744576743A7768656E3D22323032362D30352D3131543134
-            3A35303A32302B30373A3030222073744576743A736F6674776172654167656E
-            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
-            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
-            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
-            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
-            787061636B657420656E643D2272223F3E3CB2F26E0000018F4944415478DADD
-            D6CB2B44511CC0F133A1290B2CA66C3CCBC2524AA2E415B143595B492C9492B2
-            B1B153B230895853584D445E654811A5A8210BC53F209147797C4FE72CEFCCFD
-            DDE94CCAAF3E8B69EECC77EE997BE74C289A78517F31214178067D82F7DAB5C7
-            BDBB0A1F218CA514C70CA20ADBE896C4A5E12B0CA538660E1D28441C5DF8081A
-            CEC23CF2EDE3762C0BC22598C6060EED99278D7B8575F00927B8410F5604E172
-            74A215311BD767FE1934DC80636CE1DE273C8A711BD51FB60D6B384816978425
-            DF711EF650E3F1DC04263315D693ADCC955D805CBC29732BC6BD5EEB32EC35FA
-            427B70111E419D20B88A7597E101652EA054F3A5CC5D107319FEB3A56E42AD4F
-            EC073BB874195E448BE04C1730F52F965A6F024582E01D9E5D86F7854B3D8B61
-            97E11C14FB44F5EDF4886F97E12013C2353631964E58FFD696E2346058AF4C35
-            EA71914EB85F996D4E3211342361574ADF7EE79ECB210807993265F6EE46BB52
-            49275538AACC772B1DBD2DF6A21215780D1A0EDB6024E0D9EAABF856991DECCC
-            EF60C9BFCC8CCC2FEEBFD7C1A9D578600000000049454E44AE426082}
-          ShowHint = True
-          Stretch = True
-          OnClick = btnEndCopyArrowpClick
-        end
-        object btnEndPasteArrow: TImage
-          Left = 265
-          Top = 221
-          Width = 25
-          Height = 23
-          Cursor = crHandPoint
-          Hint = 'Paste Position'
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
-            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
-            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-            2241646F626520584D5020436F726520392E312D633030312037392E31343632
-            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
-            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
-            2857696E646F7773292220786D703A437265617465446174653D22323032352D
-            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
-            446174653D22323032362D30352D31315431343A35313A32372B30373A303022
-            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
-            3A35313A32372B30373A3030222064633A666F726D61743D22696D6167652F70
-            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-            4D3A496E7374616E636549443D22786D702E6969643A31306162646665312D34
-            3730352D643934632D613166342D6338666461396337626330642220786D704D
-            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-            686F703A36383163373861622D643764342D363634632D393738352D66383365
-            61303533656337312220786D704D4D3A4F726967696E616C446F63756D656E74
-            49443D22786D702E6469643A38653635663335322D376130302D663034332D39
-            3936372D616262653234623136616461223E203C786D704D4D3A486973746F72
-            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
-            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
-            702E6969643A38653635663335322D376130302D663034332D393936372D6162
-            62653234623136616461222073744576743A7768656E3D22323032352D30392D
-            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
-            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
-            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
-            7361766564222073744576743A696E7374616E636549443D22786D702E696964
-            3A31306162646665312D343730352D643934632D613166342D63386664613963
-            3762633064222073744576743A7768656E3D22323032362D30352D3131543134
-            3A35313A32372B30373A3030222073744576743A736F6674776172654167656E
-            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
-            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
-            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
-            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
-            787061636B657420656E643D2272223F3ED67FA66E000001F24944415478DAC5
-            964B28845114C7CF646C896CA4C86BE3AD24166A588CE499255928E4514A4914
-            B6CAC26A22499294AC3D56228F3229162312162C5879B3F1FE9FEE9D3CE67EE3
-            7BCC9753BFE6FBE6BBDFF97FF7DC73EEB90ECFE123FD8739740A8F807A10AE78
-            F602664077A885A3C01518077B8AE799A003C480EB500837821E902C675A0116
-            15E3CAC1829CF9291806536685CBC0129800BB604C867A5931D60DE64027C800
-            CDA052E323FF149E95A12B95F7FB203D889F13902AAFF9E36E409D19610EDD39
-            6897F79120173815635F49ACFD9DBC1F0569C0654678051C7D1336622CCC0957
-            64467803F84C0A73F6279258FB900AB7C9FFE3347C46B05FE9A31F6C8642D805
-            56818744C27D6888732ED4801C39FB27ABC283A081BE323898C583335008B6AD
-            0A0F91D830B274087325DC9248B280705B116E027D8A77DF412D8972B4453805
-            9428DE7D06F324B6595B84FF2DD46E196ED58C7BC1835DC2C5A00584FD1AC30E
-            07E4AF61E135706031D4B1E0C2A83037894B122D4E4B9893AB8A024F25EC701A
-            4493A86343C293D2793EFDDC9DF494D31B8972BA37239C07B68017EC90385DB0
-            7142397586DABF731912662B005D248E3E7E4B2091307AB64C5E8A63E9C76B44
-            5865FCF5EB249A842FC8385EF76A900D92C8409308669CE9AD24DAA243630CD7
-            3257053715436DD176FB04BB1CC2C16E0E0FF70000000049454E44AE426082}
-          ShowHint = True
-          Stretch = True
-          OnClick = btnEndPasteArrowpClick
-        end
-        object edtStartLatt: TEdit
-          Left = 105
-          Top = 86
-          Width = 110
-          Height = 26
+          Height = 17
+          Caption = 'Blue'
+          Checked = True
           Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-        end
-        object edtStartLong: TEdit
-          Left = 105
-          Top = 117
-          Width = 110
-          Height = 26
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
+          Font.Color = clWhite
           Font.Height = -16
           Font.Name = 'Berlin Sans FB'
           Font.Style = []
           ParentFont = False
           TabOrder = 1
+          TabStop = True
         end
-        object edtEndLatt: TEdit
-          Left = 105
-          Top = 188
-          Width = 110
-          Height = 26
+        object rbRed: TRadioButton
+          Left = 65
+          Top = 17
+          Width = 67
+          Height = 17
+          Caption = 'Red'
           Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
+          Font.Color = clWhite
           Font.Height = -16
           Font.Name = 'Berlin Sans FB'
           Font.Style = []
           ParentFont = False
-          TabOrder = 2
-        end
-        object edtEndLong: TEdit
-          Left = 104
-          Top = 221
-          Width = 110
-          Height = 26
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 3
+          TabOrder = 0
         end
       end
       object grpBase: TGroupBox
@@ -9519,9 +8839,9 @@ object frmOverlayTools: TfrmOverlayTools
         object Label12: TLabel
           Left = 21
           Top = 413
-          Width = 61
+          Width = 57
           Height = 14
-          Caption = 'Platform :'
+          Caption = 'Platform '
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -9532,9 +8852,9 @@ object frmOverlayTools: TfrmOverlayTools
         object Label13: TLabel
           Left = 21
           Top = 442
-          Width = 58
+          Width = 34
           Height = 14
-          Caption = 'Qty        :'
+          Caption = 'Qty   '
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -9599,7 +8919,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyBase: TImage
           Left = 256
-          Top = 153
+          Top = 154
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -9674,7 +8994,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPasteBase: TImage
           Left = 256
-          Top = 187
+          Top = 186
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -9750,11 +9070,37 @@ object frmOverlayTools: TfrmOverlayTools
           Stretch = True
           OnClick = btnPasteBasepClick
         end
+        object lbl66: TLabel
+          Left = 76
+          Top = 440
+          Width = 10
+          Height = 17
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl67: TLabel
+          Left = 76
+          Top = 414
+          Width = 10
+          Height = 17
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
         object edtLongBase: TEdit
           Left = 65
-          Top = 184
+          Top = 185
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -9765,9 +9111,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtLattBase: TEdit
           Left = 65
-          Top = 153
+          Top = 154
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -9904,489 +9250,6 @@ object frmOverlayTools: TfrmOverlayTools
           MaxLength = 20
           ParentFont = False
           TabOrder = 10
-        end
-      end
-      object grpColorForce: TGroupBox
-        Left = 7
-        Top = 14
-        Width = 355
-        Height = 51
-        TabOrder = 0
-        object rbBlue: TRadioButton
-          Left = 222
-          Top = 17
-          Width = 67
-          Height = 17
-          Caption = 'Blue'
-          Checked = True
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 1
-          TabStop = True
-        end
-        object rbRed: TRadioButton
-          Left = 65
-          Top = 17
-          Width = 67
-          Height = 17
-          Caption = 'Red'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-        end
-      end
-      object grpIntelegent: TGroupBox
-        Left = 62
-        Top = 71
-        Width = 299
-        Height = 475
-        Color = 3683636
-        ParentColor = False
-        TabOrder = 2
-        object Label17: TLabel
-          Left = 21
-          Top = 134
-          Width = 31
-          Height = 14
-          Caption = 'Long'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label52: TLabel
-          Left = 55
-          Top = 134
-          Width = 4
-          Height = 14
-          Caption = ':'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object btnPositionIntel: TSpeedButton
-          Tag = 11
-          Left = 209
-          Top = 97
-          Width = 43
-          Height = 57
-          Cursor = crHandPoint
-          Glyph.Data = {
-            36100000424D3610000000000000360000002800000020000000200000000100
-            2000000000000010000000000000000000000000000000000000FFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC3C3C3FFA0A0A0FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD5D5D5FF000000FF000000FF8383
-            83FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF040404FF020202FF050505FF0000
-            00FFF3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF070707FF0000
-            00FF1D1D1DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFE0E0E0FF000000FF060606FF070707FF070707FF0606
-            06FF000000FF919191FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF0C0C0CFF010101FF070707FF070707FF070707FF0707
-            07FF050505FF000000FFFDFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFF797979FF000000FF060606FF070707FF070707FF070707FF0707
-            07FF070707FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFEBEBEBFF000000FF060606FF070707FF070707FF070707FF070707FF0707
-            07FF070707FF060606FF000000FF9E9E9EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF151515FF000000FF070707FF070707FF070707FF070707FF070707FF0707
-            07FF070707FF070707FF050505FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8585
-            85FF000000FF060606FF070707FF060606FF050505FF000000FF000000FF0404
-            04FF070707FF070707FF060606FF000000FF333333FFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEDEDEDFF0000
-            00FF060606FF070707FF060606FF000000FF000000FF2F2F2FFF373737FF0000
-            00FF000000FF050505FF070707FF060606FF000000FFB1B1B1FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF353535FF0000
-            00FF070707FF060606FF000000FF7B7B7BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFA8A8A8FF000000FF040404FF070707FF030303FF000000FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8FF000000FF0606
-            06FF060606FF000000FFA2A2A2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFE2E2E2FF000000FF060606FF060606FF000000FFB6B6B6FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA0A0A0FF000000FF0606
-            06FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF6B6B6BFF000000FF060606FF000000FF626262FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7B7B7BFF000000FF0606
-            06FF000000FF999999FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFD9D9D9FF000000FF070707FF000000FF3A3A3AFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF797979FF000000FF0606
-            06FF000000FFB8B8B8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFF9F9F9FF000000FF070707FF000000FF343434FFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8B8B8BFF000000FF0606
-            06FF000000FF989898FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFD8D8D8FF000000FF070707FF000000FF4D4D4DFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDCDCDFF000000FF0606
-            06FF000000FF272727FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF000000FF8E8E8EFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF0303
-            03FF060606FF000000FF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFE0E0E0FF000000FF060606FF060606FF000000FFFAFAFAFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF999999FF0000
-            00FF060606FF060606FF000000FF787878FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFA5A5A5FF000000FF050505FF060606FF000000FF545454FFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2A2A
-            2AFF000000FF060606FF060606FF000000FF000000FF2C2C2CFF353535FF0000
-            00FF000000FF050505FF060606FF000000FF000000FFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFF1E1E1EFF000000FF060606FF060606FF060606FF000000FF000000FF0505
-            05FF060606FF060606FF000000FF000000FFFAFAFAFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFF707070FF000000FF000000FF000000FF000000FF000000FF0000
-            00FF000000FF000000FF464646FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFF878787FF3B3B3BFF232323FF222222FF3232
-            32FF757575FFE9E9E9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnHandleShapePosition
-        end
-        object Label18: TLabel
-          Left = 21
-          Top = 103
-          Width = 20
-          Height = 14
-          Caption = 'Lat'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label53: TLabel
-          Left = 55
-          Top = 103
-          Width = 4
-          Height = 14
-          Caption = ':'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label19: TLabel
-          Left = 13
-          Top = 177
-          Width = 74
-          Height = 14
-          Caption = 'Information'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label64: TLabel
-          Left = 95
-          Top = 23
-          Width = 110
-          Height = 14
-          Caption = '.: INFORMATION :.'
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Bevel16: TBevel
-          Left = 98
-          Top = 183
-          Width = 180
-          Height = 2
-        end
-        object Label67: TLabel
-          Left = 13
-          Top = 73
-          Width = 45
-          Height = 14
-          Caption = 'Center '
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Bevel1: TBevel
-          Left = 68
-          Top = 79
-          Width = 210
-          Height = 2
-        end
-        object btnCopyInformation: TImage
-          Left = 257
-          Top = 97
-          Width = 25
-          Height = 23
-          Cursor = crHandPoint
-          Hint = 'Copy Position'
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
-            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
-            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-            2241646F626520584D5020436F726520392E312D633030312037392E31343632
-            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
-            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
-            2857696E646F7773292220786D703A437265617465446174653D22323032352D
-            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
-            446174653D22323032362D30352D31315431343A35303A32302B30373A303022
-            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
-            3A35303A32302B30373A3030222064633A666F726D61743D22696D6167652F70
-            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-            4D3A496E7374616E636549443D22786D702E6969643A32396535643362322D39
-            3636362D313734652D393737662D3939363830636562666632652220786D704D
-            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-            686F703A30376631373437642D666635322D636434302D383834342D38333035
-            33366262376262622220786D704D4D3A4F726967696E616C446F63756D656E74
-            49443D22786D702E6469643A37323464373464302D393037632D373934352D61
-            6532342D643863313061633233356431223E203C786D704D4D3A486973746F72
-            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
-            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
-            702E6969643A37323464373464302D393037632D373934352D616532342D6438
-            63313061633233356431222073744576743A7768656E3D22323032352D30392D
-            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
-            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
-            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
-            7361766564222073744576743A696E7374616E636549443D22786D702E696964
-            3A32396535643362322D393636362D313734652D393737662D39393638306365
-            6266663265222073744576743A7768656E3D22323032362D30352D3131543134
-            3A35303A32302B30373A3030222073744576743A736F6674776172654167656E
-            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
-            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
-            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
-            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
-            787061636B657420656E643D2272223F3E3CB2F26E0000018F4944415478DADD
-            D6CB2B44511CC0F133A1290B2CA66C3CCBC2524AA2E415B143595B492C9492B2
-            B1B153B230895853584D445E654811A5A8210BC53F209147797C4FE72CEFCCFD
-            DDE94CCAAF3E8B69EECC77EE997BE74C289A78517F31214178067D82F7DAB5C7
-            BDBB0A1F218CA514C70CA20ADBE896C4A5E12B0CA538660E1D28441C5DF8081A
-            CEC23CF2EDE3762C0BC22598C6060EED99278D7B8575F00927B8410F5604E172
-            74A215311BD767FE1934DC80636CE1DE273C8A711BD51FB60D6B384816978425
-            DF711EF650E3F1DC04263315D693ADCC955D805CBC29732BC6BD5EEB32EC35FA
-            427B70111E419D20B88A7597E101652EA054F3A5CC5D107319FEB3A56E42AD4F
-            EC073BB874195E448BE04C1730F52F965A6F024582E01D9E5D86F7854B3D8B61
-            97E11C14FB44F5EDF4886F97E12013C2353631964E58FFD696E2346058AF4C35
-            EA71914EB85F996D4E3211342361574ADF7EE79ECB210807993265F6EE46BB52
-            49275538AACC772B1DBD2DF6A21215780D1A0EDB6024E0D9EAABF856991DECCC
-            EF60C9BFCC8CCC2FEEBFD7C1A9D578600000000049454E44AE426082}
-          ShowHint = True
-          Stretch = True
-          OnClick = btnCopyInformationpClick
-        end
-        object btnPasteInformation: TImage
-          Left = 258
-          Top = 131
-          Width = 25
-          Height = 23
-          Cursor = crHandPoint
-          Hint = 'Paste Position'
-          ParentShowHint = False
-          Picture.Data = {
-            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
-            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
-            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
-            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
-            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
-            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
-            2241646F626520584D5020436F726520392E312D633030312037392E31343632
-            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
-            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
-            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
-            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
-            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
-            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
-            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
-            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
-            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
-            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
-            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
-            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
-            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
-            2857696E646F7773292220786D703A437265617465446174653D22323032352D
-            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
-            446174653D22323032362D30352D31315431343A35313A32372B30373A303022
-            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
-            3A35313A32372B30373A3030222064633A666F726D61743D22696D6167652F70
-            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
-            4D3A496E7374616E636549443D22786D702E6969643A31306162646665312D34
-            3730352D643934632D613166342D6338666461396337626330642220786D704D
-            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
-            686F703A36383163373861622D643764342D363634632D393738352D66383365
-            61303533656337312220786D704D4D3A4F726967696E616C446F63756D656E74
-            49443D22786D702E6469643A38653635663335322D376130302D663034332D39
-            3936372D616262653234623136616461223E203C786D704D4D3A486973746F72
-            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
-            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
-            702E6969643A38653635663335322D376130302D663034332D393936372D6162
-            62653234623136616461222073744576743A7768656E3D22323032352D30392D
-            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
-            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
-            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
-            7361766564222073744576743A696E7374616E636549443D22786D702E696964
-            3A31306162646665312D343730352D643934632D613166342D63386664613963
-            3762633064222073744576743A7768656E3D22323032362D30352D3131543134
-            3A35313A32372B30373A3030222073744576743A736F6674776172654167656E
-            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
-            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
-            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
-            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
-            787061636B657420656E643D2272223F3ED67FA66E000001F24944415478DAC5
-            964B28845114C7CF646C896CA4C86BE3AD24166A588CE499255928E4514A4914
-            B6CAC26A22499294AC3D56228F3229162312162C5879B3F1FE9FEE9D3CE67EE3
-            7BCC9753BFE6FBE6BBDFF97FF7DC73EEB90ECFE123FD8739740A8F807A10AE78
-            F602664077A885A3C01518077B8AE799A003C480EB500837821E902C675A0116
-            15E3CAC1829CF9291806536685CBC0129800BB604C867A5931D60DE64027C800
-            CDA052E323FF149E95A12B95F7FB203D889F13902AAFF9E36E409D19610EDD39
-            6897F79120173815635F49ACFD9DBC1F0569C0654678051C7D1336622CCC0957
-            64467803F84C0A73F6279258FB900AB7C9FFE3347C46B05FE9A31F6C8642D805
-            56818744C27D6888732ED4801C39FB27ABC283A081BE323898C583335008B6AD
-            0A0F91D830B274087325DC9248B280705B116E027D8A77DF412D8972B4453805
-            9428DE7D06F324B6595B84FF2DD46E196ED58C7BC1835DC2C5A00584FD1AC30E
-            07E4AF61E135706031D4B1E0C2A83037894B122D4E4B9893AB8A024F25EC701A
-            4493A86343C293D2793EFDDC9DF494D31B8972BA37239C07B68017EC90385DB0
-            7142397586DABF731912662B005D248E3E7E4B2091307AB64C5E8A63E9C76B44
-            5865FCF5EB249A842FC8385EF76A900D92C8409308669CE9AD24DAA243630CD7
-            3257053715436DD176FB04BB1CC2C16E0E0FF70000000049454E44AE426082}
-          ShowHint = True
-          Stretch = True
-          OnClick = btnPasteInformationpClick
-        end
-        object edtLongIntel: TEdit
-          Left = 65
-          Top = 128
-          Width = 139
-          Height = 26
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 0
-        end
-        object edtLattIntel: TEdit
-          Left = 65
-          Top = 97
-          Width = 139
-          Height = 26
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 1
-        end
-        object mmoInfo: TMemo
-          Left = 21
-          Top = 209
-          Width = 257
-          Height = 192
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWindowText
-          Font.Height = -16
-          Font.Name = 'Berlin Sans FB'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 2
         end
       end
       object grplogistik: TGroupBox
@@ -10715,7 +9578,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyLog: TImage
           Left = 257
-          Top = 153
+          Top = 154
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -10790,7 +9653,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnPasteLog: TImage
           Left = 257
-          Top = 187
+          Top = 186
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -10868,9 +9731,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtLongLog: TEdit
           Left = 65
-          Top = 184
+          Top = 185
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -10881,9 +9744,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtLattLog: TEdit
           Left = 65
-          Top = 153
+          Top = 154
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -12419,20 +11282,20 @@ object frmOverlayTools: TfrmOverlayTools
           OnClick = btnHandleShape
         end
       end
-      object grpPlatform: TGroupBox
+      object grpArrow: TGroupBox
         Left = 62
         Top = 71
         Width = 299
         Height = 475
         Color = 3683636
         ParentColor = False
-        TabOrder = 8
-        object Label70: TLabel
-          Left = 105
+        TabOrder = 4
+        object Label15: TLabel
+          Left = 113
           Top = 23
-          Width = 90
+          Width = 72
           Height = 14
-          Caption = '.: PLATFORM :.'
+          Caption = '.: ARROW :.'
           Font.Charset = ANSI_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -12440,31 +11303,12 @@ object frmOverlayTools: TfrmOverlayTools
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object Label71: TLabel
-          Left = 13
-          Top = 134
-          Width = 45
-          Height = 14
-          Caption = 'Center '
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Bevel25: TBevel
-          Left = 68
-          Top = 140
-          Width = 210
-          Height = 2
-        end
-        object Label72: TLabel
+        object Label3: TLabel
           Left = 21
-          Top = 195
-          Width = 39
+          Top = 123
+          Width = 67
           Height = 14
-          Caption = 'Long :'
+          Caption = 'Start Long'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -12472,12 +11316,26 @@ object frmOverlayTools: TfrmOverlayTools
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object btnPosPlatform: TSpeedButton
-          Tag = 17
-          Left = 208
-          Top = 158
+        object Label54: TLabel
+          Left = 95
+          Top = 92
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object btnStartPos: TSpeedButton
+          Tag = 13
+          Left = 219
+          Top = 85
           Width = 43
-          Height = 57
+          Height = 59
+          Cursor = crHandPoint
           Glyph.Data = {
             36100000424D3610000000000000360000002800000020000000200000000100
             2000000000000010000000000000000000000000000000000000FFFFFFFFFFFF
@@ -12609,11 +11467,26 @@ object frmOverlayTools: TfrmOverlayTools
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
           OnClick = btnHandleShapePosition
         end
-        object Label74: TLabel
-          Left = 55
-          Top = 103
+        object Label4: TLabel
+          Left = 21
+          Top = 92
+          Width = 56
+          Height = 14
+          Caption = 'Start Lat'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label55: TLabel
+          Left = 95
+          Top = 123
           Width = 4
           Height = 14
           Caption = ':'
@@ -12624,94 +11497,12 @@ object frmOverlayTools: TfrmOverlayTools
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object Label75: TLabel
-          Left = 21
-          Top = 164
-          Width = 40
-          Height = 14
-          Caption = 'Lat    :'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Label79: TLabel
-          Left = 13
-          Top = 289
-          Width = 94
-          Height = 14
-          Caption = 'Tactical Symbol'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Bevel26: TBevel
-          Left = 113
-          Top = 295
-          Width = 165
-          Height = 2
-        end
-        object lblTacticalSymbolPlatform: TLabel
-          Left = 87
-          Top = 306
-          Width = 123
-          Height = 85
-          Alignment = taCenter
-          AutoSize = False
-          Caption = 'g'
-          Color = clCaptionText
-          Font.Charset = ANSI_CHARSET
-          Font.Color = clWhite
-          Font.Height = -87
-          Font.Name = 'TAKTIS_AL'
-          Font.Style = [fsBold]
-          ParentColor = False
-          ParentFont = False
-          Transparent = True
-        end
-        object Label50: TLabel
-          Left = 13
-          Top = 70
-          Width = 61
-          Height = 14
-          Caption = 'Identifier '
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -12
-          Font.Name = 'Tahoma'
-          Font.Style = [fsBold]
-          ParentFont = False
-        end
-        object Bevel15: TBevel
-          Left = 84
-          Top = 76
-          Width = 194
-          Height = 2
-        end
-        object Label51: TLabel
-          Left = 210
-          Top = 99
-          Width = 68
-          Height = 13
-          Caption = '* Max 20 char'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clWhite
-          Font.Height = -11
-          Font.Name = 'Tahoma'
-          Font.Style = []
-          ParentFont = False
-        end
-        object Label77: TLabel
-          Left = 21
-          Top = 241
+        object Label5: TLabel
+          Left = 20
+          Top = 227
           Width = 58
           Height = 14
-          Caption = 'Heading :'
+          Caption = 'End Long'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -12719,12 +11510,12 @@ object frmOverlayTools: TfrmOverlayTools
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object Label73: TLabel
-          Left = 200
-          Top = 241
-          Width = 54
+        object Label56: TLabel
+          Left = 95
+          Top = 227
+          Width = 4
           Height = 14
-          Caption = 'T Degree'
+          Caption = ':'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
           Font.Height = -12
@@ -12732,9 +11523,196 @@ object frmOverlayTools: TfrmOverlayTools
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object btnCopyPlatform: TImage
-          Left = 256
-          Top = 158
+        object Label6: TLabel
+          Left = 21
+          Top = 194
+          Width = 47
+          Height = 14
+          Caption = 'End Lat'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label57: TLabel
+          Left = 95
+          Top = 194
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object btnEndPos: TSpeedButton
+          Tag = 14
+          Left = 219
+          Top = 188
+          Width = 43
+          Height = 59
+          Cursor = crHandPoint
+          Glyph.Data = {
+            36100000424D3610000000000000360000002800000020000000200000000100
+            2000000000000010000000000000000000000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC3C3C3FFA0A0A0FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD5D5D5FF000000FF000000FF8383
+            83FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF040404FF020202FF050505FF0000
+            00FFF3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF070707FF0000
+            00FF1D1D1DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFE0E0E0FF000000FF060606FF070707FF070707FF0606
+            06FF000000FF919191FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF0C0C0CFF010101FF070707FF070707FF070707FF0707
+            07FF050505FF000000FFFDFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFF797979FF000000FF060606FF070707FF070707FF070707FF0707
+            07FF070707FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFEBEBEBFF000000FF060606FF070707FF070707FF070707FF070707FF0707
+            07FF070707FF060606FF000000FF9E9E9EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF151515FF000000FF070707FF070707FF070707FF070707FF070707FF0707
+            07FF070707FF070707FF050505FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8585
+            85FF000000FF060606FF070707FF060606FF050505FF000000FF000000FF0404
+            04FF070707FF070707FF060606FF000000FF333333FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEDEDEDFF0000
+            00FF060606FF070707FF060606FF000000FF000000FF2F2F2FFF373737FF0000
+            00FF000000FF050505FF070707FF060606FF000000FFB1B1B1FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF353535FF0000
+            00FF070707FF060606FF000000FF7B7B7BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA8A8A8FF000000FF040404FF070707FF030303FF000000FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8FF000000FF0606
+            06FF060606FF000000FFA2A2A2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFE2E2E2FF000000FF060606FF060606FF000000FFB6B6B6FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA0A0A0FF000000FF0606
+            06FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF6B6B6BFF000000FF060606FF000000FF626262FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7B7B7BFF000000FF0606
+            06FF000000FF999999FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFD9D9D9FF000000FF070707FF000000FF3A3A3AFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF797979FF000000FF0606
+            06FF000000FFB8B8B8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFF9F9F9FF000000FF070707FF000000FF343434FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8B8B8BFF000000FF0606
+            06FF000000FF989898FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFD8D8D8FF000000FF070707FF000000FF4D4D4DFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDCDCDFF000000FF0606
+            06FF000000FF272727FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF000000FF8E8E8EFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF0303
+            03FF060606FF000000FF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFE0E0E0FF000000FF060606FF060606FF000000FFFAFAFAFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF999999FF0000
+            00FF060606FF060606FF000000FF787878FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA5A5A5FF000000FF050505FF060606FF000000FF545454FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2A2A
+            2AFF000000FF060606FF060606FF000000FF000000FF2C2C2CFF353535FF0000
+            00FF000000FF050505FF060606FF000000FF000000FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF1E1E1EFF000000FF060606FF060606FF060606FF000000FF000000FF0505
+            05FF060606FF060606FF000000FF000000FFFAFAFAFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFF707070FF000000FF000000FF000000FF000000FF000000FF0000
+            00FF000000FF000000FF464646FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF878787FF3B3B3BFF232323FF222222FF3232
+            32FF757575FFE9E9E9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
+          OnClick = btnHandleShapePosition
+        end
+        object Label1: TLabel
+          Left = 13
+          Top = 62
+          Width = 45
+          Height = 14
+          Caption = 'Center '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Bevel19: TBevel
+          Left = 68
+          Top = 68
+          Width = 210
+          Height = 2
+        end
+        object btnStartCopyArrow: TImage
+          Left = 265
+          Top = 87
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -12805,11 +11783,164 @@ object frmOverlayTools: TfrmOverlayTools
             EF60C9BFCC8CCC2FEEBFD7C1A9D578600000000049454E44AE426082}
           ShowHint = True
           Stretch = True
-          OnClick = btnCopyPlatformpClick
+          OnClick = btnStartCopyArrowpClick
         end
-        object btnPastePlatform: TImage
-          Left = 256
-          Top = 192
+        object btnStartPasteArrow: TImage
+          Left = 265
+          Top = 119
+          Width = 25
+          Height = 23
+          Cursor = crHandPoint
+          Hint = 'Paste Start Arrow'
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
+            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
+            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+            2241646F626520584D5020436F726520392E312D633030312037392E31343632
+            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
+            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
+            2857696E646F7773292220786D703A437265617465446174653D22323032352D
+            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
+            446174653D22323032362D30352D31315431343A35313A32372B30373A303022
+            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
+            3A35313A32372B30373A3030222064633A666F726D61743D22696D6167652F70
+            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+            4D3A496E7374616E636549443D22786D702E6969643A31306162646665312D34
+            3730352D643934632D613166342D6338666461396337626330642220786D704D
+            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+            686F703A36383163373861622D643764342D363634632D393738352D66383365
+            61303533656337312220786D704D4D3A4F726967696E616C446F63756D656E74
+            49443D22786D702E6469643A38653635663335322D376130302D663034332D39
+            3936372D616262653234623136616461223E203C786D704D4D3A486973746F72
+            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
+            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
+            702E6969643A38653635663335322D376130302D663034332D393936372D6162
+            62653234623136616461222073744576743A7768656E3D22323032352D30392D
+            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
+            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
+            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
+            7361766564222073744576743A696E7374616E636549443D22786D702E696964
+            3A31306162646665312D343730352D643934632D613166342D63386664613963
+            3762633064222073744576743A7768656E3D22323032362D30352D3131543134
+            3A35313A32372B30373A3030222073744576743A736F6674776172654167656E
+            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
+            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
+            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
+            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
+            787061636B657420656E643D2272223F3ED67FA66E000001F24944415478DAC5
+            964B28845114C7CF646C896CA4C86BE3AD24166A588CE499255928E4514A4914
+            B6CAC26A22499294AC3D56228F3229162312162C5879B3F1FE9FEE9D3CE67EE3
+            7BCC9753BFE6FBE6BBDFF97FF7DC73EEB90ECFE123FD8739740A8F807A10AE78
+            F602664077A885A3C01518077B8AE799A003C480EB500837821E902C675A0116
+            15E3CAC1829CF9291806536685CBC0129800BB604C867A5931D60DE64027C800
+            CDA052E323FF149E95A12B95F7FB203D889F13902AAFF9E36E409D19610EDD39
+            6897F79120173815635F49ACFD9DBC1F0569C0654678051C7D1336622CCC0957
+            64467803F84C0A73F6279258FB900AB7C9FFE3347C46B05FE9A31F6C8642D805
+            56818744C27D6888732ED4801C39FB27ABC283A081BE323898C583335008B6AD
+            0A0F91D830B274087325DC9248B280705B116E027D8A77DF412D8972B4453805
+            9428DE7D06F324B6595B84FF2DD46E196ED58C7BC1835DC2C5A00584FD1AC30E
+            07E4AF61E135706031D4B1E0C2A83037894B122D4E4B9893AB8A024F25EC701A
+            4493A86343C293D2793EFDDC9DF494D31B8972BA37239C07B68017EC90385DB0
+            7142397586DABF731912662B005D248E3E7E4B2091307AB64C5E8A63E9C76B44
+            5865FCF5EB249A842FC8385EF76A900D92C8409308669CE9AD24DAA243630CD7
+            3257053715436DD176FB04BB1CC2C16E0E0FF70000000049454E44AE426082}
+          ShowHint = True
+          Stretch = True
+          OnClick = btnStartPasteArrowpClick
+        end
+        object btnEndCopyArrow: TImage
+          Left = 265
+          Top = 189
+          Width = 25
+          Height = 23
+          Cursor = crHandPoint
+          Hint = 'Copy Position'
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
+            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
+            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+            2241646F626520584D5020436F726520392E312D633030312037392E31343632
+            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
+            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
+            2857696E646F7773292220786D703A437265617465446174653D22323032352D
+            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
+            446174653D22323032362D30352D31315431343A35303A32302B30373A303022
+            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
+            3A35303A32302B30373A3030222064633A666F726D61743D22696D6167652F70
+            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+            4D3A496E7374616E636549443D22786D702E6969643A32396535643362322D39
+            3636362D313734652D393737662D3939363830636562666632652220786D704D
+            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+            686F703A30376631373437642D666635322D636434302D383834342D38333035
+            33366262376262622220786D704D4D3A4F726967696E616C446F63756D656E74
+            49443D22786D702E6469643A37323464373464302D393037632D373934352D61
+            6532342D643863313061633233356431223E203C786D704D4D3A486973746F72
+            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
+            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
+            702E6969643A37323464373464302D393037632D373934352D616532342D6438
+            63313061633233356431222073744576743A7768656E3D22323032352D30392D
+            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
+            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
+            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
+            7361766564222073744576743A696E7374616E636549443D22786D702E696964
+            3A32396535643362322D393636362D313734652D393737662D39393638306365
+            6266663265222073744576743A7768656E3D22323032362D30352D3131543134
+            3A35303A32302B30373A3030222073744576743A736F6674776172654167656E
+            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
+            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
+            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
+            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
+            787061636B657420656E643D2272223F3E3CB2F26E0000018F4944415478DADD
+            D6CB2B44511CC0F133A1290B2CA66C3CCBC2524AA2E415B143595B492C9492B2
+            B1B153B230895853584D445E654811A5A8210BC53F209147797C4FE72CEFCCFD
+            DDE94CCAAF3E8B69EECC77EE997BE74C289A78517F31214178067D82F7DAB5C7
+            BDBB0A1F218CA514C70CA20ADBE896C4A5E12B0CA538660E1D28441C5DF8081A
+            CEC23CF2EDE3762C0BC22598C6060EED99278D7B8575F00927B8410F5604E172
+            74A215311BD767FE1934DC80636CE1DE273C8A711BD51FB60D6B384816978425
+            DF711EF650E3F1DC04263315D693ADCC955D805CBC29732BC6BD5EEB32EC35FA
+            427B70111E419D20B88A7597E101652EA054F3A5CC5D107319FEB3A56E42AD4F
+            EC073BB874195E448BE04C1730F52F965A6F024582E01D9E5D86F7854B3D8B61
+            97E11C14FB44F5EDF4886F97E12013C2353631964E58FFD696E2346058AF4C35
+            EA71914EB85F996D4E3211342361574ADF7EE79ECB210807993265F6EE46BB52
+            49275538AACC772B1DBD2DF6A21215780D1A0EDB6024E0D9EAABF856991DECCC
+            EF60C9BFCC8CCC2FEEBFD7C1A9D578600000000049454E44AE426082}
+          ShowHint = True
+          Stretch = True
+          OnClick = btnEndCopyArrowpClick
+        end
+        object btnEndPasteArrow: TImage
+          Left = 265
+          Top = 222
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -12883,12 +12014,12 @@ object frmOverlayTools: TfrmOverlayTools
             3257053715436DD176FB04BB1CC2C16E0E0FF70000000049454E44AE426082}
           ShowHint = True
           Stretch = True
-          OnClick = btnPastePlatformpClick
+          OnClick = btnEndPasteArrowpClick
         end
-        object edtLongPlatform: TEdit
-          Left = 65
-          Top = 189
-          Width = 138
+        object edtStartLatt: TEdit
+          Left = 105
+          Top = 87
+          Width = 110
           Height = 26
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -12898,10 +12029,10 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
           TabOrder = 0
         end
-        object edtLattPlatform: TEdit
-          Left = 65
-          Top = 158
-          Width = 138
+        object edtStartLong: TEdit
+          Left = 105
+          Top = 116
+          Width = 110
           Height = 26
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
@@ -12911,45 +12042,477 @@ object frmOverlayTools: TfrmOverlayTools
           ParentFont = False
           TabOrder = 1
         end
-        object Button1: TButton
-          Left = 120
-          Top = 418
-          Width = 59
-          Height = 30
-          Caption = '...'
-          TabOrder = 2
-          OnClick = btnplatformClick
-        end
-        object edtPlatformIdentifier: TEdit
-          Left = 21
-          Top = 92
-          Width = 183
+        object edtEndLatt: TEdit
+          Left = 105
+          Top = 189
+          Width = 110
           Height = 26
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
           Font.Name = 'Berlin Sans FB'
           Font.Style = []
-          MaxLength = 20
+          ParentFont = False
+          TabOrder = 2
+        end
+        object edtEndLong: TEdit
+          Left = 104
+          Top = 219
+          Width = 110
+          Height = 26
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
           ParentFont = False
           TabOrder = 3
         end
-        object edtHeading: TEdit
-          Left = 93
-          Top = 235
-          Width = 52
-          Height = 26
+      end
+      object grpIntelegent: TGroupBox
+        Left = 62
+        Top = 71
+        Width = 299
+        Height = 475
+        Color = 3683636
+        ParentColor = False
+        TabOrder = 2
+        object Label17: TLabel
+          Left = 21
+          Top = 133
+          Width = 31
+          Height = 14
+          Caption = 'Long'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label52: TLabel
+          Left = 55
+          Top = 133
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object btnPositionIntel: TSpeedButton
+          Tag = 11
+          Left = 209
+          Top = 97
+          Width = 43
+          Height = 57
+          Cursor = crHandPoint
+          Glyph.Data = {
+            36100000424D3610000000000000360000002800000020000000200000000100
+            2000000000000010000000000000000000000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC3C3C3FFA0A0A0FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD5D5D5FF000000FF000000FF8383
+            83FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF040404FF020202FF050505FF0000
+            00FFF3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF070707FF0000
+            00FF1D1D1DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFE0E0E0FF000000FF060606FF070707FF070707FF0606
+            06FF000000FF919191FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF0C0C0CFF010101FF070707FF070707FF070707FF0707
+            07FF050505FF000000FFFDFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFF797979FF000000FF060606FF070707FF070707FF070707FF0707
+            07FF070707FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFEBEBEBFF000000FF060606FF070707FF070707FF070707FF070707FF0707
+            07FF070707FF060606FF000000FF9E9E9EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF151515FF000000FF070707FF070707FF070707FF070707FF070707FF0707
+            07FF070707FF070707FF050505FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8585
+            85FF000000FF060606FF070707FF060606FF050505FF000000FF000000FF0404
+            04FF070707FF070707FF060606FF000000FF333333FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEDEDEDFF0000
+            00FF060606FF070707FF060606FF000000FF000000FF2F2F2FFF373737FF0000
+            00FF000000FF050505FF070707FF060606FF000000FFB1B1B1FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF353535FF0000
+            00FF070707FF060606FF000000FF7B7B7BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA8A8A8FF000000FF040404FF070707FF030303FF000000FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8FF000000FF0606
+            06FF060606FF000000FFA2A2A2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFE2E2E2FF000000FF060606FF060606FF000000FFB6B6B6FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA0A0A0FF000000FF0606
+            06FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF6B6B6BFF000000FF060606FF000000FF626262FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7B7B7BFF000000FF0606
+            06FF000000FF999999FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFD9D9D9FF000000FF070707FF000000FF3A3A3AFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF797979FF000000FF0606
+            06FF000000FFB8B8B8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFF9F9F9FF000000FF070707FF000000FF343434FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8B8B8BFF000000FF0606
+            06FF000000FF989898FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFD8D8D8FF000000FF070707FF000000FF4D4D4DFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDCDCDFF000000FF0606
+            06FF000000FF272727FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF000000FF8E8E8EFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF0303
+            03FF060606FF000000FF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFE0E0E0FF000000FF060606FF060606FF000000FFFAFAFAFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF999999FF0000
+            00FF060606FF060606FF000000FF787878FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA5A5A5FF000000FF050505FF060606FF000000FF545454FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2A2A
+            2AFF000000FF060606FF060606FF000000FF000000FF2C2C2CFF353535FF0000
+            00FF000000FF050505FF060606FF000000FF000000FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF1E1E1EFF000000FF060606FF060606FF060606FF000000FF000000FF0505
+            05FF060606FF060606FF000000FF000000FFFAFAFAFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFF707070FF000000FF000000FF000000FF000000FF000000FF0000
+            00FF000000FF000000FF464646FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF878787FF3B3B3BFF232323FF222222FF3232
+            32FF757575FFE9E9E9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          ParentShowHint = False
+          ShowHint = True
+          OnClick = btnHandleShapePosition
+        end
+        object Label18: TLabel
+          Left = 21
+          Top = 104
+          Width = 20
+          Height = 14
+          Caption = 'Lat'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label53: TLabel
+          Left = 55
+          Top = 104
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label19: TLabel
+          Left = 13
+          Top = 177
+          Width = 74
+          Height = 14
+          Caption = 'Information'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label64: TLabel
+          Left = 95
+          Top = 23
+          Width = 110
+          Height = 14
+          Caption = '.: INFORMATION :.'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Bevel16: TBevel
+          Left = 98
+          Top = 183
+          Width = 180
+          Height = 2
+        end
+        object Label67: TLabel
+          Left = 13
+          Top = 73
+          Width = 45
+          Height = 14
+          Caption = 'Center '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Bevel1: TBevel
+          Left = 68
+          Top = 79
+          Width = 210
+          Height = 2
+        end
+        object btnCopyInformation: TImage
+          Left = 257
+          Top = 99
+          Width = 25
+          Height = 23
+          Cursor = crHandPoint
+          Hint = 'Copy Position'
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
+            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
+            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+            2241646F626520584D5020436F726520392E312D633030312037392E31343632
+            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
+            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
+            2857696E646F7773292220786D703A437265617465446174653D22323032352D
+            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
+            446174653D22323032362D30352D31315431343A35303A32302B30373A303022
+            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
+            3A35303A32302B30373A3030222064633A666F726D61743D22696D6167652F70
+            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+            4D3A496E7374616E636549443D22786D702E6969643A32396535643362322D39
+            3636362D313734652D393737662D3939363830636562666632652220786D704D
+            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+            686F703A30376631373437642D666635322D636434302D383834342D38333035
+            33366262376262622220786D704D4D3A4F726967696E616C446F63756D656E74
+            49443D22786D702E6469643A37323464373464302D393037632D373934352D61
+            6532342D643863313061633233356431223E203C786D704D4D3A486973746F72
+            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
+            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
+            702E6969643A37323464373464302D393037632D373934352D616532342D6438
+            63313061633233356431222073744576743A7768656E3D22323032352D30392D
+            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
+            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
+            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
+            7361766564222073744576743A696E7374616E636549443D22786D702E696964
+            3A32396535643362322D393636362D313734652D393737662D39393638306365
+            6266663265222073744576743A7768656E3D22323032362D30352D3131543134
+            3A35303A32302B30373A3030222073744576743A736F6674776172654167656E
+            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
+            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
+            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
+            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
+            787061636B657420656E643D2272223F3E3CB2F26E0000018F4944415478DADD
+            D6CB2B44511CC0F133A1290B2CA66C3CCBC2524AA2E415B143595B492C9492B2
+            B1B153B230895853584D445E654811A5A8210BC53F209147797C4FE72CEFCCFD
+            DDE94CCAAF3E8B69EECC77EE997BE74C289A78517F31214178067D82F7DAB5C7
+            BDBB0A1F218CA514C70CA20ADBE896C4A5E12B0CA538660E1D28441C5DF8081A
+            CEC23CF2EDE3762C0BC22598C6060EED99278D7B8575F00927B8410F5604E172
+            74A215311BD767FE1934DC80636CE1DE273C8A711BD51FB60D6B384816978425
+            DF711EF650E3F1DC04263315D693ADCC955D805CBC29732BC6BD5EEB32EC35FA
+            427B70111E419D20B88A7597E101652EA054F3A5CC5D107319FEB3A56E42AD4F
+            EC073BB874195E448BE04C1730F52F965A6F024582E01D9E5D86F7854B3D8B61
+            97E11C14FB44F5EDF4886F97E12013C2353631964E58FFD696E2346058AF4C35
+            EA71914EB85F996D4E3211342361574ADF7EE79ECB210807993265F6EE46BB52
+            49275538AACC772B1DBD2DF6A21215780D1A0EDB6024E0D9EAABF856991DECCC
+            EF60C9BFCC8CCC2FEEBFD7C1A9D578600000000049454E44AE426082}
+          ShowHint = True
+          Stretch = True
+          OnClick = btnCopyInformationpClick
+        end
+        object btnPasteInformation: TImage
+          Left = 258
+          Top = 129
+          Width = 25
+          Height = 23
+          Cursor = crHandPoint
+          Hint = 'Paste Position'
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
+            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
+            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+            2241646F626520584D5020436F726520392E312D633030312037392E31343632
+            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
+            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
+            2857696E646F7773292220786D703A437265617465446174653D22323032352D
+            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
+            446174653D22323032362D30352D31315431343A35313A32372B30373A303022
+            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
+            3A35313A32372B30373A3030222064633A666F726D61743D22696D6167652F70
+            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+            4D3A496E7374616E636549443D22786D702E6969643A31306162646665312D34
+            3730352D643934632D613166342D6338666461396337626330642220786D704D
+            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+            686F703A36383163373861622D643764342D363634632D393738352D66383365
+            61303533656337312220786D704D4D3A4F726967696E616C446F63756D656E74
+            49443D22786D702E6469643A38653635663335322D376130302D663034332D39
+            3936372D616262653234623136616461223E203C786D704D4D3A486973746F72
+            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
+            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
+            702E6969643A38653635663335322D376130302D663034332D393936372D6162
+            62653234623136616461222073744576743A7768656E3D22323032352D30392D
+            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
+            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
+            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
+            7361766564222073744576743A696E7374616E636549443D22786D702E696964
+            3A31306162646665312D343730352D643934632D613166342D63386664613963
+            3762633064222073744576743A7768656E3D22323032362D30352D3131543134
+            3A35313A32372B30373A3030222073744576743A736F6674776172654167656E
+            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
+            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
+            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
+            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
+            787061636B657420656E643D2272223F3ED67FA66E000001F24944415478DAC5
+            964B28845114C7CF646C896CA4C86BE3AD24166A588CE499255928E4514A4914
+            B6CAC26A22499294AC3D56228F3229162312162C5879B3F1FE9FEE9D3CE67EE3
+            7BCC9753BFE6FBE6BBDFF97FF7DC73EEB90ECFE123FD8739740A8F807A10AE78
+            F602664077A885A3C01518077B8AE799A003C480EB500837821E902C675A0116
+            15E3CAC1829CF9291806536685CBC0129800BB604C867A5931D60DE64027C800
+            CDA052E323FF149E95A12B95F7FB203D889F13902AAFF9E36E409D19610EDD39
+            6897F79120173815635F49ACFD9DBC1F0569C0654678051C7D1336622CCC0957
+            64467803F84C0A73F6279258FB900AB7C9FFE3347C46B05FE9A31F6C8642D805
+            56818744C27D6888732ED4801C39FB27ABC283A081BE323898C583335008B6AD
+            0A0F91D830B274087325DC9248B280705B116E027D8A77DF412D8972B4453805
+            9428DE7D06F324B6595B84FF2DD46E196ED58C7BC1835DC2C5A00584FD1AC30E
+            07E4AF61E135706031D4B1E0C2A83037894B122D4E4B9893AB8A024F25EC701A
+            4493A86343C293D2793EFDDC9DF494D31B8972BA37239C07B68017EC90385DB0
+            7142397586DABF731912662B005D248E3E7E4B2091307AB64C5E8A63E9C76B44
+            5865FCF5EB249A842FC8385EF76A900D92C8409308669CE9AD24DAA243630CD7
+            3257053715436DD176FB04BB1CC2C16E0E0FF70000000049454E44AE426082}
+          ShowHint = True
+          Stretch = True
+          OnClick = btnPasteInformationpClick
+        end
+        object edtLongIntel: TEdit
+          Left = 65
+          Top = 128
+          Width = 139
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
           Font.Name = 'Berlin Sans FB'
           Font.Style = []
-          MaxLength = 3
-          NumbersOnly = True
           ParentFont = False
-          TabOrder = 4
-          OnExit = edtHeadingExit
-          OnKeyPress = edtHeadingKeyPress
+          TabOrder = 0
+        end
+        object edtLattIntel: TEdit
+          Left = 65
+          Top = 99
+          Width = 139
+          Height = 24
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+        end
+        object mmoInfo: TMemo
+          Left = 21
+          Top = 209
+          Width = 257
+          Height = 192
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 2
         end
       end
       object grpRadar: TGroupBox
@@ -12994,7 +12557,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object Label29: TLabel
           Left = 21
-          Top = 198
+          Top = 199
           Width = 31
           Height = 14
           Caption = 'Long'
@@ -13007,7 +12570,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object Label58: TLabel
           Left = 55
-          Top = 198
+          Top = 199
           Width = 4
           Height = 14
           Caption = ':'
@@ -13185,9 +12748,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object Label31: TLabel
           Left = 21
-          Top = 267
-          Width = 47
-          Height = 14
+          Top = 270
+          Width = 46
+          Height = 15
           Caption = 'Range :'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -13198,9 +12761,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object Label27: TLabel
           Left = 138
-          Top = 266
-          Width = 18
-          Height = 16
+          Top = 269
+          Width = 17
+          Height = 17
           Caption = 'nm'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWhite
@@ -13262,7 +12825,7 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object btnCopyRad: TImage
           Left = 256
-          Top = 160
+          Top = 162
           Width = 25
           Height = 23
           Cursor = crHandPoint
@@ -13415,9 +12978,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtLongRadar: TEdit
           Left = 65
-          Top = 192
+          Top = 194
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -13428,9 +12991,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtLattRadar: TEdit
           Left = 65
-          Top = 161
+          Top = 162
           Width = 139
-          Height = 26
+          Height = 24
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -13441,9 +13004,9 @@ object frmOverlayTools: TfrmOverlayTools
         end
         object edtRadius: TEdit
           Left = 82
-          Top = 261
-          Width = 50
-          Height = 26
+          Top = 264
+          Width = 49
+          Height = 27
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -13466,6 +13029,565 @@ object frmOverlayTools: TfrmOverlayTools
           MaxLength = 20
           ParentFont = False
           TabOrder = 3
+        end
+      end
+      object grpPlatform: TGroupBox
+        Left = 63
+        Top = 71
+        Width = 299
+        Height = 475
+        Color = 3683636
+        ParentColor = False
+        TabOrder = 8
+        object Label70: TLabel
+          Left = 105
+          Top = 23
+          Width = 90
+          Height = 14
+          Caption = '.: PLATFORM :.'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label71: TLabel
+          Left = 13
+          Top = 134
+          Width = 45
+          Height = 14
+          Caption = 'Center '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Bevel25: TBevel
+          Left = 68
+          Top = 140
+          Width = 210
+          Height = 2
+        end
+        object Label72: TLabel
+          Left = 21
+          Top = 195
+          Width = 35
+          Height = 14
+          Caption = 'Long '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object btnPosPlatform: TSpeedButton
+          Tag = 17
+          Left = 208
+          Top = 158
+          Width = 43
+          Height = 57
+          Glyph.Data = {
+            36100000424D3610000000000000360000002800000020000000200000000100
+            2000000000000010000000000000000000000000000000000000FFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFC3C3C3FFA0A0A0FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD5D5D5FF000000FF000000FF8383
+            83FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF040404FF020202FF050505FF0000
+            00FFF3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF070707FF0000
+            00FF1D1D1DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFE0E0E0FF000000FF060606FF070707FF070707FF0606
+            06FF000000FF919191FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF0C0C0CFF010101FF070707FF070707FF070707FF0707
+            07FF050505FF000000FFFDFDFDFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFF797979FF000000FF060606FF070707FF070707FF070707FF0707
+            07FF070707FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFEBEBEBFF000000FF060606FF070707FF070707FF070707FF070707FF0707
+            07FF070707FF060606FF000000FF9E9E9EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF151515FF000000FF070707FF070707FF070707FF070707FF070707FF0707
+            07FF070707FF070707FF050505FF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8585
+            85FF000000FF060606FF070707FF060606FF050505FF000000FF000000FF0404
+            04FF070707FF070707FF060606FF000000FF333333FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEDEDEDFF0000
+            00FF060606FF070707FF060606FF000000FF000000FF2F2F2FFF373737FF0000
+            00FF000000FF050505FF070707FF060606FF000000FFB1B1B1FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF353535FF0000
+            00FF070707FF060606FF000000FF7B7B7BFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA8A8A8FF000000FF040404FF070707FF030303FF000000FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8FF000000FF0606
+            06FF060606FF000000FFA2A2A2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFE2E2E2FF000000FF060606FF060606FF000000FFB6B6B6FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFA0A0A0FF000000FF0606
+            06FF000000FF282828FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF6B6B6BFF000000FF060606FF000000FF626262FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF7B7B7BFF000000FF0606
+            06FF000000FF999999FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFD9D9D9FF000000FF070707FF000000FF3A3A3AFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF797979FF000000FF0606
+            06FF000000FFB8B8B8FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFF9F9F9FF000000FF070707FF000000FF343434FFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8B8B8BFF000000FF0606
+            06FF000000FF989898FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFD8D8D8FF000000FF070707FF000000FF4D4D4DFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDCDCDFF000000FF0606
+            06FF000000FF272727FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFF6A6A6AFF000000FF060606FF000000FF8E8E8EFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000FF0303
+            03FF060606FF000000FF9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFE0E0E0FF000000FF060606FF060606FF000000FFFAFAFAFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF999999FF0000
+            00FF060606FF060606FF000000FF787878FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFA5A5A5FF000000FF050505FF060606FF000000FF545454FFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF2A2A
+            2AFF000000FF060606FF060606FF000000FF000000FF2C2C2CFF353535FF0000
+            00FF000000FF050505FF060606FF000000FF000000FFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFF1E1E1EFF000000FF060606FF060606FF060606FF000000FF000000FF0505
+            05FF060606FF060606FF000000FF000000FFFAFAFAFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFF707070FF000000FF000000FF000000FF000000FF000000FF0000
+            00FF000000FF000000FF464646FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFF878787FF3B3B3BFF232323FF222222FF3232
+            32FF757575FFE9E9E9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+            FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
+          OnClick = btnHandleShapePosition
+        end
+        object Label74: TLabel
+          Left = 55
+          Top = 103
+          Width = 4
+          Height = 14
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label75: TLabel
+          Left = 21
+          Top = 164
+          Width = 20
+          Height = 14
+          Caption = 'Lat'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label79: TLabel
+          Left = 13
+          Top = 289
+          Width = 94
+          Height = 14
+          Caption = 'Tactical Symbol'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Bevel26: TBevel
+          Left = 113
+          Top = 295
+          Width = 165
+          Height = 2
+        end
+        object lblTacticalSymbolPlatform: TLabel
+          Left = 87
+          Top = 306
+          Width = 123
+          Height = 85
+          Alignment = taCenter
+          AutoSize = False
+          Caption = 'g'
+          Color = clCaptionText
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -87
+          Font.Name = 'TAKTIS_AL'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+          Transparent = True
+        end
+        object Label50: TLabel
+          Left = 13
+          Top = 70
+          Width = 61
+          Height = 14
+          Caption = 'Identifier '
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Bevel15: TBevel
+          Left = 84
+          Top = 76
+          Width = 194
+          Height = 2
+        end
+        object Label51: TLabel
+          Left = 210
+          Top = 99
+          Width = 68
+          Height = 13
+          Caption = '* Max 20 char'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label77: TLabel
+          Left = 21
+          Top = 241
+          Width = 58
+          Height = 14
+          Caption = 'Heading :'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object Label73: TLabel
+          Left = 197
+          Top = 241
+          Width = 54
+          Height = 14
+          Caption = 'T Degree'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object btnCopyPlatform: TImage
+          Left = 256
+          Top = 159
+          Width = 25
+          Height = 23
+          Cursor = crHandPoint
+          Hint = 'Copy Position'
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
+            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
+            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+            2241646F626520584D5020436F726520392E312D633030312037392E31343632
+            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
+            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
+            2857696E646F7773292220786D703A437265617465446174653D22323032352D
+            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
+            446174653D22323032362D30352D31315431343A35303A32302B30373A303022
+            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
+            3A35303A32302B30373A3030222064633A666F726D61743D22696D6167652F70
+            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+            4D3A496E7374616E636549443D22786D702E6969643A32396535643362322D39
+            3636362D313734652D393737662D3939363830636562666632652220786D704D
+            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+            686F703A30376631373437642D666635322D636434302D383834342D38333035
+            33366262376262622220786D704D4D3A4F726967696E616C446F63756D656E74
+            49443D22786D702E6469643A37323464373464302D393037632D373934352D61
+            6532342D643863313061633233356431223E203C786D704D4D3A486973746F72
+            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
+            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
+            702E6969643A37323464373464302D393037632D373934352D616532342D6438
+            63313061633233356431222073744576743A7768656E3D22323032352D30392D
+            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
+            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
+            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
+            7361766564222073744576743A696E7374616E636549443D22786D702E696964
+            3A32396535643362322D393636362D313734652D393737662D39393638306365
+            6266663265222073744576743A7768656E3D22323032362D30352D3131543134
+            3A35303A32302B30373A3030222073744576743A736F6674776172654167656E
+            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
+            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
+            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
+            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
+            787061636B657420656E643D2272223F3E3CB2F26E0000018F4944415478DADD
+            D6CB2B44511CC0F133A1290B2CA66C3CCBC2524AA2E415B143595B492C9492B2
+            B1B153B230895853584D445E654811A5A8210BC53F209147797C4FE72CEFCCFD
+            DDE94CCAAF3E8B69EECC77EE997BE74C289A78517F31214178067D82F7DAB5C7
+            BDBB0A1F218CA514C70CA20ADBE896C4A5E12B0CA538660E1D28441C5DF8081A
+            CEC23CF2EDE3762C0BC22598C6060EED99278D7B8575F00927B8410F5604E172
+            74A215311BD767FE1934DC80636CE1DE273C8A711BD51FB60D6B384816978425
+            DF711EF650E3F1DC04263315D693ADCC955D805CBC29732BC6BD5EEB32EC35FA
+            427B70111E419D20B88A7597E101652EA054F3A5CC5D107319FEB3A56E42AD4F
+            EC073BB874195E448BE04C1730F52F965A6F024582E01D9E5D86F7854B3D8B61
+            97E11C14FB44F5EDF4886F97E12013C2353631964E58FFD696E2346058AF4C35
+            EA71914EB85F996D4E3211342361574ADF7EE79ECB210807993265F6EE46BB52
+            49275538AACC772B1DBD2DF6A21215780D1A0EDB6024E0D9EAABF856991DECCC
+            EF60C9BFCC8CCC2FEEBFD7C1A9D578600000000049454E44AE426082}
+          ShowHint = True
+          Stretch = True
+          OnClick = btnCopyPlatformpClick
+        end
+        object btnPastePlatform: TImage
+          Left = 256
+          Top = 191
+          Width = 25
+          Height = 23
+          Cursor = crHandPoint
+          Hint = 'Paste Position'
+          ParentShowHint = False
+          Picture.Data = {
+            0954506E67496D61676589504E470D0A1A0A0000000D494844520000001E0000
+            001A0806000000A0A1ECB4000000097048597300000B1300000B1301009A9C18
+            000005C969545874584D4C3A636F6D2E61646F62652E786D7000000000003C3F
+            787061636B657420626567696E3D22EFBBBF222069643D2257354D304D704365
+            6869487A7265537A4E54637A6B633964223F3E203C783A786D706D6574612078
+            6D6C6E733A783D2261646F62653A6E733A6D6574612F2220783A786D70746B3D
+            2241646F626520584D5020436F726520392E312D633030312037392E31343632
+            3839392C20323032332F30362F32352D32303A30313A35352020202020202020
+            223E203C7264663A52444620786D6C6E733A7264663D22687474703A2F2F7777
+            772E77332E6F72672F313939392F30322F32322D7264662D73796E7461782D6E
+            7323223E203C7264663A4465736372697074696F6E207264663A61626F75743D
+            222220786D6C6E733A786D703D22687474703A2F2F6E732E61646F62652E636F
+            6D2F7861702F312E302F2220786D6C6E733A64633D22687474703A2F2F707572
+            6C2E6F72672F64632F656C656D656E74732F312E312F2220786D6C6E733A7068
+            6F746F73686F703D22687474703A2F2F6E732E61646F62652E636F6D2F70686F
+            746F73686F702F312E302F2220786D6C6E733A786D704D4D3D22687474703A2F
+            2F6E732E61646F62652E636F6D2F7861702F312E302F6D6D2F2220786D6C6E73
+            3A73744576743D22687474703A2F2F6E732E61646F62652E636F6D2F7861702F
+            312E302F73547970652F5265736F757263654576656E74232220786D703A4372
+            6561746F72546F6F6C3D2241646F62652050686F746F73686F702032352E3020
+            2857696E646F7773292220786D703A437265617465446174653D22323032352D
+            30392D31355430383A33363A32362B30373A30302220786D703A4D6F64696679
+            446174653D22323032362D30352D31315431343A35313A32372B30373A303022
+            20786D703A4D65746164617461446174653D22323032362D30352D3131543134
+            3A35313A32372B30373A3030222064633A666F726D61743D22696D6167652F70
+            6E67222070686F746F73686F703A436F6C6F724D6F64653D22332220786D704D
+            4D3A496E7374616E636549443D22786D702E6969643A31306162646665312D34
+            3730352D643934632D613166342D6338666461396337626330642220786D704D
+            4D3A446F63756D656E7449443D2261646F62653A646F6369643A70686F746F73
+            686F703A36383163373861622D643764342D363634632D393738352D66383365
+            61303533656337312220786D704D4D3A4F726967696E616C446F63756D656E74
+            49443D22786D702E6469643A38653635663335322D376130302D663034332D39
+            3936372D616262653234623136616461223E203C786D704D4D3A486973746F72
+            793E203C7264663A5365713E203C7264663A6C692073744576743A616374696F
+            6E3D2263726561746564222073744576743A696E7374616E636549443D22786D
+            702E6969643A38653635663335322D376130302D663034332D393936372D6162
+            62653234623136616461222073744576743A7768656E3D22323032352D30392D
+            31355430383A33363A32362B30373A3030222073744576743A736F6674776172
+            654167656E743D2241646F62652050686F746F73686F702032352E3020285769
+            6E646F777329222F3E203C7264663A6C692073744576743A616374696F6E3D22
+            7361766564222073744576743A696E7374616E636549443D22786D702E696964
+            3A31306162646665312D343730352D643934632D613166342D63386664613963
+            3762633064222073744576743A7768656E3D22323032362D30352D3131543134
+            3A35313A32372B30373A3030222073744576743A736F6674776172654167656E
+            743D2241646F62652050686F746F73686F702032352E30202857696E646F7773
+            29222073744576743A6368616E6765643D222F222F3E203C2F7264663A536571
+            3E203C2F786D704D4D3A486973746F72793E203C2F7264663A44657363726970
+            74696F6E3E203C2F7264663A5244463E203C2F783A786D706D6574613E203C3F
+            787061636B657420656E643D2272223F3ED67FA66E000001F24944415478DAC5
+            964B28845114C7CF646C896CA4C86BE3AD24166A588CE499255928E4514A4914
+            B6CAC26A22499294AC3D56228F3229162312162C5879B3F1FE9FEE9D3CE67EE3
+            7BCC9753BFE6FBE6BBDFF97FF7DC73EEB90ECFE123FD8739740A8F807A10AE78
+            F602664077A885A3C01518077B8AE799A003C480EB500837821E902C675A0116
+            15E3CAC1829CF9291806536685CBC0129800BB604C867A5931D60DE64027C800
+            CDA052E323FF149E95A12B95F7FB203D889F13902AAFF9E36E409D19610EDD39
+            6897F79120173815635F49ACFD9DBC1F0569C0654678051C7D1336622CCC0957
+            64467803F84C0A73F6279258FB900AB7C9FFE3347C46B05FE9A31F6C8642D805
+            56818744C27D6888732ED4801C39FB27ABC283A081BE323898C583335008B6AD
+            0A0F91D830B274087325DC9248B280705B116E027D8A77DF412D8972B4453805
+            9428DE7D06F324B6595B84FF2DD46E196ED58C7BC1835DC2C5A00584FD1AC30E
+            07E4AF61E135706031D4B1E0C2A83037894B122D4E4B9893AB8A024F25EC701A
+            4493A86343C293D2793EFDDC9DF494D31B8972BA37239C07B68017EC90385DB0
+            7142397586DABF731912662B005D248E3E7E4B2091307AB64C5E8A63E9C76B44
+            5865FCF5EB249A842FC8385EF76A900D92C8409308669CE9AD24DAA243630CD7
+            3257053715436DD176FB04BB1CC2C16E0E0FF70000000049454E44AE426082}
+          ShowHint = True
+          Stretch = True
+          OnClick = btnPastePlatformpClick
+        end
+        object lbl68: TLabel
+          Left = 57
+          Top = 193
+          Width = 8
+          Height = 18
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object lbl69: TLabel
+          Left = 55
+          Top = 162
+          Width = 8
+          Height = 18
+          Caption = ':'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWhite
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object edtLongPlatform: TEdit
+          Left = 64
+          Top = 190
+          Width = 138
+          Height = 24
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+        end
+        object edtLattPlatform: TEdit
+          Left = 65
+          Top = 159
+          Width = 138
+          Height = 24
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 1
+        end
+        object Button1: TButton
+          Left = 120
+          Top = 418
+          Width = 59
+          Height = 30
+          Caption = '...'
+          TabOrder = 2
+          OnClick = btnplatformClick
+        end
+        object edtPlatformIdentifier: TEdit
+          Left = 21
+          Top = 92
+          Width = 183
+          Height = 26
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          MaxLength = 20
+          ParentFont = False
+          TabOrder = 3
+        end
+        object edtHeading: TEdit
+          Left = 93
+          Top = 235
+          Width = 52
+          Height = 26
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          MaxLength = 3
+          NumbersOnly = True
+          ParentFont = False
+          TabOrder = 4
+          OnExit = edtHeadingExit
+          OnKeyPress = edtHeadingKeyPress
         end
       end
     end

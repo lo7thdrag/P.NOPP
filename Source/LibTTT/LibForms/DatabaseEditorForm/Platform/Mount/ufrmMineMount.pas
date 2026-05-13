@@ -31,7 +31,7 @@ type
     edtReload: TMaskEdit;
     lblPlatform: TLabel;
 
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -73,11 +73,6 @@ uses
 
 
 {$REGION ' Form Handle '}
-
-procedure TfrmMineMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmMineMount.FormShow(Sender: TObject);
 begin

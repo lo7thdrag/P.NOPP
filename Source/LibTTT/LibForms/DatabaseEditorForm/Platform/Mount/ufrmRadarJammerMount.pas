@@ -25,7 +25,6 @@ type
     ImgBackgroundForm: TImage;
     lblPlatform: TLabel;
 
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -66,11 +65,6 @@ uses
 
 
 {$REGION ' Form Handle '}
-
-procedure TfrmRadarJammerMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  Action := cafree;
-end;
 
 procedure TfrmRadarJammerMount.FormShow(Sender: TObject);
 begin

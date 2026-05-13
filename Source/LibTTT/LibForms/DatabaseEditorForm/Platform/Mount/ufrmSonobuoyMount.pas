@@ -30,7 +30,6 @@ type
     edtClassName: TLabel;
     lblPlatform: TLabel;
 
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -75,10 +74,6 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmSonobuoyMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmSonobuoyMount.FormShow(Sender: TObject);
 begin

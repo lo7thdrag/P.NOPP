@@ -24,7 +24,6 @@ type
     edtName: TEdit;
     lblPlatform: TLabel;
 
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
 
     //Global
@@ -64,10 +63,6 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmFloatingDecoyMount.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-  Action := cafree;
-end;
 
 procedure TfrmFloatingDecoyMount.FormShow(Sender: TObject);
 begin

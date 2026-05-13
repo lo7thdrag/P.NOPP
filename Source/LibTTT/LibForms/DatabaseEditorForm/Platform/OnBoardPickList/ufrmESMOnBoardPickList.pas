@@ -97,6 +97,7 @@ begin
 
   if not Assigned(frmESMMount) then
     frmESMMount := TfrmESMMount.Create(Self);
+
   try
     with frmESMMount do
     begin
@@ -106,8 +107,6 @@ begin
     end;
   finally
   end;
-
-//  UpdateESMList;
 end;
 
 procedure TfrmESMOnBoardPickList.btnEditClick(Sender: TObject);
