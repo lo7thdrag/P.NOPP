@@ -503,6 +503,13 @@ type
     procedure edtSectorEndAngleKeyPress(Sender: TObject; var Key: Char);
     procedure edtHeadingKeyPress(Sender: TObject; var Key: Char);
     procedure edtHeadingExit(Sender: TObject);
+    procedure edtHorizontalKeyPress(Sender: TObject; var Key: Char);
+    procedure edtVerticalKeyPress(Sender: TObject; var Key: Char);
+    procedure edtTableHeightKeyPress(Sender: TObject; var Key: Char);
+    procedure edtTableColumnKeyPress(Sender: TObject; var Key: Char);
+    procedure edtTableWidthKeyPress(Sender: TObject; var Key: Char);
+    procedure edtTableRowKeyPress(Sender: TObject; var Key: Char);
+    procedure edtTableRotationAngleKeyPress(Sender: TObject; var Key: Char);
 //    procedure edtHeadingKeyPress(Sender: TObject; var Key: Char; ShipHeading: double);
 
   private
@@ -2178,6 +2185,22 @@ begin
 end;
 end;
 
+procedure TfrmOverlayTools.edtHorizontalKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+   if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
 procedure TfrmOverlayTools.edtRadiusKeyPress(Sender: TObject; var Key: Char);
 begin
  if not (Key in[#48 .. #57, #8, #13, #46]) then
@@ -2246,6 +2269,100 @@ procedure TfrmOverlayTools.edtSectorStartAngleKeyPress(Sender: TObject;
   var Key: Char);
 begin
  if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtTableColumnKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+   if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtTableHeightKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+   if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtTableRotationAngleKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+   if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtTableRowKeyPress(Sender: TObject; var Key: Char);
+begin
+   if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtTableWidthKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+   if not (Key in[#48 .. #57, #8, #13, #46]) then
+  begin
+    Key := #0;
+    Exit;
+  end;
+
+  if GetInput(TEdit(sender).Text) then
+  begin
+    if Key = #46 then
+      Key := #0;
+  end;
+end;
+
+procedure TfrmOverlayTools.edtVerticalKeyPress(Sender: TObject; var Key: Char);
+begin
+   if not (Key in[#48 .. #57, #8, #13, #46]) then
   begin
     Key := #0;
     Exit;

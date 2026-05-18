@@ -170,7 +170,7 @@ var
   SavedDecimalSeparator : char;
 //  SavedDateFormat : string;
 begin
-//  ReportMemoryLeaksOnShutdown := True;
+  ReportMemoryLeaksOnShutdown := True;
 
   SavedDecimalSeparator := FormatSettings.DecimalSeparator;
   FormatSettings.DecimalSeparator := '.';
