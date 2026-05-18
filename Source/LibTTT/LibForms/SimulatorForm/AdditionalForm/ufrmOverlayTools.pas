@@ -1413,6 +1413,7 @@ begin
   edtLattRadar.Text := '';
   edtLongRadar.Text := '';
   edtRadius.Text := '';
+  edtRadarIdentifier.Text := '';
   {$ENDREGION}
 
   {$REGION ' Pangkalan '}
