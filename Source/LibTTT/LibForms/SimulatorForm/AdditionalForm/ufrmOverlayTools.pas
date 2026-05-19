@@ -1422,6 +1422,7 @@ begin
   edtLongBase.Text := '';
   edtPlatform .Text := '';
   edtQty.Text := '';
+  lblSymbolTaktis.Caption := '';
   lvEmbark.Clear;
   {$ENDREGION}
 
