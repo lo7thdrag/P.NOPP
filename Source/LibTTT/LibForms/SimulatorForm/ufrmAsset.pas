@@ -329,7 +329,8 @@ begin
     {$ENDREGION}
 
     {$REGION ' Transport '}
-    edtOfficer.Text             := IntToStr(FData.Officer);
+    ValidationFormatInput;
+    FData.Officer               := StrToInt(edtOfficer.Text);
     FData.FrontGangway          := chkFrontGangway.Checked;
     FData.RearGangway           := chkRearGangway.Checked;
     FData.PortGangway           := chkPortGangway.Checked;

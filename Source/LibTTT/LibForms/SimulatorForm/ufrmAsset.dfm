@@ -15233,17 +15233,13 @@ object frmAsset: TfrmAsset
       Top = 0
       Width = 666
       Height = 573
-      ActivePage = tsGeneral
+      ActivePage = tsTransport
       Align = alClient
       TabHeight = 30
       TabOrder = 0
       TabWidth = 120
       object tsGeneral: TTabSheet
         Caption = 'General'
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object GroupBox5: TGroupBox
           Left = 15
           Top = 12
@@ -80480,10 +80476,6 @@ object frmAsset: TfrmAsset
       object tsAssets: TTabSheet
         Caption = 'Assets'
         ImageIndex = 4
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label5: TLabel
           Left = 18
           Top = 23
@@ -80687,10 +80679,6 @@ object frmAsset: TfrmAsset
       object tsLogistic: TTabSheet
         Caption = 'Logistic'
         ImageIndex = 1
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object Label2: TLabel
           Left = 44
           Top = 54
@@ -81192,10 +81180,6 @@ object frmAsset: TfrmAsset
       object tsTransport: TTabSheet
         Caption = 'Transport'
         ImageIndex = 5
-        ExplicitLeft = 0
-        ExplicitTop = 0
-        ExplicitWidth = 0
-        ExplicitHeight = 0
         object grpDeckUnitCarried: TGroupBox
           Left = 339
           Top = 176
