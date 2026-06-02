@@ -11204,6 +11204,10 @@ begin
         begin
           Chaff_Instance_Index := FieldByName('Chaff_Instance_Index').AsInteger;
           Instance_Identifier := FieldByName('Instance_Identifier').AsString;
+          Instance_Type := FieldByName('Instance_Type').AsInteger;
+          Chaff_Qty_On_Board := FieldByName('Chaff_Qty_On_Board').AsInteger;
+          Vehicle_Index := FieldByName('Vehicle_Index').AsInteger;
+          Chaff_Index := FieldByName('Chaff_index').AsInteger;
         end;
 
         with rec.FDef do

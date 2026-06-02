@@ -14998,7 +14998,7 @@ object frmChaffOnBoardPickList: TfrmChaffOnBoardPickList
     OnClick = btnEditClick
   end
   object btnAdd: TImage
-    Left = 332
+    Left = 328
     Top = 288
     Width = 90
     Height = 35
