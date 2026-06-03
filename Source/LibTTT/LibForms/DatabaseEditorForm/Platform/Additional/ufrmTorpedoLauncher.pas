@@ -4,8 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage{,
-  newClassASTT, uDBAsset_Weapon};
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+  newClassASTT, uDBAsset_Weapon;
 
 type
   TfrmTorpedoLauncher = class(TForm)
@@ -45,8 +45,8 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
 
   private
-//    FSelectedTorpedo : TTorpedo_On_Board;
-//    FSelectedLauncher : TFitted_Weap_Launcher_On_Board;
+    FSelectedTorpedo : TTorpedo_On_Board;
+    FSelectedLauncher : TFitted_Weap_Launcher_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateLauncherData;
@@ -56,8 +56,8 @@ type
     AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
     LastLauncher : byte;
 
-//    property SelectedTorpedo : TTorpedo_On_Board read FSelectedTorpedo write FSelectedTorpedo;
-//    property SelectedLauncher : TFitted_Weap_Launcher_On_Board read FSelectedLauncher write FSelectedLauncher;
+    property SelectedTorpedo : TTorpedo_On_Board read FSelectedTorpedo write FSelectedTorpedo;
+    property SelectedLauncher : TFitted_Weap_Launcher_On_Board read FSelectedLauncher write FSelectedLauncher;
 
   end;
 

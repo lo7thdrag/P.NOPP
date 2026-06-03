@@ -992,6 +992,788 @@ type
     KETERANGAN                 : string[255];
   end;
 
+  TRecAsset_Deployment_Definition =  record
+    Deployment_Index       : integer;
+    Deployment_Identifier  : string[60];
+    Scenario_Index         : integer;
+  end;
+
+  TRecCloud_Effects_On_ESM =  record
+    Radar_Frequency  : single;
+    Cloud_0_Effect   : single;
+    Cloud_1_Effect   : single;
+    Cloud_2_Effect   : single;
+    Cloud_3_Effect   : single;
+    Cloud_4_Effect   : single;
+    Cloud_5_Effect   : single;
+    Cloud_6_Effect   : single;
+  end;
+
+   TRecCloud_Effects_On_Radar =  record
+    Radar_Frequency  : single;
+    Cloud_0_Effect   : single;
+    Cloud_1_Effect   : single;
+    Cloud_2_Effect   : single;
+    Cloud_3_Effect   : single;
+    Cloud_4_Effect   : single;
+    Cloud_5_Effect   : single;
+    Cloud_6_Effect   : single;
+  end;
+
+   TRecConditional_Event_List =  record
+    Event_List_Index       : integer;
+    Event_List_Identifier  : string[60];
+  end;
+
+   TRecDefault_Definition =  record
+    Defaults_Index                   : Integer;
+    Defaults_Identifier              : string;
+    Init_AOP                         : integer;
+    AOP_Decrease_Rate                : single;
+    Sono_Num_2_Initiate              : integer;
+    Trans_Range_2_Air                : single;
+    Trans_Range_2_Sur                : single;
+    Init_AOP_Modifier                : single;
+    Visual_Detect_Range              : single;
+    Known_Cross_Section              : single;
+    Max_Visual_Range                 : single;
+    EO_Detection_Factor              : single;
+    Visual_Detection_Factor          : single;
+    EO_Ident_Factor                  : single;
+    Visual_Ident_Factor              : single;
+    Sine_Period_Distance             : single;
+    Sine_Period_Amplitude            : single;
+    Short_Period_Distance            : single;
+    Short_Period_Amplitude           : single;
+    Long_Period_Distance             : single;
+    Long_Period_Amplitude            : single;
+    Very_Period_Distance             : single;
+    Very_Period_Amplitude            : single;
+    Air_Lost_Time                    : integer;
+    Sur_Lost_Time                    : integer;
+    Sub_Lost_Time                    : integer;
+    ESM_Bearing_Lost_Time            : integer;
+    Sonar_Bearing_Lost_Time          : integer;
+    Stale_Air_Time                   : integer;
+    Stale_Sur_Time                   : integer;
+    Stale_Sub_Time                   : integer;
+    Stale_ESM_Bearing_Time           : integer;
+    Stale_Sonar_Bearing_Time         : integer;
+    POD_Check_Time                   : integer;
+    TMA_Range_Rate                   : single;
+    Frequency_Identity_Weighting     : single;
+    PRF_Identity_Weighting           : single;
+    Pulsewidth_Identity_Weighting    : single;
+    Scan_Period_Identity_Weighting   : single;
+    Crew_Eff_Heading_Error           : single;
+    Crew_Eff_Speed_Error             : single;
+    TMA_Relative_Bearing_Rate        : single;
+    Passive_Sonar_Max_Course_Error   : single;
+    Passive_Sonar_Max_Speed_Error    : single;
+    ESM_Error_Corr_Rate              : single;
+    Chaff_Altitude_Threshold         : single;
+    MHS_Flash_Delay_Time             : single;
+    MHS_Immed_Delay_Time             : single;
+    MHS_Priority_Delay_Time          : single;
+    MHS_Routine_Delay_Time           : single;
+    Max_UWT_Range                    : single;
+    Max_HF_Detect_Range              : single;
+    Max_UHF_Detect_Range             : single;
+    Max_IFF_Range                    : single;
+    Track_History_Air_Sample_Rate    : integer;
+    Track_History_Air_Max_Points     : integer;
+    Track_History_Sample_Rate        : integer;
+    Track_History_Max_Points         : integer;
+    Auto_Gun_Interception_Range      : single;
+    Auto_Gun_Threshold_Speed         : single;
+    Clutter_Reduction_Scale          : single;
+    Jam_Break_Lock_Time_Interval     : integer;
+    Missile_Reacquisition_Time       : integer;
+    Seduction_Bloom_Altitude         : integer;
+    Seduction_Bloom_Range            : single;
+    HF_Datalink_MHS_Trans_Freq       : single;
+    UHF_Datalink_MHS_Trans_Freq      : single;
+    Max_Num_Radar_Classes            : integer;
+    Max_Num_Sonar_Classes            : integer;
+    Max_Num_Sonobuoy_Classes         : integer;
+    Max_Num_EO_Classes               : integer;
+    Max_Num_ESM_Classes              : integer;
+    Max_Num_MAD_Classes              : integer;
+    Max_Num_Fitted_Weap_Classes      : integer;
+    Max_Num_Point_Effect_Classes     : integer;
+    HAFO_Min_Range                   : single;
+    HAFO_Max_Range                   : single;
+    Engage_Guide_Stale_Target_Time   : integer;
+    Outrun_Guide_Stale_Target_Time   : integer;
+    Shadow_Guide_Stale_Target_Time   : integer;
+    Sonobuoy_Air_Deceleration        : single;
+    Sonobuoy_Air_Descent_Rate        : single;
+    Depth_Charge_Air_Deceleration    : single;
+    Depth_Charge_Air_Descent_Rate    : single;
+    Missile_Sea_Check_Interval       : integer;
+  end;
+
+   TRecDefault_IFF_Mode_Code =  record
+    Force_Designation  : byte;
+    IFF_Device_Type    : byte;
+    IFF_Mode           : byte;
+    IFF_Code           : integer;
+    Mode_State         : byte;
+  end;
+
+   TRecDIS_Category_Definition =  record
+    DIS_Category_Index         : integer;
+    DIS_Category_Enumeration   : integer;
+    DIS_Category_Identifier    : string[60];
+    DIS_Country_Index          : integer;
+  end;
+
+  TRecDIS_Country_Definition =  record
+    DIS_Country_Index        : integer;
+    DIS_Country_Identifier   : string[60];
+  end;
+
+   TRecDIS_Domain_Country_Mapping =  record
+    DIS_Domain_Index   : integer;
+    DIS_Country_Index  : integer;
+  end;
+
+  TRecDIS_Domain_Definition =  record
+    DIS_Domain_Index       : integer;
+    DIS_Domain_Identifier  : string[60];
+  end;
+
+   TRecDIS_Kind_Definition =  record
+    DIS_Kind_Index       : integer;
+    DIS_Kind_Identifier  : string[60];
+  end;
+
+   TRecDIS_Kind_Domain_Mapping =  record
+    DIS_Kind_Index     : integer;
+    DIS_Domain_Index   : integer;
+  end;
+
+   TRecDIS_Specific_Definition =  record
+    DIS_Specific_Index             : integer;
+    DIS_Specific_Enumeration       : integer;
+    DIS_Specific_Identifier        : string[60];
+    DIS_Subcategory_Index          : integer;
+    SARH_POH_Modifier              : single;
+    CG_POH_Modifier                : single;
+    TARH_POH_Modifier              : single;
+    IR_POH_Modifier                : single;
+    AR_POH_Modifier                : single;
+    Active_Acoustic_Tor_POH_Mod    : single;
+    Passive_Acoustic_Tor_POH_Mod   : single;
+    Active_Passive_Tor_POH_Mod     : single;
+    Wake_Home_POH_Modifier         : single;
+    Wire_Guide_POH_Modifier        : single;
+    Mag_Mine_POH_Modifier          : single;
+    Press_Mine_POH_Modifier        : single;
+    Impact_Mine_POH_Modifier       : single;
+    Acoustic_Mine_POH_Modifier     : single;
+    Engagement_Range               : single;
+    Damage_Capacity                : integer;
+    Lethality                      : integer;
+    Prob_of_Hit                    : single;
+  end;
+
+  TRecDIS_Subcategory_Definition =  record
+    DIS_Subcategory_Index        : integer;
+    DIS_Subcategory_Enumeration  : integer;
+    DIS_Subcategory_Identifier   : string[60];
+    DIS_Category_Index           : integer;
+  end;
+
+  TRecEO_Detection_Definition =  record
+    EO_Index             : integer;
+    Class_Identifier     : string[60];
+    Sensor_Type          : byte;
+    Detection_Range      : single;
+    Known_Cross_Section  : single;
+    Max_Range            : single;
+    Scan_Rate            : single;
+    Num_FC_Channels      : byte;
+  end;
+
+   TRecExternal_Communication_Channel =  record
+    Comms_Channel_Index    : integer;
+    Resource_Alloc_Index   : integer;
+    Channel_Number         : integer;
+    Channel_Identifier     : string[60];
+    Comms_Band             : byte;
+    Channel_Freq           : double;
+    Channel_Security       : byte;
+    Channel_Code           : string[6];
+  end;
+
+   TRecFCR_Definition =  record
+    FCR_Index                    : integer;
+    Radar_Identifier             : string[60];
+    Radar_Emitter                : string[60];
+    Frequency                    : single;
+    Scan_Rate                    : single;
+    Radar_Power                  : single;
+    Pulse_Rep_Freq               : single;
+    Pulse_Width                  : single;
+    Max_Unambig_Detection_Range  : single;
+  end;
+
+   TRecFitted_Weap_Launcher_On_Board =  record
+    Fitted_Weap_Index        : integer;
+    LastLauncher_Type        : byte;
+    Launcher_Type            : byte;
+    Launcher_Angle_Required  : byte;
+    Launcher_Angle           : integer;
+    Launcher_Max_Qty         : integer;
+  end;
+
+  TRecFormation_Assignment =  record
+    Platform_Instance_Index  : integer;
+    Formation_Index          : integer;
+    Angle_Offset             : single;
+    Range_from_Leader        : single;
+    Altitude                 : single;
+  end;
+
+   TRecFormation_Definition =  record
+    Formation_Index        : integer;
+    Formation_Identifier   : string[60];
+    Force_Designation      : byte;
+    Formation_Leader       : integer;
+    Angle_Type             : byte;
+    Deployment_Index       : integer;
+  end;
+
+  TRecGame_Cloud_On_ESM =  record
+    Defaults_Index   : integer;
+    Radar_Frequency  : single;
+    Cloud_0_Effect   : single;
+    Cloud_1_Effect   : single;
+    Cloud_2_Effect   : single;
+    Cloud_3_Effect   : single;
+    Cloud_4_Effect   : single;
+    Cloud_5_Effect   : single;
+    Cloud_6_Effect   : single;
+  end;
+
+  TRecGame_Cloud_On_Radar =  record
+    Defaults_Index   : integer;
+    Radar_Frequency  : single;
+    Cloud_0_Effect   : single;
+    Cloud_1_Effect   : single;
+    Cloud_2_Effect   : single;
+    Cloud_3_Effect   : single;
+    Cloud_4_Effect   : single;
+    Cloud_5_Effect   : single;
+    Cloud_6_Effect   : single;
+  end;
+
+    TRecGame_Default_IFF_Mode_Code =  record
+    Defaults_Index     : integer;
+    Force_Designation  : byte;
+    IFF_Device_Type    : byte;
+    IFF_Mode           : byte;
+    IFF_Code           : integer;
+    Mode_State         : byte;
+  end;
+
+   TRecGame_Rainfall_On_ESM =  record
+    Defaults_Index   : integer;
+    Radar_Frequency  : single;
+    Rain_0_Effect    : single;
+    Rain_1_Effect    : single;
+    Rain_2_Effect    : single;
+    Rain_3_Effect    : single;
+    Rain_4_Effect    : single;
+    Rain_5_Effect    : single;
+    Rain_6_Effect    : single;
+  end;
+
+   TRecGame_Rainfall_On_Missile_Seeker =  record
+    Defaults_Index   : integer;
+    Guide_Type       : byte;
+    Rain_0_Effect    : single;
+    Rain_1_Effect    : single;
+    Rain_2_Effect    : single;
+    Rain_3_Effect    : single;
+    Rain_4_Effect    : single;
+    Rain_5_Effect    : single;
+    Rain_6_Effect    : single;
+  end;
+
+    TRecGame_Rainfall_On_Sonar =  record
+    Defaults_Index   : integer;
+    Sonar_Frequency  : single;
+    Rain_0_Effect    : single;
+    Rain_1_Effect    : single;
+    Rain_2_Effect    : single;
+    Rain_3_Effect    : single;
+    Rain_4_Effect    : single;
+    Rain_5_Effect    : single;
+    Rain_6_Effect    : single;
+  end;
+
+   TRecGame_Rainfall_On_Radar =  record
+    Defaults_Index   : integer;
+    Radar_Frequency  : single;
+    Rain_0_Effect    : single;
+    Rain_1_Effect    : single;
+    Rain_2_Effect    : single;
+    Rain_3_Effect    : single;
+    Rain_4_Effect    : single;
+    Rain_5_Effect    : single;
+    Rain_6_Effect    : single;
+  end;
+
+   TRecGame_Sea_On_Missile_Safe_Altitude =  record
+    Defaults_Index                   : integer;
+    Sea_State                        : byte;
+    Effect_on_Missile_Safe_Altitude  : single;
+  end;
+
+  TRecGame_Sea_On_Radar =  record
+    Defaults_Index   : integer;
+    Sea_State        : byte;
+    Effect_on_Radar  : single;
+  end;
+
+  TRecGame_Sea_On_Sonar =  record
+    Defaults_Index   : integer;
+    Sonar_Frequency  : single;
+    Sea_0_Effect     : single;
+    Sea_1_Effect     : single;
+    Sea_2_Effect     : single;
+    Sea_3_Effect     : single;
+    Sea_4_Effect     : single;
+    Sea_5_Effect     : single;
+    Sea_6_Effect     : single;
+    Sea_7_Effect     : single;
+    Sea_8_Effect     : single;
+    Sea_9_Effect     : single;
+  end;
+
+  TRecGame_Ship_On_Sonar =  record
+    Defaults_Index       : integer;
+    Sonar_Frequency      : single;
+    Distant_Ship_Effect  : single;
+    Light_Ship_Effect    : single;
+    Medium_Ship_Effect   : single;
+    Heavy_Ship_Effect    : single;
+  end;
+
+  TRecGlobal_Convergence_Zone =  record
+    Converge_Index         : integer;
+    Game_Enviro_Index      : integer;
+    Occurance_Range        : single;
+    Width                  : single;
+    Signal_Reduction_Term  : single;
+    Increase_per_CZ        : single;
+    Max_Sonar_Depth        : single;
+  end;
+
+   TRecList_Conditional_Event_Mapping =  record
+    Event_List_Index         : integer;
+    Priority                 : integer;
+    Conditional_Event_Index  : integer;
+  end;
+
+   TRecOverlay_Definition =  record {rename}
+    Overlay_Index        : integer;
+    Overlay_Identifier   : string[30];
+    Name    : string[30];
+    Tipe    : byte;
+    Domain  : byte;
+    Game_Area_Index : integer;
+  end;
+
+   TRecPattern_Infrared_Decoy_Event =  record
+    Scripted_Pattern_Index         : integer;
+    Infrared_Decoy_Instance_Index  : integer;
+    Infrared_Decoy_Bloom_Spacing   : single;
+    Num_Blooms_2_Release           : integer;
+  end;
+
+  TRecPattern_Point =  record
+    Pattern_Index  : integer;
+    Point_Number   : byte;
+    Heading        : single;
+    Range          : single;
+  end;
+
+   TRecPattern_Weapon_Event =  record
+    List_Index               : integer;
+    Scripted_Pattern_Index   : integer;
+    Salvo_Size               : integer;
+    Number_Layed             : integer;
+    Distance_Between         : single;
+    Mine_Depth               : single;
+    Weapon_Type              : byte;
+    Point_Effect             : integer;
+    Weapons_Mount            : integer;
+  end;
+
+   TRecPlatform_Activation =  record
+    Platform_Event_Index         : integer;
+    Deployment_Index             : integer;
+    Platform_Instance_Index      : integer;
+    Platform_Activation_Time     : integer;
+    Init_Guidance_Type           : byte;
+    Init_Position_Latitude       : double;
+    Init_Position_Longitude      : double;
+    Init_Position_Cartesian_X    : single;
+    Init_Position_Cartesian_Y    : single;
+    Init_Altitude                : single;
+    Init_Course                  : single;
+    Init_Fuel                    : double;
+    Init_Lubricants              : double;
+    Init_Freshwater              : double;
+    Init_Water                   : double;
+    Init_Food                    : double;
+    Init_Helm_Angle              : single;
+    Init_Ground_Speed            : byte;
+    Init_Vertical_Speed          : byte;
+    Init_Command_Altitude        : single;
+    Init_Command_Course          : single;
+    Init_Command_Helm_Angle      : single;
+    Init_Command_Ground          : byte;
+    Init_Command_Vert            : byte;
+    Deg_of_Rotation              : single;
+    Radius_of_Travel             : single;
+    Direction_of_Travel          : byte;
+    Circle_Latitude              : double;
+    Circle_Longitude             : double;
+    Circle_X                     : single;
+    Circle_Y                     : single;
+    Dynamic_Circle_Range_Offset  : single;
+    Dynamic_Circle_Angle_Offset  : byte;
+    Dynamic_Circle_Offset_Mode   : byte;
+    Period_Distance              : single;
+    Amplitude_Distance           : single;
+    Zig_Zag_Leg_Type             : byte;
+    Target_Angle_Offset          : single;
+    Target_Angle_Type            : byte;
+    Target_Range                 : single;
+    Guidance_Target              : integer;
+    Pattern_Instance_Index       : integer;
+    Angular_Offset               : single;
+    Anchor_Cartesian_X           : single;
+    Anchor_Cartesian_Y           : single;
+    Anchor_Latitude              : single;
+    Anchor_Longitude             : single;
+    Current_Drift                : byte;
+    Waypoint_Termination         : byte;
+    Termination_Heading          : single;
+    Cond_List_Instance_Index     : integer;
+    Damage                       : single;
+    Host_ID                      : Integer;
+    State_Transport              : ByteBool;
+    DE_Index                     : Integer;
+  end;
+
+  TRecPlatform_DIS_Definition =  record
+    Platform_DIS_Index   : integer;
+    DIS_Type             : byte;
+    Vehicle_Index        : integer;
+    Missile_Index        : integer;
+    Mine_Index           : integer;
+    Torpedo_Index        : integer;
+    Hybrid_Index         : integer;
+    Satellite_Index      : integer;
+    Sonobuoy_Index       : integer;
+    DIS_Kind             : integer;
+    DIS_Domain           : integer;
+    DIS_Country          : integer;
+    DIS_Category         : integer;
+    DIS_Subcategory      : integer;
+    DIS_Specific         : integer;
+  end;
+
+   TRecPlatform_IFF_Activation =  record
+    IFF_Activation_Index       : integer;
+    IFF_Interrogator_Control   : byte;
+    IFF_Transponder_Control    : byte;
+    Platform_Event_Index       : integer;
+    IFF_Instance_Index         : integer;
+  end;
+
+  TRecPlatform_IFF_Mode_Code =  record
+    IFF_Activation_Index   : integer;
+    IFF_Device_Type        : byte;
+    IFF_Mode               : byte;
+    IFF_Code               : integer;
+    Mode_State             : byte;
+  end;
+
+  TRecPOD_vs_SNR_Curve_Definition =  record
+    Curve_Definition_Index       : integer;
+    Curve_Definition_Identifier  : string[60];
+  end;
+
+  TRecPOD_vs_SNR_Point =  record
+    List_Index               : integer;
+    Curve_Definition_Index   : integer;
+    SNR_Ratio                : single;
+    Prob_of_Detection        : single;
+  end;
+
+   TRecRadar_Interval_Definition =  record
+    Interval_List_Index  : integer;
+    Priority             : byte;
+    Radar_State          : byte;
+    Num_Scans            : byte;
+    Radar_Off_Time       : integer;
+  end;
+
+    TRecRadar_Interval_List =  record
+    Interval_List_Index        : integer;
+    Interval_List_Identifier   : string[60];
+  end;
+
+  TRecRadar_Vertical_Coverage =  record
+    Coverage_Index             : integer;
+    Radar_Index                : integer;
+    Coverage_Diagram           : byte;
+    Vert_Coverage_Range        : single;
+    Vert_Cover_Min_Elevation   : single;
+    Vert_Cover_Max_Elevation   : single;
+  end;
+  PRecRadar_Vertical_Coverage = ^TRecRadar_Vertical_Coverage;
+
+   TRecRainfall_On_ESM =  record
+    Radar_Frequency  : single;
+    Rain_0_Effect    : single;
+    Rain_1_Effect    : single;
+    Rain_2_Effect    : single;
+    Rain_3_Effect    : single;
+    Rain_4_Effect    : single;
+    Rain_5_Effect    : single;
+    Rain_6_Effect    : single;
+  end;
+
+   TRecRainfall_On_Missile_Seeker =  record
+    Guide_Type     : byte;
+    Rain_0_Effect  : single;
+    Rain_1_Effect  : single;
+    Rain_2_Effect  : single;
+    Rain_3_Effect  : single;
+    Rain_4_Effect  : single;
+    Rain_5_Effect  : single;
+    Rain_6_Effect  : single;
+  end;
+
+   TRecRainfall_On_Radar =  record
+    Radar_Frequency  : single;
+    Rain_0_Effect    : single;
+    Rain_1_Effect    : single;
+    Rain_2_Effect    : single;
+    Rain_3_Effect    : single;
+    Rain_4_Effect    : single;
+    Rain_5_Effect    : single;
+    Rain_6_Effect    : single;
+  end;
+
+   TRecRainfall_On_Sonar =  record
+    Sonar_Frequency  : single;
+    Rain_0_Effect    : single;
+    Rain_1_Effect    : single;
+    Rain_2_Effect    : single;
+    Rain_3_Effect    : single;
+    Rain_4_Effect    : single;
+    Rain_5_Effect    : single;
+    Rain_6_Effect    : single;
+  end;
+
+   TRecReference_Point =  record
+    Reference_Index        : integer;
+    Resource_Alloc_Index   : integer;
+    Reference_Identifier   : string[60];
+    Force_Designation      : byte;
+    Track_Type             : byte;
+    Symbol_Type            : integer;
+    Course                 : single;
+    Speed                  : single;
+    X_Position             : single;
+    Y_Position             : single;
+    Latitude               : double;
+    Longitude              : double;
+    Track_Bearing          : single;
+    AOP_Start_Time_Offset  : integer;
+  end;
+
+   TRecResource_Cond_List_Mapping =  record
+    Cond_List_Instance_Index   : integer;
+    Resource_Alloc_Index       : integer;
+    Event_List_Index           : integer;
+    Force_Designation          : byte;
+  end;
+
+   TRecResource_Geo_Area_Mapping =  record
+    Geo_Area_Instance_Index  : integer;
+    Resource_Alloc_Index     : integer;
+    Geo_Area_Index           : integer;
+    Force_Designation        : byte;
+  end;
+
+   TRecResource_Interval_List_Mapping =  record
+    Resource_Alloc_Index   : integer;
+    Interval_List_Index    : integer;
+  end;
+
+  TRecResource_Library_Mapping =  record
+    Resource_Alloc_Index   : integer;
+    Library_Index          : integer;
+  end;
+
+   TRecResource_Overlay_Mapping =  record
+    Overlay_Instance_Index   : integer;
+    Resource_Alloc_Index     : integer;
+    Overlay_Index            : integer;
+    Overlay_Identifier       : String[60];
+    Force_Designation        : byte;
+  end;
+
+   TRecResource_Allocation =  record
+    Resource_Alloc_Index   : integer;
+    Allocation_Identifier  : string[60];
+    Game_Enviro_Index      : integer;
+    Defaults_Index         : integer;
+    Role_List_Index        : integer;
+    Game_Start_Time        : double;
+    D_Day                  : double;
+  end;
+
+    TRecResource_Pattern_Mapping =  record
+    Pattern_Instance_Index   : integer;
+    Resource_Alloc_Index     : integer;
+    Pattern_Index            : integer;
+  end;
+
+   TRecResource_Sonobuoy_Mapping =  record
+    Sonobuoy_Resource_Index  : integer;
+    Resource_Alloc_Index     : integer;
+    Sonobuoy_Index           : integer;
+    Force_Designation        : byte;
+  end;
+
+    TRecResource_Template_Mapping =  record
+    Template_Instance_Index  : integer;
+    Resource_Alloc_Index     : integer;
+    Template_Index           : integer;
+    Force_Designation        : byte;
+  end;
+
+   TRecScripted_Infrared_Decoy_Event =  record
+    Scripted_Event_Index           : integer;
+    Infrared_Decoy_Instance_Index  : integer;
+    Infrared_Decoy_Bloom_Spacing   : single;
+    Num_Blooms_2_Release           : integer;
+  end;
+
+    TRecScripted_Sonar_Event =  record
+    Scripted_Event_Index   : integer;
+    Sonar_Index            : integer;
+    Sonar_Control          : byte;
+  end;
+
+   TRecScripted_Weapon_Event =  record
+    List_Index             : integer;
+    Scripted_Event_Index   : integer;
+    Salvo_Size             : integer;
+    Number_Layed           : integer;
+    Distance_Between       : single;
+    Mine_Depth             : single;
+    Target_Index           : integer;
+    Weapon_Type            : byte;
+    Point_Effect           : integer;
+    Weapons_Mount          : integer;
+  end;
+
+    TRecSea_State_On_Missile_Safe_Altitude =  record
+    Sea_State                        : byte;
+    Effect_on_Missile_Safe_Altitude  : single;
+  end;
+
+   TRecSea_State_On_Radar =  record
+    Sea_State        : byte;
+    Effect_on_Radar  : single;
+  end;
+
+  TRecSea_State_On_Sonar =  record
+    Sonar_Frequency  : single;
+    Sea_0_Effect     : single;
+    Sea_1_Effect     : single;
+    Sea_2_Effect     : single;
+    Sea_3_Effect     : single;
+    Sea_4_Effect     : single;
+    Sea_5_Effect     : single;
+    Sea_6_Effect     : single;
+    Sea_7_Effect     : single;
+    Sea_8_Effect     : single;
+    Sea_9_Effect     : single;
+  end;
+
+   TRecShip_Noise_On_Sonar =  record
+    Sonar_Frequency      : single;
+    Distant_Ship_Effect  : single;
+    Light_Ship_Effect    : single;
+    Medium_Ship_Effect   : single;
+    Heavy_Ship_Effect    : single;
+  end;
+
+  TRecStudent_Role_Definition =  record
+    Student_Role_Index   : integer;
+    Role_Identifier      : string[6];
+    Role_List_Index      : integer;
+  end;
+
+    TRecText_Message_Template =  record
+    Template_Index       : integer;
+    Template_Identifier  : string[60];
+//    Template_Form        : string[2000];
+    Template_Form        : string;
+  end;
+
+    TRecTorpedo_POH_Modifier =  record
+//    List_Index     : integer;
+    Torpedo_Index  : integer;
+    Target_Type    : byte;
+    Aspect_Angle   : single;
+    POH_Modifier   : single;
+
+  end;
+
+    TRecTowed_Jammer_Decoy_Definition =  record
+    Towed_Decoy_Index          : integer;
+    Towed_Decoy_Identifier     : string[60];
+    Decoy_TARH_Capable         : byte;
+    Decoy_SARH_Capable         : byte;
+    Platform_Domain            : byte;
+    Platform_Category          : byte;
+    Platform_Type              : byte;
+    Length                     : single;
+    Width                      : single;
+    Height                     : single;
+    Front_Radar_Cross          : single;
+    Side_Radar_Cross           : single;
+    Front_Visual_Cross         : single;
+    Side_Visual_Cross          : single;
+    Front_Acoustic_Cross       : single;
+    Side_Acoustic_Cross        : single;
+    Type_A_Seducing_Prob       : single;
+    Type_B_Seducing_Prob       : single;
+    Type_C_Seducing_Prob       : single;
+    Activation_Control_Delay   : single;
+    Tow_Length                 : single;
+    ECM_Type                   : byte;
+  end;
+
+
+
+
+
+
+
   {$ENDREGION}
 
 const

@@ -57,6 +57,7 @@ type
     procedure UpdateMissileData;
 
   public
+    AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, btn Cancel di summary menyala}
     LastName : string;
 
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
@@ -69,7 +70,7 @@ var
 implementation
 
 uses
-  uDataModule, ufrmMissileOnBoardPickList;
+  uDataModule, ufrmMissileOnBoardPickList,ufrmLauncherList;
 
 {$R *.dfm}
 
@@ -142,21 +143,21 @@ end;
 
 procedure TfrmMissileMount.btnEditLaunchersClick(Sender: TObject);
 begin
-//  frmLauncherList := TfrmLauncherList.Create(Self);
-//  try
-//    with frmLauncherList do
-//    begin
-//      LauncherOwner := loMissile;
-//      SelectedWeapon := FSelectedMissile;
-//      ShowModal ;
-//    end;
-//    AfterClose := frmLauncherList.AfterClose;
-//  finally
-//    frmLauncherList.Free;
-//  end;
-//
-//  btnCancel.Enabled := not AfterClose;
-//  btnApply.Enabled := AfterClose;
+  frmLauncherList := TfrmLauncherList.Create(Self);
+  try
+    with frmLauncherList do
+    begin
+      LauncherOwner := loMissile;
+      SelectedWeapon := FSelectedMissile;
+      ShowModal ;
+    end;
+    AfterClose := frmLauncherList.AfterClose;
+  finally
+    frmLauncherList.Free;
+  end;
+
+  btnCancel.Enabled := not AfterClose;
+  btnApply.Enabled := AfterClose;
 end;
 
 procedure TfrmMissileMount.cbMountExtensionChange(Sender: TObject);

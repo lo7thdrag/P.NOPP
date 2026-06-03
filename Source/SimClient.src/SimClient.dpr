@@ -162,7 +162,8 @@ uses
   ufrmSummaryRadarNoiseJammer in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryRadarNoiseJammer.pas' {frmSummaryRadarNoiseJammer},
   ufrmSummarySelfDefensiveJammer in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummarySelfDefensiveJammer.pas' {frmSummarySelfDefensiveJammer},
   ufrmSummaryTowedJammerDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryTowedJammerDecoy.pas' {frmSummaryTowedjammerDecoy},
-  ufrmFileManager in '..\LibTTT\LibForms\SimulatorForm\ufrmFileManager.pas' {frmFileManager};
+  ufrmFileManager in '..\LibTTT\LibForms\SimulatorForm\ufrmFileManager.pas' {frmFileManager},
+  newClassASTT in '..\LibTTT\libDBScenario\newClassASTT.pas';
 
 {$R *.res}
 
@@ -183,7 +184,7 @@ begin
   Application.CreateForm(TdmINWO, dmINWO);
   Application.CreateForm(TfrmTacticalDisplay, frmTacticalDisplay);
   Application.CreateForm(TfrmToteDisplay, frmToteDisplay);
-//  Application.CreateForm(TfrmSummaryRadar, frmSummaryRadar);
+  //  Application.CreateForm(TfrmSummaryRadar, frmSummaryRadar);
 //  Application.CreateForm(TfrmSummaryEOD, frmSummaryEOD);
 //  Application.CreateForm(TfrmSummaryESM, frmSummaryESM);
 //  Application.CreateForm(TfrmSummaryMAD, frmSummaryMAD);

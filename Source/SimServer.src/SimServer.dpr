@@ -72,7 +72,8 @@ uses
   uDBAsset_Countermeasure in '..\LibTTT\LibData\uDBAsset_Countermeasure.pas',
   uDBAsset_Sensor in '..\LibTTT\LibData\uDBAsset_Sensor.pas',
   uDBAsset_Vehicle in '..\LibTTT\LibData\uDBAsset_Vehicle.pas',
-  uDBAsset_Weapon in '..\LibTTT\LibData\uDBAsset_Weapon.pas';
+  uDBAsset_Weapon in '..\LibTTT\LibData\uDBAsset_Weapon.pas',
+  newClassASTT in '..\LibTTT\libDBScenario\newClassASTT.pas';
 
 {$R *.res}
 

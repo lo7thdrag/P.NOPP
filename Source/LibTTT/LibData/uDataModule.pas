@@ -1,4 +1,4 @@
-unit uDataModule;
+﻿unit uDataModule;
 
 interface
 
@@ -7,7 +7,8 @@ uses
   Dialogs, SysUtils, Classes, ZAbstractRODataset, ZAbstractDataset, ZDataset, ZConnection, ZAbstractConnection, Data.DB,
 
   {Project uses}
-  uConstantaData, uClassData, uRecordData, uDBAsset_Vehicle, uDBAsset_Weapon, uDBAsset_Sensor, uDBAsset_Countermeasure;
+  uConstantaData, uClassData, uRecordData, uDBAsset_Vehicle, uDBAsset_Weapon, uDBAsset_Sensor, uDBAsset_Countermeasure,
+  newClassASTT;
 
 type
 
@@ -175,7 +176,7 @@ type
 
 //    function InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
 //    function UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
-//    function DeleteFittedWeaponLauncherOnBoard(const aWeaponID, aLauncherType: Integer): Boolean; overload;
+    function DeleteFittedWeaponLauncherOnBoard(const aWeaponID, aLauncherType: Integer): Boolean; overload;
     function DeleteFittedWeaponLauncherOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean; overload;
 
     {$ENDREGION}
@@ -489,6 +490,10 @@ type
     function GetFittedWeaponAtVehicleOnBoard(const index,id: Integer; var pList: TList): boolean;
     function GetTorpedoAtMissileDef (const id: Integer; var pList: TList): boolean;
     function GetPointEffectAtVehicleOnBoard(const index,id: Integer; var pList: TList): boolean;
+    function InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
+    function UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
+    function GetFittedWeaponLauncherOnBoardCount(const aFittedWeapID: Integer; const aType: Integer): Boolean;
+    function GetFittedWeaponLauncherOnBoard(const aWeaponID: Integer; var aList: TList): Boolean;
     {$ENDREGION}
 
     {$REGION ' Countermeasure Usage '}
@@ -5043,6 +5048,38 @@ begin
   end;
 end;
 
+function TdmINWO.InsertFittedWeaponLauncherOnBoard(
+  const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
+begin
+   Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('INSERT INTO Fitted_Weap_Launcher_On_Board');
+    SQL.Add('(Fitted_Weap_Index, Launcher_Type, Launcher_Angle_Required,');
+    SQL.Add('Launcher_Angle, Launcher_Max_Qty)');
+    SQL.Add('VALUES( ');
+
+    with aRec do
+    begin
+      SQL.Add(IntToStr(Fitted_Weap_Index) + ', ');
+      SQL.Add(IntToStr(Launcher_Type) + ', ');
+      SQL.Add(IntToStr(Launcher_Angle_Required) + ', ');
+      SQL.Add(IntToStr(Launcher_Angle) + ', ');
+      SQL.Add(IntToStr(Launcher_Max_Qty) + ')');
+    end;
+
+    ExecSQL;
+
+    Result := True;
+  end;
+end;
+
 function TdmINWO.InsertFittedWeaponOnBoard(const aInsertType: Byte;var aRec: TRecFitted_Weapon_On_Board): Boolean;
 begin
   Result := False;
@@ -5101,6 +5138,36 @@ begin
 
       aRec.Fitted_Weap_Index := FieldByName('Fitted_Weap_Index').AsInteger;
     end;
+  end;
+end;
+
+function TdmINWO.UpdateFittedWeaponLauncherOnBoard(
+  const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
+begin
+   Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('UPDATE Fitted_Weap_Launcher_On_Board');
+
+    with aRec do
+    begin
+      SQL.Add('SET Launcher_Angle_Required = ' + IntToStr(Launcher_Angle_Required));
+      SQL.Add(', Launcher_Type = ' + IntToStr(Launcher_Type));
+      SQL.Add(', Launcher_Angle = ' + IntToStr(Launcher_Angle));
+      SQL.Add(', Launcher_Max_Qty = ' + IntToStr(Launcher_Max_Qty));
+      SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(Fitted_Weap_Index));
+      SQL.Add('AND Launcher_Type = ' + IntToStr(LastLauncher_Type));
+    end;
+
+    ExecSQL;
+
+    Result := True;
   end;
 end;
 
@@ -5259,6 +5326,28 @@ begin
 
     Result := True;
   end;
+end;
+
+function TdmINWO.DeleteFittedWeaponLauncherOnBoard(const aWeaponID,
+  aLauncherType: Integer): Boolean;
+begin
+   Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('DELETE FROM Fitted_Weap_Launcher_On_Board');
+    SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aWeaponID));
+    SQL.Add('AND Launcher_Type = ' + IntToStr(aLauncherType));
+    ExecSQL;
+
+    Result := True;
+  end;
+
 end;
 
 function TdmINWO.DeleteFittedWeaponOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
@@ -8035,7 +8124,7 @@ begin
 end;
 
 function TdmINWO.InsertSonobuoyOnBoard(var aRec: TRecSonobuoy_On_Board): Boolean;
-begin
+  begin
   Result := False;
 
   if not ZConn.Connected then
@@ -13624,6 +13713,89 @@ begin
         ZQ.Next;
       end;
     end;
+  end;
+end;
+
+function TdmINWO.GetFittedWeaponLauncherOnBoard(const aWeaponID: Integer;
+  var aList: TList): Boolean;
+var
+  i : Integer;
+  rec : TFitted_Weap_Launcher_On_Board;
+begin
+  Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Fitted_Weap_Launcher_On_Board');
+    SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aWeaponID));
+    SQL.Add('ORDER BY Launcher_Type');
+    Open;
+
+    Result := RecordCount > 0;
+
+    if Assigned(aList) then
+    begin
+      for i := 0 to aList.Count - 1 do
+      begin
+        rec := aList.Items[i];
+        rec.Free;
+      end;
+
+      aList.Clear;
+    end
+    else
+      aList := TList.Create;
+
+    if not IsEmpty then
+    begin
+      First;
+
+      while not Eof do
+      begin
+        rec := TFitted_Weap_Launcher_On_Board.Create;
+
+        with rec.FData do
+        begin
+          Fitted_Weap_Index := FieldByName('Fitted_Weap_Index').AsInteger;
+          Launcher_Type := FieldByName('Launcher_Type').AsInteger;
+          Launcher_Angle_Required := FieldByName('Launcher_Angle_Required')
+            .AsInteger;
+          Launcher_Angle := FieldByName('Launcher_Angle').AsInteger;
+          Launcher_Max_Qty := FieldByName('Launcher_Max_Qty').AsInteger;
+        end;
+
+        aList.Add(rec);
+        Next;
+      end;
+    end;
+  end;
+end;
+
+function TdmINWO.GetFittedWeaponLauncherOnBoardCount(const aFittedWeapID,
+  aType: Integer): Boolean;
+begin
+   Result := False;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Fitted_Weap_Launcher_On_Board');
+    SQL.Add('WHERE Fitted_Weap_Index = ' + IntToStr(aFittedWeapID));
+    SQL.Add('AND Launcher_Type = ' + IntToStr(aType));
+    Open;
+
+    Result := RecordCount > 0;
   end;
 end;
 

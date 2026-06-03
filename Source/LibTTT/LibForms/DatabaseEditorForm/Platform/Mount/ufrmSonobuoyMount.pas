@@ -55,6 +55,8 @@ type
 //    procedure DrawBlindZone;
 
   public
+    isOK  : Boolean;
+    AfterClose : Boolean;
     LastName : string;
 
     property SelectedVehicle : TAsset read FSelectedVehicle write FSelectedVehicle;
@@ -102,6 +104,7 @@ procedure TfrmSonobuoyMount.btnApplyClick(Sender: TObject);
 begin
   if not CekInput then
   begin
+    isOK := False;
     Exit;
   end;
 
@@ -123,12 +126,15 @@ begin
       dmINWO.UpdateSonobuoyOnBoard(FData);
   end;
 
+  isOK := True;
+  AfterClose := True;
   btnApply.Enabled := False;
   btnCancel.Enabled := False;
 end;
 
 procedure TfrmSonobuoyMount.btnCancelClick(Sender: TObject);
 begin
+  AfterClose := False;
   Close;
 end;
 

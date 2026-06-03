@@ -4,8 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage{,
-  newClassASTT, uDBAsset_Weapon};
+  Dialogs, StdCtrls, ComCtrls, ExtCtrls, Vcl.Imaging.pngimage,
+  newClassASTT, uDBAsset_Weapon;
 
 type
   TfrmMissileLauncher = class(TForm)
@@ -45,8 +45,8 @@ type
     procedure btnApplyClick(Sender: TObject);
 
   private
-//    FSelectedMissile : TMissile_On_Board;
-//    FSelectedLauncher : TFitted_Weap_Launcher_On_Board;
+    FSelectedMissile : TMissile_On_Board;
+    FSelectedLauncher : TFitted_Weap_Launcher_On_Board;
 
     function CekInput: Boolean;
     procedure UpdateLauncherData;
@@ -56,8 +56,8 @@ type
     AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
     LastLauncher : byte;
 
-//    property SelectedMissile : TMissile_On_Board read FSelectedMissile write FSelectedMissile;
-//    property SelectedLauncher : TFitted_Weap_Launcher_On_Board read FSelectedLauncher write FSelectedLauncher;
+    property SelectedMissile : TMissile_On_Board read FSelectedMissile write FSelectedMissile;
+    property SelectedLauncher : TFitted_Weap_Launcher_On_Board read FSelectedLauncher write FSelectedLauncher;
   end;
 
 var
@@ -80,14 +80,14 @@ end;
 
 procedure TfrmMissileLauncher.FormShow(Sender: TObject);
 begin
-//  UpdateLauncherData;
-//
-//  with FSelectedLauncher.FData do
-//    btnApply.Enabled := Fitted_Weap_Index = 0;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnCancel.Enabled := True;
+  UpdateLauncherData;
+
+  with FSelectedLauncher.FData do
+    btnApply.Enabled := Fitted_Weap_Index = 0;
+
+  isOK := True;
+  AfterClose := True;
+  btnCancel.Enabled := True;
 end;
 
 {$ENDREGION}
@@ -105,35 +105,35 @@ end;
 
 procedure TfrmMissileLauncher.btnApplyClick(Sender: TObject);
 begin
-//  if not CekInput then
-//  begin
-//    isOK := False;
-//    Exit;
-//  end;
-//
-//  ValidationFormatInput;
-//
-//  with FSelectedLauncher do
-//  begin
-//    FData.LastLauncher_Type := LastLauncher + 1 ;
-//    FData.Launcher_Type := cbbName.ItemIndex + 1;
-//    FData.Launcher_Max_Qty := StrToInt(edtMaxQuantity.Text);
-//    FData.Launcher_Angle_Required := Ord(cbAngleRequired.Checked);
-//    FData.Launcher_Angle := StrToInt(edtAngle.Text);
-//
-//    if FData.Fitted_Weap_Index = 0 then
-//    begin
-//      FData.Fitted_Weap_Index := FSelectedMissile.FData.Fitted_Weap_Index;
-//      dmTTT.InsertFittedWeaponLauncherOnBoard(FData);
-//    end
-//    else
-//      dmTTT.UpdateFittedWeaponLauncherOnBoard(FData);
-//  end;
-//
-//  isOK := True;
-//  AfterClose := True;
-//  btnApply.Enabled := False;
-//  btnCancel.Enabled := False;
+  if not CekInput then
+  begin
+    isOK := False;
+    Exit;
+  end;
+
+  ValidationFormatInput;
+
+  with FSelectedLauncher do
+  begin
+    FData.LastLauncher_Type := LastLauncher + 1 ;
+    FData.Launcher_Type := cbbName.ItemIndex + 1;
+    FData.Launcher_Max_Qty := StrToInt(edtMaxQuantity.Text);
+    FData.Launcher_Angle_Required := Ord(cbAngleRequired.Checked);
+    FData.Launcher_Angle := StrToInt(edtAngle.Text);
+
+    if FData.Fitted_Weap_Index = 0 then
+    begin
+      FData.Fitted_Weap_Index := FSelectedMissile.FData.Fitted_Weap_Index;
+      dmINWO.InsertFittedWeaponLauncherOnBoard(FData);
+    end
+    else
+      dmINWO.UpdateFittedWeaponLauncherOnBoard(FData);
+  end;
+
+  isOK := True;
+  AfterClose := True;
+  btnApply.Enabled := False;
+  btnCancel.Enabled := False;
 end;
 
 procedure TfrmMissileLauncher.btnCancelClick(Sender: TObject);
@@ -144,37 +144,37 @@ end;
 
 function TfrmMissileLauncher.CekInput: Boolean;
 begin
-//  Result := False;
-//
-//  if cbbName.ItemIndex = -1 then
-//  begin
-//    ShowMessage('Select Launcher Name');
-//    Exit;
-//  end;
-//
-//  {Jika Launcher Name sudah ada}
-//  if dmTTT.GetFittedWeaponLauncherOnBoardCount(FSelectedMissile.FData.Fitted_Weap_Index, cbbName.ItemIndex + 1) then
-//  begin
-//    if FSelectedLauncher.FData.Fitted_Weap_Index = 0 then
-//    begin
-//      ShowMessage('Duplicate launcher !' + Char(13) + 'Choose different launcher to continue.');
-//      Exit;
-//    end;
-//  end;
-//
-//  Result := True;
+  Result := False;
+
+  if cbbName.ItemIndex = -1 then
+  begin
+    ShowMessage('Select Launcher Name');
+    Exit;
+  end;
+
+  {Jika Launcher Name sudah ada}
+  if dmINWO.GetFittedWeaponLauncherOnBoardCount(FSelectedMissile.FData.Fitted_Weap_Index, cbbName.ItemIndex + 1) then
+  begin
+    if FSelectedLauncher.FData.Fitted_Weap_Index = 0 then
+    begin
+      ShowMessage('Duplicate launcher !' + Char(13) + 'Choose different launcher to continue.');
+      Exit;
+    end;
+  end;
+
+  Result := True;
 end;
 
 procedure TfrmMissileLauncher.UpdateLauncherData;
 begin
-//  with FSelectedLauncher.FData do
-//  begin
-//    LastLauncher := Launcher_Type - 1;
-//    cbbName.ItemIndex := Launcher_Type - 1;
-//    edtMaxQuantity.Text := FormatFloat('0', Launcher_Max_Qty);
-//    cbAngleRequired.Checked := Boolean(Launcher_Angle_Required);
-//    edtAngle.Text := IntToStr(Launcher_Angle);
-//  end;
+  with FSelectedLauncher.FData do
+  begin
+    LastLauncher := Launcher_Type - 1;
+    cbbName.ItemIndex := Launcher_Type - 1;
+    edtMaxQuantity.Text := FormatFloat('0', Launcher_Max_Qty);
+    cbAngleRequired.Checked := Boolean(Launcher_Angle_Required);
+    edtAngle.Text := IntToStr(Launcher_Angle);
+  end;
 end;
 
 {$ENDREGION}

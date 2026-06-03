@@ -14235,6 +14235,7 @@ object frmMissileMount: TfrmMissileMount
       TabWidth = 100
       object General: TTabSheet
         Caption = 'General'
+        ExplicitLeft = -3
         object lbl2: TLabel
           Left = 10
           Top = 8
@@ -14255,7 +14256,6 @@ object frmMissileMount: TfrmMissileMount
           Width = 66
           Height = 15
           Caption = 'Blind Zones :'
-          Visible = False
         end
         object lbl5: TLabel
           Left = 113
@@ -14263,7 +14263,6 @@ object frmMissileMount: TfrmMissileMount
           Width = 52
           Height = 15
           Caption = 'Quantity :'
-          Visible = False
         end
         object lbl6: TLabel
           Left = 113
@@ -14271,7 +14270,6 @@ object frmMissileMount: TfrmMissileMount
           Width = 120
           Height = 15
           Caption = 'Reload/Launch Delay :'
-          Visible = False
         end
         object lbl7: TLabel
           Left = 312
@@ -14279,7 +14277,6 @@ object frmMissileMount: TfrmMissileMount
           Width = 48
           Height = 15
           Caption = 'hh:mm:ss'
-          Visible = False
         end
         object edtClassName: TLabel
           Left = 81
@@ -14318,7 +14315,6 @@ object frmMissileMount: TfrmMissileMount
           NumbersOnly = True
           TabOrder = 1
           Text = '0'
-          Visible = False
           OnChange = edtChange
           OnKeyPress = edtNumeralKeyPress
         end
@@ -14329,7 +14325,6 @@ object frmMissileMount: TfrmMissileMount
           Height = 25
           Caption = 'Edit Launchers...'
           TabOrder = 2
-          Visible = False
           OnClick = btnEditLaunchersClick
         end
         object pnlBlindZone: TPanel
@@ -14338,7 +14333,6 @@ object frmMissileMount: TfrmMissileMount
           Width = 66
           Height = 65
           TabOrder = 3
-          Visible = False
         end
         object edtReload: TMaskEdit
           Left = 239
@@ -14349,7 +14343,6 @@ object frmMissileMount: TfrmMissileMount
           MaxLength = 8
           TabOrder = 4
           Text = '  :  :  '
-          Visible = False
           OnChange = edtChange
         end
       end
