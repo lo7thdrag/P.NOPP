@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, ExtCtrls, ComCtrls, Vcl.Imaging.pngimage,
 
-  uDBAsset_Weapon, uClassData, uSimContainers, uConstantaData ;
+  uDBAsset_Weapon, uClassData, uSimContainers, uConstantaData, uRecordData ;
 
 type
   TfrmMissileOnBoardPickList = class(TForm)
@@ -154,7 +154,8 @@ begin
 
   with FSelectedMissile.FData do
   begin
-//    .DeleteFittedWeaponLauncherOnBoard(2, Fitted_Weap_Index);
+//    dmINWO.DeleteBlindZone(Ord(bzcWeapon), Fitted_Weap_Index);
+    dmINWO.DeleteFittedWeaponLauncherOnBoard(2, Fitted_Weap_Index);
     dmINWO.DeleteFittedWeaponOnBoard(2, Fitted_Weap_Index);
   end;
 

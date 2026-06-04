@@ -174,6 +174,11 @@ type
     function UpdatePointEffectOnBoard(const aUpdateType: Byte;var aRec: TRecPoint_Effect_On_Board): Boolean;
     function DeletePointEffectOnBoard(const aDeleteType: Byte; const aIndex: Integer): Boolean;
 
+    function InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
+    function UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
+    function GetFittedWeaponLauncherOnBoardCount(const aFittedWeapID: Integer; const aType: Integer): Boolean;
+    function GetFittedWeaponLauncherOnBoard(const aWeaponID: Integer; var aList: TList): Boolean;
+
 //    function InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
 //    function UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
     function DeleteFittedWeaponLauncherOnBoard(const aWeaponID, aLauncherType: Integer): Boolean; overload;
@@ -460,6 +465,8 @@ type
 
     {$REGION ' Additional Section '}
 
+    {$ENDREGION}
+
     {$REGION ' Note Storage '}
     function InsertNoteStorage(const aOwnerType: Byte; const aOwnerIndex: Integer; var aRec: TRecNote_Storage): Boolean;
     function UpdateNoteStorage(const aOwnerIndex: Integer; var aRec: TRecNote_Storage): Boolean;
@@ -490,10 +497,6 @@ type
     function GetFittedWeaponAtVehicleOnBoard(const index,id: Integer; var pList: TList): boolean;
     function GetTorpedoAtMissileDef (const id: Integer; var pList: TList): boolean;
     function GetPointEffectAtVehicleOnBoard(const index,id: Integer; var pList: TList): boolean;
-    function InsertFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
-    function UpdateFittedWeaponLauncherOnBoard(const aRec: TRecFitted_Weap_Launcher_On_Board): Boolean;
-    function GetFittedWeaponLauncherOnBoardCount(const aFittedWeapID: Integer; const aType: Integer): Boolean;
-    function GetFittedWeaponLauncherOnBoard(const aWeaponID: Integer; var aList: TList): Boolean;
     {$ENDREGION}
 
     {$REGION ' Countermeasure Usage '}
@@ -4655,6 +4658,7 @@ begin
     Result := True;
   end;
 end;
+
 
 function TdmINWO.DeleteBombDef(const aBombIndex: Integer): Boolean;
 begin
