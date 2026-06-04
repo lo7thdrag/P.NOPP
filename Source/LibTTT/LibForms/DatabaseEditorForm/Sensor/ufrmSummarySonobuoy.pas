@@ -229,8 +229,8 @@ begin
 end;
 
 procedure TfrmSummarySonobuoy.UpdateSonarData;
-var
-  sonar : TSonar_On_Board;
+//var
+//  sonar : TSonar_On_Board;
 begin
 //  with FSelectedSonobuoy do
 //  begin
@@ -295,11 +295,11 @@ begin
     end;
   end;
 
-//  if FSelectedSonobuoy.FDef.Sonar_Index = 0 then
-//  begin
-//    ShowMessage('Sonar Definition not selected');
-//    Exit;
-//  end;
+  if FSelectedSonobuoy.FDef.Sonar_Index = 0 then
+  begin
+    ShowMessage('Sonar Definition not selected');
+    Exit;
+  end;
 
   Result := True;
 end;
