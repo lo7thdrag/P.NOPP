@@ -6866,7 +6866,7 @@ begin
           CPA_Detection_Capable := FieldByName('CPA_Detection_Capable')
             .AsInteger;
           CPA_Range_Limit := FieldByName('CPA_Range_Limit').AsSingle;
-//          Sonar_Index := FieldByName('Sonar_Index').AsInteger;
+          Sonar_Index := FieldByName('Sonar_Index').AsInteger;
         end;
 
         aList.Add(rec);
@@ -6938,7 +6938,7 @@ begin
           CPA_Detection_Capable := FieldByName('CPA_Detection_Capable')
             .AsInteger;
           CPA_Range_Limit := FieldByName('CPA_Range_Limit').AsSingle;
-//          Sonar_Index := FieldByName('Sonar_Index').AsInteger;
+          Sonar_Index := FieldByName('Sonar_Index').AsInteger;
         end;
 
         aList.Add(rec);
@@ -8160,6 +8160,7 @@ function TdmINWO.InsertSonobuoyOnBoard(var aRec: TRecSonobuoy_On_Board): Boolean
     SQL.Add('FROM Sonobuoy_On_Board');
     SQL.Add('WHERE Instance_Identifier = ' + QuotedStr(aRec.Instance_Identifier));
     SQL.Add('AND Vehicle_Index = ' + IntToStr(aRec.Vehicle_Index));
+    SQL.Add('AND Quantity = ' + IntToStr(aRec.Quantity));
     Open;
 
     Result := RecordCount > 0;
