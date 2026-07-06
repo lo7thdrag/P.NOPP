@@ -1,0 +1,59 @@
+object frmPopChat: TfrmPopChat
+  Left = 0
+  Top = 0
+  BorderStyle = bsNone
+  ClientHeight = 82
+  ClientWidth = 351
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Panel1: TPanel
+    Left = 0
+    Top = -1
+    Width = 628
+    Height = 328
+    Color = 14016033
+    ParentBackground = False
+    TabOrder = 0
+    object lblSender: TLabel
+      Left = 22
+      Top = 6
+      Width = 49
+      Height = 19
+      Alignment = taCenter
+      Caption = 'Sender'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object lblMessage: TLabel
+      Left = 22
+      Top = 43
+      Width = 59
+      Height = 19
+      Alignment = taCenter
+      Caption = 'Message'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    Left = 307
+    Top = 11
+  end
+end

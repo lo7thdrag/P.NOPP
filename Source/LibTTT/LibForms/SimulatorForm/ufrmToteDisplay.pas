@@ -8,7 +8,9 @@ uses
 
   ufrmFileManager, uClassData, uRecordData, uSimMgr_Client, uDataModule, uLibSetting,
   ufrmSummaryUserRole, uT3SimManager, uConsoleData,
-  Vcl.Imaging.pngimage, RzBmpBtn, Vcl.Buttons, Vcl.CheckLst;
+  Vcl.Imaging.pngimage, RzBmpBtn, Vcl.Buttons, Vcl.CheckLst,
+
+  ufPopChat;
 
 type
   TfrmToteDisplay = class(TForm)
@@ -462,6 +464,9 @@ begin
         end;
           lstUserSend.Items[j] := lstUserSend.Items[j] + ' - Success';
           transferSuccess := True;
+
+          if Assigned(frmPopChat) then
+            frmPopChat.ShowMessagePopup(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim, 'File terkirim: ' + ExtractFileName(fileTemp.FData.Directory_Path));
       end
       else
       begin

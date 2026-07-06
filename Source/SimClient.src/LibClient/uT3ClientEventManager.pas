@@ -52,6 +52,8 @@ begin
   frmDisplayArea.UpdateClientHistoryChat(IdSender, IdReceiver);
   frmDisplayArea.UpdateClientChatting;
 
+   if Assigned(frmDisplayArea) then
+    frmDisplayArea.ShowChatPopupNotify(IdSender, IdReceiver);
 end;
 
 procedure TT3ClientEventManager.OnUpdateUserStateChange(state: Integer);

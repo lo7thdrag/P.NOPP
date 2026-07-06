@@ -11,7 +11,7 @@ uses
   {Project Uses}
   uRecordData, uConstantaData, uSimMgr_Client, uT3SimManager, uClassData, ufrmVideoConference, ufrmSituationBoard,
   ufrmTelegram, uLibSetting, uSimContainers, ufrmSummaryUserRole, ufrmAvailableUserRole , UfrmMapEditor, ufrmSimbolTaktis,
-  ufrmAsset, ufrmFileManager, ufrmReferensi, ufrmMapPreview, RzBmpBtn, ufrmToteDisplay;
+  ufrmAsset, ufrmFileManager, ufrmReferensi, ufrmMapPreview, RzBmpBtn, ufrmToteDisplay, ufPopChat;
 
 type
   TfrmDisplayArea = class(TForm)
@@ -217,6 +217,7 @@ type
     pnlToteDisplay: TPanel;
     btnToteDisplay: TSpeedButton;
     lblToteDisplay: TLabel;
+    trycnMessage: TTrayIcon;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -322,6 +323,8 @@ type
     procedure btnCloseChatClick(Sender: TObject);
     procedure lstUserChatDblClick(Sender: TObject);
 
+    procedure ShowChatPopupNotify(IdSender, IdReceiver: Integer);
+
     {$ENDREGION}
 
     {$REGION ' Telegram Procedure '}
@@ -387,6 +390,8 @@ type
     function GetRoleIndex(id : string):Integer;
 
   public
+    function GetUserNameById(Id: Integer): string;
+    function GetLastChatMessage(IdSender, IdReceiver: Integer): string;
 
     procedure UpdateDataAset;
 
@@ -938,6 +943,29 @@ begin
   end;
 end;
 
+function TfrmDisplayArea.GetLastChatMessage(IdSender,IdReceiver: Integer): string;
+var
+  tempList: TList;
+  i: Integer;
+  chat: TChatting;
+begin
+  Result := '';
+
+  tempList := TList.Create;
+  try
+    SimManager.SimChatting.GetChattingBySending(IdReceiver, IdSender, tempList);
+
+    if tempList.Count > 0 then
+    begin
+      chat := tempList.Items[tempList.Count - 1];
+      Result := chat.ChatMessage;
+    end;
+  finally
+    tempList.Free;
+  end;
+
+end;
+
 function TfrmDisplayArea.GetRoleIndex(id: string): Integer;
 var
   i : Integer;
@@ -955,6 +983,29 @@ begin
       Break;
     end;
   end;
+end;
+
+function TfrmDisplayArea.GetUserNameById(Id: Integer): string;
+var
+  i   : Integer;
+  Rec : TUserRole;
+begin
+  Result := 'UNKNOWN';
+
+  for i := 0 to simMgrClient.SimUserRole.UserList.Count - 1 do
+  begin
+    Rec := simMgrClient.SimUserRole.UserList[i];
+
+    if Assigned(Rec) then
+    begin
+      if Rec.FData.UserRoleIndex = Id then
+      begin
+        Result := Rec.FData.UserRoleAcronim + ' - ' + Rec.FSubRoleData.SubRoleIdentifier;
+        Exit;
+      end;
+    end;
+  end;
+
 end;
 
 procedure TfrmDisplayArea.AddCbbSubRole;
@@ -2251,6 +2302,29 @@ begin
 
   btnUploadReferensi.Visible := False;
   btnDeleteReferensi.Visible := False;
+end;
+
+procedure TfrmDisplayArea.ShowChatPopupNotify(IdSender, IdReceiver: Integer);
+var
+  SenderName: string;
+  Msg: string;
+begin
+  if IdReceiver <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+    Exit;
+
+  SenderName := GetUserNameById(IdSender);
+
+  Msg := GetLastChatMessage(IdSender, IdReceiver);
+
+  if not Assigned(frmPopChat) then
+    frmPopChat := TfrmPopChat.Create(Application);
+
+  frmPopChat.ShowMessagePopup(SenderName, Msg);
+
+  trycnMessage.BalloonTitle := 'Chat Masuk';
+  trycnMessage.BalloonHint  := SenderName + ': ' + Msg;
+  trycnMessage.BalloonFlags := bfInfo;
+  trycnMessage.ShowBalloonHint;
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);

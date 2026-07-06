@@ -6204,4 +6204,9 @@ object frmTelegram: TfrmTelegram
       end
     end
   end
+  object tmrPopUpTelegram: TTimer
+    OnTimer = tmrPopUpTelegramTimer
+    Left = 610
+    Top = 452
+  end
 end
