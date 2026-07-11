@@ -35,6 +35,10 @@ type
     FConverter : TCoordConverter;
 
     function GetConsoleIdentification : Boolean;
+    procedure OnSyncSituationBoardTabProperties(
+      const rec: TRecTCPSendSituationBoardTabProperties);
+    procedure OnSyncUserChat(const rec: TRecTCPSendChatUserRole);
+    procedure OnSyncUserState(const rec: TRecTCP_UserState);
 
   protected
     FSessionID : integer;
@@ -53,6 +57,7 @@ type
     SimTabProperties : TTabPropertiesContainer; {load saat running}
     SimChatting : TChattingContainer; {load saat running}
     SimOverlay : TOverlayTabContainer; {load saat running}
+    SimFileSendTelegram : TFileSendTelegramCOntainer;
 
     EventManager    : TT3EventManager;
 
@@ -69,10 +74,7 @@ type
     procedure OnSituationBoardTabPropertiesChange(const rec : TRecTCPSendSituationBoardTabProperties); virtual;
     procedure OnUserRoleChatChange(const rec : TRecTCPSendChatUserRole); virtual;
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); virtual;
-
-    procedure OnSyncUserState(const rec : TRecTCP_UserState); virtual;
-    procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); virtual;
-    procedure OnSyncUserChat(const rec : TRecTCPSendChatUserRole); virtual;
+    procedure OnFileSyncChange(const rec: TRecTCPFileSync);
     {$ENDREGION}
 
     function GetSerialTabSituationBoardID : Integer;
@@ -280,6 +282,47 @@ begin
     end;
     listTemp.Free;
     {$ENDREGION}
+  end;
+end;
+
+procedure TT3SimManager.OnFileSyncChange(const rec: TRecTCPFileSync);
+var
+  FileInfo : TFileSyncData;
+begin
+  case rec.OrderID of
+    SEND_FILE_REQUEST :
+    begin
+      FileInfo := TFileSyncData.Create;
+
+      FileInfo.FileName := rec.FileName;
+      FileInfo.FileSize := rec.FileSize;
+      FileInfo.OwnerIP  := rec.SenderIP;
+
+      SimFileSendTelegram.AddFile(FileInfo);
+    end;
+
+    SEND_FILE_INFO :
+    begin
+      FileInfo := TFileSyncData.Create;
+
+      FileInfo.FileName := rec.FileName;
+      FileInfo.FileSize := rec.FileSize;
+      FileInfo.OwnerIP  := rec.SenderIP;
+
+      SimFileSendTelegram.AddFile(FileInfo);
+
+      ForceDirectories(vGameDataSetting.Telegram + '\INBOX\' + rec.FolderName);
+    end;
+
+    SEND_FILE_DATA :
+    begin
+      SimFileSendTelegram.WriteFileData(rec);
+    end;
+
+    SEND_FILE_FINISH :
+    begin
+      SimFileSendTelegram.CloseFile(rec.FileName);
+    end;
   end;
 end;
 

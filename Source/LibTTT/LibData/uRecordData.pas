@@ -122,6 +122,23 @@ type
     ChatMessage         : string[255];
   end;
 
+  //CPID_FILE_SEND_TELEGRAM
+  TRecTCPFileSync = record
+    pid        : TPacketID;
+    SessionID  : Integer;
+    OrderID    : Byte;
+    FileName   : string[255];
+    FileSize   : Int64;
+    Position   : Int64;
+    DataSize   : Word;
+    Data       : array[0..8191] of Byte;
+    SenderIP   : string;
+    FolderName : string[255];
+
+    SenderUserRoleId    : Integer;
+    ReceiverUserRoleId  : Integer;
+  end;
+
   //CPID_TELEGRAM_USER_ROLE_CMD
   TRecTCPSendTelegramUserRole = record
     pid                 : TPacketID;
@@ -1815,7 +1832,12 @@ const
   CPID_CMD_TELEGRAM_USER_ROLE             = CPID_TCP + 8;
     SEND_TELEGRAM = 0;
   CPID_CMD_RECONNECT                      = CPID_TCP + 9;
-  CPID_TCP_MAX              	            = CPID_TCP + 10;
+  CPID_CMD_FILE_SYNC                      = CPID_TCP + 10;
+    SEND_FILE_REQUEST = 0;
+    SEND_FILE_INFO    = 1;
+    SEND_FILE_DATA    = 2;
+    SEND_FILE_FINISH  = 3;
+  CPID_TCP_MAX              	            = CPID_TCP + 11;
 
   {$ENDREGION}
 
@@ -1843,7 +1865,8 @@ const
   'CPID_CMD_CHAT_USER_ROLE                ',   // + 6
   'CPID_CMD_OVERLAYSHAPE                  ',   // + 7
   'CPID_CMD_TELEGRAM_USER_ROLE            ',   // + 8
-  'CPID_CMD_RECONNECT                     '    // + 9
+  'CPID_CMD_RECONNECT                     ',    // + 9
+  'CPID_CMD_FILE_SYNC                     '    // + 10
 );
 
 begin

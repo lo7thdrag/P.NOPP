@@ -77,11 +77,12 @@ type
     fileNameArray : array of string;
     pathFileArray : array of string;
 
-    function GetSenderFromPath(const FilePath: string): string;
+    function GetSenderFromPath(FilePath:string):string;
 
     procedure UpdateClientTelegramList;
     procedure OpenApplicationFileFolder(FullPath: String);
     procedure UpdateFilenameComboBox;
+    procedure ShowFilePopup(const SenderName, FileName:string);
 
   end;
 
@@ -92,26 +93,21 @@ implementation
 
 {$R *.dfm}
 
-function TfrmTelegram.GetSenderFromPath(const FilePath: string): string;
+function TfrmTelegram.GetSenderFromPath(FilePath:string):string;
 var
-  Parts: TArray<string>;
-  i : Integer;
+  Temp : TStringList;
 begin
-  Parts := FilePath.Split(['\']);
-
-  if Length(Parts) > 0 then
-  begin
-    for  i := 0 to High(Parts) do
-    begin
-      if SameText(Parts[i], 'INBOX') then
-      begin
-        if i + 1 <= High(Parts) then
-          Exit(Parts[i + 1]);
-      end;
-    end;
-  end;
-
   Result := 'Unknown';
+  Temp   := TStringList.Create;
+
+  try
+    ExtractStrings(['\'], [], PChar(FilePath), Temp);
+
+    if Temp.Count >= 3 then
+      Result := Temp[Temp.Count-3];
+  finally
+    Temp.Free;
+  end;
 end;
 
 procedure TfrmTelegram.btnBuatTelegramRahasiaClick(Sender: TObject);
@@ -258,11 +254,12 @@ end;
 procedure TfrmTelegram.btnKirimClick(Sender: TObject);
 var
   DateTimeNowTemp : string;
-  InboxPath       : string;
   SentPath        : string;
-  SenderFolder    : string;
-  i               : Integer;
-  TelegramRoot    : string;
+
+  i   : Integer;
+  rec : TRecTCPFileSync;
+  FS  : TFileStream;
+
 begin
   if cbbxTo.ItemIndex = -1 then
   begin
@@ -282,54 +279,54 @@ begin
     Exit;
   end;
 
-  TelegramRoot := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram);
-
-  if TelegramRoot = '' then
-  begin
-    ShowMessage('Telegram path not configured!');
-    Exit;
-  end;
-
   DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
-  SenderFolder    := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + ' - ' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
-  InboxPath       := TelegramRoot + 'INBOX\' + SenderFolder + '\' +  DateTimeNowTemp;
-
-  try
-    if not TDirectory.Exists(InboxPath) then
-      TDirectory.CreateDirectory(InboxPath);
-  except
-    on E: Exception do
-    begin
-      ShowMessage('Failed create INBOX path:'#13#10 + E.Message);
-      Exit;
-    end;
-  end;
-
   SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + cbbxTo.Text + '\' + DateTimeNowTemp;
 
-  if not TDirectory.Exists(SentPath) then
-    TDirectory.CreateDirectory(SentPath);
+  if not DirectoryExists(SentPath) then
+    ForceDirectories(SentPath);
 
   for i := 0 to High(pathFileArray) do
   begin
-    if not TFile.Exists(pathFileArray[i]) then
+
+    if not FileExists(pathFileArray[i]) then
       Continue;
 
     try
-      TFile.Copy(pathFileArray[i], IncludeTrailingPathDelimiter(InboxPath) + fileNameArray[i], True);
-      TFile.Copy(pathFileArray[i], IncludeTrailingPathDelimiter(SentPath) + fileNameArray[i], True);
+      CopyFile(PChar(pathFileArray[i]), PChar(IncludeTrailingPathDelimiter(SentPath)+ fileNameArray[i]), False);
+      FillChar(rec, SizeOf(rec), 0);
+      rec.OrderID := SEND_FILE_INFO;
+      rec.FileName := fileNameArray[i];
+      rec.FolderName := DateTimeNowTemp;
+      FS := TFileStream.Create(pathFileArray[i], fmOpenRead or fmShareDenyNone);
+
+      try
+        rec.FileSize := FS.Size;
+      finally
+        FS.Free;
+      end;
+
+      rec.SenderIP := simMgrClient.MyConsoleData.UserRoleData.ConsoleIP;
+      rec.ReceiverUserRoleId := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]).FData.UserRoleIndex;
+      simMgrClient.netSend_CmdFileSendTelegram(rec);
 
     except
       on E: Exception do
       begin
-        ShowMessage('Error copy file:'#13#10 + E.Message);
+        ShowMessage('Error send file:'#13#10 + fileNameArray[i] + #13#10 + E.Message);
       end;
     end;
   end;
 
   btnClosePanelSendTelegramClick(Sender);
-
   ShowMessage('Telegram successfully sent!');
+end;
+
+procedure TfrmTelegram.ShowFilePopup(const SenderName, FileName:string);
+begin
+  if not Assigned(frmPopChat) then
+    Application.CreateForm(TfrmPopChat, frmPopChat);
+
+  frmPopChat.ShowMessagePopup(SenderName, 'File masuk : ' + FileName);
 end;
 
 procedure TfrmTelegram.Button1Click(Sender: TObject);
@@ -588,28 +585,33 @@ end;
 
 procedure TfrmTelegram.tmrPopUpTelegramTimer(Sender: TObject);
 var
-  InboxPath: string;
-  Files: TStringDynArray;
-  LastFile: string;
+  InboxPath : string;
+  Files     : TStringDynArray;
+  LastFile  : string;
   SenderName: string;
 begin
   InboxPath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'INBOX';
 
-  if not TDirectory.Exists(InboxPath) then Exit;
+  if not TDirectory.Exists(InboxPath) then
+    Exit;
 
   Files := TDirectory.GetFiles(InboxPath, '*.*', TSearchOption.soAllDirectories);
 
-  if Length(Files) = 0 then Exit;
+  if Length(Files)=0 then
+    Exit;
 
   LastFile := Files[High(Files)];
 
-  if SameText(LastFile, FLastFileName) then Exit;
+  if SameText(LastFile, FLastFileName) then
+    Exit;
 
   FLastFileName := LastFile;
+  SenderName    := GetSenderFromPath(LastFile);
 
-  SenderName := GetSenderFromPath(LastFile);
+  if not Assigned(frmPopChat) then
+    Application.CreateForm(TfrmPopChat, frmPopChat);
 
-  frmPopChat.ShowMessagePopup(SenderName, 'File masuk: ' + ExtractFileName(LastFile));
+  frmPopChat.ShowMessagePopup(SenderName, 'File masuk : ' + ExtractFileName(LastFile));
 end;
 
 procedure TfrmTelegram.UpdateClientTelegramList;
@@ -622,13 +624,17 @@ begin
   for i := 0 to SimManager.SimUserRole.UserList.Count - 1 do
   begin
     userRoleTemp := simMgrClient.SimUserRole.UserList[i];
+
     if Assigned(userRoleTemp) then
     begin
-      if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
-      begin
-        cbbxTo.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
-      end;
+      cbbxTo.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp)
     end;
+  end;
+
+  if cbbxTo.Items.Count > 0 then
+  begin
+    cbbxTo.ItemIndex := 0;
+    cbbxToSelect(nil);
   end;
 end;
 

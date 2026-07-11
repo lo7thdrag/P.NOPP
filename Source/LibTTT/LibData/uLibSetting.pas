@@ -29,6 +29,8 @@ const
 
  c_symbol = 'symbol';
 
+ c_SYNC_FOLDER_NAME = 'SyncData';
+
 type
   //------------------------------------------------------------------------------
   // load from main setting file.
@@ -86,6 +88,7 @@ type
     ImageBackgroundLogin : string;
     ImgPath : string;
     FileTransfer : string;
+    Telegram : string;
     RemotePort : integer ;
     TacticalScreen : Integer;
     ToteScreen : Integer;

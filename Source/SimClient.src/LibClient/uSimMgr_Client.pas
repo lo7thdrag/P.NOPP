@@ -87,9 +87,9 @@ type
     procedure OnUserRoleChatChange(const rec : TRecTCPSendChatUserRole); override;
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); override;
 
-    procedure OnSyncUserState(const rec : TRecTCP_UserState); override;
-    procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); override;
-    procedure OnSyncUserChat(const rec : TRecTCPSendChatUserRole); override;
+    procedure OnSyncUserState(const rec : TRecTCP_UserState); // override;
+    procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); // override;
+    procedure OnSyncUserChat(const rec : TRecTCPSendChatUserRole); // override;
 //    procedure OnSyncOverlayShape(const rec : TRecTCPSendOverlayShape); override;
 
     procedure DrawAll(aCnv: TCanvas);
@@ -104,6 +104,7 @@ type
     procedure netSend_CmdSendMessage(r : TRecTCPSendChatUserRole);
     procedure netSend_CmdOverlayShape(r: TRecTCPSendOverlayShape);
     procedure netSend_CmdReconnect(r: TRecTCP_Reconnect);
+    procedure netSend_CmdFileSendTelegram(r: TRecTCPFileSync);
 
     {$ENDREGION}
 
@@ -552,6 +553,12 @@ end;
 {$ENDREGION}
 
 {$REGION ' Send TCP '}
+
+procedure TSimMgr_Client.netSend_CmdFileSendTelegram(r: TRecTCPFileSync);
+begin
+  r.SessionID := FSessionID;
+  VNetClient.SendCommand(CPID_CMD_FILE_SYNC, @r);
+end;
 
 procedure TSimMgr_Client.netSend_CmdGameState(r: TRecCmd_GameCtrl);
 begin
