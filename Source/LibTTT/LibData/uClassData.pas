@@ -6,7 +6,7 @@ uses
   System.Classes, MapXLib_TLB, Winapi.Windows, Vcl.Graphics, System.SysUtils,
 
   uRecordData, uConstantaData, uCoordConvertor, uDataTypes, uFormula, uBaseCoordSystem,
-  uLibSetting, Math;
+  uLibSetting, Math, Contnrs;
 
 type
 
@@ -213,21 +213,15 @@ type
 
   TFileSendTelegramContainer  = class
   private
-    FFileSendList : TList;
+    FFileSendList : TObjectList;
     FFileStream   : TFileStream;
     FCurrentFile  : string;
-
   public
     constructor Create;
     destructor Destroy; override;
 
-    function GetFileByName(FileName: string; var FileData: TFileSyncData): Boolean;
-    function GetFileByUser(OwnerIP : string; var FileList : TList ): Boolean;
-
-    procedure AddFile(FileData : TFileSyncData);
-    procedure RemoveFile(FileData : TFileSyncData);
-    procedure WriteFileData(const rec : TRecTCPFileSync);
-    procedure CloseFile(FileName : string);
+    procedure AddFile(FileData: TFileSyncData);
+    procedure RemoveFile(FileData: TFileSyncData);
   end;
 
   TChattingContainer = class
@@ -2903,11 +2897,25 @@ end;
 
 procedure TFileSendTelegramContainer.AddFile(FileData: TFileSyncData);
 begin
-  if Assigned(FileData) then
-    FFileSendList.Add(FileData);
+ if not Assigned(FileData) then
+    Exit;
+
+  if not Assigned(FFileSendList) then
+    Exit;
+
+  FFileSendList.Add(FileData);
 end;
 
-procedure TFileSendTelegramContainer.CloseFile(FileName: string);
+constructor TFileSendTelegramContainer.Create;
+begin
+  inherited;
+
+  FFileSendList := TObjectList.Create(True);
+  FFileStream := nil;
+  FCurrentFile := '';
+end;
+
+destructor TFileSendTelegramContainer.Destroy;
 begin
   if Assigned(FFileStream) then
   begin
@@ -2915,72 +2923,13 @@ begin
     FFileStream := nil;
   end;
 
-  FCurrentFile := '';
-end;
-
-constructor TFileSendTelegramContainer.Create;
-begin
-  inherited;
-
-  FFileSendList := TList.Create;
-end;
-
-destructor TFileSendTelegramContainer.Destroy;
-var
-  i : Integer;
-
-begin
-  if Assigned(FFileStream) then
-    FFileStream.Free;
-
-  FFileSendList.Free;
+  if Assigned(FFileSendList) then
+  begin
+    FFileSendList.Free;
+    FFileSendList := nil;
+  end;
 
   inherited;
-end;
-
-function TFileSendTelegramContainer.GetFileByName(FileName: string;
-  var FileData: TFileSyncData): Boolean;
-
-var
-  i : Integer;
-  temp : TFileSyncData;
-
-begin
-  Result := False;
-  FileData := nil;
-
-  for i := 0 to FFileSendList.Count-1 do
-  begin
-    temp := TFileSyncData(FFileSendList[i]);
-
-    if SameText(temp.FileName, FileName) then
-    begin
-      FileData := temp;
-      Result := True;
-      Exit;
-    end;
-  end;
-end;
-
-function TFileSendTelegramContainer.GetFileByUser(OwnerIP: string;
-  var FileList: TList): Boolean;
-
-var
-  i : Integer;
-  temp : TFileSyncData;
-begin
-  Result := False;
-
-  for i := 0 to FFileSendList.Count-1 do
-  begin
-    temp := TFileSyncData(FFileSendList[i]);
-
-    if temp.OwnerIP = OwnerIP then
-    begin
-      FileList.Add(temp);
-      Result := True;
-    end;
-  end;
 end;
 
 procedure TFileSendTelegramContainer.RemoveFile(FileData: TFileSyncData);
@@ -2992,29 +2941,9 @@ begin
   end;
 end;
 
-procedure TFileSendTelegramContainer.WriteFileData(const rec: TRecTCPFileSync);
-var
-  SavePath : string;
-  FileData : TFileSyncData;
-begin
-  if not GetFileByName(rec.FileName, FileData) then
-    Exit;
-
-  SavePath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'INBOX\' + FileData.OwnerIP + '\' + FileData.FileName;
-
-  if not Assigned(FFileStream) then
-  begin
-    ForceDirectories(ExtractFilePath(SavePath));
-    FFileStream := TFileStream.Create(SavePath, fmCreate);
-    FCurrentFile := rec.FileName;
-  end;
-
-  FFileStream.Write(rec.Data, rec.DataSize);
-end;
-
 {$ENDREGION}
 
-{$REGION 'Fie Send Telegram' }
+{$REGION 'File Send Telegram' }
 
 constructor TFileSyncData.Create;
 begin

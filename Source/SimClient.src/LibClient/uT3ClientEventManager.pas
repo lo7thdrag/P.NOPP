@@ -20,7 +20,8 @@ type
     procedure OnUpdateSituationBoardTabPropertiesChange; override;
     procedure OnUpdateSituationBoardOverlayChange; override;
     procedure OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer); override;
-
+    procedure OnUserRoleChatRead(IdUser : Integer); override;
+    procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string); override;
   end;
 
 implementation
@@ -29,6 +30,14 @@ uses
   ufrmTacticalDisplay ;
 
 { TT3ClientEventManager }
+
+procedure TT3ClientEventManager.OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string);
+begin
+  inherited;
+
+ if Assigned(frmDisplayArea) then
+    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName);
+end;
 
 procedure TT3ClientEventManager.OnUpdateSituationBoardOverlayChange;
 begin
@@ -65,4 +74,13 @@ begin
     CORD_ID_LOGOUT : frmTacticalDisplay.UpdateClientLogout(nil);
   end;
 end;
+
+procedure TT3ClientEventManager.OnUserRoleChatRead(IdUser: Integer);
+begin
+  inherited;
+
+   if Assigned(frmDisplayArea) then
+    frmDisplayArea.ShowReadNotify(IdUser);
+end;
+
 end.

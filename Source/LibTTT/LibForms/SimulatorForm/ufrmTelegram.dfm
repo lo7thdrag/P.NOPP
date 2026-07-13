@@ -16,7 +16,6 @@ object frmTelegram: TfrmTelegram
   OldCreateOrder = False
   Position = poScreenCenter
   ShowHint = True
-  OnCreate = FormCreate
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13

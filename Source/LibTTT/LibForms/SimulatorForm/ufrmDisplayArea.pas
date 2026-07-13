@@ -324,11 +324,13 @@ type
     procedure lstUserChatDblClick(Sender: TObject);
 
     procedure ShowChatPopupNotify(IdSender, IdReceiver: Integer);
+    procedure ShowReadNotify(IdUser: Integer);
 
     {$ENDREGION}
 
     {$REGION ' Telegram Procedure '}
     procedure TelegramClick(Sender: TObject);
+    procedure ShowFilePopupNotify(IdSender : Integer; IdReceiver : Integer; FileName : string);
     {$ENDREGION}
 
     {$REGION ' Video Conference Procedure '}
@@ -2100,6 +2102,8 @@ begin
   lblNamaChat.Caption := FSelectedUserChat.FData.UserRoleIdentifier + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier;
   pnlBottomChat.Visible := True;
   UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex, simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex);
+
+  simMgrClient.SendChatRead(FSelectedUserChat.FData.UserRoleIndex);
 end;
 
 procedure TfrmDisplayArea.UpdateClientHistoryChat(IdSender, IdReceiver: Integer);
@@ -2196,6 +2200,11 @@ begin
       end;
     end;
   end;
+
+  // buat testing
+  {$IFDEF DEBUG}
+    lstUserChat.Items.AddObject('[SELF TEST] ' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim, simMgrClient.MyConsoleData.UserRoleData);
+  {$ENDIF}
 end;
 
 {$ENDREGION}
@@ -2232,6 +2241,26 @@ begin
       frmToteDisplay.Show;
   finally
   end;
+end;
+
+procedure TfrmDisplayArea.ShowFilePopupNotify(IdSender : Integer; IdReceiver : Integer; FileName : string);
+var
+  SenderName : string;
+begin
+  if IdReceiver <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+    Exit;
+
+  SenderName := GetUserNameById(IdSender);
+
+  if not Assigned(frmPopChat) then
+    frmPopChat := TfrmPopChat.Create(Application);
+
+  frmPopChat.ShowMessagePopup(IdSender, SenderName, 'File masuk : ' + FileName);
+
+  trycnMessage.BalloonTitle := 'File Masuk';
+  trycnMessage.BalloonHint  := SenderName + ': ' + FileName;
+  trycnMessage.BalloonFlags := bfInfo;
+  trycnMessage.ShowBalloonHint;
 end;
 
 {$ENDREGION}
@@ -2313,18 +2342,34 @@ begin
     Exit;
 
   SenderName := GetUserNameById(IdSender);
-
-  Msg := GetLastChatMessage(IdSender, IdReceiver);
+  Msg        := GetLastChatMessage(IdSender, IdReceiver);
 
   if not Assigned(frmPopChat) then
     frmPopChat := TfrmPopChat.Create(Application);
 
-  frmPopChat.ShowMessagePopup(SenderName, Msg);
+  frmPopChat.ShowMessagePopup(IdSender, SenderName, Msg);
 
   trycnMessage.BalloonTitle := 'Chat Masuk';
   trycnMessage.BalloonHint  := SenderName + ': ' + Msg;
   trycnMessage.BalloonFlags := bfInfo;
   trycnMessage.ShowBalloonHint;
+end;
+
+procedure TfrmDisplayArea.ShowReadNotify(IdUser: Integer);
+var
+  UserName : string;
+begin
+  UserName := GetUserNameById(IdUser);
+
+  trycnMessage.BalloonTitle := 'Chat Dibaca';
+  trycnMessage.BalloonHint  := UserName + ' telah membaca pesan Anda';
+  trycnMessage.BalloonFlags := bfInfo;
+  trycnMessage.ShowBalloonHint;
+
+  if not Assigned(frmPopChat) then
+    frmPopChat := TfrmPopChat.Create(Application);
+
+  frmPopChat.ShowMessagePopup(IdUser, UserName, 'telah membaca pesan Anda');
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);

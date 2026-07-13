@@ -297,9 +297,7 @@ begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnFileSyncChange(rec^);
-
-  VNetServer.SendBroadcastCommand(CPID_CMD_FILE_SYNC, apRec);
+  VNetServer.SendBroadcastCommand(CPID_CMD_FILE_SYNC,  apRec);
 end;
 
 procedure TSimMgr_Server.netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);
@@ -310,10 +308,10 @@ begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  if GameState = gsPlaying then
-    rec.GameCtrl := CORD_ID_start
-  else if GameState = gsStop then
-    rec.GameCtrl := CORD_ID_pause;
+//  if GameState = gsPlaying then
+//    rec.GameCtrl := CORD_ID_start
+//  else if GameState = gsStop then
+//    rec.GameCtrl := CORD_ID_pause;
 
   VNetServer.SendBroadcastCommand(CPID_CMD_GAME_CTRL, apRec);
 

@@ -40,6 +40,8 @@ type
     procedure netRecv_CmdSyncUserState(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSyncSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSyncChatUserRole(apRec: PAnsiChar; aSize: word);
+
+    procedure netRecv_CmdSyncSendFileTelegram(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     procedure FGameThread_OnRunning(const dt: double); override;
@@ -87,9 +89,13 @@ type
     procedure OnUserRoleChatChange(const rec : TRecTCPSendChatUserRole); override;
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); override;
 
+    // buat chat read
+    procedure SendChatRead(SenderID: Integer);
+
     procedure OnSyncUserState(const rec : TRecTCP_UserState); // override;
     procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); // override;
     procedure OnSyncUserChat(const rec : TRecTCPSendChatUserRole); // override;
+    procedure OnSyncFileSendTelegram(const rec : TRecTCPFileSync);
 //    procedure OnSyncOverlayShape(const rec : TRecTCPSendOverlayShape); override;
 
     procedure DrawAll(aCnv: TCanvas);
@@ -257,6 +263,7 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
    VNetClient.RegisterTCPPacket(CPID_CMD_CHAT_USER_ROLE, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdChatUserRole);
    VNetClient.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape),netRecv_CmdOverlayShape);
+   VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync),netRecv_CmdSyncSendFileTelegram);
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_UserState),netRecv_CmdSyncUserState);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdSyncChatUserRole);
@@ -264,6 +271,23 @@ begin
   {$ENDREGION}
 
   FConnectDelay.Enabled := True;
+end;
+
+procedure TSimMgr_Client.SendChatRead(SenderID: Integer);
+var
+  rec : TRecTCPSendChatUserRole;
+begin
+  FillChar(rec, SizeOf(rec), 0);
+
+  rec.SessionID := 0;
+  rec.OrderID   := READ_CHAT;
+
+  rec.SenderUserRoleId   :=  MyConsoleData.UserRoleData.FData.UserRoleIndex;
+  rec.ReceiverUserRoleId := SenderID;
+  rec.ChatId := 0;
+  rec.ChatMessage := '';
+
+  netSend_CmdSendMessage(rec);
 end;
 
 procedure TSimMgr_Client.StopNetwork;
@@ -514,6 +538,17 @@ begin
 
 end;
 
+procedure TSimMgr_Client.netRecv_CmdSyncSendFileTelegram(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCPFileSync;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnFileSyncChange(rec^);
+end;
+
 procedure TSimMgr_Client.netRecv_CmdSyncSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
 var
   rec : ^TRecTCPSendSituationBoardTabProperties;
@@ -625,6 +660,21 @@ begin
   end;
   {$ENDREGION}
 
+end;
+
+procedure TSimMgr_Client.OnSyncFileSendTelegram(const rec: TRecTCPFileSync);
+begin
+  inherited;
+
+  if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
+  begin
+    TT3ClientEventManager(EventManager).OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+  end;
+
+  if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
+  begin
+    TT3ClientEventManager(EventManager).OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+  end;
 end;
 
 procedure TSimMgr_Client.OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);

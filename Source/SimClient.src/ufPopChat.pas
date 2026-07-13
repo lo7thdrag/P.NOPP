@@ -4,7 +4,9 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ExtCtrls, Vcl.StdCtrls,
+
+  uSimMgr_Client;
 
 type
   TfrmPopChat = class(TForm)
@@ -17,7 +19,7 @@ type
   private
     { Private declarations }
   public
-    procedure ShowMessagePopup(const SenderName, Msg: string);
+    procedure ShowMessagePopup(IdSender : Integer; const SenderName, Msg: string);
   end;
 
 var
@@ -36,7 +38,7 @@ begin
   Timer1.Interval := 10000;
 end;
 
-procedure TfrmPopChat.ShowMessagePopup(const SenderName, Msg: string);
+procedure TfrmPopChat.ShowMessagePopup(IdSender : Integer; const SenderName, Msg: string);
 const
   MARGIN_RIGHT  = 30;
   MARGIN_BOTTOM = 30;

@@ -132,7 +132,7 @@ type
     Position   : Int64;
     DataSize   : Word;
     Data       : array[0..8191] of Byte;
-    SenderIP   : string;
+    SenderIP   : string[255];
     FolderName : string[255];
 
     SenderUserRoleId    : Integer;
@@ -1828,6 +1828,7 @@ const
     DELETE_TAB = 2;
   CPID_CMD_CHAT_USER_ROLE                 = CPID_TCP + 6;
     SEND_CHAT = 0;
+    READ_CHAT = 1;
   CPID_CMD_OVERLAYSHAPE                   = CPID_TCP + 7;
   CPID_CMD_TELEGRAM_USER_ROLE             = CPID_TCP + 8;
     SEND_TELEGRAM = 0;

@@ -129,6 +129,7 @@ begin
   SimOverlay := TOverlayTabContainer.Create;
 
   SimChatting := TChattingContainer.Create;
+  SimFileSendTelegram := TFileSendTelegramContainer.Create;
 //  SimOverlay.Converter := Converter;
 end;
 
@@ -147,6 +148,7 @@ begin
   SimUserRole.Free;
   SimTabProperties.Free;
   SimChatting.Free;
+  SimFileSendTelegram.Free;
 
   inherited;
 end;
@@ -312,16 +314,8 @@ begin
       SimFileSendTelegram.AddFile(FileInfo);
 
       ForceDirectories(vGameDataSetting.Telegram + '\INBOX\' + rec.FolderName);
-    end;
 
-    SEND_FILE_DATA :
-    begin
-      SimFileSendTelegram.WriteFileData(rec);
-    end;
-
-    SEND_FILE_FINISH :
-    begin
-      SimFileSendTelegram.CloseFile(rec.FileName);
+      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
     end;
   end;
 end;
@@ -956,12 +950,13 @@ end;
 
 procedure TT3SimManager.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole);
 var
-chatTemp : Tchatting;
+  chatTemp : Tchatting;
 begin
   case rec.OrderID of
     SEND_CHAT :
     begin
       chatTemp := TChatting.Create;
+
       chatTemp.IdChat := GetSerialChatID;
       chatTemp.IdUserRoleSending := rec.SenderUserRoleId;
       chatTemp.IdUserRoleReceive := rec.ReceiverUserRoleId;
@@ -969,8 +964,12 @@ begin
 
       SimChatting.ChattingList.Add(chatTemp);
     end;
-  end;
 
+    READ_CHAT :
+    begin
+      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
+    end;
+  end;
 end;
 
 procedure TT3SimManager.OnUserStateChange(const rec: TRecTCP_UserState);

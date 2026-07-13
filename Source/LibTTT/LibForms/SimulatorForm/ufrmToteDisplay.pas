@@ -465,8 +465,8 @@ begin
           lstUserSend.Items[j] := lstUserSend.Items[j] + ' - Success';
           transferSuccess := True;
 
-          if Assigned(frmPopChat) then
-            frmPopChat.ShowMessagePopup(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim, 'File terkirim: ' + ExtractFileName(fileTemp.FData.Directory_Path));
+//          if Assigned(frmPopChat) then
+//            frmPopChat.ShowMessagePopup(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim, 'File terkirim: ' + ExtractFileName(fileTemp.FData.Directory_Path));
       end
       else
       begin
