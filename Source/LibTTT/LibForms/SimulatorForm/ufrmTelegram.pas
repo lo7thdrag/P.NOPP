@@ -49,7 +49,6 @@ type
     pnlSend: TPanel;
     imgbtnSend: TImageButton;
     lblSend: TLabel;
-    tmrPopUpTelegram: TTimer;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -64,7 +63,6 @@ type
     procedure FormShow(Sender: TObject);
     procedure imgbtnDraftClick(Sender: TObject);
     procedure cbbxToSelect(Sender: TObject);
-    procedure tmrPopUpTelegramTimer(Sender: TObject);
   private
     FLastFileCount: Integer;
     FLastFileName : string;
@@ -108,112 +106,60 @@ end;
 
 procedure TfrmTelegram.btnBuatTelegramRahasiaClick(Sender: TObject);
 var
-WordFileName, WordFileNameTemplateRahasia: String;
-WordApplication, WordFile: Variant;
-GameTime : TDateTime;
-//time : string;
-pw : PWideChar;
+  WordFileName           : string;
+  WordFileNameTemplate   : string;
+  DraftTemplatePath      : string;
 begin
-//  WordFileName := 'C:\\[DENTA]\\aweesdrftyghuijok-Draft.docx';
-  WordFileNameTemplateRahasia := 'data\\Template Telegram 2.docx';
+  WordFileNameTemplate := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) + 'data\Template Telegram 2.docx';
 
-  WordApplication := null;
-  WordFile := null;
-
-  try
-    //create Word OLE
-    WordApplication := CreateOleObject('Word.Application');
-  except
-    WordApplication := Null;
-    //add error/exception handling code as desired
-  end;
-
-  If VarIsNull(WordApplication) = False then
+  if not FileExists(WordFileNameTemplate) then
   begin
-    if not (TDirectory.Exists('D:\\Telegram')) then
-    begin
-      TDirectory.CreateDirectory('D:\\Telegram');
-    end;
-
-    if not (TDirectory.Exists('D:\\Telegram\\DRAFT')) then
-    begin
-      TDirectory.CreateDirectory('D:\\Telegram\\DRAFT');
-    end;
-
-    if not (TDirectory.Exists('D:\\Telegram\\DRAFT\\Template')) then
-    begin
-      TDirectory.CreateDirectory('D:\\Telegram\\DRAFT\\Template');
-    end;
-
-    WordFileName := 'D:\\Telegram\\DRAFT\\Template\\TelegramRahasia_'+System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now)+'.docx';
-    pw := PWideChar(WordFileName);
-    CopyFile(PWideChar(WordFileNameTemplateRahasia), pw, False);
-//     try
-//        WordApplication.Visible := True; //set to False if you do not want to see the activity in the background
-//        WordApplication.DisplayAlerts := True; //ensures message dialogs do not interrupt the flow of your automation process. May be helpful to set to True during testing and debugging.
-//        //Open Word File
-//        try
-//           WordFile := WordApplication.Documents.Open(WordFileName);
-//           //reference
-//           //https://docs.microsoft.com/en-us/office/vba/api/word.documents.open
-//        except
-//              WordFile := Null;
-//              //add error/exception handling code as desired
-//        end;
-//
-//     finally
-//
-//     end;
-
-    ShellExecute(0, 'open', (pw), nil, nil, SW_SHOW);
+    ShowMessage('Template Telegram Rahasia tidak ditemukan.');
+    Exit;
   end;
+
+  DraftTemplatePath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'DRAFT\Template';
+
+  ForceDirectories(DraftTemplatePath);
+
+  WordFileName := IncludeTrailingPathDelimiter(DraftTemplatePath) + 'TelegramRahasia_' + FormatDateTime('dd-mm-yy_hh-nn-ss', Now) + '.docx';
+
+  if not CopyFile(PChar(WordFileNameTemplate), PChar(WordFileName), False) then
+  begin
+    ShowMessage('Gagal membuat file Telegram Rahasia.');
+    Exit;
+  end;
+
+  ShellExecute(0, 'open', PChar(WordFileName), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.btnBuatTelegramTerbatasClick(Sender: TObject);
 var
-WordFileName, WordFileNameTemplateTerbatas: String;
-WordApplication, WordFile: Variant;
-GameTime : TDateTime;
-//time : string;
-pw : PWideChar;
+  WordFileName         : string;
+  WordTemplatePath     : string;
+  DraftTemplatePath    : string;
 begin
-//  WordFileName := 'C:\\[DENTA]\\aweesdrftyghuijok-Draft.docx';
-  WordFileNameTemplateTerbatas := 'data\\Template Telegram 1.docx';
+  WordTemplatePath := IncludeTrailingPathDelimiter(ExtractFilePath(Application.ExeName)) + 'data\Template Telegram 1.docx';
 
-  WordApplication := null;
-  WordFile := null;
-
-  try
-    //create Word OLE
-    WordApplication := CreateOleObject('Word.Application');
-  except
-    WordApplication := Null;
-    //add error/exception handling code as desired
-  end;
-
-  If VarIsNull(WordApplication) = False then
+  if not FileExists(WordTemplatePath) then
   begin
-    if not (TDirectory.Exists('D:\\Telegram')) then
-    begin
-      TDirectory.CreateDirectory('D:\\Telegram');
-    end;
-
-    if not (TDirectory.Exists('D:\\Telegram\\DRAFT')) then
-    begin
-      TDirectory.CreateDirectory('D:\\Telegram\\DRAFT');
-    end;
-
-    if not (TDirectory.Exists('D:\\Telegram\\DRAFT\\Template')) then
-    begin
-      TDirectory.CreateDirectory('D:\\Telegram\\DRAFT\\Template');
-    end;
-
-    WordFileName := 'D:\\Telegram\\DRAFT\\Template\\TelegramTerbatas_'+ System.SysUtils.FormatDateTime('dd-mm-yy_hh;nn;ss', Now) + '.docx';
-    pw := PWideChar(WordFileName);
-    CopyFile(PWideChar(WordFileNameTemplateTerbatas), pw, False);
-
-    ShellExecute(0, 'open', (pw), nil, nil, SW_SHOW);
+    ShowMessage('Template Telegram Terbatas tidak ditemukan.');
+    Exit;
   end;
+
+  DraftTemplatePath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'DRAFT\Template';
+
+  ForceDirectories(DraftTemplatePath);
+
+  WordFileName := IncludeTrailingPathDelimiter(DraftTemplatePath) + 'TelegramTerbatas_' + FormatDateTime('dd-mm-yy_hh-nn-ss', Now) + '.docx';
+
+  if not CopyFile(PChar(WordTemplatePath), PChar(WordFileName), False) then
+  begin
+    ShowMessage('Gagal membuat file Telegram Terbatas.');
+    Exit;
+  end;
+
+  ShellExecute(0, 'open', PChar(WordFileName), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.btnClosePanelSendTelegramClick(Sender: TObject);
@@ -353,43 +299,41 @@ end;
 
 procedure TfrmTelegram.lblPilihFileClick(Sender: TObject);
 var
-  addressTemp : string;
-  filNameTemp : string;
-  openDialog : TOpenDialog;
-  saveFileTemp : TFile_Data;
-  fileDataTemp : TRecTCPSendTelegramUserRole;
-  i : Integer;
-
+  OpenDialog   : TOpenDialog;
+  i            : Integer;
+  TelegramPath : string;
 begin
-  openDialog := TOpenDialog.Create(self);
-  openDialog.InitialDir := 'D:\Telegram';
-  openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
-  openDialog.Filter := 'All Files (*.*)|*.*';
+  OpenDialog := TOpenDialog.Create(Self);
+  try
+    TelegramPath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram);
 
-  SetLength(fileNameArray,0);
-  SetLength(pathFileArray,0);
+    OpenDialog.InitialDir := TelegramPath;
+    OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
+    OpenDialog.Filter     := 'All Files (*.*)|*.*';
 
-  if openDialog.Execute then
-  begin
+    SetLength(fileNameArray, 0);
+    SetLength(pathFileArray, 0);
 
-    SetLength(pathFileArray, openDialog.Files.Count);
-    SetLength(fileNameArray, openDialog.Files.Count);
-
-    addressTemp := PWideChar(openDialog.FileName);
-    filNameTemp := ExtractFileName(openDialog.FileName);
-
-    for i := 0 to openDialog.Files.Count - 1 do
+    if OpenDialog.Execute then
     begin
-      addressTemp := openDialog.Files[i];
-      filNameTemp := ExtractFileName(openDialog.Files[i]);
-      fileNameArray[i] := filNameTemp;
-      pathFileArray[i] := addressTemp;
-    end;
-  end
-  else
-    ShowMessage('Choose file was cancelled');
+      SetLength(pathFileArray, OpenDialog.Files.Count);
+      SetLength(fileNameArray, OpenDialog.Files.Count);
 
-  openDialog.Free;
+      for i := 0 to OpenDialog.Files.Count - 1 do
+      begin
+        pathFileArray[i] := OpenDialog.Files[i];
+        fileNameArray[i] := ExtractFileName(OpenDialog.Files[i]);
+      end;
+    end
+    else
+    begin
+      ShowMessage('Choose file was cancelled');
+      Exit;
+    end;
+
+  finally
+    OpenDialog.Free;
+  end;
 
   UpdateFilenameComboBox;
 end;
@@ -409,67 +353,36 @@ procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);
 var
   path : string;
 begin
-  if not (TDirectory.Exists('D:\\Telegram\\INBOX')) then
-  begin
-    TDirectory.CreateDirectory('D:\\Telegram\\INBOX');
-  end;
+  path := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'INBOX';
 
-  ShellExecute(0, 'open', ('D:\\Telegram\\INBOX'), nil, nil, SW_SHOW);
+  if not TDirectory.Exists(path) then
+    TDirectory.CreateDirectory(path);
+
+  ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.imgbtnDraftClick(Sender: TObject);
 var
-  path : string;
+  DraftPath: string;
 begin
-  if not (TDirectory.Exists('D:\\Telegram\\DRAFT')) then
-  begin
-    TDirectory.CreateDirectory('D:\\Telegram\\DRAFT');
-  end;
+  DraftPath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'DRAFT';
 
-  ShellExecute(0, 'open', ('D:\\Telegram\\DRAFT'), nil, nil, SW_SHOW);
+  if not TDirectory.Exists(DraftPath) then
+    TDirectory.CreateDirectory(DraftPath);
+
+  ShellExecute(0, 'open', PChar(DraftPath), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.pnlTelegramTerkirimClick(Sender: TObject);
 var
-  path : string;
+  SentPath: string;
 begin
-  if not (TDirectory.Exists('D:\\Telegram\\SENT')) then
-  begin
-    TDirectory.CreateDirectory('D:\\Telegram\\SENT');
-  end;
+  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'SENT';
 
-  ShellExecute(0, 'open', ('D:\\Telegram\\SENT'), nil, nil, SW_SHOW);
-end;
+  if not TDirectory.Exists(SentPath) then
+    TDirectory.CreateDirectory(SentPath);
 
-procedure TfrmTelegram.tmrPopUpTelegramTimer(Sender: TObject);
-var
-  InboxPath : string;
-  Files     : TStringDynArray;
-  LastFile  : string;
-  SenderName: string;
-begin
-//  InboxPath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'INBOX';
-//
-//  if not TDirectory.Exists(InboxPath) then
-//    Exit;
-//
-//  Files := TDirectory.GetFiles(InboxPath, '*.*', TSearchOption.soAllDirectories);
-//
-//  if Length(Files)=0 then
-//    Exit;
-//
-//  LastFile := Files[High(Files)];
-//
-//  if SameText(LastFile, FLastFileName) then
-//    Exit;
-//
-//  FLastFileName := LastFile;
-//  SenderName    := GetSenderFromPath(LastFile);
-//
-//  if not Assigned(frmPopChat) then
-//    Application.CreateForm(TfrmPopChat, frmPopChat);
-//
-//  frmPopChat.ShowMessagePopup(SenderName, 'File masuk : ' + ExtractFileName(LastFile));
+  ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.UpdateClientTelegramList;

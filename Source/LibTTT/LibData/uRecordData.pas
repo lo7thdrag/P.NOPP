@@ -1838,6 +1838,7 @@ const
     SEND_FILE_INFO    = 1;
     SEND_FILE_DATA    = 2;
     SEND_FILE_FINISH  = 3;
+    SEND_FILE_OPENED  = 4;
   CPID_TCP_MAX              	            = CPID_TCP + 11;
 
   {$ENDREGION}
