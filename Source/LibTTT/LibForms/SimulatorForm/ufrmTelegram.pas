@@ -118,7 +118,7 @@ begin
     Exit;
   end;
 
-  DraftTemplatePath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'DRAFT\Template';
+  DraftTemplatePath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\DRAFT\Template';
 
   ForceDirectories(DraftTemplatePath);
 
@@ -147,7 +147,7 @@ begin
     Exit;
   end;
 
-  DraftTemplatePath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'DRAFT\Template';
+  DraftTemplatePath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\DRAFT\Template';
 
   ForceDirectories(DraftTemplatePath);
 
@@ -353,7 +353,7 @@ procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);
 var
   path : string;
 begin
-  path := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'INBOX';
+  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
 
   if not TDirectory.Exists(path) then
     TDirectory.CreateDirectory(path);
@@ -365,7 +365,7 @@ procedure TfrmTelegram.imgbtnDraftClick(Sender: TObject);
 var
   DraftPath: string;
 begin
-  DraftPath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'DRAFT';
+  DraftPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\DRAFT';
 
   if not TDirectory.Exists(DraftPath) then
     TDirectory.CreateDirectory(DraftPath);
@@ -377,7 +377,7 @@ procedure TfrmTelegram.pnlTelegramTerkirimClick(Sender: TObject);
 var
   SentPath: string;
 begin
-  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram) + 'SENT';
+  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT';
 
   if not TDirectory.Exists(SentPath) then
     TDirectory.CreateDirectory(SentPath);

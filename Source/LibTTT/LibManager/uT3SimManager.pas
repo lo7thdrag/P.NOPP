@@ -313,7 +313,7 @@ begin
 
       SimFileSendTelegram.AddFile(FileInfo);
 
-      ForceDirectories(vGameDataSetting.Telegram + '\INBOX\' + rec.FolderName);
+      ForceDirectories(vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.FolderName);
 
       EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
     end;
