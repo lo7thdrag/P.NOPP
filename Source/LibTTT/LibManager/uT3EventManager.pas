@@ -21,6 +21,7 @@ type
     procedure OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer); virtual;
     procedure OnUserRoleChatRead(IdUser : Integer); virtual;
     procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string); virtual;
+    procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string); virtual;
   end;
 
 implementation
@@ -32,6 +33,11 @@ uses
 { TT3EventManager }
 
 procedure TT3EventManager.OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateFileTransferChange(IdSender,IdReceiver: Integer; FileName: string);
 begin
 
 end;

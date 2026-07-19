@@ -47687,6 +47687,7 @@ object frmDisplayArea: TfrmDisplayArea
             Font.Name = 'Tahoma'
             Font.Style = []
             GridLines = True
+            Items.ItemData = {}
             RowSelect = True
             ParentFont = False
             TabOrder = 0
@@ -51030,6 +51031,7 @@ object frmDisplayArea: TfrmDisplayArea
             Font.Name = 'Jefferies'
             Font.Style = []
             GridLines = True
+            Items.ItemData = {}
             RowSelect = True
             ParentFont = False
             TabOrder = 0
@@ -55859,6 +55861,7 @@ object frmDisplayArea: TfrmDisplayArea
             Font.Name = 'Jefferies'
             Font.Style = []
             GridLines = True
+            Items.ItemData = {}
             RowSelect = True
             ParentFont = False
             TabOrder = 0
@@ -58101,6 +58104,7 @@ object frmDisplayArea: TfrmDisplayArea
             Font.Name = 'Jefferies'
             Font.Style = []
             GridLines = True
+            Items.ItemData = {}
             RowSelect = True
             ParentFont = False
             StateImages = ilClientStateColor
@@ -61025,6 +61029,7 @@ object frmDisplayArea: TfrmDisplayArea
             Font.Name = 'Jefferies'
             Font.Style = []
             GridLines = True
+            Items.ItemData = {}
             RowSelect = True
             ParentFont = False
             TabOrder = 0
@@ -61320,6 +61325,7 @@ object frmDisplayArea: TfrmDisplayArea
               Font.Name = 'Jefferies'
               Font.Style = []
               GridLines = True
+              Items.ItemData = {}
               RowSelect = True
               ParentFont = False
               StateImages = ilClientStateColor

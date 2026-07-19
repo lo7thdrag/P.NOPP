@@ -22,6 +22,7 @@ type
     procedure OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer); override;
     procedure OnUserRoleChatRead(IdUser : Integer); override;
     procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string); override;
+    procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string); override;
   end;
 
 implementation
@@ -37,6 +38,14 @@ begin
 
  if Assigned(frmDisplayArea) then
     frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName);
+end;
+
+procedure TT3ClientEventManager.OnUpdateFileTransferChange(IdSender,IdReceiver: Integer; FileName: string);
+begin
+  inherited;
+
+  if Assigned(frmDisplayArea) then
+    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName)
 end;
 
 procedure TT3ClientEventManager.OnUpdateSituationBoardOverlayChange;

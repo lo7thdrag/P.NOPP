@@ -58,6 +58,7 @@ type
     SimChatting : TChattingContainer; {load saat running}
     SimOverlay : TOverlayTabContainer; {load saat running}
     SimFileSendTelegram : TFileSendTelegramCOntainer;
+    SimFileTransfer : TFileSendTransferContainer;
 
     EventManager    : TT3EventManager;
 
@@ -75,6 +76,7 @@ type
     procedure OnUserRoleChatChange(const rec : TRecTCPSendChatUserRole); virtual;
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); virtual;
     procedure OnFileSyncChange(const rec: TRecTCPFileSync);
+    procedure OnFileFileTransferChange(const rec : TRecTCPFileTransfer);
     {$ENDREGION}
 
     function GetSerialTabSituationBoardID : Integer;
@@ -149,6 +151,7 @@ begin
   SimTabProperties.Free;
   SimChatting.Free;
   SimFileSendTelegram.Free;
+  SimFileTransfer.Free;
 
   inherited;
 end;
@@ -287,6 +290,56 @@ begin
   end;
 end;
 
+procedure TT3SimManager.OnFileFileTransferChange(
+  const rec: TRecTCPFileTransfer);
+
+var
+  FilePath : string;
+  FS       : TFileStream;
+
+begin
+  case rec.OrderID of
+    SEND_FILE_TRANSFER_INFO:
+    begin
+      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + '\' + rec.FolderName + '\' + rec.FileName;
+
+      ForceDirectories(ExtractFileDir(FilePath));
+
+      FS := TFileStream.Create(FilePath, fmCreate);
+      FS.Free;
+
+      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
+    end;
+
+    SEND_FILE_TRANSFER_DATA:
+    begin
+      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + '\' + rec.FolderName + '\' + rec.FileName;
+
+      if FileExists(FilePath) then
+      begin
+        FS := TFileStream.Create(FilePath,fmOpenWrite or fmShareDenyNone);
+
+        try
+          FS.Position := rec.Position;
+          FS.WriteBuffer(rec.Data, rec.DataSize);
+        finally
+          FS.Free;
+        end;
+      end;
+    end;
+
+    SEND_FILE_TRANSFER_FINISH:
+    begin
+      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName);
+    end;
+
+    SEND_FILE_TRANSFER_OPENED:
+    begin
+      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+    end;
+  end;
+end;
+
 procedure TT3SimManager.OnFileSyncChange(const rec: TRecTCPFileSync);
 var
   FileInfo : TFileSyncData;
@@ -315,6 +368,11 @@ begin
 
       ForceDirectories(vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.FolderName);
 
+      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+    end;
+
+    SEND_FILE_OPENED :
+    begin
       EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
     end;
   end;

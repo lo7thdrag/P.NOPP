@@ -123,6 +123,7 @@ object frmToteDisplay: TfrmToteDisplay
           Font.Style = []
           GridLines = True
           HideSelection = False
+          Items.ItemData = {}
           ReadOnly = True
           RowSelect = True
           ParentFont = False
@@ -2233,6 +2234,7 @@ object frmToteDisplay: TfrmToteDisplay
           Font.Style = []
           GridLines = True
           HideSelection = False
+          Items.ItemData = {}
           MultiSelect = True
           ReadOnly = True
           RowSelect = True

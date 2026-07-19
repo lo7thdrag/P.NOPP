@@ -3,7 +3,7 @@
 interface
 
 uses
-   MapXLib_TLB, Classes, SysUtils, Windows, Forms,
+   MapXLib_TLB, Classes, SysUtils, Windows, Forms, Vcl.Dialogs,
 
    uSteppers, uLibSetting, uThreadTimer , uVirtualTime, uSimContainers, uT3simManager, uT3UnitContainer, uT3Listener,
    uDataModule, uRecordData, uClassData;
@@ -59,6 +59,7 @@ type
     procedure netRecv_CmdChatUserRole(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdFileSendTelegram(apRec: PAnsiChar; aSize: Word);
+    procedure netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);
 //    procedure netRecv_CmdClientStateInfo(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
@@ -263,6 +264,7 @@ begin
   VNetServer.RegisterTCPPacket(CPID_CMD_CHAT_USER_ROLE, SizeOf(TrecTCPSendChatUserRole), netRecv_CmdChatUserRole);
   VNetServer.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape), netRecv_CmdOverlayShape);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync), netRecv_CmdFileSendTelegram);
+  VNetServer.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer), netRecv_CmdFileTransfer);
   {$ENDREGION}
 
   VNetServer.StartListen;
@@ -298,6 +300,17 @@ begin
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
   VNetServer.SendBroadcastCommand(CPID_CMD_FILE_SYNC,  apRec);
+end;
+
+procedure TSimMgr_Server.netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);
+var
+  rec : ^TRecTCPFileTransfer;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  VNetServer.SendBroadcastCommand(CPID_CMD_FILE_TRANSFER,  apRec);
 end;
 
 procedure TSimMgr_Server.netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);

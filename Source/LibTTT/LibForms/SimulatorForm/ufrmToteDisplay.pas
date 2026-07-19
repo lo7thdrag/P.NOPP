@@ -384,106 +384,247 @@ end;
 
 procedure TfrmToteDisplay.btnSendClick(Sender: TObject);
 var
-  SelectedConsoleName: string;
-  ConsoleInfo  : TConsoleInfo;
+  rec : TRecTCPFileTransfer;
 
-  openDialog   : TOpenDialog;
+  userRoleTemp : TUserRole;
   fileTemp     : TFile_Data;
 
-  targetPath, targetFile, userIP : string;
-  userRoleTemp: TUserRole;
-  transferSuccess : Boolean;
+  FS : TFileStream;
 
-  i, j: Integer;
+  bufferSize : Integer;
+  FolderTemp : string;
+
 begin
-  openDialog := TOpenDialog.Create(Self);
-  fileTemp := TFile_Data.Create;
-  transferSuccess := False;
 
   if cbbConsole.ItemIndex = -1 then
   begin
-    ShowMessage('Select console name');
+    ShowMessage('Select receiver');
     Exit;
   end;
 
-  if lstUserSend.Items.Count = 0 then
-  begin
-    ShowMessage('No user selected for file transfer.');
-    Exit;
-  end;
 
   if FSelectedFileTransfer = nil then
   begin
-    ShowMessage('Select a file to send.');
+    ShowMessage('Select file first');
     Exit;
   end;
 
-  SelectedConsoleName := cbbConsole.Text;
-  ConsoleInfo := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[cbbConsole.ItemIndex]);
 
-  fileNameTemp := FSelectedFileTransfer.FData.Nama_File;
-  AddressPath := FSelectedFileTransfer.FData.Directory_Path;
 
-  if SaveUserList = nil then
-    SaveUserList := TStringList.Create;
+  userRoleTemp :=
+    TUserRole(
+      cbbConsole.Items.Objects[cbbConsole.ItemIndex]);
 
-  SaveUserList.Clear;
-  for j := 0 to lstUserSend.Items.Count - 1 do
-    SaveUserList.Add(lstUserSend.Items[j]);
 
-  for j := 0 to lstUserSend.Items.Count - 1 do
+
+  if not Assigned(userRoleTemp) then
   begin
-    if lstUserSend.Checked[j] then
-    begin
-      userRoleTemp := nil;
+    ShowMessage('Receiver not found');
+    Exit;
+  end;
 
-      for i := 0 to cbbConsole.Items.Count - 1  do
-      begin
-         if Assigned(TUserRole(cbbConsole.Items.Objects[i])) and
-             (TUserRole(cbbConsole.Items.Objects[i]).FData.UserRoleAcronim = lstUserSend.Items[j]) then
-         begin
-            userRoleTemp := TUserRole(cbbConsole.Items.Objects[i]);
-            Break;
-          end;
-      end;
 
-      if Assigned(userRoleTemp) then
-      begin
-        userIP := userRoleTemp.ConsoleIP;
-        targetPath := '\\' + userIP + '\' + vGameDataSetting.FileTransfer + '\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
 
-        if not TDirectory.Exists(targetPath) then
-          TDirectory.CreateDirectory(targetPath);
+  fileTemp := FSelectedFileTransfer;
 
-        for i := 0 to FFileTransfer.Count - 1 do
-        begin
-          fileTemp := TFile_Data(FFileTransfer.Items[i]);
-          targetFile := targetPath + '\' + ExtractFileName(fileTemp.FData.Directory_Path);
 
-          CopyFile(PWideChar(WideString(fileTemp.FData.Directory_Path)), PWideChar(targetFile), False)
-        end;
-          lstUserSend.Items[j] := lstUserSend.Items[j] + ' - Success';
-          transferSuccess := True;
 
-//          if Assigned(frmPopChat) then
-//            frmPopChat.ShowMessagePopup(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim, 'File terkirim: ' + ExtractFileName(fileTemp.FData.Directory_Path));
-      end
-      else
-      begin
-          ShowMessage('Failed to find user role for: ' + lstUserSend.Items[j]);
-          lstUserSend.Items[j] := lstUserSend.Items[j] + ' - Failed';
-      end;
+  if not FileExists(fileTemp.FData.Directory_Path) then
+  begin
+    ShowMessage('File not found');
+    Exit;
+  end;
+
+
+
+  FolderTemp :=
+    simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim
+    +
+    '\'
+    +
+    FormatDateTime('dd-mm-yy_hh-nn-ss',Now);
+
+
+
+  try
+
+    FillChar(rec,SizeOf(rec),0);
+
+
+
+    //================================================
+    // SEND FILE INFO
+    //================================================
+
+    rec.OrderID :=
+      SEND_FILE_TRANSFER_INFO;
+
+
+    rec.FileName :=
+      fileTemp.FData.Nama_File;
+
+
+    rec.FolderName :=
+      FolderTemp;
+
+
+
+    FS :=
+      TFileStream.Create(
+        fileTemp.FData.Directory_Path,
+        fmOpenRead or fmShareDenyNone);
+
+
+    try
+
+      rec.FileSize :=
+        FS.Size;
+
+    finally
+
+      FS.Free;
+
     end;
+
+
+
+    rec.SenderIP :=
+      simMgrClient.MyConsoleData.UserRoleData.ConsoleIP;
+
+
+
+    rec.SenderUserRoleId :=
+      simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+
+
+
+    rec.ReceiverUserRoleId :=
+      userRoleTemp.FData.UserRoleIndex;
+
+
+
+    simMgrClient.netSend_CmdFileTransferToteDisplay(rec);
+
+
+
+
+    //================================================
+    // SEND DATA
+    //================================================
+
+
+    FS :=
+      TFileStream.Create(
+        fileTemp.FData.Directory_Path,
+        fmOpenRead or fmShareDenyNone);
+
+
+
+    try
+
+      while FS.Position < FS.Size do
+      begin
+
+
+        FillChar(
+          rec.Data,
+          SizeOf(rec.Data),
+          0);
+
+
+
+        bufferSize :=
+          FS.Read(
+            rec.Data,
+            SizeOf(rec.Data));
+
+
+
+        rec.OrderID :=
+          SEND_FILE_TRANSFER_DATA;
+
+
+
+        // wajib isi ulang metadata
+        rec.FileName :=
+          fileTemp.FData.Nama_File;
+
+
+        rec.FolderName :=
+          FolderTemp;
+
+
+
+        rec.Position :=
+          FS.Position - bufferSize;
+
+
+
+        rec.DataSize :=
+          bufferSize;
+
+
+
+        simMgrClient.netSend_CmdFileTransferToteDisplay(rec);
+
+
+
+      end;
+
+
+
+    finally
+
+      FS.Free;
+
+    end;
+
+
+
+
+
+    //================================================
+    // SEND FINISH
+    //================================================
+
+    FillChar(rec.Data,SizeOf(rec.Data),0);
+
+
+    rec.OrderID :=
+      SEND_FILE_TRANSFER_FINISH;
+
+
+    rec.FileName :=
+      fileTemp.FData.Nama_File;
+
+
+    rec.FolderName :=
+      FolderTemp;
+
+
+
+    simMgrClient.netSend_CmdFileTransferToteDisplay(rec);
+
+
+
+    ShowMessage(
+      'File transfer successfully sent');
+
+
+
+  except
+
+    on E:Exception do
+    begin
+
+      ShowMessage(
+        'Transfer failed : '+
+        E.Message);
+
+    end;
+
   end;
 
-  if transferSuccess then
-  begin
-    ShowMessage('File successfully transferred');
-  end
-  else
-  begin
-    ShowMessage('File failed to transfer');
-  end;
 end;
 
 procedure TfrmToteDisplay.UpdateFile;
