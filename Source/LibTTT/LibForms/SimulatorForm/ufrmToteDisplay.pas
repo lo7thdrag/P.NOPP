@@ -395,13 +395,11 @@ var
   FolderTemp : string;
 
 begin
-
   if cbbConsole.ItemIndex = -1 then
   begin
     ShowMessage('Select receiver');
     Exit;
   end;
-
 
   if FSelectedFileTransfer = nil then
   begin
@@ -409,13 +407,7 @@ begin
     Exit;
   end;
 
-
-
-  userRoleTemp :=
-    TUserRole(
-      cbbConsole.Items.Objects[cbbConsole.ItemIndex]);
-
-
+  userRoleTemp := TUserRole(cbbConsole.Items.Objects[cbbConsole.ItemIndex]);
 
   if not Assigned(userRoleTemp) then
   begin
@@ -423,11 +415,7 @@ begin
     Exit;
   end;
 
-
-
   fileTemp := FSelectedFileTransfer;
-
-
 
   if not FileExists(fileTemp.FData.Directory_Path) then
   begin
@@ -435,196 +423,72 @@ begin
     Exit;
   end;
 
-
-
-  FolderTemp :=
-    simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim
-    +
-    '\'
-    +
-    FormatDateTime('dd-mm-yy_hh-nn-ss',Now);
-
-
+  FolderTemp := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\' + FormatDateTime('dd-mm-yy_hh-nn-ss',Now);
 
   try
-
     FillChar(rec,SizeOf(rec),0);
 
+    {$REGION 'SEND FILE INFO'}
+    rec.OrderID    := SEND_FILE_TRANSFER_INFO;
+    rec.FileName   := fileTemp.FData.Nama_File;
+    rec.FolderName := FolderTemp;
 
-
-    //================================================
-    // SEND FILE INFO
-    //================================================
-
-    rec.OrderID :=
-      SEND_FILE_TRANSFER_INFO;
-
-
-    rec.FileName :=
-      fileTemp.FData.Nama_File;
-
-
-    rec.FolderName :=
-      FolderTemp;
-
-
-
-    FS :=
-      TFileStream.Create(
-        fileTemp.FData.Directory_Path,
-        fmOpenRead or fmShareDenyNone);
-
+    FS := TFileStream.Create(fileTemp.FData.Directory_Path, fmOpenRead or fmShareDenyNone);
 
     try
-
-      rec.FileSize :=
-        FS.Size;
-
+      rec.FileSize := FS.Size;
     finally
-
       FS.Free;
-
     end;
 
-
-
-    rec.SenderIP :=
-      simMgrClient.MyConsoleData.UserRoleData.ConsoleIP;
-
-
-
-    rec.SenderUserRoleId :=
-      simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-
-
-
-    rec.ReceiverUserRoleId :=
-      userRoleTemp.FData.UserRoleIndex;
-
-
+    rec.SenderIP           := simMgrClient.MyConsoleData.UserRoleData.ConsoleIP;
+    rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+    rec.ReceiverUserRoleId := userRoleTemp.FData.UserRoleIndex;
 
     simMgrClient.netSend_CmdFileTransferToteDisplay(rec);
+    {$ENDREGION}
 
-
-
-
-    //================================================
-    // SEND DATA
-    //================================================
-
-
-    FS :=
-      TFileStream.Create(
-        fileTemp.FData.Directory_Path,
-        fmOpenRead or fmShareDenyNone);
-
-
+    {$REGION 'SEND DATA'}
+    FS := TFileStream.Create(fileTemp.FData.Directory_Path, fmOpenRead or fmShareDenyNone);
 
     try
-
       while FS.Position < FS.Size do
       begin
+        FillChar(rec.Data, SizeOf(rec.Data), 0);
 
-
-        FillChar(
-          rec.Data,
-          SizeOf(rec.Data),
-          0);
-
-
-
-        bufferSize :=
-          FS.Read(
-            rec.Data,
-            SizeOf(rec.Data));
-
-
-
-        rec.OrderID :=
-          SEND_FILE_TRANSFER_DATA;
-
-
-
-        // wajib isi ulang metadata
-        rec.FileName :=
-          fileTemp.FData.Nama_File;
-
-
-        rec.FolderName :=
-          FolderTemp;
-
-
-
-        rec.Position :=
-          FS.Position - bufferSize;
-
-
-
-        rec.DataSize :=
-          bufferSize;
-
-
+        bufferSize     := FS.Read(rec.Data,SizeOf(rec.Data));
+        rec.OrderID    := SEND_FILE_TRANSFER_DATA;
+        rec.FileName   := fileTemp.FData.Nama_File;
+        rec.FolderName := FolderTemp;
+        rec.Position   := FS.Position - bufferSize;
+        rec.DataSize   := bufferSize;
 
         simMgrClient.netSend_CmdFileTransferToteDisplay(rec);
-
-
-
       end;
 
-
-
     finally
-
       FS.Free;
-
     end;
+    {$ENDREGION}
 
-
-
-
-
-    //================================================
-    // SEND FINISH
-    //================================================
-
+    {$REGION 'SEND FINISH'}
     FillChar(rec.Data,SizeOf(rec.Data),0);
 
-
-    rec.OrderID :=
-      SEND_FILE_TRANSFER_FINISH;
-
-
-    rec.FileName :=
-      fileTemp.FData.Nama_File;
-
-
-    rec.FolderName :=
-      FolderTemp;
-
-
+    rec.OrderID := SEND_FILE_TRANSFER_FINISH;
+    rec.FileName := fileTemp.FData.Nama_File;
+    rec.FolderName := FolderTemp;
 
     simMgrClient.netSend_CmdFileTransferToteDisplay(rec);
 
-
-
-    ShowMessage(
-      'File transfer successfully sent');
-
-
+    ShowMessage('File transfer successfully sent');
+    {$ENDREGION}
 
   except
-
     on E:Exception do
     begin
-
-      ShowMessage(
-        'Transfer failed : '+
-        E.Message);
-
+      ShowMessage('Transfer failed : '+ E.Message);
     end;
-
   end;
-
 end;
 
 procedure TfrmToteDisplay.UpdateFile;

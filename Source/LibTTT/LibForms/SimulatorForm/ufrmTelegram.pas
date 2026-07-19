@@ -178,10 +178,10 @@ var
   DateTimeNowTemp : string;
   SentPath        : string;
 
-  i   : Integer;
-  rec : TRecTCPFileSync;
-  FS  : TFileStream;
-
+  i           : Integer;
+  rec         : TRecTCPFileSync;
+  FS          : TFileStream;
+  BufferSize  : Integer;
 begin
   if cbbxTo.ItemIndex = -1 then
   begin
@@ -195,30 +195,25 @@ begin
     Exit;
   end;
 
-  if Length(pathFileArray) <> Length(fileNameArray) then
-  begin
-    ShowMessage('File array mismatch!');
-    Exit;
-  end;
-
   DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
-  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + cbbxTo.Text + '\' + DateTimeNowTemp;
-
-  if not DirectoryExists(SentPath) then
-    ForceDirectories(SentPath);
+  SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim +
+                     '\' + DateTimeNowTemp;
+  ForceDirectories(SentPath);
 
   for i := 0 to High(pathFileArray) do
   begin
-
     if not FileExists(pathFileArray[i]) then
       Continue;
 
     try
-      CopyFile(PChar(pathFileArray[i]), PChar(IncludeTrailingPathDelimiter(SentPath)+ fileNameArray[i]), False);
-      FillChar(rec, SizeOf(rec), 0);
-      rec.OrderID := SEND_FILE_INFO;
-      rec.FileName := fileNameArray[i];
+      FillChar(rec, SizeOf(rec),0);
+
+      {$REGION 'SEND INFO'}
+      rec.OrderID    := SEND_FILE_INFO;
+      rec.FileName   := fileNameArray[i];
       rec.FolderName := DateTimeNowTemp;
+      rec.SenderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+
       FS := TFileStream.Create(pathFileArray[i], fmOpenRead or fmShareDenyNone);
 
       try
@@ -230,10 +225,52 @@ begin
       rec.SenderIP           := simMgrClient.MyConsoleData.UserRoleData.ConsoleIP;
       rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
       rec.ReceiverUserRoleId := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]).FData.UserRoleIndex;
+
       simMgrClient.netSend_CmdFileSendTelegram(rec);
 
+      {$ENDREGION}
+
+      {$REGION 'SEND DATA'}
+      FS := TFileStream.Create(pathFileArray[i], fmOpenRead or fmShareDenyNone);
+
+      try
+        while FS.Position < FS.Size do
+        begin
+          FillChar(rec.Data,SizeOf(rec.Data), 0);
+          BufferSize := FS.Read(rec.Data, SizeOf(rec.Data));
+
+          rec.OrderID            := SEND_FILE_DATA;
+          rec.FileName           := fileNameArray[i];
+          rec.FolderName         := DateTimeNowTemp;
+          rec.SenderName         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+          rec.Position           := FS.Position - BufferSize;
+          rec.DataSize           := BufferSize;
+          rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+          rec.ReceiverUserRoleId := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]).FData.UserRoleIndex;
+
+          simMgrClient.netSend_CmdFileSendTelegram(rec);
+        end;
+
+      finally
+        FS.Free;
+      end;
+      {$ENDREGION}
+
+      {$REGION 'SEND FINISH'}
+      FillChar(rec.Data, SizeOf(rec.Data), 0);
+
+      rec.OrderID    := SEND_FILE_FINISH;
+      rec.FileName   := fileNameArray[i];
+      rec.FolderName := DateTimeNowTemp;
+      rec.SenderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+
+      simMgrClient.netSend_CmdFileSendTelegram(rec);
+
+      CopyFile(PChar(pathFileArray[i]), PChar(IncludeTrailingPathDelimiter(SentPath) + fileNameArray[i]), False);
+      {$ENDREGION}
+
     except
-      on E: Exception do
+      on E:Exception do
       begin
         ShowMessage('Error send file:'#13#10 + fileNameArray[i] + #13#10 + E.Message);
       end;

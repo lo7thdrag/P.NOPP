@@ -134,6 +134,7 @@ type
     Data       : array[0..8191] of Byte;
     SenderIP   : string[255];
     FolderName : string[255];
+    SenderName : string[255];
 
     SenderUserRoleId    : Integer;
     ReceiverUserRoleId  : Integer;

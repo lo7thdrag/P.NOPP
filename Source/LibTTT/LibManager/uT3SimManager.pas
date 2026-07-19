@@ -290,8 +290,7 @@ begin
   end;
 end;
 
-procedure TT3SimManager.OnFileFileTransferChange(
-  const rec: TRecTCPFileTransfer);
+procedure TT3SimManager.OnFileFileTransferChange(const rec: TRecTCPFileTransfer);
 
 var
   FilePath : string;
@@ -343,19 +342,10 @@ end;
 procedure TT3SimManager.OnFileSyncChange(const rec: TRecTCPFileSync);
 var
   FileInfo : TFileSyncData;
+  FilePath : string;
+  FS       : TFileStream;
 begin
   case rec.OrderID of
-    SEND_FILE_REQUEST :
-    begin
-      FileInfo := TFileSyncData.Create;
-
-      FileInfo.FileName := rec.FileName;
-      FileInfo.FileSize := rec.FileSize;
-      FileInfo.OwnerIP  := rec.SenderIP;
-
-      SimFileSendTelegram.AddFile(FileInfo);
-    end;
-
     SEND_FILE_INFO :
     begin
       FileInfo := TFileSyncData.Create;
@@ -366,14 +356,42 @@ begin
 
       SimFileSendTelegram.AddFile(FileInfo);
 
-      ForceDirectories(vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.FolderName);
+      FilePath := vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.SenderName + '\' + rec.FolderName + '\' + rec.FileName;
 
-      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+      ForceDirectories(ExtractFileDir(FilePath));
+
+      FS := TFileStream.Create(FilePath, fmCreate);
+      FS.Free;
+
+      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName);
+    end;
+
+    SEND_FILE_DATA :
+    begin
+      FilePath := vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.SenderName + '\' + rec.FolderName + '\' + rec.FileName;
+
+      if FileExists(FilePath) then
+      begin
+        FS := TFileStream.Create(FilePath, fmOpenWrite or fmShareDenyNone);
+
+        try
+          FS.Position := rec.Position;
+          FS.WriteBuffer(rec.Data, rec.DataSize);
+        finally
+          FS.Free;
+        end;
+      end;
+    end;
+
+
+    SEND_FILE_FINISH :
+    begin
+      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
     end;
 
     SEND_FILE_OPENED :
     begin
-      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
     end;
   end;
 end;
