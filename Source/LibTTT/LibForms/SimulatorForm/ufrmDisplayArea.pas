@@ -2256,7 +2256,7 @@ begin
     if not Assigned(frmPopChat) then
       frmPopChat := TfrmPopChat.Create(Application);
 
-    frmPopChat.ShowMessagePopup(IdReceiver, UserName, 'File berhasil terkirim : ' + FileName);
+    frmPopChat.ShowMessagePopup(IdReceiver,UserName,'File berhasil terkirim : ' + FileName,'',IdSender);
 
     trycnMessage.BalloonTitle := 'File Terkirim';
     trycnMessage.BalloonHint  := 'Berhasil dikirim ke ' + UserName;
@@ -2273,13 +2273,14 @@ begin
     if not Assigned(frmPopChat) then
       frmPopChat := TfrmPopChat.Create(Application);
 
-    frmPopChat.ShowMessagePopup(IdSender,UserName, 'File masuk : ' + FileName);
+    frmPopChat.ShowMessagePopup(IdSender,UserName,'File masuk : ' + FileName,FilePath,IdReceiver);
 
     trycnMessage.BalloonTitle := 'File Masuk';
     trycnMessage.BalloonHint  := UserName + ': ' + FileName;
     trycnMessage.BalloonFlags := bfInfo;
     trycnMessage.ShowBalloonHint;
   end;
+  {$ENDREGION}
 end;
 
 {$ENDREGION}
@@ -2366,7 +2367,7 @@ begin
   if not Assigned(frmPopChat) then
     frmPopChat := TfrmPopChat.Create(Application);
 
-  frmPopChat.ShowMessagePopup(IdSender, SenderName, Msg);
+  frmPopChat.ShowMessagePopup(IdSender,SenderName,Msg,'',IdReceiver);
 
   trycnMessage.BalloonTitle := 'Chat Masuk';
   trycnMessage.BalloonHint  := SenderName + ': ' + Msg;
@@ -2388,7 +2389,7 @@ begin
   if not Assigned(frmPopChat) then
     frmPopChat := TfrmPopChat.Create(Application);
 
-  frmPopChat.ShowMessagePopup(IdUser, UserName, 'telah membaca pesan Anda');
+  frmPopChat.ShowMessagePopup(IdUser,UserName,'telah membaca pesan Anda', '',simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex);
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);

@@ -130,7 +130,6 @@ begin
   btnLogout.Visible := False;
   btnLogout.Enabled := False;
 end;
-
 {$REGION 'Console List'}
 procedure TfrmToteDisplay.CloseClick(Sender: TObject);
 begin

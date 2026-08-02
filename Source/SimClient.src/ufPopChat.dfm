@@ -50,10 +50,20 @@ object frmPopChat: TfrmPopChat
       Font.Style = []
       ParentFont = False
     end
+    object btnOpen: TButton
+      Left = 267
+      Top = 46
+      Width = 75
+      Height = 25
+      Caption = 'Open'
+      TabOrder = 0
+      Visible = False
+      OnClick = btnOpenClick
+    end
   end
   object Timer1: TTimer
     OnTimer = Timer1Timer
-    Left = 307
-    Top = 11
+    Left = 147
+    Top = 14
   end
 end
