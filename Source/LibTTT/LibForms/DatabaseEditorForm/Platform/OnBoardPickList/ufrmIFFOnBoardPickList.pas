@@ -22,6 +22,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
+    edtSearch: TEdit;
 
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -33,7 +34,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
   private
     FAllIFFDefList : TList;
@@ -62,13 +65,6 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmIFFOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllIFFDefList);
-//  FreeItemsAndFreeList(FAllIFFOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmIFFOnBoardPickList.FormCreate(Sender: TObject);
 //var
 //  iff : TIFF_Sensor_On_Board;
@@ -80,6 +76,12 @@ begin
 //  iff.FData.Instance_Identifier := 'IFF';
 //
 //  FAllIFFDefList.Add(iff);
+end;
+
+procedure TfrmIFFOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllIFFDefList);
+  FreeItemsAndFreeList(FAllIFFOnBoardList);
 end;
 
 procedure TfrmIFFOnBoardPickList.FormShow(Sender: TObject);
@@ -144,6 +146,20 @@ begin
 //  end;
 //
 //  UpdateIFFList;
+end;
+
+procedure TfrmIFFOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateIFFList;
+end;
+
+procedure TfrmIFFOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateIFFList;
+  end;
 end;
 
 procedure TfrmIFFOnBoardPickList.btnCloseClick(Sender: TObject);

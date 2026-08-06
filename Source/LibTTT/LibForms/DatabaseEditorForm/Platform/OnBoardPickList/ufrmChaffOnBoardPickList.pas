@@ -26,8 +26,7 @@ type
     btnDelete: TImage;
     btnUpdate: TImage;
     btnNew: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnDeleteClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -70,17 +72,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmChaffOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllChaffDefList);
-//  FreeItemsAndFreeList(FAllChaffOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmChaffOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllChaffDefList := TList.Create;
   FAllChaffOnBoardList := TList.Create;
+end;
+
+procedure TfrmChaffOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllChaffDefList);
+  FreeItemsAndFreeList(FAllChaffOnBoardList);
 end;
 
 procedure TfrmChaffOnBoardPickList.FormShow(Sender: TObject);
@@ -180,6 +181,20 @@ begin
   end;
 end;
 
+procedure TfrmChaffOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateChaffList;
+end;
+
+procedure TfrmChaffOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateChaffList;
+  end;
+end;
+
 procedure TfrmChaffOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
@@ -238,8 +253,9 @@ end;
 
 procedure TfrmChaffOnBoardPickList.UpdateChaffList;
 var
-  i : Integer;
-  chaff : TChaff_On_Board;
+  i, j : Integer;
+  chaff, chaffonboard : TChaff_On_Board;
+  found : Boolean;
 begin
   lbAllChaffDef.Items.Clear;
   lbAllChaffOnBoard.Items.Clear;
@@ -247,16 +263,47 @@ begin
   dmINWO.GetAllChaffDef(FAllChaffDefList);
   dmINWO.GetChaffOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllChaffOnBoardList);
 
+  {$REGION ' Print Available '}
   for i := 0 to FAllChaffDefList.Count - 1 do
   begin
     chaff := FAllChaffDefList.Items[i];
-    lbAllChaffDef.Items.AddObject(chaff.FDef.Chaff_Identifier, chaff);
+
+    found := False;
+    for j := 0 to FAllChaffOnBoardList.Count - 1 do
+    begin
+      chaffOnBoard := FAllChaffOnBoardList.Items[j];
+
+      if chaffOnBoard.FDef.Chaff_Index = chaff.FDef.Chaff_Index then
+      begin
+        found := True;
+        Break;
+      end;
+    end;
+
+    if not found then
+      lbAllChaffDef.Items.AddObject(chaff.FDef.Chaff_Identifier, chaff);
+
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Print Onboard '}
+  for j := 0 to FAllChaffOnBoardList.Count - 1 do
+  begin
+    chaffOnBoard := FAllChaffOnBoardList.Items[j];
+    lbAllChaffOnBoard.Items.AddObject(chaff.FData.Instance_Identifier, chaff);
+  end;
+  {$ENDREGION}
+
+  for i := 0 to FAllChaffDefList.Count - 1 do
+  begin
+    chaff := FAllChaffDefList.Items[i];
+
   end;
 
   for i := 0 to FAllChaffOnBoardList.Count - 1 do
   begin
     chaff := FAllChaffOnBoardList.Items[i];
-    lbAllChaffOnBoard.Items.AddObject(chaff.FData.Instance_Identifier, chaff);
+
   end;
 end;
 

@@ -26,8 +26,7 @@ type
     btnDelete: TImage;
     btnUpdate: TImage;
     btnNew: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnDeleteClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -69,17 +71,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmTowedJammerDecoyOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllTowedJammerDecoyDefList);
-//  FreeItemsAndFreeList(FAllTowedJammerDecoyOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmTowedJammerDecoyOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllTowedJammerDecoyDefList := TList.Create;
   FAllTowedJammerDecoyOnBoardList := TList.Create;
+end;
+
+procedure TfrmTowedJammerDecoyOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllTowedJammerDecoyDefList);
+  FreeItemsAndFreeList(FAllTowedJammerDecoyOnBoardList);
 end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.FormShow(Sender: TObject);
@@ -179,6 +180,20 @@ begin
   end;
 end;
 
+procedure TfrmTowedJammerDecoyOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateTowedjammerDecoyList;
+end;
+
+procedure TfrmTowedJammerDecoyOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateTowedjammerDecoyList;
+  end;
+end;
+
 procedure TfrmTowedJammerDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
@@ -237,8 +252,9 @@ end;
 
 procedure TfrmTowedJammerDecoyOnBoardPickList.UpdateTowedJammerDecoyList;
 var
-  i : Integer;
-  towedjammerdecoy : TTowed_Decoy_On_Board;
+  i, j : Integer;
+  towedjammerdecoy, towedjammerdecoyonboard : TTowed_Decoy_On_Board;
+  found : Boolean;
 begin
   lbAllTowedJammerDecoyDef.Items.Clear;
   lbAllTowedJammerDecoyOnBoard.Items.Clear;
@@ -246,17 +262,36 @@ begin
   dmINWO.GetAllTowedDecoyDef(FAllTowedJammerDecoyDefList);
   dmINWO.GetTowedJammerDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllTowedJammerDecoyOnBoardList);
 
+  {$REGION ' Print Available '}
   for i := 0 to FAllTowedJammerDecoyDefList.Count - 1 do
   begin
     towedjammerdecoy := FAllTowedJammerDecoyDefList.Items[i];
-    lbAllTowedJammerDecoyDef.Items.AddObject(towedjammerdecoy.FDef.Towed_Decoy_Identifier, towedjammerdecoy);
-  end;
 
-  for i := 0 to FAllTowedJammerDecoyOnBoardList.Count - 1 do
-  begin
-    towedjammerdecoy := FAllTowedJammerDecoyOnBoardList.Items[i];
-    lbAllTowedJammerDecoyOnBoard.Items.AddObject(towedjammerdecoy.FData.Instance_Identifier, towedjammerdecoy);
+    found := False;
+    for j := 0 to FAllTowedJammerDecoyOnBoardList.Count - 1 do
+    begin
+      towedjammerdecoyonboard := FAllTowedJammerDecoyOnBoardList.Items[j];
+
+      if towedjammerdecoyonboard.FDef.Towed_Decoy_Index = towedjammerdecoy.FDef.Towed_Decoy_Index then
+      begin
+        found := True;
+        Break;
+      end;
+    end;
+
+    if not found then
+      lbAllTowedJammerDecoyDef.Items.AddObject(towedjammerdecoy.FDef.Towed_Decoy_Identifier, towedjammerdecoy);
+
   end;
+  {$ENDREGION}
+
+  {$REGION ' Print Onboard '}
+  for j := 0 to FAllTowedJammerDecoyOnBoardList.Count - 1 do
+  begin
+    towedjammerdecoyonboard := FAllTowedJammerDecoyOnBoardList.Items[j];
+    lbAllTowedJammerDecoyOnBoard.Items.AddObject(towedjammerdecoyonboard.FData.Instance_Identifier, towedjammerdecoyonboard)
+  end;
+  {$ENDREGION}
 end;
 
 {$ENDREGION}

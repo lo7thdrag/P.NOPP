@@ -26,8 +26,7 @@ type
     btnNew: TImage;
     btnUpdate: TImage;
     btnDelete: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnNewClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -68,17 +70,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmMissileOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllMissileDefList);
-//  FreeItemsAndFreeList(FAllMissileOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmMissileOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllMissileDefList := TList.Create;
   FAllMissileOnBoardList := TList.Create;
+end;
+
+procedure TfrmMissileOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllMissileDefList);
+  FreeItemsAndFreeList(FAllMissileOnBoardList);
 end;
 
 procedure TfrmMissileOnBoardPickList.FormShow(Sender: TObject);
@@ -180,6 +181,20 @@ begin
       Show;
     end;
   finally
+  end;
+end;
+
+procedure TfrmMissileOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateMissileList;
+end;
+
+procedure TfrmMissileOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateMissileList;
   end;
 end;
 

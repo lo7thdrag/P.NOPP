@@ -7,14 +7,14 @@
   </instructor>
 
   <situationBoard id="SituationBoard" name="SituationBoard Group">
-    <console ip="192.168.1.10" name="SITUATION BOARD 1"></console>
+    <console ip="192.168.0.107" name="SITUATION BOARD 1"></console>
     <console ip="192.168.1.20" name="SITUATION BOARD 2"></console>
     <console ip="192.168.1.30" name="SITUATION BOARD 3"></console>
     <console ip="192.168.1.40" name="SITUATION BOARD 4"></console>       
   </situationBoard>
 
   <officer id="Officer" name="Officer Group"> 
-    <console ip="192.168.0.107" name="PROGRAMMER" ></console>    
+    <console ip="192.168.0.1007" name="PROGRAMMER" ></console>    
     <console ip="192.168.0.146" name="OFFICIAL 1"></console>  
     <console ip="192.168.0.172" name="OFFICIAL 2"></console>
     <console ip="192.168.0.146" name="OFFICIAL 3"></console>

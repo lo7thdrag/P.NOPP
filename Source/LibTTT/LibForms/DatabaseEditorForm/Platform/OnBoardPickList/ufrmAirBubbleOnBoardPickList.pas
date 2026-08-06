@@ -26,8 +26,7 @@ type
     btnUpdate: TImage;
     btnNew: TImage;
     btnDelete: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnDeleteClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -68,17 +70,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmAirBubbleOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllAirBubbleDefList);
-//  FreeItemsAndFreeList(FAllAirBubbleOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmAirBubbleOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllAirBubbleDefList := TList.Create;
   FAllAirBubbleOnBoardList := TList.Create;
+end;
+
+procedure TfrmAirBubbleOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllAirBubbleDefList);
+  FreeItemsAndFreeList(FAllAirBubbleOnBoardList);
 end;
 
 procedure TfrmAirBubbleOnBoardPickList.FormShow(Sender: TObject);
@@ -179,6 +180,20 @@ begin
   end;
 end;
 
+procedure TfrmAirBubbleOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateAirBubbleList;
+end;
+
+procedure TfrmAirBubbleOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateAirBubbleList;
+  end;
+end;
+
 procedure TfrmAirBubbleOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
@@ -237,8 +252,9 @@ end;
 
 procedure TfrmAirBubbleOnBoardPickList.UpdateAirBubbleList;
 var
-  i : Integer;
-  airbubble : TAir_Bubble_On_Board;
+  i, j : Integer;
+  airbubble, airbubbleonboard : TAir_Bubble_On_Board;
+  found : Boolean;
 begin
   lbAllAirBubbleDef.Items.Clear;
   lbAllAirBubbleOnBoard.Items.Clear;
@@ -246,17 +262,35 @@ begin
   dmINWO.GetAllAirBubbleDef(FAllAirBubbleDefList);
   dmINWO.GetAirBubbleOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllAirBubbleOnBoardList);
 
+  {$REGION ' Print Available '}
   for i := 0 to FAllAirBubbleDefList.Count - 1 do
   begin
     airbubble := FAllAirBubbleDefList.Items[i];
-    lbAllAirBubbleDef.Items.AddObject(airbubble.FDef.Air_Bubble_Identifier, airbubble);
-  end;
 
-  for i := 0 to FAllAirBubbleOnBoardList.Count - 1 do
+    found := False;
+    for j := 0 to FAllAirBubbleOnBoardList.Count - 1 do
+    begin
+      airbubbleonboard := FAllAirBubbleOnBoardList.Items[j];
+
+      if airbubbleonboard.FDef.Air_Bubble_Index = airbubble.FDef.Air_Bubble_Index then
+      begin
+        found := True;
+        Break;
+      end;
+    end;
+
+    if not found then
+      lbAllAirBubbleDef.Items.AddObject(airbubble.FDef.Air_Bubble_Identifier, airbubble);
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Print Onboard '}
+  for j := 0 to FAllAirBubbleOnBoardList.Count - 1 do
   begin
-    airbubble := FAllAirBubbleOnBoardList.Items[i];
+    airbubbleonboard := FAllAirBubbleOnBoardList.Items[j];
     lbAllAirBubbleOnBoard.Items.AddObject(airbubble.FData.Instance_Identifier, airbubble);
   end;
+  {$ENDREGION}
 end;
 
 {$ENDREGION}

@@ -26,8 +26,7 @@ type
     btnNew: TImage;
     btnUpdate: TImage;
     btnDelete: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnNewClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
   private
     FAllSonarDefList : TList;
@@ -68,18 +70,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmSonarOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllSonarDefList);
-//  FreeItemsAndFreeList(FAllSonarOnBoardList);
-//
-//  Action := cafree;
-end;
-
 procedure TfrmSonarOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllSonarDefList := TList.Create;
   FAllSonarOnBoardList := TList.Create;
+end;
+
+procedure TfrmSonarOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllSonarDefList);
+  FreeItemsAndFreeList(FAllSonarOnBoardList);
 end;
 
 procedure TfrmSonarOnBoardPickList.FormShow(Sender: TObject);
@@ -179,6 +179,20 @@ begin
       Show;
     end;
   finally
+  end;
+end;
+
+procedure TfrmSonarOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateSonarList;
+end;
+
+procedure TfrmSonarOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateSonarList;
   end;
 end;
 

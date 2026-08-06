@@ -22,8 +22,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -34,6 +33,9 @@ type
     procedure btnRemoveClick(Sender: TObject);
     procedure btnEditClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
   private
     FAllVisualDefList : TList;
@@ -61,13 +63,6 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmVisualDetectorOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllVisualOnBoardList);
-//  FreeItemsAndFreeList(FAllVisualDefList);
-//  Action := cafree;
-end;
-
 procedure TfrmVisualDetectorOnBoardPickList.FormCreate(Sender: TObject);
 //var
 //  visual : TVisual_Sensor_On_Board;
@@ -79,6 +74,12 @@ begin
 //  visual.FData.Instance_Identifier := 'Visual';
 //
 //  FAllVisualDefList.Add(visual);
+end;
+
+procedure TfrmVisualDetectorOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllVisualOnBoardList);
+  FreeItemsAndFreeList(FAllVisualDefList);
 end;
 
 procedure TfrmVisualDetectorOnBoardPickList.FormShow(Sender: TObject);
@@ -145,6 +146,20 @@ begin
 //  end;
 //
 //  UpdateVisualList;
+end;
+
+procedure TfrmVisualDetectorOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateVisualList;
+end;
+
+procedure TfrmVisualDetectorOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateVisualList;
+  end;
 end;
 
 procedure TfrmVisualDetectorOnBoardPickList.btnCloseClick(Sender: TObject);

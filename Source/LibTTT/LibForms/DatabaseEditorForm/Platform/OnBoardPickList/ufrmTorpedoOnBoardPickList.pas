@@ -28,8 +28,7 @@ type
     btnNew: TImage;
     btnUpdate: TImage;
     btnDelete: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -43,6 +42,9 @@ type
     procedure btnNewClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -70,17 +72,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmTorpedoOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllTorpedoDefList);
-//  FreeItemsAndFreeList(FAllTorpedoOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmTorpedoOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllTorpedoDefList := TList.Create;
   FAllTorpedoOnBoardList := TList.Create;
+end;
+
+procedure TfrmTorpedoOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllTorpedoDefList);
+  FreeItemsAndFreeList(FAllTorpedoOnBoardList);
 end;
 
 procedure TfrmTorpedoOnBoardPickList.FormShow(Sender: TObject);
@@ -179,6 +180,20 @@ begin
       Show;
     end;
   finally
+  end;
+end;
+
+procedure TfrmTorpedoOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateTorpedoList;
+end;
+
+procedure TfrmTorpedoOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateTorpedoList;
   end;
 end;
 

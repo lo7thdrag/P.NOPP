@@ -26,8 +26,7 @@ type
     btnNew: TImage;
     btnUpdate: TImage;
     btnDelete: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnNewClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
   private
     FAllRadarDefList : TList;
@@ -68,17 +70,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmRadarOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllRadarDefList);
-//  FreeItemsAndFreeList(FAllRadarOnBoardList);
-
-end;
-
 procedure TfrmRadarOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllRadarDefList := TList.Create;
   FAllRadarOnBoardList := TList.Create;
+end;
+
+procedure TfrmRadarOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllRadarDefList);
+  FreeItemsAndFreeList(FAllRadarOnBoardList);
 end;
 
 procedure TfrmRadarOnBoardPickList.FormShow(Sender: TObject);
@@ -174,6 +175,20 @@ begin
       Show;
     end;
   finally
+  end;
+end;
+
+procedure TfrmRadarOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateRadarList;
+end;
+
+procedure TfrmRadarOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateRadarList;
   end;
 end;
 

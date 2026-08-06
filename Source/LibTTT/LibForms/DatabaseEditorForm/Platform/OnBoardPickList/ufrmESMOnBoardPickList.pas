@@ -26,8 +26,7 @@ type
     btnNew: TImage;
     btnUpdate: TImage;
     btnDelete: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnNewClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -68,17 +70,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmESMOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllESMDefList);
-//  FreeItemsAndFreeList(FAllESMOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmESMOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllESMDefList := TList.Create;
   FAllESMOnBoardList := TList.Create;
+end;
+
+procedure TfrmESMOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllESMDefList);
+  FreeItemsAndFreeList(FAllESMOnBoardList);
 end;
 
 procedure TfrmESMOnBoardPickList.FormShow(Sender: TObject);
@@ -175,6 +176,20 @@ begin
       Show;
     end;
   finally
+  end;
+end;
+
+procedure TfrmESMOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateESMList;
+end;
+
+procedure TfrmESMOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateESMList;
   end;
 end;
 

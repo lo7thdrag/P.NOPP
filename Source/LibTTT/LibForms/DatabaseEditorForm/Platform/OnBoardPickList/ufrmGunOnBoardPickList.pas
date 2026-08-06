@@ -26,8 +26,7 @@ type
     btnDelete: TImage;
     btnUpdate: TImage;
     btnNew: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnNewClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -68,17 +70,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmGunOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllGunDefList);
-//  FreeItemsAndFreeList(FAllGunOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmGunOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllGunDefList := TList.Create;
   FAllGunOnBoardList := TList.Create;
+end;
+
+procedure TfrmGunOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllGunDefList);
+  FreeItemsAndFreeList(FAllGunOnBoardList);
 end;
 
 procedure TfrmGunOnBoardPickList.FormShow(Sender: TObject);
@@ -177,6 +178,20 @@ begin
       Show;
     end;
   finally
+  end;
+end;
+
+procedure TfrmGunOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateGunList;
+end;
+
+procedure TfrmGunOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateGunList;
   end;
 end;
 

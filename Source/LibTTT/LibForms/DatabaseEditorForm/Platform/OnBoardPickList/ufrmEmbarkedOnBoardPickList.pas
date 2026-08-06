@@ -22,8 +22,7 @@ type
     Label1: TLabel;
     Label2: TLabel;
     lblClose: TLabel;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -33,6 +32,9 @@ type
     procedure btnAddClick(Sender: TObject);
     procedure btnRemoveClick(Sender: TObject);
     procedure btnCloseClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -62,19 +64,18 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmEmbarkedOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllVehicleDefList);
-//  FreeItemsAndFreeList(FAllVehicleOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmEmbarkedOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllVehicleDefList := TList.Create;
   FAllVehicleOnBoardList := TList.Create;
 
 //  AfterClose := False;
+end;
+
+procedure TfrmEmbarkedOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllVehicleDefList);
+  FreeItemsAndFreeList(FAllVehicleOnBoardList);
 end;
 
 procedure TfrmEmbarkedOnBoardPickList.FormShow(Sender: TObject);
@@ -119,6 +120,20 @@ begin
     dmINWO.DeleteHostedPlatform(2, Slave_Index);
 
   UpdateVehicleList;
+end;
+
+procedure TfrmEmbarkedOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateVehicleList;
+end;
+
+procedure TfrmEmbarkedOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateVehicleList;
+  end;
 end;
 
 procedure TfrmEmbarkedOnBoardPickList.btnCloseClick(Sender: TObject);

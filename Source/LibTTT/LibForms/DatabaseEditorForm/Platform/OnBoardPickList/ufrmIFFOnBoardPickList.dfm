@@ -14,8 +14,8 @@ object frmIFFOnBoardPickList: TfrmIFFOnBoardPickList
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -14144,9 +14144,7 @@ object frmIFFOnBoardPickList: TfrmIFFOnBoardPickList
       2F88F2FF03BA682A148F9ACFEF0000000049454E44AE426082}
     Stretch = True
     Transparent = True
-    ExplicitLeft = 8
-    ExplicitWidth = 727
-    ExplicitHeight = 652
+    ExplicitWidth = 163
   end
   object btnAdd: TImage
     Left = 326
@@ -15241,8 +15239,8 @@ object frmIFFOnBoardPickList: TfrmIFFOnBoardPickList
   object lblClose: TLabel
     Left = 85
     Top = 603
-    Width = 50
-    Height = 24
+    Width = 60
+    Height = 28
     Cursor = crHandPoint
     Caption = 'Close'
     Color = clBackground
@@ -15295,5 +15293,21 @@ object frmIFFOnBoardPickList: TfrmIFFOnBoardPickList
     TabOrder = 1
     OnClick = lbAllIFFOnBoardClick
     OnDblClick = btnEditClick
+  end
+  object edtSearch: TEdit
+    Left = 45
+    Top = 559
+    Width = 163
+    Height = 25
+    AutoSize = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    OnChange = edtSearchChange
+    OnKeyPress = edtSearchKeyPress
   end
 end

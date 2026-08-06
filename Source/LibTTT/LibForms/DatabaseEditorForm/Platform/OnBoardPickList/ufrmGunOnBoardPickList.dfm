@@ -15,8 +15,8 @@ object frmGunOnBoardPickList: TfrmGunOnBoardPickList
   Font.Style = []
   OldCreateOrder = False
   Position = poScreenCenter
-  OnClose = FormClose
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 15
@@ -15241,8 +15241,8 @@ object frmGunOnBoardPickList: TfrmGunOnBoardPickList
   object lblClose: TLabel
     Left = 85
     Top = 603
-    Width = 50
-    Height = 24
+    Width = 60
+    Height = 28
     Cursor = crHandPoint
     Caption = 'Close'
     Color = clBackground
@@ -15506,5 +15506,21 @@ object frmGunOnBoardPickList: TfrmGunOnBoardPickList
     TabOrder = 1
     OnClick = lbAllGunOnBoardClick
     OnDblClick = btnEditClick
+  end
+  object edtSearch: TEdit
+    Left = 42
+    Top = 559
+    Width = 170
+    Height = 25
+    AutoSize = False
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Tahoma'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
+    OnChange = edtSearchChange
+    OnKeyPress = edtSearchKeyPress
   end
 end

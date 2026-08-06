@@ -26,8 +26,7 @@ type
     btnDelete: TImage;
     btnUpdate: TImage;
     btnNew: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnDeleteClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
 
   private
@@ -71,17 +73,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmRadarNoiseJammerOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllRadarJammerDefList);
-//  FreeItemsAndFreeList(FAllRadarJammerOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmRadarNoiseJammerOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllRadarJammerDefList := TList.Create;
   FAllRadarJammerOnBoardList := TList.Create;
+end;
+
+procedure TfrmRadarNoiseJammerOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllRadarJammerDefList);
+  FreeItemsAndFreeList(FAllRadarJammerOnBoardList);
 end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.FormShow(Sender: TObject);
@@ -182,6 +183,20 @@ begin
   end;
 end;
 
+procedure TfrmRadarNoiseJammerOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateRadarJammerList;
+end;
+
+procedure TfrmRadarNoiseJammerOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateRadarJammerList;
+  end;
+end;
+
 procedure TfrmRadarNoiseJammerOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
@@ -240,8 +255,9 @@ end;
 
 procedure TfrmRadarNoiseJammerOnBoardPickList.UpdateRadarJammerList;
 var
-  i : Integer;
-  radarjammer : TRadar_Noise_Jammer_On_Board;
+  i, j : Integer;
+  radarjammer, radarjammeronboard : TRadar_Noise_Jammer_On_Board;
+  found : Boolean;
 begin
   lbAllRadarJammerDef.Items.Clear;
   lbAllRadarJammerOnBoard.Items.Clear;
@@ -249,17 +265,36 @@ begin
   dmINWO.GetAllRadarNoiseJammerDef(FAllRadarJammerDefList);
   dmINWO.GetRadarNoiseJammerOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllRadarJammerOnBoardList);
 
+  {$REGION ' Print Available '}
   for i := 0 to FAllRadarJammerDefList.Count - 1 do
   begin
     radarjammer := FAllRadarJammerDefList.Items[i];
-    lbAllRadarJammerDef.Items.AddObject(radarjammer.FDef.Jammer_Identifier, radarjammer);
-  end;
 
-  for i := 0 to FAllRadarJammerOnBoardList.Count - 1 do
+    found := False;
+    for j := 0 to FAllRadarJammerOnBoardList.Count - 1 do
+    begin
+      radarjammeronboard := FAllRadarJammerOnBoardList.Items[j];
+
+      if radarjammeronboard.FDef.Jammer_Index = radarjammer.FDef.Jammer_Index then
+      begin
+        found := True;
+        Break;
+      end;
+    end;
+
+    if not found then
+      lbAllRadarJammerDef.Items.AddObject(radarjammer.FDef.Jammer_Identifier, radarjammer);
+
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Print Onboard '}
+  for j := 0 to FAllRadarJammerOnBoardList.Count - 1 do
   begin
-    radarjammer := FAllRadarJammerOnBoardList.Items[i];
+    radarjammeronboard := FAllRadarJammerOnBoardList.Items[j];
     lbAllRadarJammerOnBoard.Items.AddObject(radarjammer.FData.Instance_Identifier, radarjammer);
   end;
+  {$ENDREGION}
 end;
 
 {$ENDREGION}

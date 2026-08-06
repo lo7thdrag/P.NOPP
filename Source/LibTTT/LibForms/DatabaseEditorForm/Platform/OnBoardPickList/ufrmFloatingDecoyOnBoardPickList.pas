@@ -26,8 +26,7 @@ type
     btnDelete: TImage;
     btnUpdate: TImage;
     btnNew: TImage;
-
-    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    edtSearch: TEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
 
@@ -41,6 +40,9 @@ type
     procedure btnDeleteClick(Sender: TObject);
     procedure btnUpdateClick(Sender: TObject);
     procedure btnNewClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure edtSearchChange(Sender: TObject);
+    procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
 
   private
     FAllFloatingDecoyDefList : TList;
@@ -67,17 +69,16 @@ uses
 
 {$REGION ' Form Handle '}
 
-procedure TfrmFloatingDecoyOnBoardPickList.FormClose(Sender: TObject; var Action: TCloseAction);
-begin
-//  FreeItemsAndFreeList(FAllFloatingDecoyDefList);
-//  FreeItemsAndFreeList(FAllFloatingDecoyOnBoardList);
-//  Action := cafree;
-end;
-
 procedure TfrmFloatingDecoyOnBoardPickList.FormCreate(Sender: TObject);
 begin
   FAllFloatingDecoyDefList := TList.Create;
   FAllFloatingDecoyOnBoardList := TList.Create;
+end;
+
+procedure TfrmFloatingDecoyOnBoardPickList.FormDestroy(Sender: TObject);
+begin
+  FreeItemsAndFreeList(FAllFloatingDecoyDefList);
+  FreeItemsAndFreeList(FAllFloatingDecoyOnBoardList);
 end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.FormShow(Sender: TObject);
@@ -178,6 +179,20 @@ begin
   end;
 end;
 
+procedure TfrmFloatingDecoyOnBoardPickList.edtSearchChange(Sender: TObject);
+begin
+  UpdateFloatingDecoyList;
+end;
+
+procedure TfrmFloatingDecoyOnBoardPickList.edtSearchKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    UpdateFloatingDecoyList;
+  end;
+end;
+
 procedure TfrmFloatingDecoyOnBoardPickList.btnCloseClick(Sender: TObject);
 begin
   frmAsset.UpdateCountermeasureData;
@@ -236,8 +251,9 @@ end;
 
 procedure TfrmFloatingDecoyOnBoardPickList.UpdateFloatingDecoyList;
 var
-  i : Integer;
-  floatingdecoy : TFloating_Decoy_On_Board;
+  i, j : Integer;
+  floatingdecoy, floatingdecoyonboard : TFloating_Decoy_On_Board;
+  found : Boolean;
 begin
   lbAllFloatingDecoyDef.Items.Clear;
   lbAllFloatingDecoyOnBoard.Items.Clear;
@@ -245,17 +261,36 @@ begin
   dmINWO.GetAllFloatingDecoyDef(FAllFloatingDecoyDefList);
   dmINWO.GetFloatingDecoyOnBoard(FSelectedVehicle.FData.VehicleIndex,FAllFloatingDecoyOnBoardList);
 
+  {$REGION ' Print Available '}
   for i := 0 to FAllFloatingDecoyDefList.Count - 1 do
   begin
     floatingdecoy := FAllFloatingDecoyDefList.Items[i];
-    lbAllFloatingDecoyDef.Items.AddObject(floatingdecoy.FDef.Floating_Decoy_Identifier, floatingdecoy);
-  end;
 
-  for i := 0 to FAllFloatingDecoyOnBoardList.Count - 1 do
+    found := False;
+    for j := 0 to FAllFloatingDecoyOnBoardList.Count - 1 do
+    begin
+      floatingdecoyonboard := FAllFloatingDecoyDefList.Items[j];
+
+      if floatingdecoyonboard.FDef.Floating_Decoy_Index = floatingdecoy.FDef.Floating_Decoy_Index then
+      begin
+        found := True;
+        Break;
+      end;
+    end;
+
+    if not found then
+      lbAllFloatingDecoyDef.Items.AddObject(floatingdecoy.FDef.Floating_Decoy_Identifier, floatingdecoy);
+
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Print Onboard '}
+  for j := 0 to FAllFloatingDecoyOnBoardList.Count - 1 do
   begin
-    floatingdecoy := FAllFloatingDecoyOnBoardList.Items[i];
+    floatingdecoyonboard := FAllFloatingDecoyOnBoardList.Items[j];
     lbAllFloatingDecoyOnBoard.Items.AddObject(floatingdecoy.FData.Instance_Identifier, floatingdecoy);
   end;
+  {$ENDREGION}
 end;
 
 {$ENDREGION}
