@@ -1917,7 +1917,8 @@ const
   'CPID_CMD_TELEGRAM_USER_ROLE            ',   // + 8
   'CPID_CMD_RECONNECT                     ',    // + 9
   'CPID_CMD_FILE_SYNC                     ',    // + 10
-  'CPID_CMD_FILE_TRANSFER                 '     // + 11
+  'CPID_CMD_FILE_TRANSFER                 ',     // + 11
+  'CPID_CMD_FILE_SHARING                  '     // + 12
 );
 
 begin

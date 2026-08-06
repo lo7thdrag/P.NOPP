@@ -115,6 +115,7 @@ type
     procedure netSend_CmdReconnect(r: TRecTCP_Reconnect);
     procedure netSend_CmdFileSendTelegram(r: TRecTCPFileSync);
     procedure netSend_CmdFileTransferToteDisplay(r: TRecTCPFileTransfer);
+    procedure netSend_CmdFileSharing(r: TRecTCPFileSharing);
     {$ENDREGION}
 
     property MyConsoleData: TConsoleData read FConsoleData;
@@ -620,6 +621,12 @@ procedure TSimMgr_Client.netSend_CmdFileSendTelegram(r: TRecTCPFileSync);
 begin
   r.SessionID := FSessionID;
   VNetClient.SendCommand(CPID_CMD_FILE_SYNC, @r);
+end;
+
+procedure TSimMgr_Client.netSend_CmdFileSharing(r: TRecTCPFileSharing);
+begin
+  r.SessionID := FSessionID;
+  VNetClient.SendCommand(CPID_CMD_FILE_SHARING, @r);
 end;
 
 procedure TSimMgr_Client.netSend_CmdFileTransferToteDisplay(r: TRecTCPFileTransfer);
