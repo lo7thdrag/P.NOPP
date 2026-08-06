@@ -43,6 +43,7 @@ type
 
     procedure netRecv_CmdSyncSendFileTelegram(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSyncFileTransferToteDisplay(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdSyncFileSharing(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     procedure FGameThread_OnRunning(const dt: double); override;
@@ -267,6 +268,7 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape),netRecv_CmdOverlayShape);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync),netRecv_CmdSyncSendFileTelegram);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransferToteDisplay);
+   VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing),netRecv_CmdSyncFileSharing);
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_UserState),netRecv_CmdSyncUserState);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdSyncChatUserRole);
@@ -539,6 +541,17 @@ begin
 
   OnSyncUserChat(rec^);
 
+end;
+
+procedure TSimMgr_Client.netRecv_CmdSyncFileSharing(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCPFileSharing;
+  sIP : string;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnFileSharingChange(rec^);
 end;
 
 procedure TSimMgr_Client.netRecv_CmdSyncFileTransferToteDisplay(apRec: PAnsiChar; aSize: word);

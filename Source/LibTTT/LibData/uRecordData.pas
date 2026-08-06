@@ -158,6 +158,23 @@ type
     ReceiverUserRoleId  : Integer;
   end;
 
+  TRecTCPFileSharing = record
+    pid        : TPacketID;
+    SessionID  : Integer;
+    OrderID    : Byte;
+    FileName   : string[255];
+    FileSize   : Int64;
+    Position   : Int64;
+    DataSize   : Word;
+    Data       : array[0..8191] of Byte;
+    SenderIP   : string[255];
+    FolderName : string[255];
+    SenderName : string[255];
+
+    SenderUserRoleId    : Integer;
+    ReceiverUserRoleId  : Integer;
+  end;
+
   //CPID_TELEGRAM_USER_ROLE_CMD
   TRecTCPSendTelegramUserRole = record
     pid                 : TPacketID;
@@ -1864,7 +1881,13 @@ const
     SEND_FILE_TRANSFER_DATA    = 2;
     SEND_FILE_TRANSFER_FINISH  = 3;
     SEND_FILE_TRANSFER_OPENED  = 4;
-  CPID_TCP_MAX              	            = CPID_TCP + 12;
+  CPID_CMD_FILE_SHARING                   = CPID_TCP + 12;
+    SEND_FILE_SHARING_REQUEST = 0;
+    SEND_FILE_SHARING_INFO    = 1;
+    SEND_FILE_SHARING_DATA    = 2;
+    SEND_FILE_SHARING_FINISH  = 3;
+    SEND_FILE_SHARING_OPENED  = 4;
+  CPID_TCP_MAX              	            = CPID_TCP + 13;
 
   {$ENDREGION}
 
