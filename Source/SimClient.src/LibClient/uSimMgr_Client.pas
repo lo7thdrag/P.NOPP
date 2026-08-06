@@ -43,6 +43,7 @@ type
 
     procedure netRecv_CmdSyncSendFileTelegram(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSyncFileTransferToteDisplay(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdSyncFileSharing(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     procedure FGameThread_OnRunning(const dt: double); override;
@@ -114,6 +115,7 @@ type
     procedure netSend_CmdReconnect(r: TRecTCP_Reconnect);
     procedure netSend_CmdFileSendTelegram(r: TRecTCPFileSync);
     procedure netSend_CmdFileTransferToteDisplay(r: TRecTCPFileTransfer);
+    procedure netSend_CmdFileSharing(r: TRecTCPFileSharing);
     {$ENDREGION}
 
     property MyConsoleData: TConsoleData read FConsoleData;
@@ -267,6 +269,7 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape),netRecv_CmdOverlayShape);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync),netRecv_CmdSyncSendFileTelegram);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransferToteDisplay);
+   VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing),netRecv_CmdSyncFileSharing);
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_UserState),netRecv_CmdSyncUserState);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdSyncChatUserRole);
@@ -541,6 +544,17 @@ begin
 
 end;
 
+procedure TSimMgr_Client.netRecv_CmdSyncFileSharing(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCPFileSharing;
+  sIP : string;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnFileSharingChange(rec^);
+end;
+
 procedure TSimMgr_Client.netRecv_CmdSyncFileTransferToteDisplay(apRec: PAnsiChar; aSize: word);
 var
   rec : ^TRecTCPFileTransfer;
@@ -607,6 +621,12 @@ procedure TSimMgr_Client.netSend_CmdFileSendTelegram(r: TRecTCPFileSync);
 begin
   r.SessionID := FSessionID;
   VNetClient.SendCommand(CPID_CMD_FILE_SYNC, @r);
+end;
+
+procedure TSimMgr_Client.netSend_CmdFileSharing(r: TRecTCPFileSharing);
+begin
+  r.SessionID := FSessionID;
+  VNetClient.SendCommand(CPID_CMD_FILE_SHARING, @r);
 end;
 
 procedure TSimMgr_Client.netSend_CmdFileTransferToteDisplay(r: TRecTCPFileTransfer);

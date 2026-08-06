@@ -23,6 +23,7 @@ type
     procedure OnUserRoleChatRead(IdUser : Integer); override;
     procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string); override;
     procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string); override;
+    procedure OnUpdateFileSharingChange(IdSender : Integer; IdReceiver : Integer; FileName : string); override;
   end;
 
 implementation
@@ -31,6 +32,14 @@ uses
   ufrmTacticalDisplay ;
 
 { TT3ClientEventManager }
+
+procedure TT3ClientEventManager.OnUpdateFileSharingChange(IdSender, IdReceiver: Integer; FileName: string);
+begin
+  inherited;
+
+  if Assigned(frmDisplayArea) then
+    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName)
+end;
 
 procedure TT3ClientEventManager.OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string);
 begin

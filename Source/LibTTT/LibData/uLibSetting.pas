@@ -88,6 +88,7 @@ type
     ImageBackgroundLogin : string;
     ImgPath : string;
     FileTransfer : string;
+    FileSharing : string;
     Telegram : string;
     RemotePort : integer ;
     TacticalScreen : Integer;

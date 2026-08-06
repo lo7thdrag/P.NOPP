@@ -60,6 +60,7 @@ type
     procedure netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdFileSendTelegram(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);
+    procedure netRecv_CmdFileSharing(apRec: PAnsiChar; aSize: Word);
 //    procedure netRecv_CmdClientStateInfo(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
@@ -265,6 +266,7 @@ begin
   VNetServer.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape), netRecv_CmdOverlayShape);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync), netRecv_CmdFileSendTelegram);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer), netRecv_CmdFileTransfer);
+  VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing), netRecv_CmdFileSharing);
   {$ENDREGION}
 
   VNetServer.StartListen;
@@ -300,6 +302,17 @@ begin
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
   VNetServer.SendBroadcastCommand(CPID_CMD_FILE_SYNC,  apRec);
+end;
+
+procedure TSimMgr_Server.netRecv_CmdFileSharing(apRec: PAnsiChar; aSize: Word);
+var
+  rec : ^TRecTCPFileSharing;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  VNetServer.SendBroadcastCommand(CPID_CMD_FILE_SHARING,  apRec);
 end;
 
 procedure TSimMgr_Server.netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);

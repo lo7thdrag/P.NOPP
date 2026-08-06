@@ -77,6 +77,8 @@ type
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); virtual;
     procedure OnFileSyncChange(const rec: TRecTCPFileSync);
     procedure OnFileFileTransferChange(const rec : TRecTCPFileTransfer);
+    procedure OnFileSharingChange(const rec : TRecTCPFileSharing);
+
     {$ENDREGION}
 
     function GetSerialTabSituationBoardID : Integer;
@@ -291,7 +293,6 @@ begin
 end;
 
 procedure TT3SimManager.OnFileFileTransferChange(const rec: TRecTCPFileTransfer);
-
 var
   FilePath : string;
   FS       : TFileStream;
@@ -335,6 +336,53 @@ begin
     SEND_FILE_TRANSFER_OPENED:
     begin
       EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+    end;
+  end;
+end;
+
+procedure TT3SimManager.OnFileSharingChange(const rec: TRecTCPFileSharing);
+var
+  FilePath : string;
+  FS       : TFileStream;
+begin
+  case rec.OrderID of
+    SEND_FILE_SHARING_INFO:
+    begin
+      FilePath := vGameDataSetting.LocalDirectory + '\File Sharing\' + '\' + rec.FolderName + '\' + rec.FileName;
+
+      ForceDirectories(ExtractFileDir(FilePath));
+
+      FS := TFileStream.Create(FilePath, fmCreate);
+      FS.Free;
+
+      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
+    end;
+
+    SEND_FILE_SHARING_DATA:
+    begin
+      FilePath := vGameDataSetting.LocalDirectory + '\File Sharing\' + '\' + rec.FolderName + '\' + rec.FileName;
+
+      if FileExists(FilePath) then
+      begin
+        FS := TFileStream.Create(FilePath,fmOpenWrite or fmShareDenyNone);
+
+        try
+          FS.Position := rec.Position;
+          FS.WriteBuffer(rec.Data, rec.DataSize);
+        finally
+          FS.Free;
+        end;
+      end;
+    end;
+
+    SEND_FILE_SHARING_FINISH:
+    begin
+      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName);
+    end;
+
+    SEND_FILE_SHARING_OPENED:
+    begin
+      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
     end;
   end;
 end;

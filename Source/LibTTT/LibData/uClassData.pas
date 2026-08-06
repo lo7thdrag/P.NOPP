@@ -258,6 +258,41 @@ type
     procedure RemoveFile(FileData: TFileTransferData);
   end;
 
+  // File Sharing
+  TFileSharing = class
+  private
+    FFileName   : string;
+    FFileSize   : Int64;
+    FOwnerIP    : string;
+    FFolderName : string;
+    FFilePath   : string;
+    FStream     : TFileStream;
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    property FileName   : string read FFileName write FFileName;
+    property FileSize   : Int64 read FFileSize write FFileSize;
+    property OwnerIP    : string read FOwnerIP write FOwnerIP;
+    property FolderName : string read FFolderName write FFolderName;
+    property FilePath   : string read FFilePath write FFilePath;
+    property Stream     : TFileStream read FStream write FStream;
+  end;
+
+  TFileSendSharingContainer = class
+  private
+    FFileSendList : TObjectList;
+    FFileStream   : TFileStream;
+    FCurrentFile  : string;
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    procedure AddFile(FileData: TFileTransferData);
+    procedure RemoveFile(FileData: TFileTransferData);
+  end;
+
+
   TChattingContainer = class
   private
     FChattingList : TList;
@@ -3069,5 +3104,78 @@ begin
 
   inherited;
 end;
+
+{$ENDREGION}
+
+{$REGION 'File Send Sharing Container'}
+
+procedure TFileSendSharingContainer.AddFile(FileData: TFileTransferData);
+begin
+ if not Assigned(FileData) then
+    Exit;
+
+  if not Assigned(FFileSendList) then
+    Exit;
+
+  FFileSendList.Add(FileData);
+end;
+
+constructor TFileSendSharingContainer.Create;
+begin
+  inherited;
+
+  FFileSendList := TObjectList.Create(True);
+  FFileStream := nil;
+  FCurrentFile := '';
+end;
+
+destructor TFileSendSharingContainer.Destroy;
+begin
+  if Assigned(FFileStream) then
+  begin
+    FFileStream.Free;
+    FFileStream := nil;
+  end;
+
+  if Assigned(FFileSendList) then
+  begin
+    FFileSendList.Free;
+    FFileSendList := nil;
+  end;
+
+  inherited;
+end;
+
+procedure TFileSendSharingContainer.RemoveFile(FileData: TFileTransferData);
+begin
+  if Assigned(FileData) then
+    FFileSendList.Remove(FileData);
+end;
+
+{$ENDREGION}
+
+{$REGION 'File Sharing'}
+
+constructor TFileSharing.Create;
+begin
+  inherited;
+
+  FFileName   := '';
+  FFileSize   := 0;
+  FOwnerIP    := '';
+  FFolderName := '';
+  FFilePath   := '';
+  FStream     := nil;
+end;
+
+destructor TFileSharing.Destroy;
+begin
+  if Assigned(FStream) then
+    FStream.Free;
+
+  inherited;
+end;
+
+{$ENDREGION}
 
 end.
