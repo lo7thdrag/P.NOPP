@@ -14151,8 +14151,8 @@ object frmAirBubbleMount: TfrmAirBubbleMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 241
+    Width = 41
+    Height = 290
     Caption = 'Air Bubble Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

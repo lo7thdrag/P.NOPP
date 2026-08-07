@@ -164,7 +164,7 @@ procedure TfrmGunOnBoardPickList.btnUpdateClick(Sender: TObject);
 begin
   if lbAllGunDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select Gun Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Gun ... !');
     Exit;
   end;
 
@@ -208,11 +208,11 @@ var
 begin
   if lbAllGunDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select Gun Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Gun ... !');
     Exit;
   end;
 
-  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+  warning := MessageDlg('Apakah anda akan menghapus data ini ?', mtConfirmation, mbOKCancel, 0);
 
   if warning = mrOK then
   begin
@@ -223,12 +223,12 @@ begin
       {Pengecekan Relasi Dengan Tabel On Board}
       if dmINWO.GetFittedWeaponAtVehicleOnBoard(5, Gun_Index, TempList ) then
       begin
-        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        ShowMessage('Data tidak bisa dihapus, karena sedang terhubung dengan data vehicle');
         Exit;
       end;
 
       if dmINWO.DeleteGunDef(Gun_Index) then
-        ShowMessage('Data has been deleted');
+        ShowMessage('Data telah berhasil dihapus');
 
       tempList.Free;
     end;

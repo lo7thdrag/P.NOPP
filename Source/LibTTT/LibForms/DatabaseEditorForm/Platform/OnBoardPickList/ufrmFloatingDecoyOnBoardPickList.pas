@@ -162,7 +162,7 @@ procedure TfrmFloatingDecoyOnBoardPickList.btnUpdateClick(Sender: TObject);
 begin
   if lbAllFloatingDecoyDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select FloatingDecoy Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Floating Decoy ... !');
     Exit;
   end;
 
@@ -206,11 +206,11 @@ var
 begin
   if lbAllFloatingDecoyDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select FloatingDecoy Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Floating Decoy ... !');
     Exit;
   end;
 
-  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+  warning := MessageDlg('Apakah anda akan menghapus data ini ?', mtConfirmation, mbOKCancel, 0);
 
   if warning = mrOK then
   begin
@@ -220,12 +220,12 @@ begin
       {Pengecekan Relasi Dengan Tabel On Board}
       if dmINWO.GetCountermeasure_On_Board_By_Index(1, Floating_Decoy_Index) then
       begin
-        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        ShowMessage('Data tidak bisa dihapus, karena sedang terhubung dengan data vehicle');
         Exit;
       end;
 
       if dmINWO.DeleteFloatingDecoyDef(Floating_Decoy_Index) then
-        ShowMessage('Data has been deleted');
+        ShowMessage('Data telah berhasil dihapus');
 
     end;
 

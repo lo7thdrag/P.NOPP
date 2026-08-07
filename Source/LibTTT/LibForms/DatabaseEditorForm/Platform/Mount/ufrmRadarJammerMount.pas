@@ -132,12 +132,12 @@ begin
     {Jika inputan baru}
     if FSelectedRadarJammer.FData.Jammer_Instance_Index = 0 then
     begin
-      ShowMessage('Duplicate Radar Jammer!' + Char(13) + 'Choose Radar Jammer to continue.');
+      ShowMessage('Mount Name sudah digunakan, silahkan gunakan Mount Name lain.');
       Exit;
     end
     else if LastName <> edtName.Text then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Mount Name sudah pernah digunakan, silahkan gunakan Mount Name lain');
       Exit;
     end;
   end;

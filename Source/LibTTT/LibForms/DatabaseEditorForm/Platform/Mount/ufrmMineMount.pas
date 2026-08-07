@@ -153,12 +153,12 @@ begin
     {Jika inputan baru}
     if FSelectedMine.FData.Fitted_Weap_Index = 0 then
     begin
-      ShowMessage('Duplicate mine mount!' + Char(13) + 'Choose different name to continue.');
+      ShowMessage('Mount Extension sudah digunakan, silahkan gunakan Mount Extension lain.');
       Exit;
     end
     else if LastName <> edtName.Text then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Mount Name sudah pernah digunakan, silahkan gunakan Mount Name lain');
       Exit;
     end;
   end;

@@ -14150,8 +14150,8 @@ object frmInfraredmount: TfrmInfraredmount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 208
+    Width = 41
+    Height = 244
     Caption = 'Infrared Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

@@ -14152,8 +14152,8 @@ object frmMineMount: TfrmMineMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 156
+    Width = 41
+    Height = 193
     Caption = 'Mine Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

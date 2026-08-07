@@ -14150,8 +14150,8 @@ object frmSonobuoyMount: TfrmSonobuoyMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 218
+    Width = 41
+    Height = 282
     Caption = 'Sonobuoy Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

@@ -163,7 +163,7 @@ procedure TfrmTowedJammerDecoyOnBoardPickList.btnUpdateClick(Sender: TObject);
 begin
   if lbAllTowedjammerDecoyDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select TowedjammerDecoy Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Towed Jammer Decoy ... !');
     Exit;
   end;
 
@@ -207,7 +207,7 @@ var
 begin
   if lbAllTowedjammerDecoyDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select TowedjammerDecoy Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Towed Jammer Decoy ... !');
     Exit;
   end;
 
@@ -221,12 +221,12 @@ begin
       {Pengecekan Relasi Dengan Tabel On Board}
       if dmINWO.GetCountermeasure_On_Board_By_Index(7, Towed_Decoy_Index) then
       begin
-        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        ShowMessage('Data tidak bisa dihapus, karena sedang terhubung dengan data vehicle');
         Exit;
       end;
 
       if dmINWO.DeleteTowedDecoyDef(Towed_Decoy_Index) then
-        ShowMessage('Data has been deleted');
+        ShowMessage('Data telah berhasil dihapus');
 
     end;
 

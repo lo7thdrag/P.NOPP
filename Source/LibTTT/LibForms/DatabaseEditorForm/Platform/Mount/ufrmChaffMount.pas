@@ -127,12 +127,12 @@ begin
     {Jika inputan baru}
     if FSelectedChaff.FData.Chaff_Instance_Index = 0 then
     begin
-      ShowMessage('Duplicate Chaff!' + Char(13) + 'Choose different Chaff to continue.');
+      ShowMessage('Mount Name sudah digunakan, silahkan gunakan Mount Name lain.');
       Exit;
     end
     else if LastName <> edtClassName.Caption then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Mount Name sudah digunakan, silahkan gunakan Mount Name lain');
       Exit;
     end;
   end;

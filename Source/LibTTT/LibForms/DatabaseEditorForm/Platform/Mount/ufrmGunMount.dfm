@@ -14151,8 +14151,8 @@ object frmGunMount: TfrmGunMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 146
+    Width = 41
+    Height = 183
     Caption = 'Gun Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

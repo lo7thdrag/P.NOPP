@@ -14152,8 +14152,8 @@ object frmMADMount: TfrmMADMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 150
+    Width = 41
+    Height = 193
     Caption = 'MAD Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

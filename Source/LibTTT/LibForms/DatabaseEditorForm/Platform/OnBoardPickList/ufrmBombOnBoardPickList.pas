@@ -163,7 +163,7 @@ procedure TfrmBombOnBoardPickList.btnUpdateClick(Sender: TObject);
 begin
   if lbAllBombDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select Bomb Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Bomb ... !');
     Exit;
   end;
 
@@ -207,11 +207,11 @@ var
 begin
   if lbAllBombDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select Radar Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Bomb ... !');
     Exit;
   end;
 
-  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+  warning := MessageDlg('Apakah anda akan menghapus data ini ?', mtConfirmation, mbOKCancel, 0);
 
   if warning = mrOK then
   begin
@@ -222,12 +222,12 @@ begin
       {Pengecekan Relasi Dengan Tabel On Board}
       if dmINWO.GetFittedWeaponAtVehicleOnBoard(5, Bomb_Index, tempList) then
       begin
-        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        ShowMessage('Data tidak bisa dihapus, karena sedang terhubung dengan data vehicle');
         Exit;
       end;
 
       if dmINWO.DeleteBombDef(Bomb_Index) then
-        ShowMessage('Data has been deleted');
+        ShowMessage('Data telah berhasil dihapus');
 
       tempList.Free;
     end;

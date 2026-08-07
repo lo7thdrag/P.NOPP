@@ -155,14 +155,24 @@ begin
     {Jika inputan baru}
     if FSelectedSonobuoy.FData.Sonobuoy_Instance_Index = 0 then
     begin
-      ShowMessage('Duplicate Sonobuoy mount!' + Char(13) + 'Choose different mount to continue.');
+      ShowMessage('Mount Extension sudah digunakan, silahkan gunakan Mount Extension lain.');
       Exit;
     end
     else if LastName <> edtName.Text then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Mount Name sudah pernah digunakan, silahkan gunakan Mount Name lain');
       Exit;
     end;
+  end;
+
+  {Jika tidak ada sonar yang sesuai dengan sonobuoy}
+  FSelectedSonobuoy.FData.Sonar_Instance_Index := dmINWO.GetSonarOnBoardIndexBySonobuoy(FSelectedVehicle.FData.VehicleIndex, FSelectedSonobuoy.FDef.Sonar_Index,
+  FSelectedSonobuoy.FData.Instance_Type);
+  if FSelectedSonobuoy.FData.Sonar_Instance_Index = 0 then
+  begin
+    {Jika inputan baru}
+    ShowMessage('Data tidak bisa ditambahkan, karena tidak ada tipe sonar yang sesuai dengan sonobuoy ini ');
+    Exit;
   end;
 
   Result := True;

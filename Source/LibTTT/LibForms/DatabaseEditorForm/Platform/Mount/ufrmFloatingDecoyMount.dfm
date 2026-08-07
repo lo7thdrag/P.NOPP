@@ -14150,8 +14150,8 @@ object frmFloatingDecoyMount: TfrmFloatingDecoyMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 289
+    Width = 41
+    Height = 362
     Caption = 'Floating Decoy Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

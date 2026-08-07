@@ -14150,8 +14150,8 @@ object frmEODMount: TfrmEODMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 147
+    Width = 41
+    Height = 189
     Caption = 'EOD Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

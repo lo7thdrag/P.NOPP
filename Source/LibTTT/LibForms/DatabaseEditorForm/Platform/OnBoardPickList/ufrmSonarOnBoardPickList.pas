@@ -165,7 +165,7 @@ procedure TfrmSonarOnBoardPickList.btnUpdateClick(Sender: TObject);
 begin
  if lbAllSonarDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select Sonar Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Sonar ... !');
     Exit;
   end;
 
@@ -208,11 +208,11 @@ var
 begin
   if lbAllSonarDef.ItemIndex = -1 then
   begin
-    ShowMessage('Select Sonar Data ... !');
+    ShowMessage('Silahkan pilih salah satu data Sonar ... !');
     Exit;
   end;
 
-  warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
+  warning := MessageDlg('Apakah anda akan menghapus data ini ?', mtConfirmation, mbOKCancel, 0);
 
   if warning = mrOK then
   begin
@@ -222,12 +222,12 @@ begin
       {Pengecekan Relasi Dengan Tabel On Board}
       if dmINWO.GetSensor_On_Board_By_Index(1, Sonar_Index) then
       begin
-        ShowMessage('Cannot delete, because is already in used by some vehicles');
+        ShowMessage('Data tidak bisa dihapus, karena sedang terhubung dengan data vehicle');
         Exit;
       end;
 
       if dmINWO.DeleteRadarDef(Sonar_Index) then
-        ShowMessage('Data has been deleted');
+        ShowMessage('Data telah berhasil dihapus');
 
     end;
 

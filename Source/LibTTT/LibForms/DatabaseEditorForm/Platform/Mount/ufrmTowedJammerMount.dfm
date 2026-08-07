@@ -14148,8 +14148,8 @@ object frmTowedJammerMount: TfrmTowedJammerMount
   object lblPlatform: TLabel
     Left = 3
     Top = 35
-    Width = 40
-    Height = 290
+    Width = 41
+    Height = 363
     Caption = 'Towed Jammer Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

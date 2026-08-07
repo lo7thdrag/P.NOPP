@@ -156,12 +156,12 @@ begin
     {Jika inputan baru}
     if FSelectedSonar.FData.Sonar_Instance_Index = 0 then
     begin
-      ShowMessage('Duplicate sonar mount!' + Char(13) + 'Choose different mount to continue.');
+      ShowMessage('Mount Extension sudah digunakan, silahkan gunakan Mount Extension lain.');
       Exit;
     end
     else if LastName <> edtName.Text then
     begin
-      ShowMessage('Please use another class name');
+      ShowMessage('Mount Name sudah pernah digunakan, silahkan gunakan Mount Name lain');
       Exit;
     end;
   end;

@@ -14151,8 +14151,8 @@ object frmMissileMount: TfrmMissileMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 190
+    Width = 41
+    Height = 230
     Caption = 'Missile Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET
@@ -14235,7 +14235,6 @@ object frmMissileMount: TfrmMissileMount
       TabWidth = 100
       object General: TTabSheet
         Caption = 'General'
-        ExplicitLeft = -3
         object lbl2: TLabel
           Left = 10
           Top = 8

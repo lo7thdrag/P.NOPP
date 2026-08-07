@@ -14150,8 +14150,8 @@ object frmTorpedoMount: TfrmTorpedoMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 199
+    Width = 41
+    Height = 249
     Caption = 'Torpedo Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

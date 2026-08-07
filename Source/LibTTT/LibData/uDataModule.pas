@@ -271,6 +271,8 @@ type
     function GetEODOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
     function GetSonobuoyOnBoardCount(const aVehicleID: Integer; const aIdentifier: string): Boolean;
 
+    function GetSonarOnBoardIndexBySonobuoy(Vid, aSonarID, aInstance_Type : Integer): Integer;
+
     function InsertRadarOnBoard(var aRec: TRecRadar_On_Board): Boolean;
     function InsertSonarOnBoard(var aRec: TRecSonar_On_Board): Boolean;
     function InsertESMOnBoard(var aRec: TRecESM_On_Board): Boolean;
@@ -7869,6 +7871,28 @@ begin
     Open;
 
     Result := RecordCount > 0;
+  end;
+end;
+
+function TdmINWO.GetSonarOnBoardIndexBySonobuoy(Vid, aSonarID, aInstance_Type : Integer): Integer;
+begin
+  Result := 0;
+
+  if not ZConn.Connected then
+    Exit;
+
+  with ZQ do
+  begin
+    Close;
+    SQL.Clear;
+    SQL.Add('SELECT *');
+    SQL.Add('FROM Sonar_On_Board');
+    SQL.Add('WHERE Vehicle_Index = ' + IntToStr(Vid));
+    SQL.Add('AND Sonar_Index = ' + IntToStr(aSonarID) );
+    SQL.Add('AND Instance_Type = ' + IntToStr(aInstance_Type) );
+    Open;
+
+    Result := FieldByName('Sonar_Instance_Index').AsInteger;
   end;
 end;
 

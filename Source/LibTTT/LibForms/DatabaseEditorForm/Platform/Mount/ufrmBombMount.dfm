@@ -14152,8 +14152,8 @@ object frmBombMount: TfrmBombMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 163
+    Width = 41
+    Height = 212
     Caption = 'Bomb Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

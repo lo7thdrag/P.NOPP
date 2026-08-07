@@ -14150,8 +14150,8 @@ object frmSonarMount: TfrmSonarMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 173
+    Width = 41
+    Height = 212
     Caption = 'Sonar Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

@@ -14150,8 +14150,8 @@ object frmVisualDetectorMount: TfrmVisualDetectorMount
   object lblPlatform: TLabel
     Left = 3
     Top = 24
-    Width = 40
-    Height = 311
+    Width = 41
+    Height = 366
     Caption = 'Visual Detector Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

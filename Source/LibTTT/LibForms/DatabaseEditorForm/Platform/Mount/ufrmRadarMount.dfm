@@ -14150,8 +14150,8 @@ object frmRadarMount: TfrmRadarMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 172
+    Width = 41
+    Height = 212
     Caption = 'Radar Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

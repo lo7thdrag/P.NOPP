@@ -14149,8 +14149,8 @@ object frmRadarJammerMount: TfrmRadarJammerMount
   object lblPlatform: TLabel
     Left = 3
     Top = 43
-    Width = 40
-    Height = 286
+    Width = 41
+    Height = 355
     Caption = 'Radar Jammer Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

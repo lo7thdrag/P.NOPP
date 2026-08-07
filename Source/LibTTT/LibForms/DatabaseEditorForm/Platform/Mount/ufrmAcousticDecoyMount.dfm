@@ -14152,8 +14152,8 @@ object frmAcousticDecoyMount: TfrmAcousticDecoyMount
   object lblPlatform: TLabel
     Left = 3
     Top = 60
-    Width = 40
-    Height = 296
+    Width = 41
+    Height = 373
     Caption = 'Acoustic Decoy Mount'
     Color = clBackground
     Font.Charset = ANSI_CHARSET

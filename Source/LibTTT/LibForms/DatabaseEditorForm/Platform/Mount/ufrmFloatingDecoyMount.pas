@@ -130,7 +130,7 @@ begin
     {Jika inputan baru}
     if FSelectedFloatingDecoy.FData.Floating_Decoy_Instance_Index = 0 then
     begin
-      ShowMessage('Duplicate Floating Decoy!' + Char(13) + 'Choose Floating Decoy to continue.');
+      ShowMessage('Mount Name sudah digunakan, silahkan gunakan Mount Name lain.');
       Exit;
     end;
   end;
