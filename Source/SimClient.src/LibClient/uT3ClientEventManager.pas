@@ -8,7 +8,7 @@ uses
 
   {Project Uses}
   uConstantaData, uT3Listener, uT3EventManager, uT3SimManager, uBaseCoordSystem, uDataTypes, uClassData, uRecordData,
-  ufrmSituationBoard, ufrmDisplayArea;
+  ufrmSituationBoard, ufrmDisplayArea, ufPopChat;
 
 type
   TT3ClientEventManager = class(TT3EventManager)
@@ -21,9 +21,14 @@ type
     procedure OnUpdateSituationBoardOverlayChange; override;
     procedure OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer); override;
     procedure OnUserRoleChatRead(IdUser : Integer); override;
-    procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string); override;
-    procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string); override;
-    procedure OnUpdateFileSharingChange(IdSender : Integer; IdReceiver : Integer; FileName : string); override;
+    procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); override;
+    procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); override;
+    procedure OnUpdateFileSharingChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); override;
+
+    // File Opened Notifikasi
+    procedure OnUpdateFileSyncOpened(IdSender, IdReceiver: Integer; FileName: string); override;
+    procedure OnUpdateFileTransferOpened(IdSender, IdReceiver: Integer; FileName: string); override;
+    procedure OnUpdateFileSharingOpened(IdSender, IdReceiver: Integer; FileName: string); override;
   end;
 
 implementation
@@ -33,28 +38,52 @@ uses
 
 { TT3ClientEventManager }
 
-procedure TT3ClientEventManager.OnUpdateFileSharingChange(IdSender, IdReceiver: Integer; FileName: string);
+procedure TT3ClientEventManager.OnUpdateFileSharingChange(IdSender, IdReceiver: Integer; FileName: string; FilePath: string);
 begin
   inherited;
 
   if Assigned(frmDisplayArea) then
-    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName)
+    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName,FilePath, fptFileSharing)
 end;
 
-procedure TT3ClientEventManager.OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string);
+procedure TT3ClientEventManager.OnUpdateFileSharingOpened(IdSender,IdReceiver: Integer; FileName: string);
+begin
+  inherited;
+
+  if Assigned(frmDisplayArea) then
+    frmDisplayArea.ShowFileReadNotify(IdSender,IdReceiver,FileName);
+end;
+
+procedure TT3ClientEventManager.OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string);
 begin
   inherited;
 
  if Assigned(frmDisplayArea) then
-    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName);
+    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName, FilePath, fptTelegram);
 end;
 
-procedure TT3ClientEventManager.OnUpdateFileTransferChange(IdSender,IdReceiver: Integer; FileName: string);
+procedure TT3ClientEventManager.OnUpdateFileSyncOpened(IdSender, IdReceiver: Integer; FileName: string);
 begin
   inherited;
 
   if Assigned(frmDisplayArea) then
-    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName)
+    frmDisplayArea.ShowFileReadNotify(IdSender,IdReceiver,FileName);
+end;
+
+procedure TT3ClientEventManager.OnUpdateFileTransferChange(IdSender,IdReceiver: Integer; FileName: string;FilePath: string);
+begin
+  inherited;
+
+  if Assigned(frmDisplayArea) then
+    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName, FilePath,fptToteDisplay)
+end;
+
+procedure TT3ClientEventManager.OnUpdateFileTransferOpened(IdSender, IdReceiver: Integer; FileName: string);
+begin
+  inherited;
+
+  if Assigned(frmDisplayArea) then
+    frmDisplayArea.ShowFileReadNotify(IdSender,IdReceiver,FileName);
 end;
 
 procedure TT3ClientEventManager.OnUpdateSituationBoardOverlayChange;

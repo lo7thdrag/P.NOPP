@@ -325,12 +325,13 @@ type
 
     procedure ShowChatPopupNotify(IdSender, IdReceiver: Integer);
     procedure ShowReadNotify(IdUser: Integer);
+    procedure ShowFileReadNotify(IdSender, IdReceiver: Integer; FileName: string);
 
     {$ENDREGION}
 
     {$REGION ' Telegram Procedure '}
     procedure TelegramClick(Sender: TObject);
-    procedure ShowFilePopupNotify(IdSender : Integer; IdReceiver : Integer; FileName : string);
+    procedure ShowFilePopupNotify(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath : string; AFilePopupType : TFilePopupType);
     {$ENDREGION}
 
     {$REGION ' Video Conference Procedure '}
@@ -2327,7 +2328,7 @@ begin
   if not Assigned(frmPopChat) then
     frmPopChat := TfrmPopChat.Create(Application);
 
-  frmPopChat.ShowMessagePopup(IdSender,SenderName,Msg,'',IdReceiver);
+  frmPopChat.ShowMessagePopup(IdSender,SenderName,Msg,'',IdReceiver,fptNone);
 
   trycnMessage.BalloonTitle := 'Chat Masuk';
   trycnMessage.BalloonHint  := SenderName + ': ' + Msg;
@@ -2335,23 +2336,24 @@ begin
   trycnMessage.ShowBalloonHint;
 end;
 
-procedure TfrmDisplayArea.ShowFilePopupNotify(IdSender : Integer; IdReceiver : Integer; FileName : string);
+procedure TfrmDisplayArea.ShowFilePopupNotify(IdSender: Integer; IdReceiver: Integer; FileName: string; FilePath: string;
+AFilePopupType: TFilePopupType);
 var
-  UserName : string;
-
+  UserName: string;
 begin
   {$REGION 'SENDER'}
-  if IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+  if (IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+     (IdSender <> IdReceiver) then
   begin
     UserName := GetUserNameById(IdReceiver);
 
     if not Assigned(frmPopChat) then
       frmPopChat := TfrmPopChat.Create(Application);
 
-    frmPopChat.ShowMessagePopup(IdReceiver,UserName,'File berhasil terkirim : ' + FileName,'',IdSender);
+    frmPopChat.ShowMessagePopup(IdReceiver, UserName, 'File berhasil terkirim : ' + FileName, '', IdSender, fptNone);
 
     trycnMessage.BalloonTitle := 'File Terkirim';
-    trycnMessage.BalloonHint  := 'Berhasil dikirim ke ' + UserName;
+    trycnMessage.BalloonHint := 'Berhasil dikirim ke ' + UserName;
     trycnMessage.BalloonFlags := bfInfo;
     trycnMessage.ShowBalloonHint;
   end;
@@ -2365,10 +2367,10 @@ begin
     if not Assigned(frmPopChat) then
       frmPopChat := TfrmPopChat.Create(Application);
 
-    frmPopChat.ShowMessagePopup(IdSender,UserName,'File masuk : ' + FileName,FilePath,IdReceiver);
+    frmPopChat.ShowMessagePopup(IdSender, UserName, 'File masuk : ' + FileName, FilePath, IdReceiver, AFilePopupType);
 
     trycnMessage.BalloonTitle := 'File Masuk';
-    trycnMessage.BalloonHint  := UserName + ': ' + FileName;
+    trycnMessage.BalloonHint := UserName + ': ' + FileName;
     trycnMessage.BalloonFlags := bfInfo;
     trycnMessage.ShowBalloonHint;
   end;
@@ -2389,7 +2391,27 @@ begin
   if not Assigned(frmPopChat) then
     frmPopChat := TfrmPopChat.Create(Application);
 
-  frmPopChat.ShowMessagePopup(IdUser,UserName,'telah membaca pesan Anda', '',simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex);
+  frmPopChat.ShowMessagePopup(IdUser,UserName,'telah membaca pesan Anda', '',simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex,fptNone);
+end;
+
+procedure TfrmDisplayArea.ShowFileReadNotify(IdSender, IdReceiver: Integer;FileName: string);
+var
+  UserName: string;
+begin
+  if IdReceiver <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+    Exit;
+
+  UserName := GetUserNameById(IdSender);
+
+  trycnMessage.BalloonTitle := 'File Dibaca';
+  trycnMessage.BalloonHint  := UserName + ' telah membuka file ' + FileName;
+  trycnMessage.BalloonFlags := bfInfo;
+  trycnMessage.ShowBalloonHint;
+
+  if not Assigned(frmPopChat) then
+    frmPopChat := TfrmPopChat.Create(Application);
+
+  frmPopChat.ShowMessagePopup(IdSender, UserName,'telah membuka file ' + FileName,'', IdReceiver,fptNone);
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);

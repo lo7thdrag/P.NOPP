@@ -20,9 +20,14 @@ type
     procedure OnUpdateSituationBoardOverlayChange; virtual;
     procedure OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer); virtual;
     procedure OnUserRoleChatRead(IdUser : Integer); virtual;
-    procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string); virtual;
-    procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string); virtual;
-    procedure OnUpdateFileSharingChange(IdSender : Integer; IdReceiver : Integer; FileName : string); virtual;
+    procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); virtual;
+    procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); virtual;
+    procedure OnUpdateFileSharingChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); virtual;
+
+    // File Opened Notifikasi
+    procedure OnUpdateFileSyncOpened(IdSender, IdReceiver: Integer; FileName: string); virtual;
+    procedure OnUpdateFileTransferOpened(IdSender, IdReceiver: Integer; FileName: string); virtual;
+    procedure OnUpdateFileSharingOpened(IdSender, IdReceiver: Integer; FileName: string); virtual;
   end;
 
 implementation
@@ -33,17 +38,32 @@ uses
 
 { TT3EventManager }
 
-procedure TT3EventManager.OnUpdateFileSharingChange(IdSender, IdReceiver: Integer; FileName: string);
+procedure TT3EventManager.OnUpdateFileSharingChange(IdSender, IdReceiver: Integer; FileName: string; FilePath: string);
 begin
 
 end;
 
-procedure TT3EventManager.OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string);
+procedure TT3EventManager.OnUpdateFileSharingOpened(IdSender,IdReceiver: Integer; FileName: string);
 begin
 
 end;
 
-procedure TT3EventManager.OnUpdateFileTransferChange(IdSender,IdReceiver: Integer; FileName: string);
+procedure TT3EventManager.OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateFileSyncOpened(IdSender, IdReceiver: Integer; FileName: string);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateFileTransferChange(IdSender,IdReceiver: Integer; FileName: string; FilePath: string);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateFileTransferOpened(IdSender,IdReceiver: Integer; FileName: string);
 begin
 
 end;

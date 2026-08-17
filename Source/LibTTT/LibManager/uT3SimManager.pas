@@ -103,6 +103,7 @@ var
 
 implementation
 
+
 { TT3SimManager }
 
 constructor TT3SimManager.Create(Map : TMap);
@@ -308,7 +309,7 @@ begin
       FS := TFileStream.Create(FilePath, fmCreate);
       FS.Free;
 
-      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
+      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName, FilePath);
     end;
 
     SEND_FILE_TRANSFER_DATA:
@@ -330,12 +331,12 @@ begin
 
     SEND_FILE_TRANSFER_FINISH:
     begin
-      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName);
+      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName, FilePath);
     end;
 
     SEND_FILE_TRANSFER_OPENED:
     begin
-      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+      EventManager.OnUpdateFileTransferOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
     end;
   end;
 end;
@@ -355,7 +356,7 @@ begin
       FS := TFileStream.Create(FilePath, fmCreate);
       FS.Free;
 
-      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
+      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName, FilePath);
     end;
 
     SEND_FILE_SHARING_DATA:
@@ -377,12 +378,12 @@ begin
 
     SEND_FILE_SHARING_FINISH:
     begin
-      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName);
+      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName, FilePath);
     end;
 
     SEND_FILE_SHARING_OPENED:
     begin
-      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+      EventManager.OnUpdateFileSharingOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
     end;
   end;
 end;
@@ -411,7 +412,7 @@ begin
       FS := TFileStream.Create(FilePath, fmCreate);
       FS.Free;
 
-      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName);
+      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName,FilePath);
     end;
 
     SEND_FILE_DATA :
@@ -434,12 +435,12 @@ begin
 
     SEND_FILE_FINISH :
     begin
-      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
+      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName,FilePath);
     end;
 
     SEND_FILE_OPENED :
     begin
-      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
+      EventManager.OnUpdateFileSyncOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
     end;
   end;
 end;

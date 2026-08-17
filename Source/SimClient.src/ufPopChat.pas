@@ -9,6 +9,8 @@ uses
   uSimMgr_Client, uT3SimManager, uRecordData;
 
 type
+  TFilePopupType = (fptNone, fptTelegram, fptToteDisplay, fptFileSharing);
+
   TfrmPopChat = class(TForm)
     Panel1: TPanel;
     lblSender: TLabel;
@@ -23,7 +25,10 @@ type
     FSenderID, FReceiverID : Integer;
     FIsFileTransfer        : Boolean;
   public
-    procedure ShowMessagePopup(IdSender : Integer; const SenderName, Msg: string; const AFileName: string;IdReceiver : Integer);
+    FFilePopupType : TFilePopupType;
+
+    procedure ShowMessagePopup(IdSender : Integer; const SenderName, Msg: string; const AFileName: string;
+              IdReceiver : Integer; AFilePopupType : TFilePopupType);
   end;
 
 var
@@ -39,7 +44,9 @@ uses
 
 procedure TfrmPopChat.btnOpenClick(Sender: TObject);
 var
-  rec : TRecTCPFileTransfer;
+  recTransfer : TRecTCPFileTransfer;
+  recSharing  : TRecTCPFileSharing;
+  recSync     : TRecTCPFileSync;
 begin
   if not FIsFileTransfer then
     Exit;
@@ -50,16 +57,48 @@ begin
     Exit;
   end;
 
+  ShellExecute(0, 'open', PChar(FFileName), nil, nil, SW_SHOWNORMAL);
 
-  ShellExecute(0, 'open', PChar(FFileName), nil, nil,SW_SHOWNORMAL);
-  FillChar(rec, SizeOf(rec), 0);
+  case FFilePopupType of
 
-  rec.OrderID            := SEND_FILE_TRANSFER_OPENED;
-  rec.FileName           := ExtractFileName(FFileName);
-  rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-  rec.ReceiverUserRoleId := FSenderID;
+    fptTelegram:
+    begin
+      FillChar(recSync, SizeOf(recSync), 0);
 
-  simMgrClient.netSend_CmdFileTransferToteDisplay(rec);
+      recSync.OrderID            := SEND_FILE_OPENED;
+      recSync.FileName           := ExtractFileName(FFileName);
+      recSync.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+      recSync.ReceiverUserRoleId := FSenderID;
+
+      simMgrClient.netSend_CmdFileSendTelegram(recSync);
+    end;
+
+    fptToteDisplay:
+    begin
+      FillChar(recTransfer, SizeOf(recTransfer), 0);
+
+      recTransfer.OrderID            := SEND_FILE_TRANSFER_OPENED;
+      recTransfer.FileName           := ExtractFileName(FFileName);
+      recTransfer.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+      recTransfer.ReceiverUserRoleId := FSenderID;
+
+      simMgrClient.netSend_CmdFileTransferToteDisplay(recTransfer);
+    end;
+
+    fptFileSharing:
+    begin
+      FillChar(recSharing, SizeOf(recSharing), 0);
+
+      recSharing.OrderID            := SEND_FILE_SHARING_OPENED;
+      recSharing.FileName           := ExtractFileName(FFileName);
+      recSharing.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+      recSharing.ReceiverUserRoleId := FSenderID;
+
+      simMgrClient.netSend_CmdFileSharing(recSharing);
+    end;
+
+  end;
+
   Close;
 end;
 
@@ -69,7 +108,7 @@ begin
 end;
 
 procedure TfrmPopChat.ShowMessagePopup(IdSender : Integer; const SenderName, Msg: string; const AFileName: string;
-IdReceiver : Integer);
+IdReceiver : Integer; AFilePopupType : TFilePopupType);
 const
   MARGIN_RIGHT  = 30;
   MARGIN_BOTTOM = 30;
@@ -77,9 +116,11 @@ begin
   lblSender.Caption  := SenderName;
   lblMessage.Caption := Msg;
 
-  FFileName := AFileName;
-  FSenderID := IdSender;
+  FFileName   := AFileName;
+  FSenderID  := IdSender;
   FReceiverID := IdReceiver;
+
+  FFilePopupType := AFilePopupType;
 
   FIsFileTransfer := AFileName <> '';
 
@@ -91,7 +132,10 @@ begin
   Show;
   BringToFront;
 
-  Timer1.Enabled := True;
+  if not FIsFileTransfer then
+    Timer1.Enabled := True
+  else
+    Timer1.Enabled := False;
 end;
 
 procedure TfrmPopChat.Timer1Timer(Sender: TObject);
