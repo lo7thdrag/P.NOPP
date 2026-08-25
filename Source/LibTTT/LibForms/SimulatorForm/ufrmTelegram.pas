@@ -182,6 +182,12 @@ var
   rec         : TRecTCPFileSync;
   FS          : TFileStream;
   BufferSize  : Integer;
+
+  TotalSent   : Int64;
+  ChunkNo     : Integer;
+  FileSize    : Int64;
+
+  ReceiverID  : Integer;
 begin
   if cbbxTo.ItemIndex = -1 then
   begin
@@ -195,9 +201,10 @@ begin
     Exit;
   end;
 
+  ReceiverID      := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]).FData.UserRoleIndex;
   DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
-  SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim +
-                     '\' + DateTimeNowTemp;
+  SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + cbbxTo.Text + '\' + DateTimeNowTemp;
+
   ForceDirectories(SentPath);
 
   for i := 0 to High(pathFileArray) do
@@ -206,9 +213,13 @@ begin
       Continue;
 
     try
-      FillChar(rec, SizeOf(rec),0);
+      TotalSent := 0;
+      ChunkNo := 0;
+      FileSize := 0;
 
-      {$REGION 'SEND INFO'}
+      {$REGION 'Send File Info'}
+      FillChar(rec, SizeOf(rec), 0);
+
       rec.OrderID    := SEND_FILE_INFO;
       rec.FileName   := fileNameArray[i];
       rec.FolderName := DateTimeNowTemp;
@@ -217,36 +228,44 @@ begin
       FS := TFileStream.Create(pathFileArray[i], fmOpenRead or fmShareDenyNone);
 
       try
-        rec.FileSize := FS.Size;
+        FileSize := FS.Size;
+        rec.FileSize := FileSize;
       finally
         FS.Free;
       end;
 
       rec.SenderIP           := simMgrClient.MyConsoleData.UserRoleData.ConsoleIP;
       rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-      rec.ReceiverUserRoleId := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]).FData.UserRoleIndex;
+      rec.ReceiverUserRoleId := ReceiverID;
 
       simMgrClient.netSend_CmdFileSendTelegram(rec);
 
+      FS := TFileStream.Create(pathFileArray[i],fmOpenRead or fmShareDenyNone);
       {$ENDREGION}
 
-      {$REGION 'SEND DATA'}
-      FS := TFileStream.Create(pathFileArray[i], fmOpenRead or fmShareDenyNone);
-
+      {$REGION 'Send File Data'}
       try
         while FS.Position < FS.Size do
         begin
-          FillChar(rec.Data,SizeOf(rec.Data), 0);
+          FillChar(rec.Data, SizeOf(rec.Data), 0);
+
           BufferSize := FS.Read(rec.Data, SizeOf(rec.Data));
 
-          rec.OrderID            := SEND_FILE_DATA;
-          rec.FileName           := fileNameArray[i];
-          rec.FolderName         := DateTimeNowTemp;
-          rec.SenderName         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
-          rec.Position           := FS.Position - BufferSize;
-          rec.DataSize           := BufferSize;
+          if BufferSize <= 0 then
+            Break;
+
+          Inc(ChunkNo);
+          Inc(TotalSent, BufferSize);
+
+          rec.OrderID    := SEND_FILE_DATA;
+          rec.FileName   := fileNameArray[i];
+          rec.FolderName := DateTimeNowTemp;
+          rec.SenderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+          rec.Position   := FS.Position - BufferSize;
+          rec.DataSize   := BufferSize;
+
           rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-          rec.ReceiverUserRoleId := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]).FData.UserRoleIndex;
+          rec.ReceiverUserRoleId := ReceiverID;
 
           simMgrClient.netSend_CmdFileSendTelegram(rec);
         end;
@@ -256,28 +275,38 @@ begin
       end;
       {$ENDREGION}
 
-      {$REGION 'SEND FINISH'}
-      FillChar(rec.Data, SizeOf(rec.Data), 0);
+      if TotalSent <> FileSize then
+      begin
+        ShowMessage('File tidak selesai dibaca!' + #13#10 + 'File : ' + fileNameArray[i] + #13#10 + 'File Size  : ' + IntToStr(FileSize) + ' byte' + #13#10 +
+          'Total Sent : ' + IntToStr(TotalSent) + ' byte' + #13#10 + 'Chunk  : ' + IntToStr(ChunkNo));
 
-      rec.OrderID    := SEND_FILE_FINISH;
-      rec.FileName   := fileNameArray[i];
-      rec.FolderName := DateTimeNowTemp;
-      rec.SenderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+        Continue;
+      end;
+
+      {$REGION 'Send Finish'}
+      FillChar(rec, SizeOf(rec), 0);
+
+      rec.OrderID            := SEND_FILE_FINISH;
+      rec.FileName           := fileNameArray[i];
+      rec.FolderName         := DateTimeNowTemp;
+      rec.SenderName         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+      rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+      rec.ReceiverUserRoleId := ReceiverID;
 
       simMgrClient.netSend_CmdFileSendTelegram(rec);
 
       CopyFile(PChar(pathFileArray[i]), PChar(IncludeTrailingPathDelimiter(SentPath) + fileNameArray[i]), False);
       {$ENDREGION}
-
     except
-      on E:Exception do
+      on E: Exception do
       begin
-        ShowMessage('Error send file:'#13#10 + fileNameArray[i] + #13#10 + E.Message);
+        ShowMessage('Error send file:' + #13#10 + fileNameArray[i] + #13#10 + E.Message);
       end;
     end;
   end;
 
   btnClosePanelSendTelegramClick(Sender);
+
   ShowMessage('Telegram successfully sent!');
 end;
 

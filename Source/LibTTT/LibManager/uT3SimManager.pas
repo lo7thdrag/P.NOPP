@@ -297,46 +297,67 @@ procedure TT3SimManager.OnFileFileTransferChange(const rec: TRecTCPFileTransfer)
 var
   FilePath : string;
   FS       : TFileStream;
-
 begin
   case rec.OrderID of
     SEND_FILE_TRANSFER_INFO:
     begin
-      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + '\' + rec.FolderName + '\' + rec.FileName;
+      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
 
       ForceDirectories(ExtractFileDir(FilePath));
 
-      FS := TFileStream.Create(FilePath, fmCreate);
-      FS.Free;
+      FS := TFileStream.Create(FilePath,fmCreate);
 
-      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName, FilePath);
+      try
+        { File dibuat kosong }
+      finally
+        FS.Free;
+      end;
     end;
 
     SEND_FILE_TRANSFER_DATA:
     begin
-      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + '\' + rec.FolderName + '\' + rec.FileName;
+      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
 
-      if FileExists(FilePath) then
-      begin
-        FS := TFileStream.Create(FilePath,fmOpenWrite or fmShareDenyNone);
+      if not FileExists(FilePath) then
+        Exit;
 
-        try
-          FS.Position := rec.Position;
-          FS.WriteBuffer(rec.Data, rec.DataSize);
-        finally
-          FS.Free;
-        end;
+      FS := TFileStream.Create(FilePath, fmOpenReadWrite or fmShareDenyNone);
+
+      try
+        FS.Position := rec.Position;
+
+        FS.WriteBuffer(rec.Data,rec.DataSize);
+      finally
+        FS.Free;
       end;
     end;
 
     SEND_FILE_TRANSFER_FINISH:
     begin
-      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName, FilePath);
+      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
+
+      if FileExists(FilePath) then
+      begin
+        FS := TFileStream.Create(FilePath, fmOpenRead or fmShareDenyNone);
+
+        try
+          ShowMessage('FILE TRANSFER FINISH' + #13#10 + 'File : ' + rec.FileName + #13#10 + 'Actual : ' + IntToStr(FS.Size) +
+                      ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
+        finally
+          FS.Free;
+        end;
+      end
+      else
+      begin
+        ShowMessage('File tidak ditemukan:' + #13#10 + FilePath);
+      end;
+
+      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, FilePath);
     end;
 
     SEND_FILE_TRANSFER_OPENED:
     begin
-      EventManager.OnUpdateFileTransferOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+      EventManager.OnUpdateFileTransferOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
     end;
   end;
 end;
@@ -346,44 +367,72 @@ var
   FilePath : string;
   FS       : TFileStream;
 begin
+
   case rec.OrderID of
     SEND_FILE_SHARING_INFO:
     begin
-      FilePath := vGameDataSetting.LocalDirectory + '\File Sharing\' + '\' + rec.FolderName + '\' + rec.FileName;
+      FilePath := vGameDataSetting.LocalDirectory + '\File Sharing\' + rec.FolderName + '\' + rec.FileName;
 
       ForceDirectories(ExtractFileDir(FilePath));
 
-      FS := TFileStream.Create(FilePath, fmCreate);
-      FS.Free;
+      FS := TFileStream.Create(FilePath,fmCreate);
 
-      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName, FilePath);
+      try
+        { File baru = ukuran 0 }
+      finally
+        FS.Free;
+      end;
+
     end;
 
     SEND_FILE_SHARING_DATA:
     begin
-      FilePath := vGameDataSetting.LocalDirectory + '\File Sharing\' + '\' + rec.FolderName + '\' + rec.FileName;
+      FilePath := vGameDataSetting.LocalDirectory + '\File Sharing\' + rec.FolderName + '\' + rec.FileName;
 
-      if FileExists(FilePath) then
-      begin
-        FS := TFileStream.Create(FilePath,fmOpenWrite or fmShareDenyNone);
+      if not FileExists(FilePath) then
+        Exit;
 
-        try
-          FS.Position := rec.Position;
-          FS.WriteBuffer(rec.Data, rec.DataSize);
-        finally
-          FS.Free;
-        end;
+      FS := TFileStream.Create(FilePath, fmOpenReadWrite or fmShareDenyNone);
+
+      try
+        FS.Position := rec.Position;
+
+        FS.WriteBuffer(rec.Data, rec.DataSize);
+
+      finally
+        FS.Free;
       end;
+
     end;
 
     SEND_FILE_SHARING_FINISH:
     begin
-      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName, FilePath);
+      FilePath := vGameDataSetting.LocalDirectory +'\File Sharing\' + rec.FolderName + '\' + rec.FileName;
+
+      {$REGION 'Debug ukuran file receiver'}
+      if FileExists(FilePath) then
+      begin
+        FS := TFileStream.Create(FilePath,fmOpenRead or fmShareDenyNone);
+
+        try
+          ShowMessage('FILE SHARING FINISH' + #13#10 + 'File : ' + rec.FileName + #13#10 + 'Actual : ' + IntToStr(FS.Size) +
+            ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
+        finally
+          FS.Free;
+        end;
+      end
+      else
+      begin
+        ShowMessage('File tidak ditemukan:' + #13#10 + FilePath);
+      end;
+      {$ENDREGION}
+
+      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName,FilePath);
     end;
 
     SEND_FILE_SHARING_OPENED:
     begin
-      EventManager.OnUpdateFileSharingOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+      EventManager.OnUpdateFileSharingOpened(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName);
     end;
   end;
 end;
@@ -411,9 +460,8 @@ begin
 
       FS := TFileStream.Create(FilePath, fmCreate);
       FS.Free;
-
-      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName,FilePath);
     end;
+
 
     SEND_FILE_DATA :
     begin
@@ -429,13 +477,19 @@ begin
         finally
           FS.Free;
         end;
+      end
+      else
+      begin
+        ShowMessage('FILE TIDAK ADA SAAT DATA DITERIMA!' + #13#10 + 'File: ' + FilePath + #13#10 + 'Position: ' + IntToStr(rec.Position) + #13#10 +
+                  'DataSize: ' + IntToStr(rec.DataSize));
       end;
     end;
 
-
     SEND_FILE_FINISH :
     begin
-      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName,FilePath);
+      FilePath := vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.SenderName + '\' + rec.FolderName + '\' + rec.FileName;
+
+      EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, FilePath);
     end;
 
     SEND_FILE_OPENED :

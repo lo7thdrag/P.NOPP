@@ -57,6 +57,9 @@ begin
     Exit;
   end;
 
+  ShowMessage('OPEN DEBUG' + #13#10 + 'File = ' + FFileName + #13#10 + 'PopupType = ' + IntToStr(Ord(FFilePopupType)) + #13#10 +
+    'SenderID = ' + IntToStr(FSenderID) + #13#10 + 'ReceiverID = ' + IntToStr(FReceiverID));
+
   ShellExecute(0, 'open', PChar(FFileName), nil, nil, SW_SHOWNORMAL);
 
   case FFilePopupType of
@@ -113,6 +116,8 @@ const
   MARGIN_RIGHT  = 30;
   MARGIN_BOTTOM = 30;
 begin
+  ShowMessage('DEBUG POPUP' + #13#10 + 'AFileName = ' + AFileName + #13#10 + 'FilePopupType = ' + IntToStr(Ord(AFilePopupType)));
+
   lblSender.Caption  := SenderName;
   lblMessage.Caption := Msg;
 
