@@ -280,22 +280,22 @@ var
 begin
   cbbxShareTo.Items.Clear;
 
-//  for i := 0 to SimManager.SimUserRole.UserList.Count - 1 do
-//  begin
-//    userRoleTemp := simMgrClient.SimUserRole.UserList[i];
-//    if Assigned(userRoleTemp) then
-//    begin
-//      if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
-//      begin
-//        cbbxShareTo.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
-//      end;
-//    end;
-//  end;
+  for i := 0 to SimManager.SimUserRole.UserList.Count - 1 do
+  begin
+    userRoleTemp := simMgrClient.SimUserRole.UserList[i];
+    if Assigned(userRoleTemp) then
+    begin
+      if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
+      begin
+        cbbxShareTo.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
+      end;
+    end;
+  end;
 
   // Testing
-  {$REGION 'Testing chat diri sendiri'}
-    cbbxShareTo.Items.AddObject('[SELF TEST] ' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim, simMgrClient.MyConsoleData.UserRoleData);
-  {$ENDREGION}
+//  {$REGION 'Testing chat diri sendiri'}
+//    cbbxShareTo.Items.AddObject('[SELF TEST] ' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim, simMgrClient.MyConsoleData.UserRoleData);
+//  {$ENDREGION}
 end;
 
 end.
