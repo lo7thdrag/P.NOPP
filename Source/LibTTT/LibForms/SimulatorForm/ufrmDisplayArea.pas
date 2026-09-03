@@ -565,6 +565,11 @@ var
   localFileTemp : String;
 
 begin
+  if not Assigned(FSelectedFileBeranda) then
+  begin
+    ShowMessage('Please select an item.');
+    Exit;
+  end;
   if Assigned(FSelectedFileBeranda) then
   begin
     SelectDirectory('Select a directory', vGameDataSetting.LocalDirectory, localDirTemp);
@@ -630,6 +635,12 @@ var
   serverDirTemp : String;
 
 begin
+  if not Assigned(FSelectedFileBeranda) then
+  begin
+    ShowMessage('Please select an item.');
+    Exit;
+  end;
+
   warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
 
   if warning = mrOK then
@@ -800,6 +811,11 @@ procedure TfrmDisplayArea.btnDeleteAssetClick(Sender: TObject);
 var
   warning : Integer;
 begin
+  if not Assigned(FSelectedAsset) then
+  begin
+    ShowMessage('Please select an item.');
+    Exit;
+  end;
   if lvAsset.ItemIndex <> -1 then
   begin
     warning := MessageDlg('Are you sure to delete this item?', mtConfirmation, mbOKCancel, 0);
@@ -850,6 +866,11 @@ end;
 
 procedure TfrmDisplayArea.btnEditAssetClick(Sender: TObject);
 begin
+  if not Assigned(FSelectedAsset) then
+  begin
+    ShowMessage('Please select an item.');
+    Exit;
+  end;
   if lvAsset.ItemIndex <> -1 then
   begin
     if not Assigned(frmAsset) then
