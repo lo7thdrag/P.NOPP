@@ -28,6 +28,7 @@ type
     btnPan: TToolButton;
     ImageList1: TImageList;
     btnout: TToolButton;
+    btnLayerTool: TToolButton;
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -39,6 +40,7 @@ type
     procedure btnZoomClick(Sender: TObject);
     procedure btnPanClick(Sender: TObject);
     procedure btnoutclick(Sender: TObject);
+    procedure btnLayerToolClick(Sender: TObject);
 
   private
     FSelectedGameArea : TGame_Area_Definition;
@@ -96,9 +98,24 @@ begin
   cbSetScaleChange(cbSetScale);
 end;
 
+procedure TfrmMapPreview.btnLayerToolClick(Sender: TObject);
+var
+  vHelpFile, vHelpID : OleVariant;
+begin
+  if btnLayerTool.ImageIndex = 16 then
+  begin
+    btnLayerTool.ImageIndex := 15;
+    try
+      ENCMap.Layers.LayersDlg(vHelpFile, vHelpID);
+    finally
+      btnLayerTool.ImageIndex := 16;
+    end;
+  end;
+end;
+
 procedure TfrmMapPreview.btnoutclick(Sender: TObject);
 begin
-    btnZoom.Down := False;
+   btnZoom.Down := False;
 
   btnout.Down := not btnout.Down;
   btnPan.Down := false;
