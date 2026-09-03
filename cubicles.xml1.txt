@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<ppkmgroups>
+
+    <instructor id="Instructor" name="Instructor Group">
+        <console ip="192.168.1.10" name="Instruktur ATWO"></console>
+        <console ip="192.168.1.20" name="Instruktur NTWO"></console>
+    </instructor>
+
+    <SituationBoard id="Controller" name="SituationBoard Group">
+        <console ip="192.168.1.243" name="Papan Situasi ATWO 1"></console>
+        <console ip="192.168.1.244" name="Papan Situasi ATWO 2"></console>
+        <console ip="192.168.1.245" name="Papan Situasi NTWO 1"></console>
+        <console ip="192.168.1.246" name="Papan Situasi NTWO 2"></console>
+    </controllers>
+
+    <officer id="Officer" name="Officer Group">
+        <console ip="192.168.1.11" name="Official ATWO 1"></console>
+        <console ip="192.168.1.12" name="Official ATWO 2"></console>
+        <console ip="192.168.1.13" name="Official ATWO 3"></console>
+        <console ip="192.168.1.14" name="Official ATWO 4"></console>
+        <console ip="192.168.1.15" name="Official ATWO 5"></console>
+        <console ip="192.168.1.16" name="Official ATWO 6"></console>
+        <console ip="192.168.1.17" name="Official ATWO 7"></console>
+        <console ip="192.168.1.18" name="Official ATWO 8"></console>
+        <console ip="192.168.1.19" name="Official ATWO 9"></console>
+        <console ip="192.168.1.21" name="Official NTWO 1"></console>
+        <console ip="192.168.1.22" name="Official NTWO 2"></console>
+        <console ip="192.168.1.23" name="Official NTWO 3"></console>
+        <console ip="192.168.1.24" name="Official NTWO 4"></console>
+        <console ip="192.168.1.25" name="Official NTWO 5"></console>
+        <console ip="192.168.1.26" name="Official NTWO 6"></console>
+        <console ip="192.168.1.27" name="Official NTWO 7"></console>
+        <console ip="192.168.1.28" name="Official NTWO 8"></console>
+        <console ip="192.168.1.29" name="Official NTWO 9"></console>
+        <console ip="192.168.1.241" name="Wasdal ATWO"></console>
+        <console ip="192.168.1.242" name="Wasdal NTWO"></console>
+    </officer>
+
+</ppkmgroups>
