@@ -2,9 +2,9 @@ object frmMainGameServer: TfrmMainGameServer
   Left = 700
   Top = 0
   Anchors = [akTop, akRight]
-  BorderIcons = []
+  BorderIcons = [biSystemMenu]
   ClientHeight = 874
-  ClientWidth = 742
+  ClientWidth = 735
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -19,21 +19,21 @@ object frmMainGameServer: TfrmMainGameServer
   object pnlHeader: TPanel
     Left = 0
     Top = 0
-    Width = 742
+    Width = 735
     Height = 87
     Align = alTop
     BevelOuter = bvNone
     Caption = 'pnlHeader'
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 752
+    ExplicitWidth = 742
     DesignSize = (
-      742
+      735
       87)
     object imgHeaderBackground: TImage
       Left = 0
       Top = 0
-      Width = 742
+      Width = 735
       Height = 87
       Align = alClient
       Picture.Data = {
@@ -1196,7 +1196,7 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
     object btnLock: TImage
-      Left = 686
+      Left = 679
       Top = 18
       Width = 35
       Height = 35
@@ -1263,9 +1263,10 @@ object frmMainGameServer: TfrmMainGameServer
         79DCC08E680000000049454E44AE426082}
       Stretch = True
       OnClick = btnLockClick
+      ExplicitLeft = 686
     end
     object btnUnlock: TImage
-      Left = 645
+      Left = 638
       Top = 18
       Width = 35
       Height = 35
@@ -1333,6 +1334,7 @@ object frmMainGameServer: TfrmMainGameServer
         4E44AE426082}
       Stretch = True
       OnClick = btnUnlockClick
+      ExplicitLeft = 645
     end
     object lblGameTime: TLabel
       Left = 415
@@ -1376,10 +1378,9 @@ object frmMainGameServer: TfrmMainGameServer
   end
   object lvConsole: TListView
     Left = 0
-    Top = 87
-    Width = 742
+    Top = 121
+    Width = 737
     Height = 787
-    Align = alClient
     BevelInner = bvNone
     BevelOuter = bvNone
     BorderStyle = bsNone
@@ -1421,10 +1422,400 @@ object frmMainGameServer: TfrmMainGameServer
     TabOrder = 1
     ViewStyle = vsReport
   end
+  object lvConsoleNTWO: TListView
+    Left = 0
+    Top = 121
+    Width = 737
+    Height = 787
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 5918252
+    Columns = <
+      item
+        Caption = 'Console Name'
+        Width = 190
+      end
+      item
+        Caption = 'IP Address'
+        Width = 120
+      end
+      item
+        Caption = 'State'
+      end
+      item
+        Caption = 'User Role'
+        Width = 200
+      end
+      item
+        Caption = 'Operation'
+        Width = 170
+      end>
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Berlin Sans FB'
+    Font.Style = []
+    HideSelection = False
+    ReadOnly = True
+    RowSelect = True
+    ParentFont = False
+    StateImages = ilClientStateColor
+    TabOrder = 2
+    ViewStyle = vsReport
+  end
+  object lvConsoleATWO: TListView
+    Left = 0
+    Top = 121
+    Width = 737
+    Height = 787
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 5918252
+    Columns = <
+      item
+        Caption = 'Console Name'
+        Width = 190
+      end
+      item
+        Caption = 'IP Address'
+        Width = 120
+      end
+      item
+        Caption = 'State'
+      end
+      item
+        Caption = 'User Role'
+        Width = 200
+      end
+      item
+        Caption = 'Operation'
+        Width = 170
+      end>
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Berlin Sans FB'
+    Font.Style = []
+    HideSelection = False
+    ReadOnly = True
+    RowSelect = True
+    ParentFont = False
+    StateImages = ilClientStateColor
+    TabOrder = 3
+    ViewStyle = vsReport
+  end
+  object lvConsoleALWO: TListView
+    Left = 0
+    Top = 121
+    Width = 737
+    Height = 787
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 5918252
+    Columns = <
+      item
+        Caption = 'Console Name'
+        Width = 190
+      end
+      item
+        Caption = 'IP Address'
+        Width = 120
+      end
+      item
+        Caption = 'State'
+      end
+      item
+        Caption = 'User Role'
+        Width = 200
+      end
+      item
+        Caption = 'Operation'
+        Width = 170
+      end>
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Berlin Sans FB'
+    Font.Style = []
+    HideSelection = False
+    ReadOnly = True
+    RowSelect = True
+    ParentFont = False
+    StateImages = ilClientStateColor
+    TabOrder = 4
+    ViewStyle = vsReport
+  end
+  object lvConsoleCDWO: TListView
+    Left = 0
+    Top = 121
+    Width = 737
+    Height = 787
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 5918252
+    Columns = <
+      item
+        Caption = 'Console Name'
+        Width = 190
+      end
+      item
+        Caption = 'IP Address'
+        Width = 120
+      end
+      item
+        Caption = 'State'
+      end
+      item
+        Caption = 'User Role'
+        Width = 200
+      end
+      item
+        Caption = 'Operation'
+        Width = 170
+      end>
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Berlin Sans FB'
+    Font.Style = []
+    HideSelection = False
+    ReadOnly = True
+    RowSelect = True
+    ParentFont = False
+    StateImages = ilClientStateColor
+    TabOrder = 5
+    ViewStyle = vsReport
+  end
+  object lvConsoleLFWO: TListView
+    Left = 0
+    Top = 121
+    Width = 737
+    Height = 787
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 5918252
+    Columns = <
+      item
+        Caption = 'Console Name'
+        Width = 190
+      end
+      item
+        Caption = 'IP Address'
+        Width = 120
+      end
+      item
+        Caption = 'State'
+      end
+      item
+        Caption = 'User Role'
+        Width = 200
+      end
+      item
+        Caption = 'Operation'
+        Width = 170
+      end>
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Berlin Sans FB'
+    Font.Style = []
+    HideSelection = False
+    ReadOnly = True
+    RowSelect = True
+    ParentFont = False
+    StateImages = ilClientStateColor
+    TabOrder = 6
+    ViewStyle = vsReport
+  end
+  object lvConsoleSUWO: TListView
+    Left = 0
+    Top = 121
+    Width = 737
+    Height = 787
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 5918252
+    Columns = <
+      item
+        Caption = 'Console Name'
+        Width = 190
+      end
+      item
+        Caption = 'IP Address'
+        Width = 120
+      end
+      item
+        Caption = 'State'
+      end
+      item
+        Caption = 'User Role'
+        Width = 200
+      end
+      item
+        Caption = 'Operation'
+        Width = 170
+      end>
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Berlin Sans FB'
+    Font.Style = []
+    HideSelection = False
+    ReadOnly = True
+    RowSelect = True
+    ParentFont = False
+    StateImages = ilClientStateColor
+    TabOrder = 7
+    ViewStyle = vsReport
+  end
+  object pnlPilihan: TPanel
+    Left = 0
+    Top = 87
+    Width = 1920
+    Height = 34
+    BevelOuter = bvNone
+    Color = 2235405
+    ParentBackground = False
+    TabOrder = 8
+    object pnlINWO: TPanel
+      Left = 0
+      Top = 0
+      Width = 105
+      Height = 34
+      Align = alLeft
+      Caption = 'INWO'
+      Color = 3550487
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clAqua
+      Font.Height = -19
+      Font.Name = 'Deusex'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 0
+      OnClick = PilihanClick
+      ExplicitLeft = 896
+      ExplicitHeight = 32
+    end
+    object pnlNTWO: TPanel
+      Left = 105
+      Top = 0
+      Width = 105
+      Height = 34
+      Align = alLeft
+      Caption = 'NTWO'
+      Color = 1512202
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clAqua
+      Font.Height = -19
+      Font.Name = 'Deusex'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 1
+      OnClick = PilihanClick
+    end
+    object pnlATWO: TPanel
+      Left = 210
+      Top = 0
+      Width = 105
+      Height = 34
+      Align = alLeft
+      Caption = 'ATWO'
+      Color = 1512202
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clAqua
+      Font.Height = -19
+      Font.Name = 'Deusex'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 2
+      OnClick = PilihanClick
+    end
+    object pnlALWO: TPanel
+      Left = 315
+      Top = 0
+      Width = 105
+      Height = 34
+      Align = alLeft
+      Caption = 'ALWO'
+      Color = 1512202
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clAqua
+      Font.Height = -19
+      Font.Name = 'Deusex'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 3
+      OnClick = PilihanClick
+    end
+    object pnlCDWO: TPanel
+      Left = 420
+      Top = 0
+      Width = 105
+      Height = 34
+      Align = alLeft
+      Caption = 'CDWO'
+      Color = 1512202
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clAqua
+      Font.Height = -19
+      Font.Name = 'Deusex'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 4
+      OnClick = PilihanClick
+    end
+    object pnlLFWO: TPanel
+      Left = 525
+      Top = 0
+      Width = 105
+      Height = 34
+      Align = alLeft
+      Caption = 'LFWO'
+      Color = 1512202
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clAqua
+      Font.Height = -19
+      Font.Name = 'Deusex'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 5
+      OnClick = PilihanClick
+    end
+    object pnlSUWO: TPanel
+      Left = 630
+      Top = 0
+      Width = 105
+      Height = 34
+      Align = alLeft
+      Caption = 'SUWO'
+      Color = 1512202
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clAqua
+      Font.Height = -19
+      Font.Name = 'Deusex'
+      Font.Style = []
+      ParentBackground = False
+      ParentFont = False
+      TabOrder = 6
+      OnClick = PilihanClick
+    end
+  end
   object ilClientStateColor: TImageList
     ShareImages = True
-    Left = 3
-    Top = 696
+    Left = 99
+    Top = 600
     Bitmap = {
       494C010102009803040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000001000000001002000000000000010
