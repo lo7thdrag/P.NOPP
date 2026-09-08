@@ -28,7 +28,7 @@
 
 
   <officer id="Officer" name="Officer Group">   
-    <console ip="172.20.10.3" name="INWO PROGRAMMER"></console> 
+    <console ip="192.168.123.11" name="INWO PROGRAMMER"></console> 
     <console ip="192.168.1.11" name="INWO OFFICIAL 1"></console>  
     <console ip="192.168.1.12" name="INWO OFFICIAL 2"></console>
     <console ip="192.168.1.13" name="INWO OFFICIAL 3"></console>
