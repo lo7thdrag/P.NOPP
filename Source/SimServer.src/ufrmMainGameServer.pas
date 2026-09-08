@@ -360,50 +360,6 @@ var
 
   targetLV : TListView;
 begin
-  {$REGION ' LAMA '}
-//  lvConsole.Items.Clear;
-//
-//  for i := 0 to simMgrServer.SimConsole.ConsoleList.Count-1 do
-//  begin
-//    consoleInfoTemp := TConsoleInfo(simMgrServer.SimConsole.ConsoleList.Objects[i]);
-//
-//    li := lvConsole.Items.Add;
-//    li.Caption := consoleInfoTemp.ConsoleName;
-//    li.SubItems.Add(consoleInfoTemp.IPAddress);
-//
-//    if consoleInfoTemp.State then
-//    begin
-//      li.SubItems.Add('✔');
-//      li.StateIndex := 1;
-//    end
-//    else
-//    begin
-//      li.SubItems.Add('❌');
-//      li.StateIndex := 0;
-//    end;
-//
-//    userRoleTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
-//
-//    if Assigned(userRoleTemp) then
-//    begin
-//      if userRoleTemp.isInUse then
-//      begin
-//        li.SubItems.Add(userRoleTemp.FData.UserRoleAcronim);
-//
-//        subRoleTemp := SimManager.SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
-//        li.SubItems.Add(subRoleTemp.FData.SubRoleAcronim);
-//      end
-//      else
-//      begin
-//        li.SubItems.Add('');
-//        li.SubItems.Add('');
-//      end;
-//    end;
-//    li.Data := consoleInfoTemp;
-//  end;
-  {$ENDREGION}
-
-  {$REGION ' BARU '}
   lvConsole.Items.Clear;
   lvConsoleNTWO.Items.Clear;
   lvConsoleATWO.Items.Clear;
@@ -420,10 +376,9 @@ begin
   lvConsoleLFWO.SortType := stText;
   lvConsoleSUWO.SortType := stText;
 
-  for i := 0 to simMgrServer.SimConsole.ConsoleList.Count - 1 do
+  for i := 0 to simMgrServer.SimConsole.ConsoleList.Count-1 do
   begin
     consoleInfoTemp := TConsoleInfo(simMgrServer.SimConsole.ConsoleList.Objects[i]);
-
     targetLV := GetTargetListView(consoleInfoTemp.ConsoleName);
 
     if not Assigned(targetLV) then Continue;
@@ -444,25 +399,23 @@ begin
 
     userRoleTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
 
-    if Assigned(userRoleTemp) and userRoleTemp.isInUse then
+    if Assigned(userRoleTemp) then
     begin
-      li.SubItems.Add(userRoleTemp.FData.UserRoleAcronim);
+      if userRoleTemp.isInUse then
+      begin
+        li.SubItems.Add(userRoleTemp.FData.UserRoleAcronim);
 
-      subRoleTemp := SimManager.SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
-      if Assigned(subRoleTemp) then
-        li.SubItems.Add(subRoleTemp.FData.SubRoleAcronim)
+        subRoleTemp := SimManager.SimSubRole.getSubRoleByID(userRoleTemp.FData.SubRoleIndex);
+        li.SubItems.Add(subRoleTemp.FData.SubRoleAcronim);
+      end
       else
+      begin
         li.SubItems.Add('');
-    end
-    else
-    begin
-      li.SubItems.Add('');
-      li.SubItems.Add('');
+        li.SubItems.Add('');
+      end;
     end;
-
     li.Data := consoleInfoTemp;
   end;
-  {$ENDREGION}
 end;
 
 procedure TfrmMainGameServer.UpdateEventBuffer;

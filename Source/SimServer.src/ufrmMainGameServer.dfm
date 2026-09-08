@@ -26,7 +26,6 @@ object frmMainGameServer: TfrmMainGameServer
     Caption = 'pnlHeader'
     ShowCaption = False
     TabOrder = 0
-    ExplicitWidth = 742
     DesignSize = (
       735
       87)
@@ -1376,52 +1375,6 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
     end
   end
-  object lvConsole: TListView
-    Left = 0
-    Top = 121
-    Width = 737
-    Height = 787
-    BevelInner = bvNone
-    BevelOuter = bvNone
-    BorderStyle = bsNone
-    Color = 5918252
-    Columns = <
-      item
-        Caption = 'Console Name'
-        Width = 190
-      end
-      item
-        Alignment = taCenter
-        Caption = 'IP Address'
-        Width = 120
-      end
-      item
-        Alignment = taCenter
-        Caption = 'State'
-      end
-      item
-        Alignment = taCenter
-        Caption = 'User Role'
-        Width = 200
-      end
-      item
-        Alignment = taCenter
-        Caption = 'Operation'
-        Width = 170
-      end>
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWhite
-    Font.Height = -15
-    Font.Name = 'Berlin Sans FB'
-    Font.Style = []
-    HideSelection = False
-    ReadOnly = True
-    RowSelect = True
-    ParentFont = False
-    StateImages = ilClientStateColor
-    TabOrder = 1
-    ViewStyle = vsReport
-  end
   object lvConsoleNTWO: TListView
     Left = 0
     Top = 121
@@ -1504,48 +1457,6 @@ object frmMainGameServer: TfrmMainGameServer
     ParentFont = False
     StateImages = ilClientStateColor
     TabOrder = 3
-    ViewStyle = vsReport
-  end
-  object lvConsoleALWO: TListView
-    Left = 0
-    Top = 121
-    Width = 737
-    Height = 787
-    BevelInner = bvNone
-    BevelOuter = bvNone
-    BorderStyle = bsNone
-    Color = 5918252
-    Columns = <
-      item
-        Caption = 'Console Name'
-        Width = 190
-      end
-      item
-        Caption = 'IP Address'
-        Width = 120
-      end
-      item
-        Caption = 'State'
-      end
-      item
-        Caption = 'User Role'
-        Width = 200
-      end
-      item
-        Caption = 'Operation'
-        Width = 170
-      end>
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWhite
-    Font.Height = -15
-    Font.Name = 'Berlin Sans FB'
-    Font.Style = []
-    HideSelection = False
-    ReadOnly = True
-    RowSelect = True
-    ParentFont = False
-    StateImages = ilClientStateColor
-    TabOrder = 4
     ViewStyle = vsReport
   end
   object lvConsoleCDWO: TListView
@@ -1700,8 +1611,6 @@ object frmMainGameServer: TfrmMainGameServer
       ParentFont = False
       TabOrder = 0
       OnClick = PilihanClick
-      ExplicitLeft = 896
-      ExplicitHeight = 32
     end
     object pnlNTWO: TPanel
       Left = 105
@@ -1811,6 +1720,94 @@ object frmMainGameServer: TfrmMainGameServer
       TabOrder = 6
       OnClick = PilihanClick
     end
+  end
+  object lvConsoleALWO: TListView
+    Left = 0
+    Top = 121
+    Width = 737
+    Height = 787
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 5918252
+    Columns = <
+      item
+        Caption = 'Console Name'
+        Width = 190
+      end
+      item
+        Caption = 'IP Address'
+        Width = 120
+      end
+      item
+        Caption = 'State'
+      end
+      item
+        Caption = 'User Role'
+        Width = 200
+      end
+      item
+        Caption = 'Operation'
+        Width = 170
+      end>
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Berlin Sans FB'
+    Font.Style = []
+    HideSelection = False
+    ReadOnly = True
+    RowSelect = True
+    ParentFont = False
+    StateImages = ilClientStateColor
+    TabOrder = 4
+    ViewStyle = vsReport
+  end
+  object lvConsole: TListView
+    Left = 0
+    Top = 121
+    Width = 737
+    Height = 787
+    BevelInner = bvNone
+    BevelOuter = bvNone
+    BorderStyle = bsNone
+    Color = 5918252
+    Columns = <
+      item
+        Caption = 'Console Name'
+        Width = 190
+      end
+      item
+        Alignment = taCenter
+        Caption = 'IP Address'
+        Width = 120
+      end
+      item
+        Alignment = taCenter
+        Caption = 'State'
+      end
+      item
+        Alignment = taCenter
+        Caption = 'User Role'
+        Width = 200
+      end
+      item
+        Alignment = taCenter
+        Caption = 'Operation'
+        Width = 170
+      end>
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWhite
+    Font.Height = -15
+    Font.Name = 'Berlin Sans FB'
+    Font.Style = []
+    HideSelection = False
+    ReadOnly = True
+    RowSelect = True
+    ParentFont = False
+    StateImages = ilClientStateColor
+    TabOrder = 1
+    ViewStyle = vsReport
   end
   object ilClientStateColor: TImageList
     ShareImages = True
