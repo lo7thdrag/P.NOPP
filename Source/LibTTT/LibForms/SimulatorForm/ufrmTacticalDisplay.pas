@@ -85,6 +85,7 @@ type
 //    FTimerbutton : Integer;
     FSelectedSubRole : TSubRole;
     FselectedUserRole : TUserRole;
+    FIsLoadData : Boolean;
 
     procedure AddCbbSubRole(tipeTahapan : Integer);
     procedure AddUserRoleLogin(SubRoleId : integer);
@@ -158,6 +159,7 @@ end;
 
 procedure TfrmTacticalDisplay.btnConnectClick(Sender: TObject);
 begin
+  FIsLoadData := False;
   simMgrClient.CekGameState;
 
 //  FTimerbutton := 0;
@@ -311,6 +313,7 @@ var
   rec : TRecTCP_Reconnect;
 
 begin
+  FIsLoadData := True;
   if SimManager.GetGameState then
   begin
     rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
@@ -606,6 +609,8 @@ begin
   end
   else if pbLoadSystem.Position = 50 then
   begin
+    rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
+    simMgrClient.netSend_CmdReconnect(rec);
     if SimManager.GetGameState then
     begin
       rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
@@ -643,10 +648,20 @@ begin
         pnlLogo.Visible := False;
       end;
 
-      btnPlanning.Visible := SimManager.GetGameState;
-      btnPreparation.Visible := SimManager.GetGameState;
-      btnImplementation.Visible := SimManager.GetGameState;
-      btnTermination.Visible := SimManager.GetGameState;
+      if FIsLoadData then
+      begin
+        btnPlanning.Visible := SimManager.GetGameState;
+        btnPreparation.Visible := SimManager.GetGameState;
+        btnImplementation.Visible := SimManager.GetGameState;
+        btnTermination.Visible := SimManager.GetGameState;
+      end
+      else
+      begin
+        btnPlanning.Visible := False;
+        btnPreparation.Visible := False;
+        btnImplementation.Visible := False;
+        btnTermination.Visible := False;
+      end;
     end;
   end;
 

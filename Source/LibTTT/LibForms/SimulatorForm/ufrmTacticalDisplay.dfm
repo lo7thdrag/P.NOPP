@@ -9571,8 +9571,8 @@ object frmTacticalDisplay: TfrmTacticalDisplay
           object Label3: TLabel
             Left = 156
             Top = 1020
-            Width = 250
-            Height = 24
+            Width = 209
+            Height = 23
             Anchors = [akLeft, akBottom]
             Caption = 'powered by prince achmad'
             Color = clBackground
@@ -19790,8 +19790,8 @@ object frmTacticalDisplay: TfrmTacticalDisplay
           object Label7: TLabel
             Left = 128
             Top = 410
-            Width = 158
-            Height = 27
+            Width = 132
+            Height = 26
             Cursor = crHandPoint
             Caption = 'Console Name'
             Color = clBackground
@@ -19849,8 +19849,8 @@ object frmTacticalDisplay: TfrmTacticalDisplay
           object Label1: TLabel
             Left = 156
             Top = 1020
-            Width = 250
-            Height = 24
+            Width = 209
+            Height = 23
             Anchors = [akLeft, akBottom]
             Caption = 'powered by prince achmad'
             Color = clBackground
@@ -30068,8 +30068,8 @@ object frmTacticalDisplay: TfrmTacticalDisplay
           object lblGameArea: TLabel
             Left = 128
             Top = 503
-            Width = 103
-            Height = 27
+            Width = 90
+            Height = 26
             Cursor = crHandPoint
             Caption = 'password'
             Color = clBackground
@@ -30085,8 +30085,8 @@ object frmTacticalDisplay: TfrmTacticalDisplay
           object lblPlatform: TLabel
             Left = 128
             Top = 410
-            Width = 114
-            Height = 27
+            Width = 98
+            Height = 26
             Cursor = crHandPoint
             Caption = 'user name'
             Color = clBackground
