@@ -11,25 +11,9 @@ uses
 type
 
   TfrmMainGameServer = class(TForm)
-    pnlHeader: TPanel;
-    Label4: TLabel;
-    lbl: TLabel;
-    Label5: TLabel;
-    lblSession: TLabel;
     lvConsole: TListView;
     ilClientStateColor: TImageList;
-    Label3: TLabel;
-    Label6: TLabel;
-    lblAppState: TLabel;
-    imgHeaderBackground: TImage;
-    Label1: TLabel;
-    lblTime: TLabel;
     Timer1: TTimer;
-    btnLock: TImage;
-    btnUnlock: TImage;
-    lblGameTime: TLabel;
-    Label2: TLabel;
-    Label7: TLabel;
     lvConsoleNTWO: TListView;
     lvConsoleATWO: TListView;
     lvConsoleALWO: TListView;
@@ -37,19 +21,51 @@ type
     lvConsoleLFWO: TListView;
     lvConsoleSUWO: TListView;
     pnlPilihan: TPanel;
-    pnlINWO: TPanel;
-    pnlNTWO: TPanel;
-    pnlATWO: TPanel;
-    pnlALWO: TPanel;
-    pnlCDWO: TPanel;
-    pnlLFWO: TPanel;
-    pnlSUWO: TPanel;
+    imgMainBackground: TImage;
+    img1: TImage;
+    Label5: TLabel;
+    Label3: TLabel;
+    lblSession: TLabel;
+    Image1: TImage;
+    btnLock: TImage;
+    btnUnlock: TImage;
+    Label4: TLabel;
+    Label6: TLabel;
+    lblAppState: TLabel;
+    lbl: TLabel;
+    Label1: TLabel;
+    lblTime: TLabel;
+    Image2: TImage;
+    Image3: TImage;
+    Label2: TLabel;
+    Label7: TLabel;
+    lblGameTime: TLabel;
+    imgINWO: TImage;
+    imgATWO: TImage;
+    imgNTWO: TImage;
+    imgALWO: TImage;
+    imgCDWO: TImage;
+    imgLFWO: TImage;
+    imgSUWO: TImage;
+    imgClose: TImage;
+    imgMiniMaze: TImage;
+    Image4: TImage;
     procedure btnLockClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure Timer1Timer(Sender: TObject);
     procedure btnUnlockClick(Sender: TObject);
-    procedure PilihanClick(Sender: TObject);
+    procedure lvConsoleCustomDrawItem(Sender: TCustomListView; Item: TListItem;
+      State: TCustomDrawState; var DefaultDraw: Boolean);
+    procedure imgCloseClick(Sender: TObject);
+    procedure imgINWOClick(Sender: TObject);
+    procedure imgATWOClick(Sender: TObject);
+    procedure imgNTWOClick(Sender: TObject);
+    procedure imgALWOClick(Sender: TObject);
+    procedure imgCDWOClick(Sender: TObject);
+    procedure imgLFWOClick(Sender: TObject);
+    procedure imgSUWOClick(Sender: TObject);
+    procedure imgMiniMazeClick(Sender: TObject);
 
 
   private
@@ -113,181 +129,156 @@ begin
     Result := lvConsoleSUWO;
 end;
 
-procedure TfrmMainGameServer.PilihanClick(Sender: TObject);
-var
-  PanelTag: integer;
-  Panel: Tpanel;
+procedure TfrmMainGameServer.imgALWOClick(Sender: TObject);
 begin
-  panel := Sender as Tpanel;
-  PanelTag := panel.Tag;
-
-  if panel = pnlINWO then
+  if Sender = imgALWO then
   begin
-    if PanelTag = 0 then
-    begin
-      pnlINWO.Color := RGB(23, 45, 54);
-      lvConsole.BringToFront;
-
-      pnlINWO.Tag := 1;
-      pnlNTWO.Tag := 0;
-      pnlATWO.Tag := 0;
-      pnlALWO.Tag := 0;
-      pnlCDWO.Tag := 0;
-      pnlLFWO.Tag := 0;
-      pnlSUWO.Tag := 0;
-
-      pnlNTWO.Color := RGB(10, 19, 23);
-      pnlATWO.Color := RGB(10, 19, 23);
-      pnlALWO.Color := RGB(10, 19, 23);
-      pnlCDWO.Color := RGB(10, 19, 23);
-      pnlLFWO.Color := RGB(10, 19, 23);
-      pnlSUWO.Color := RGB(10, 19, 23);
-    end;
-  end
-
-  else if panel = pnlNTWO then
-  begin
-    if PanelTag = 0 then
-    begin
-      pnlNTWO.Color := RGB(23, 45, 54);
-      lvConsoleNTWO.BringToFront;
-
-      pnlNTWO.Tag := 1;
-      pnlINWO.Tag := 0;
-      pnlATWO.Tag := 0;
-      pnlALWO.Tag := 0;
-      pnlCDWO.Tag := 0;
-      pnlLFWO.Tag := 0;
-      pnlSUWO.Tag := 0;
-
-      pnlINWO.Color := RGB(10, 19, 23);
-      pnlATWO.Color := RGB(10, 19, 23);
-      pnlALWO.Color := RGB(10, 19, 23);
-      pnlCDWO.Color := RGB(10, 19, 23);
-      pnlLFWO.Color := RGB(10, 19, 23);
-      pnlSUWO.Color := RGB(10, 19, 23);
-    end;
-  end
-
-  else if panel = pnlATWO then
-  begin
-    if PanelTag = 0 then
-    begin
-      pnlATWO.Color := RGB(23, 45, 54);
-      lvConsoleATWO.BringToFront;
-
-      pnlATWO.Tag := 1;
-      pnlINWO.Tag := 0;
-      pnlNTWO.Tag := 0;
-      pnlALWO.Tag := 0;
-      pnlCDWO.Tag := 0;
-      pnlLFWO.Tag := 0;
-      pnlSUWO.Tag := 0;
-
-      pnlINWO.Color := RGB(10, 19, 23);
-      pnlNTWO.Color := RGB(10, 19, 23);
-      pnlALWO.Color := RGB(10, 19, 23);
-      pnlCDWO.Color := RGB(10, 19, 23);
-      pnlLFWO.Color := RGB(10, 19, 23);
-      pnlSUWO.Color := RGB(10, 19, 23);
-    end;
-  end
-
-  else if panel = pnlALWO then
-  begin
-    if PanelTag = 0 then
-    begin
-      pnlALWO.Color := RGB(23, 45, 54);
-      lvConsoleALWO.BringToFront;
-
-      pnlALWO.Tag := 1;
-      pnlINWO.Tag := 0;
-      pnlNTWO.Tag := 0;
-      pnlATWO.Tag := 0;
-      pnlCDWO.Tag := 0;
-      pnlLFWO.Tag := 0;
-      pnlSUWO.Tag := 0;
-
-      pnlINWO.Color := RGB(10, 19, 23);
-      pnlNTWO.Color := RGB(10, 19, 23);
-      pnlATWO.Color := RGB(10, 19, 23);
-      pnlCDWO.Color := RGB(10, 19, 23);
-      pnlLFWO.Color := RGB(10, 19, 23);
-      pnlSUWO.Color := RGB(10, 19, 23);
-    end;
-  end
-
-  else if panel = pnlCDWO then
-  begin
-    if PanelTag = 0 then
-    begin
-      pnlCDWO.Color := RGB(23, 45, 54);
-      lvConsoleCDWO.BringToFront;
-
-      pnlCDWO.Tag := 1;
-      pnlINWO.Tag := 0;
-      pnlNTWO.Tag := 0;
-      pnlATWO.Tag := 0;
-      pnlALWO.Tag := 0;
-      pnlLFWO.Tag := 0;
-      pnlSUWO.Tag := 0;
-
-      pnlINWO.Color := RGB(10, 19, 23);
-      pnlNTWO.Color := RGB(10, 19, 23);
-      pnlATWO.Color := RGB(10, 19, 23);
-      pnlALWO.Color := RGB(10, 19, 23);
-      pnlLFWO.Color := RGB(10, 19, 23);
-      pnlSUWO.Color := RGB(10, 19, 23);
-    end;
-  end
-
-  else if panel = pnlLFWO then
-  begin
-    if PanelTag = 0 then
-    begin
-      pnlLFWO.Color := RGB(23, 45, 54);
-      lvConsoleLFWO.BringToFront;
-
-      pnlLFWO.Tag := 1;
-      pnlINWO.Tag := 0;
-      pnlNTWO.Tag := 0;
-      pnlATWO.Tag := 0;
-      pnlALWO.Tag := 0;
-      pnlCDWO.Tag := 0;
-      pnlSUWO.Tag := 0;
-
-      pnlINWO.Color := RGB(10, 19, 23);
-      pnlNTWO.Color := RGB(10, 19, 23);
-      pnlATWO.Color := RGB(10, 19, 23);
-      pnlALWO.Color := RGB(10, 19, 23);
-      pnlCDWO.Color := RGB(10, 19, 23);
-      pnlSUWO.Color := RGB(10, 19, 23);
-    end;
-  end
-
-  else if panel = pnlSUWO then
-  begin
-    if PanelTag = 0 then
-    begin
-      pnlSUWO.Color := RGB(23, 45, 54);
-      lvConsoleSUWO.BringToFront;
-
-      pnlSUWO.Tag := 1;
-      pnlINWO.Tag := 0;
-      pnlNTWO.Tag := 0;
-      pnlATWO.Tag := 0;
-      pnlALWO.Tag := 0;
-      pnlCDWO.Tag := 0;
-      pnlLFWO.Tag := 0;
-
-      pnlINWO.Color := RGB(10, 19, 23);
-      pnlNTWO.Color := RGB(10, 19, 23);
-      pnlATWO.Color := RGB(10, 19, 23);
-      pnlALWO.Color := RGB(10, 19, 23);
-      pnlCDWO.Color := RGB(10, 19, 23);
-      pnlLFWO.Color := RGB(10, 19, 23);
-    end;
+    imgALWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\alwo2.bmp');
   end;
+  try
+    imgINWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\inwo.bmp');
+    imgATWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\atwo.bmp');
+    imgNTWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\ntwo.bmp');
+    imgCDWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\cdwo.bmp');
+    imgLFWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\lfwo.bmp');
+    imgSUWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\suwo.bmp');
+    lvConsoleALWO.BringToFront;
+  finally
+
+  end;
+end;
+
+procedure TfrmMainGameServer.imgATWOClick(Sender: TObject);
+begin
+  if Sender = imgATWO then
+  begin
+    imgATWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\atwo2.bmp');
+  end;
+  try
+    imgINWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\inwo.bmp');
+    imgNTWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\ntwo.bmp');
+    imgALWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\alwo.bmp');
+    imgCDWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\cdwo.bmp');
+    imgLFWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\lfwo.bmp');
+    imgSUWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\suwo.bmp');
+    lvConsoleATWO.BringToFront;
+  finally
+
+  end;
+end;
+
+procedure TfrmMainGameServer.imgCDWOClick(Sender: TObject);
+begin
+  if Sender = imgCDWO then
+  begin
+    imgCDWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\cdwo2.bmp');
+  end;
+  try
+    imgINWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\inwo.bmp');
+    imgATWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\atwo.bmp');
+    imgNTWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\ntwo.bmp');
+    imgALWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\alwo.bmp');
+    imgLFWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\lfwo.bmp');
+    imgSUWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\suwo.bmp');
+    lvConsoleCDWO.BringToFront;
+  finally
+
+  end;
+end;
+
+procedure TfrmMainGameServer.imgCloseClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmMainGameServer.imgINWOClick(Sender: TObject);
+begin
+  if Sender = imgInwo then
+  begin
+    imgInwo.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\inwo2.bmp');
+  end;
+  try
+    imgATWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\atwo.bmp');
+    imgNTWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\ntwo.bmp');
+    imgALWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\alwo.bmp');
+    imgCDWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\cdwo.bmp');
+    imgLFWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\lfwo.bmp');
+    imgSUWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\suwo.bmp');
+    lvConsole.BringToFront;
+  finally
+
+  end;
+end;
+
+procedure TfrmMainGameServer.imgLFWOClick(Sender: TObject);
+begin
+  if Sender = imgLFWO then
+  begin
+    imgLFWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\lfwo2.bmp');
+  end;
+  try
+    imgINWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\inwo.bmp');
+    imgATWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\atwo.bmp');
+    imgNTWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\ntwo.bmp');
+    imgALWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\alwo.bmp');
+    imgCDWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\cdwo.bmp');
+    imgSUWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\suwo.bmp');
+    lvConsoleLFWO.BringToFront;
+  finally
+
+  end;
+end;
+
+procedure TfrmMainGameServer.imgMiniMazeClick(Sender: TObject);
+begin
+  Application.Minimize;
+end;
+
+procedure TfrmMainGameServer.imgNTWOClick(Sender: TObject);
+begin
+  if Sender = imgNTWO then
+  begin
+    imgNTWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\ntwo2.bmp');
+  end;
+  try
+    imgINWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\inwo.bmp');
+    imgATWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\atwo.bmp');
+    imgALWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\alwo.bmp');
+    imgCDWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\cdwo.bmp');
+    imgLFWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\lfwo.bmp');
+    imgSUWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\suwo.bmp');
+    lvConsoleNTWO.BringToFront;
+  finally
+
+  end;
+end;
+
+procedure TfrmMainGameServer.imgSUWOClick(Sender: TObject);
+begin
+  if Sender = imgSUWO then
+  begin
+    imgSUWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\suwo2.bmp');
+  end;
+  try
+    imgINWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\inwo.bmp');
+    imgATWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\atwo.bmp');
+    imgNTWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\ntwo.bmp');
+    imgALWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\alwo.bmp');
+    imgCDWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\cdwo.bmp');
+    imgLFWO.Picture.LoadFromFile('data\Image Session Server\sesion_server (1)\lfwo.bmp');
+    lvConsoleSUWO.BringToFront;
+  finally
+
+  end;
+end;
+
+procedure TfrmMainGameServer.lvConsoleCustomDrawItem(Sender: TCustomListView;
+  Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
+begin
+  if Item.Index mod 2 = 0 then
+    Sender.Canvas.Brush.Color := RGB(1, 12, 30)   // Baris Genap
+  else
+    Sender.Canvas.Brush.Color := RGB(18, 32, 50);
 end;
 
 procedure TfrmMainGameServer.btnLockClick(Sender: TObject);
@@ -456,10 +447,12 @@ begin
   if SimManager.GetGameState then
   begin
     lblAppState.Caption := 'Running';
+    lblAppState.Font.Color   := clLime;
   end
   else
   begin
     lblAppState.Caption := 'Lock';
+    lblAppState.Font.Color   := clRed;
   end;
 end;
 
