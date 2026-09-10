@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, System.IOUtils, Winapi.ShellAPI, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Buttons, OleCtrls, MapXLib_TLB, ExtCtrls, ComCtrls,
   uLibSetting, System.ImageList, Vcl.ImgList, uRecordData, uClassData,
-  Vcl.Imaging.jpeg, Vcl.Imaging.pngimage{, ShellApi} ;
+  Vcl.Imaging.jpeg, Vcl.Imaging.pngimage{, ShellApi}, ShLwApi;
 
 type
 
@@ -66,6 +66,10 @@ type
     procedure imgLFWOClick(Sender: TObject);
     procedure imgSUWOClick(Sender: TObject);
     procedure imgMiniMazeClick(Sender: TObject);
+    procedure imgMainBackgroundMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure lvConsoleCompare(Sender: TObject; Item1, Item2: TListItem;
+      Data: Integer; var Compare: Integer);
 
 
   private
@@ -229,6 +233,22 @@ begin
   end;
 end;
 
+procedure TfrmMainGameServer.imgMainBackgroundMouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
+const
+  {F012 nilai kombinasi dari delphi untuk move}
+  {F012 dari SC_MOVE ($F010) + HTCAPTION ($0002)}
+  SC_DRAGMOVE = $F012;
+begin
+  if Button = mbLeft then
+  begin
+    {Kunci kursor}
+    ReleaseCapture;
+    {WM_SYSCOMMAND = disystem, 0 = koordinatnya}
+    Perform(WM_SYSCOMMAND, SC_DRAGMOVE, 0);
+  end;
+end;
+
 procedure TfrmMainGameServer.imgMiniMazeClick(Sender: TObject);
 begin
   Application.Minimize;
@@ -270,6 +290,12 @@ begin
   finally
 
   end;
+end;
+
+procedure TfrmMainGameServer.lvConsoleCompare(Sender: TObject; Item1,
+  Item2: TListItem; Data: Integer; var Compare: Integer);
+begin
+  Compare := StrCmpLogicalW(PWideChar(Item1.Caption), PWideChar(Item2.Caption));
 end;
 
 procedure TfrmMainGameServer.lvConsoleCustomDrawItem(Sender: TCustomListView;
@@ -359,13 +385,21 @@ begin
   lvConsoleLFWO.Items.Clear;
   lvConsoleSUWO.Items.Clear;
 
-  lvConsole.SortType := stText;
-  lvConsoleNTWO.SortType := stText;
-  lvConsoleATWO.SortType := stText;
-  lvConsoleALWO.SortType := stText;
-  lvConsoleCDWO.SortType := stText;
-  lvConsoleLFWO.SortType := stText;
-  lvConsoleSUWO.SortType := stText;
+  lvConsole.OnCompare := lvConsoleCompare;
+  lvConsoleNTWO.OnCompare := lvConsoleCompare;
+  lvConsoleATWO.OnCompare := lvConsoleCompare;
+  lvConsoleALWO.OnCompare := lvConsoleCompare;
+  lvConsoleCDWO.OnCompare := lvConsoleCompare;
+  lvConsoleLFWO.OnCompare := lvConsoleCompare;
+  lvConsoleSUWO.OnCompare := lvConsoleCompare;
+
+  lvConsole.SortType := stData;
+  lvConsoleNTWO.SortType := stData;
+  lvConsoleATWO.SortType := stData;
+  lvConsoleALWO.SortType := stData;
+  lvConsoleCDWO.SortType := stData;
+  lvConsoleLFWO.SortType := stData;
+  lvConsoleSUWO.SortType := stData;
 
   for i := 0 to simMgrServer.SimConsole.ConsoleList.Count-1 do
   begin
