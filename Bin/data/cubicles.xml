@@ -2,28 +2,28 @@
 <ppkmgroups>
 
   <instructor id="Instructor" name="Instructor Group">
-    <console ip="192.168.1.230" name="NTWO INSTRUKTUR"></console>
-    <console ip="192.168.1.250" name="ATWO INSTRUKTUR"></console>  
-    <console ip="192.168.1.270" name="ALWO INSTRUKTUR"></console>  
-    <console ip="192.168.1.290" name="CDWO INSTRUKTUR"></console>   
-    <console ip="192.168.1.310" name="CDWO INSTRUKTUR"></console>   
+    <console ip="192.168.1.2" name="NTWO INSTRUKTUR"></console>
+    <console ip="192.168.1.3" name="ATWO INSTRUKTUR"></console>  
+    <console ip="192.168.1.4" name="ALWO INSTRUKTUR"></console>  
+    <console ip="192.168.1.5" name="CDWO INSTRUKTUR"></console>   
+    <console ip="192.168.1.6" name="CDWO INSTRUKTUR"></console>   
   </instructor>
 
   <situationBoard id="SituationBoard" name="SituationBoard Group">
-    <console ip="192.168.1.213" name="INWO SITUATION BOARD 1"></console>
-    <console ip="192.168.1.214" name="INWO SITUATION BOARD 2"></console>
-    <console ip="192.168.1.233" name="NTWO SITUATION BOARD 1"></console>
-    <console ip="192.168.1.234" name="NTWO SITUATION BOARD 2"></console>
-    <console ip="192.168.1.253" name="ATWO SITUATION BOARD 1"></console>
-    <console ip="192.168.1.254" name="ATWO SITUATION BOARD 2"></console>
-    <console ip="192.168.1.273" name="ALWO SITUATION BOARD 1"></console>
-    <console ip="192.168.1.274" name="ALWO SITUATION BOARD 2"></console>
-    <console ip="192.168.1.293" name="CDWO SITUATION BOARD 1"></console>
-    <console ip="192.168.1.294" name="CDWO SITUATION BOARD 2"></console>
-    <console ip="192.168.1.313" name="LFWO SITUATION BOARD 1"></console>
-    <console ip="192.168.1.314" name="LFWO SITUATION BOARD 2"></console>
-    <console ip="192.168.1.323" name="SUWO SITUATION BOARD 1"></console>
-    <console ip="192.168.1.324" name="SUWO SITUATION BOARD 2"></console>
+    <console ip="192.168.1.21" name="INWO SITUATION BOARD 1"></console>
+    <console ip="192.168.1.22" name="INWO SITUATION BOARD 2"></console>
+    <console ip="192.168.1.38" name="NTWO SITUATION BOARD 1"></console>
+    <console ip="192.168.1.39" name="NTWO SITUATION BOARD 2"></console>
+    <console ip="192.168.1.56" name="ATWO SITUATION BOARD 1"></console>
+    <console ip="192.168.1.57" name="ATWO SITUATION BOARD 2"></console>
+    <console ip="192.168.1.72" name="ALWO SITUATION BOARD 1"></console>
+    <console ip="192.168.1.73" name="ALWO SITUATION BOARD 2"></console>
+    <console ip="192.168.1.87" name="CDWO SITUATION BOARD 1"></console>
+    <console ip="192.168.1.88" name="CDWO SITUATION BOARD 2"></console>
+    <console ip="192.168.1.100" name="LFWO SITUATION BOARD 1"></console>
+    <console ip="192.168.1.101" name="LFWO SITUATION BOARD 2"></console>
+    <console ip="192.168.1.120" name="SUWO SITUATION BOARD 1"></console>
+    <console ip="192.168.1.121" name="SUWO SITUATION BOARD 2"></console>
   </situationBoard>
 
 
@@ -39,112 +39,106 @@
     <console ip="192.168.1.18" name="INWO OFFICIAL 8"></console>
     <console ip="192.168.1.19" name="INWO OFFICIAL 9"></console>
     <console ip="192.168.1.20" name="INWO OFFICIAL 10"></console>
-    <console ip="192.168.1.211" name="INWO WASDAL 1"></console>
-    <console ip="192.168.1.212" name="INWO WASDAL 2"></console>
-  
+    <console ip="192.168.1.201" name="INWO WASDAL"></console>  
     
-    <console ip="192.168.1.31" name="NTWO OFFICIAL 1"></console>  
-    <console ip="192.168.1.32" name="NTWO OFFICIAL 2"></console>
-    <console ip="192.168.1.33" name="NTWO OFFICIAL 3"></console>
-    <console ip="192.168.1.34" name="NTWO OFFICIAL 4"></console>
-    <console ip="192.168.1.35" name="NTWO OFFICIAL 5"></console>
-    <console ip="192.168.1.36" name="NTWO OFFICIAL 6"></console>
-    <console ip="192.168.1.37" name="NTWO OFFICIAL 7"></console>
-    <console ip="192.168.1.38" name="NTWO OFFICIAL 8"></console>
-    <console ip="192.168.1.39" name="NTWO OFFICIAL 9"></console>
-    <console ip="192.168.1.40" name="NTWO OFFICIAL 10"></console>
-    <console ip="192.168.1.41" name="NTWO OFFICIAL 11"></console>
-    <console ip="192.168.1.42" name="NTWO OFFICIAL 12"></console>
-    <console ip="192.168.1.43" name="NTWO OFFICIAL 13"></console>
-    <console ip="192.168.1.44" name="NTWO OFFICIAL 14"></console>
-    <console ip="192.168.1.45" name="NTWO OFFICIAL 15"></console>
-    <console ip="192.168.1.231" name="NTWO WASDAL 1"></console>
-    <console ip="192.168.1.232" name="NTWO WASDAL 2"></console>
+    <console ip="192.168.1.23" name="NTWO OFFICIAL 1"></console>  
+    <console ip="192.168.1.24" name="NTWO OFFICIAL 2"></console>
+    <console ip="192.168.1.25" name="NTWO OFFICIAL 3"></console>
+    <console ip="192.168.1.26" name="NTWO OFFICIAL 4"></console>
+    <console ip="192.168.1.27" name="NTWO OFFICIAL 5"></console>
+    <console ip="192.168.1.28" name="NTWO OFFICIAL 6"></console>
+    <console ip="192.168.1.29" name="NTWO OFFICIAL 7"></console>
+    <console ip="192.168.1.30" name="NTWO OFFICIAL 8"></console>
+    <console ip="192.168.1.31" name="NTWO OFFICIAL 9"></console>
+    <console ip="192.168.1.32" name="NTWO OFFICIAL 10"></console>
+    <console ip="192.168.1.33" name="NTWO OFFICIAL 11"></console>
+    <console ip="192.168.1.34" name="NTWO OFFICIAL 12"></console>
+    <console ip="192.168.1.35" name="NTWO OFFICIAL 13"></console>
+    <console ip="192.168.1.36" name="NTWO OFFICIAL 14"></console>
+    <console ip="192.168.1.37" name="NTWO OFFICIAL 15"></console>
+    <console ip="192.168.1.202" name="NTWO WASDAL"></console>
 
-    <console ip="192.168.1.51" name="ATWO OFFICIAL 1"></console>  
-    <console ip="192.168.1.52" name="ATWO OFFICIAL 2"></console>
-    <console ip="192.168.1.53" name="ATWO OFFICIAL 3"></console>
-    <console ip="192.168.1.54" name="ATWO OFFICIAL 4"></console>
-    <console ip="192.168.1.55" name="ATWO OFFICIAL 5"></console>
-    <console ip="192.168.1.56" name="ATWO OFFICIAL 6"></console>
-    <console ip="192.168.1.57" name="ATWO OFFICIAL 7"></console>
-    <console ip="192.168.1.38" name="ATWO OFFICIAL 8"></console>
-    <console ip="192.168.1.59" name="ATWO OFFICIAL 9"></console>
-    <console ip="192.168.1.60" name="ATWO OFFICIAL 10"></console>
-    <console ip="192.168.1.61" name="ATWO OFFICIAL 11"></console>
-    <console ip="192.168.1.62" name="ATWO OFFICIAL 12"></console>
-    <console ip="192.168.1.63" name="ATWO OFFICIAL 13"></console>
-    <console ip="192.168.1.64" name="ATWO OFFICIAL 14"></console>
-    <console ip="192.168.1.65" name="ATWO OFFICIAL 15"></console>
-    <console ip="192.168.1.66" name="ATWO OFFICIAL 16"></console>
-    <console ip="192.168.1.251" name="ATWO WASDAL 1"></console>
-    <console ip="192.168.1.252" name="ATWO WASDAL 2"></console>
+    <console ip="192.168.1.40" name="ATWO OFFICIAL 1"></console>  
+    <console ip="192.168.1.41" name="ATWO OFFICIAL 2"></console>
+    <console ip="192.168.1.42" name="ATWO OFFICIAL 3"></console>
+    <console ip="192.168.1.43" name="ATWO OFFICIAL 4"></console>
+    <console ip="192.168.1.44" name="ATWO OFFICIAL 5"></console>
+    <console ip="192.168.1.45" name="ATWO OFFICIAL 6"></console>
+    <console ip="192.168.1.46" name="ATWO OFFICIAL 7"></console>
+    <console ip="192.168.1.47" name="ATWO OFFICIAL 8"></console>
+    <console ip="192.168.1.48" name="ATWO OFFICIAL 9"></console>
+    <console ip="192.168.1.49" name="ATWO OFFICIAL 10"></console>
+    <console ip="192.168.1.50" name="ATWO OFFICIAL 11"></console>
+    <console ip="192.168.1.51" name="ATWO OFFICIAL 12"></console>
+    <console ip="192.168.1.52" name="ATWO OFFICIAL 13"></console>
+    <console ip="192.168.1.53" name="ATWO OFFICIAL 14"></console>
+    <console ip="192.168.1.54" name="ATWO OFFICIAL 15"></console>
+    <console ip="192.168.1.55" name="ATWO OFFICIAL 16"></console>
+    <console ip="192.168.1.203" name="ATWO WASDAL"></console>
   
-    <console ip="192.168.1.71" name="ALWO OFFICIAL 1"></console>  
-    <console ip="192.168.1.72" name="ALWO OFFICIAL 2"></console>
-    <console ip="192.168.1.73" name="ALWO OFFICIAL 3"></console>
-    <console ip="192.168.1.74" name="ALWO OFFICIAL 4"></console>
-    <console ip="192.168.1.75" name="ALWO OFFICIAL 5"></console>
-    <console ip="192.168.1.76" name="ALWO OFFICIAL 6"></console>
-    <console ip="192.168.1.77" name="ALWO OFFICIAL 7"></console>
-    <console ip="192.168.1.78" name="ALWO OFFICIAL 8"></console>
-    <console ip="192.168.1.79" name="ALWO OFFICIAL 9"></console>
-    <console ip="192.168.1.80" name="ALWO OFFICIAL 10"></console>
-    <console ip="192.168.1.81" name="ALWO OFFICIAL 11"></console>
-    <console ip="192.168.1.82" name="ALWO OFFICIAL 12"></console>
-    <console ip="192.168.1.83" name="ALWO OFFICIAL 13"></console>
-    <console ip="192.168.1.84" name="ALWO OFFICIAL 14"></console>
-    <console ip="192.168.1.271" name="ALWO WASDAL 1"></console>
-    <console ip="192.168.1.272" name="ALWO WASDAL 2"></console>
+    <console ip="192.168.1.58" name="ALWO OFFICIAL 1"></console>  
+    <console ip="192.168.1.59" name="ALWO OFFICIAL 2"></console>
+    <console ip="192.168.1.60" name="ALWO OFFICIAL 3"></console>
+    <console ip="192.168.1.61" name="ALWO OFFICIAL 4"></console>
+    <console ip="192.168.1.62" name="ALWO OFFICIAL 5"></console>
+    <console ip="192.168.1.63" name="ALWO OFFICIAL 6"></console>
+    <console ip="192.168.1.64" name="ALWO OFFICIAL 7"></console>
+    <console ip="192.168.1.65" name="ALWO OFFICIAL 8"></console>
+    <console ip="192.168.1.66" name="ALWO OFFICIAL 9"></console>
+    <console ip="192.168.1.67" name="ALWO OFFICIAL 10"></console>
+    <console ip="192.168.1.68" name="ALWO OFFICIAL 11"></console>
+    <console ip="192.168.1.69" name="ALWO OFFICIAL 12"></console>
+    <console ip="192.168.1.70" name="ALWO OFFICIAL 13"></console>
+    <console ip="192.168.1.71" name="ALWO OFFICIAL 14"></console>
+    <console ip="192.168.1.204" name="ALWO WASDAL"></console>
   
-    <console ip="192.168.1.91" name="CDWO OFFICIAL 1"></console>  
-    <console ip="192.168.1.92" name="CDWO OFFICIAL 2"></console>
-    <console ip="192.168.1.93" name="CDWO OFFICIAL 3"></console>
-    <console ip="192.168.1.94" name="CDWO OFFICIAL 4"></console>
-    <console ip="192.168.1.95" name="CDWO OFFICIAL 5"></console>
-    <console ip="192.168.1.96" name="CDWO OFFICIAL 6"></console>
-    <console ip="192.168.1.97" name="CDWO OFFICIAL 7"></console>
-    <console ip="192.168.1.98" name="CDWO OFFICIAL 8"></console>
-    <console ip="192.168.1.99" name="CDWO OFFICIAL 9"></console>
-    <console ip="192.168.1.100" name="CDWO OFFICIAL 10"></console>
-    <console ip="192.168.1.101" name="CDWO OFFICIAL 11"></console>
-    <console ip="192.168.1.102" name="CDWO OFFICIAL 12"></console>
-    <console ip="192.168.1.103" name="CDWO OFFICIAL 13"></console>
-    <console ip="192.168.1.291" name="CDWO WASDAL 1"></console>
-    <console ip="192.168.1.292" name="CDWO WASDAL 2"></console>
+    <console ip="192.168.1.74" name="CDWO OFFICIAL 1"></console>  
+    <console ip="192.168.1.75" name="CDWO OFFICIAL 2"></console>
+    <console ip="192.168.1.76" name="CDWO OFFICIAL 3"></console>
+    <console ip="192.168.1.77" name="CDWO OFFICIAL 4"></console>
+    <console ip="192.168.1.78" name="CDWO OFFICIAL 5"></console>
+    <console ip="192.168.1.79" name="CDWO OFFICIAL 6"></console>
+    <console ip="192.168.1.80" name="CDWO OFFICIAL 7"></console>
+    <console ip="192.168.1.81" name="CDWO OFFICIAL 8"></console>
+    <console ip="192.168.1.82" name="CDWO OFFICIAL 9"></console>
+    <console ip="192.168.1.83" name="CDWO OFFICIAL 10"></console>
+    <console ip="192.168.1.84" name="CDWO OFFICIAL 11"></console>
+    <console ip="192.168.1.85" name="CDWO OFFICIAL 12"></console>
+    <console ip="192.168.1.86" name="CDWO OFFICIAL 13"></console>
+    <console ip="192.168.1.205" name="CDWO WASDAL"></console>
    
-    <console ip="192.168.1.111" name="LFWO OFFICIAL 1"></console>  
-    <console ip="192.168.1.112" name="LFWO OFFICIAL 2"></console>
-    <console ip="192.168.1.113" name="LFWO OFFICIAL 3"></console>
-    <console ip="192.168.1.114" name="LFWO OFFICIAL 4"></console>
-    <console ip="192.168.1.115" name="LFWO OFFICIAL 5"></console>
-    <console ip="192.168.1.116" name="LFWO OFFICIAL 6"></console>
-    <console ip="192.168.1.117" name="LFWO OFFICIAL 7"></console>
-    <console ip="192.168.1.118" name="LFWO OFFICIAL 8"></console>
-    <console ip="192.168.1.119" name="LFWO OFFICIAL 9"></console>
-    <console ip="192.168.1.120" name="LFWO OFFICIAL 10"></console>
-    <console ip="192.168.1.121" name="LFWO OFFICIAL 11"></console>
-    <console ip="192.168.1.122" name="LFWO OFFICIAL 12"></console>
-    <console ip="192.168.1.123" name="LFWO OFFICIAL 13"></console>
-    <console ip="192.168.1.311" name="LFWO WASDAL 1"></console>
-    <console ip="192.168.1.312" name="LFWO WASDAL 2"></console>
+    <console ip="192.168.1.89" name="LFWO OFFICIAL 1"></console>  
+    <console ip="192.168.1.90" name="LFWO OFFICIAL 2"></console>
+    <console ip="192.168.1.91" name="LFWO OFFICIAL 3"></console>
+    <console ip="192.168.1.92" name="LFWO OFFICIAL 4"></console>
+    <console ip="192.168.1.93" name="LFWO OFFICIAL 5"></console>
+    <console ip="192.168.1.94" name="LFWO OFFICIAL 6"></console>
+    <console ip="192.168.1.95" name="LFWO OFFICIAL 7"></console>
+    <console ip="192.168.1.96" name="LFWO OFFICIAL 8"></console>
+    <console ip="192.168.1.97" name="LFWO OFFICIAL 9"></console>
+    <console ip="192.168.1.98" name="LFWO OFFICIAL 10"></console>
+    <console ip="192.168.1.99" name="LFWO OFFICIAL 11"></console>
+    <console ip="192.168.1.206" name="LFWO WASDAL"></console>
   
-    <console ip="192.168.1.131" name="SUWO OFFICIAL 1"></console>  
-    <console ip="192.168.1.132" name="SUWO OFFICIAL 2"></console>
-    <console ip="192.168.1.133" name="SUWO OFFICIAL 3"></console>
-    <console ip="192.168.1.134" name="SUWO OFFICIAL 4"></console>
-    <console ip="192.168.1.135" name="SUWO OFFICIAL 5"></console>
-    <console ip="192.168.1.136" name="SUWO OFFICIAL 6"></console>
-    <console ip="192.168.1.137" name="SUWO OFFICIAL 7"></console>
-    <console ip="192.168.1.138" name="SUWO OFFICIAL 8"></console>
-    <console ip="192.168.1.139" name="SUWO OFFICIAL 9"></console>
-    <console ip="192.168.1.140" name="SUWO OFFICIAL 10"></console>
-    <console ip="192.168.1.141" name="SUWO OFFICIAL 11"></console>
-    <console ip="192.168.1.142" name="SUWO OFFICIAL 12"></console>
-    <console ip="192.168.1.143" name="SUWO OFFICIAL 13"></console>
-    <console ip="192.168.1.144" name="SUWO OFFICIAL 14"></console>
-    <console ip="192.168.1.321" name="SUWO WASDAL 1"></console>
-    <console ip="192.168.1.322" name="SUWO WASDAL 2"></console>
+    <console ip="192.168.1.102" name="SUWO OFFICIAL 1"></console>  
+    <console ip="192.168.1.103" name="SUWO OFFICIAL 2"></console>
+    <console ip="192.168.1.104" name="SUWO OFFICIAL 3"></console>
+    <console ip="192.168.1.105" name="SUWO OFFICIAL 4"></console>
+    <console ip="192.168.1.106" name="SUWO OFFICIAL 5"></console>
+    <console ip="192.168.1.107" name="SUWO OFFICIAL 6"></console>
+    <console ip="192.168.1.108" name="SUWO OFFICIAL 7"></console>
+    <console ip="192.168.1.109" name="SUWO OFFICIAL 8"></console>
+    <console ip="192.168.1.110" name="SUWO OFFICIAL 9"></console>
+    <console ip="192.168.1.111" name="SUWO OFFICIAL 10"></console>
+    <console ip="192.168.1.112" name="SUWO OFFICIAL 11"></console>
+    <console ip="192.168.1.113" name="SUWO OFFICIAL 12"></console>
+    <console ip="192.168.1.114" name="SUWO OFFICIAL 13"></console>
+    <console ip="192.168.1.115" name="SUWO OFFICIAL 14"></console>
+    <console ip="192.168.1.116" name="SUWO OFFICIAL 15"></console>
+    <console ip="192.168.1.117" name="SUWO OFFICIAL 16"></console>
+    <console ip="192.168.1.118" name="SUWO OFFICIAL 17"></console>
+    <console ip="192.168.1.119" name="SUWO OFFICIAL 18"></console>
+    <console ip="192.168.1.207" name="SUWO WASDAL"></console>
   </officer>
 
 </ppkmgroups>
