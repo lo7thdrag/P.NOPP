@@ -39,7 +39,7 @@ type
     ProgressBar1: TProgressBar;
     pnlLeftMain: TPanel;
     btnSelect: TToolButton;
-    btnout: TToolButton;
+    btnMultiSelect: TToolButton;
     procedure btnCancelClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
     procedure btnDecreaseClick(Sender: TObject);
@@ -63,7 +63,7 @@ type
     procedure ENCMapMouseUp(Sender: TObject; Button: TMouseButton;
       Shift: TShiftState; X, Y: Integer);
     procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
-    procedure btnOutclick(Sender: TObject);
+    procedure btnMultiSelectClick(Sender: TObject);
 
   private
     FSelectedGameArea : TGame_Area_Definition;
@@ -81,6 +81,7 @@ type
 
     FMapCursor : E_MapCursor;
 
+    procedure UpAllToolbarButton;
     procedure LoadList;
     procedure SetChecked;
     procedure SetMapArea;
@@ -143,8 +144,11 @@ end;
 
 procedure TfrmMapEditor.btnCenterGameClick(Sender: TObject);
 begin
-//  LoadNormalButtonImage;
+  UpAllToolbarButton;
+  btnCenterGame.Down := True ;
   FMapCursor := mcGameCenter;
+//  LoadNormalButtonImage;
+//  FMapCursor := mcGameCenter;
 
   ENCMap.CurrentTool := miArrowTool;
   ENCMap.MousePointer := miCrossCursor;
@@ -208,26 +212,25 @@ begin
   Close;
 end;
 
-procedure TfrmMapEditor.btnOutclick(Sender: TObject);
+procedure TfrmMapEditor.btnMultiSelectClick(Sender: TObject);
 begin
-  if btnZoom.Down then
-    btnZoom.Down := False;
+  UpAllToolbarButton;
+  btnMultiSelect.Down := True;
+  FMapCursor := mcMultiSelect;
 
-  btnout.Down := not btnout.Down;
-  btnPan.Down := false;
+  ENCMap.CurrentTool := miArrowTool;
+  ENCMap.MousePointer := miArrowCursor;
 
-  FMapCursor := mcSelect;
-
-  ENCMap.CurrentTool := miZoomoutTool;
-  ENCMap.MousePointer := miZoomoutCursor;
-
-  btnout.ImageIndex := 8;
+//  btnout.ImageIndex := 8;
 end;
 
 procedure TfrmMapEditor.btnPanClick(Sender: TObject);
 begin
-//  LoadNormalButtonImage;
+  UpAllToolbarButton;
+  btnPan.Down := True ;
   FMapCursor := mcPan;
+//  LoadNormalButtonImage;
+//  FMapCursor := mcPan;
 
   ENCMap.CurrentTool := miPanTool;
   ENCMap.MousePointer := miPanCursor;
@@ -237,6 +240,8 @@ end;
 
 procedure TfrmMapEditor.btnSelectClick(Sender: TObject);
 begin
+  UpAllToolbarButton;
+  btnSelect.Down := True ;
   FMapCursor := mcSelect;
 
   ENCmap.CurrentTool := miSelectTool;
@@ -245,8 +250,10 @@ end;
 
 procedure TfrmMapEditor.btnZoomClick(Sender: TObject);
 begin
-//  LoadNormalButtonImage;
+  UpAllToolbarButton;
+  btnZoom.Down := True ;
   FMapCursor := mcZoom;
+//  LoadNormalButtonImage;
 
   ENCMap.CurrentTool := miZoomInTool;
   ENCMap.MousePointer := miZoomInCursor;
@@ -965,6 +972,18 @@ begin
     else
       layer.OverrideStyle := False;
   end;
+end;
+
+procedure TfrmMapEditor.UpAllToolbarButton;
+begin
+  btnSelect.Down := False;
+  btnMultiSelect.Down := False;
+  btnPan.Down := False;
+  btnZoom.Down := False;
+  btnCenterGame.Down := False;
+
+  ENCMap.CurrentTool := miArrowTool;
+  ENCMap.MousePointer := miDefaultCursor;
 end;
 
 procedure TfrmMapEditor.UpdateGeosetFile;

@@ -41,7 +41,7 @@ object frmMapEditor: TfrmMapEditor
       TabOrder = 0
       object btnOk: TButton
         Left = 238
-        Top = 18
+        Top = 24
         Width = 75
         Height = 28
         Caption = 'Ok'
@@ -49,22 +49,22 @@ object frmMapEditor: TfrmMapEditor
         Font.Color = clWindowText
         Font.Height = -12
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 0
         OnClick = btnOkClick
       end
       object btnCancel: TButton
         Left = 316
-        Top = 18
+        Top = 24
         Width = 75
         Height = 28
         Caption = 'Cancel'
-        Font.Charset = DEFAULT_CHARSET
+        Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -12
         Font.Name = 'Tahoma'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
         TabOrder = 1
         OnClick = btnCancelClick
@@ -74,7 +74,7 @@ object frmMapEditor: TfrmMapEditor
       Left = 0
       Top = 0
       Width = 401
-      Height = 85
+      Height = 105
       Align = alTop
       BevelOuter = bvNone
       Color = 5326139
@@ -82,12 +82,12 @@ object frmMapEditor: TfrmMapEditor
       TabOrder = 1
       object Label1: TLabel
         Left = 8
-        Top = 3
+        Top = 17
         Width = 38
         Height = 15
         Caption = 'Name :'
         Font.Charset = ANSI_CHARSET
-        Font.Color = clBlack
+        Font.Color = clWhite
         Font.Height = -13
         Font.Name = 'Berlin Sans FB'
         Font.Style = []
@@ -95,12 +95,12 @@ object frmMapEditor: TfrmMapEditor
       end
       object Label2: TLabel
         Left = 113
-        Top = 54
+        Top = 68
         Width = 41
         Height = 15
         Caption = 'Search :'
         Font.Charset = ANSI_CHARSET
-        Font.Color = clBlack
+        Font.Color = clWhite
         Font.Height = -13
         Font.Name = 'Berlin Sans FB'
         Font.Style = []
@@ -108,14 +108,14 @@ object frmMapEditor: TfrmMapEditor
       end
       object edtName: TEdit
         Left = 8
-        Top = 24
+        Top = 38
         Width = 383
         Height = 21
         TabOrder = 0
       end
       object edtSearch: TEdit
         Left = 160
-        Top = 51
+        Top = 65
         Width = 231
         Height = 21
         TabOrder = 1
@@ -124,18 +124,19 @@ object frmMapEditor: TfrmMapEditor
     end
     object pnlLeftMain: TPanel
       Left = 0
-      Top = 85
+      Top = 105
       Width = 401
-      Height = 623
+      Height = 603
       Align = alClient
       BevelOuter = bvNone
       BorderWidth = 10
       TabOrder = 2
+      ExplicitHeight = 597
       object chklstArea: TCheckListBox
         Left = 10
         Top = 10
         Width = 381
-        Height = 603
+        Height = 583
         OnClickCheck = chklstAreaClickCheck
         Align = alClient
         BevelInner = bvNone
@@ -149,6 +150,8 @@ object frmMapEditor: TfrmMapEditor
         ParentFont = False
         Sorted = True
         TabOrder = 0
+        ExplicitTop = 6
+        ExplicitHeight = 607
       end
     end
   end
@@ -190,7 +193,7 @@ object frmMapEditor: TfrmMapEditor
         0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
         E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
         626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
-        0000010001180100007086DD1101000000D4EB97001C00000000000000000000
+        00000100011801000028956C0F0100000018E697001C00000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0002000000000000000000000000000000000000000000000000000000000000
@@ -199,15 +202,15 @@ object frmMapEditor: TfrmMapEditor
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         00008076C000000000008056C000000000008076400000000000805640010000
-        00180100007086DD110100000018E997001C0000000000000000000000000000
+        001801000028956C0F010000006C1A01001C0000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000020000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
         0000000000000000000000000000000000000000000000000000000000000000
-        00000000000000000000000000000000000000000000000000B6E6B177504F10
-        01000000007B7C62D30000000016071E022033FE74C4EB970000000000000000
+        0000000000000000000000000000000000000000000000000000000000930100
+        004CE797002DFD6B2AFEFFFFFF50E597008F4BDE6D30E7970000000000000000
         0000000088B3400000000000408F400001000001}
     end
     object pnlToolBar: TPanel
@@ -256,7 +259,7 @@ object frmMapEditor: TfrmMapEditor
         end
         object cbSetScale: TComboBox
           Left = 42
-          Top = 7
+          Top = 0
           Width = 95
           Height = 21
           Hint = 'Map Scales'
@@ -323,19 +326,24 @@ object frmMapEditor: TfrmMapEditor
         object btnZoom: TToolButton
           Left = 305
           Top = 0
-          Hint = 'Zoom In / Out'
+          Hint = 'Zoom '
           Caption = 'btnZoom'
           ImageIndex = 2
           ParentShowHint = False
           ShowHint = True
           OnClick = btnZoomClick
         end
-        object btnout: TToolButton
+        object btnMultiSelect: TToolButton
           Left = 347
           Top = 0
-          Caption = 'btnout'
+          Cursor = crHandPoint
+          Hint = 'Map Multi Select Tool'
+          Caption = 'btnMultiSelect'
           ImageIndex = 7
-          OnClick = btnOutclick
+          ParentShowHint = False
+          ShowHint = True
+          Style = tbsCheck
+          OnClick = btnMultiSelectClick
         end
       end
     end
