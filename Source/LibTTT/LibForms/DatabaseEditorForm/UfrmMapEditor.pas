@@ -632,13 +632,13 @@ var
   centerX, centerY : Double;
 
 begin
-//  if (FMapCursor = mcMultiSelect) and FIsMouseDown then
-//  begin
-//    FSelectionEndX := X;
-//    FSelectionEndY := Y;
-//
-//    ENCmap.Repaint;
-//  end;
+  if (FMapCursor = mcMultiSelect) and FIsMouseDown then
+  begin
+    FSelectionEndX := X;
+    FSelectionEndY := Y;
+
+    ENCmap.Repaint;
+  end;
 
   FConverter.ConvertToMap(X, Y, xx, yy);
 
