@@ -1854,6 +1854,7 @@ const
     CORD_ID_LOGIN = 1;
     CORD_ID_LOGOUT = 2;
   CPID_TCP_REQUEST                        = CPID_TCP + 3;
+    REQ_SYNCH_GAMECTRL_INFO = 2; //CPID_UDP_GAMECTRL_INFO
   CPID_CMD_REMOTE                         = CPID_TCP + 4;
     REMOTE_STATE_FALSE = 0;
     REMOTE_STATE_TRUE  = 1;

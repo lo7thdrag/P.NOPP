@@ -35,6 +35,7 @@ type
     procedure setBroadcastData(const Value: boolean);
     function getBroadcastData: boolean;
     procedure netRecv_CmdReconnect(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_TCPRequest(apRec: PAnsiChar; aSize: Word);
 //    procedure netRecv_CmdSYNCH(apRec: PAnsiChar; aSize: Word);
 
   protected
@@ -267,6 +268,9 @@ begin
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync), netRecv_CmdFileSendTelegram);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer), netRecv_CmdFileTransfer);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing), netRecv_CmdFileSharing);
+  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_Reconnect), netRecv_CmdReconnect);
+
+  VNetServer.RegisterTCPPacket(CPID_TCP_REQUEST, SizeOf(TRecTCP_Request), netRecv_TCPRequest);
   {$ENDREGION}
 
   VNetServer.StartListen;
@@ -474,6 +478,40 @@ begin
   OnUserStateChange(rec^);
 
   VNetServer.SendBroadcastCommand(CPID_CMD_USER_STATE, apRec);
+end;
+
+procedure TSimMgr_Server.netRecv_TCPRequest(apRec: PAnsiChar; aSize: Word);
+var
+  rec : ^TRecTCP_Request;
+  rGC: TRecUDP_GameCtrl_info;
+  ipTo: string;
+begin
+  {untuk reconnect}
+
+  rec := @apRec^;
+  ipTo := LongIp_To_StrIp(rec^.pid.ipSender);
+  rGC.Flag := rec^.reqFlag;
+
+  case rec^.reqID of
+    REQ_SYNCH_GAMECTRL_INFO:
+    begin
+      rGC.GameState  := Byte(GameState);
+      rGC.GameTimeMS := FMainVTime.GetMillisecond;
+      rGC.SessionID  := FSessionID;
+      VNetServer.SendUDP_To(CPID_UDP_GAMECTRL_INFO, @rGC, ipTo);
+    end;
+  end;
+
+//  rec := @apRec^;
+//  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+//
+//  if GameState = gsPlaying then
+//    rec.GameCtrl := CORD_ID_start
+//  else if GameState = gsStop then
+//    rec.GameCtrl := CORD_ID_pause;
+//
+//  VNetServer.SendBroadcastCommand(CPID_CMD_GAME_CTRL, apRec);
+
 end;
 
 procedure TSimMgr_Server.StopNetwork;

@@ -92,8 +92,8 @@ procedure TNetHandle_TTT.StartNetworking;
 begin
   inherited;
 
-//  FNetUDPNode       := TNetUDPNode.Create;
-//  FNetUDPNode.Port  := GamePort;
+  FNetUDPNode       := TNetUDPNode.Create;
+  FNetUDPNode.Port  := GamePort;
 
   // TCPSock harus di create di turunan.
 
@@ -101,8 +101,8 @@ end;
 
 procedure TNetHandle_TTT.StopNetworking;
 begin
-//  FNetUDPNode.Close;
-//  FNetUDPNode.Free;
+  FNetUDPNode.Close;
+  FNetUDPNode.Free;
 
 end;
 

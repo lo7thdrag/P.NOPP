@@ -63748,7 +63748,7 @@ object frmTacticalDisplay: TfrmTacticalDisplay
     end
     object btnConnect: TButton
       Left = 776
-      Top = 568
+      Top = 489
       Width = 401
       Height = 70
       Caption = 'Connect to Server'

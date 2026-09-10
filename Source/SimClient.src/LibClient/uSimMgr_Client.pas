@@ -29,6 +29,7 @@ type
     {$REGION ' Receive UDP '}
     procedure netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdClientStateInfo(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_GameControlInfo(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     {$REGION ' Receive TCP '}
@@ -68,6 +69,9 @@ type
     FOnUpdateForm: TNotifyEvent;
     FOnUpdateTime: TNotifyEvent;
 
+    FTimeFlag: integer;
+    FTimeReq: Longword;
+
   public
     DrawFlagPoint : TFlagPointbContainer;
     DrawRuler : TRuler;
@@ -94,6 +98,7 @@ type
     // buat chat read
     procedure SendChatRead(SenderID: Integer);
 
+    procedure netOnConnected(sender: TObject);
     procedure OnSyncUserState(const rec : TRecTCP_UserState); // override;
     procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); // override;
     procedure OnSyncUserChat(const rec : TRecTCPSendChatUserRole); // override;
@@ -259,10 +264,13 @@ procedure TSimMgr_Client.InitNetwork;
 begin
 
   {$REGION ' UDP SECTION '}
-  VNetClient.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
+
+  VNetClient.RegisterUDPPacket(CPID_UDP_GAMECTRL_INFO, SizeOf(TRecUDP_GameCtrl_Info), netRecv_GameControlInfo);
   {$ENDREGION}
 
   {$REGION ' TCP SECTION '}
+  VNetClient.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
+
    VNetClient.RegisterTCPPacket(CPID_CMD_CLIENT_STATE_INFO, SizeOf(TRecTCP_ClientState_Info),netRecv_CmdClientStateInfo);
    VNetClient.RegisterTCPPacket(CPID_CMD_USER_STATE, SizeOf(TRecTCP_UserState),netRecv_CmdUserState);
    VNetClient.RegisterTCPPacket(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
@@ -507,6 +515,77 @@ begin
 
   OnUserStateChange(rec^);
 
+end;
+
+procedure TSimMgr_Client.netRecv_GameControlInfo(apRec: PAnsiChar; aSize: word);
+var
+  rec: ^TRecUDP_GameCtrl_Info;
+  dtNow: Longword;
+  dt: integer;
+  gS: TGamePlayState;
+begin
+  rec := @apRec^;
+
+  if rec^.SessionID <> FSessionID then
+    Exit;
+
+  if rec^.Flag = FTimeFlag then
+  begin
+    gS := TGamePlayState(rec^.GameState);
+    case gS of
+      gsStop:
+        begin // server is stoped
+          FMainVTime.SetMilliSecond(rec^.GameTimeMS);
+
+        end;
+      gsPlaying:
+        begin
+          dt := FMainVTime.GetMillisecond - FTimeReq;
+          if rec^.GameSpeed > 1.0 then
+            dtNow := rec^.GameTimeMS + Round(0.5 * rec^.GameSpeed * dt)
+          else
+            dtNow := rec^.GameTimeMS + LongWord((dt + 1) div 2);
+
+          FMainVTime.SetMilliSecond(dtNow);
+        end;
+    end;
+    FTimeFlag := 0;
+
+    if gS <> GameState then
+    begin
+      case gS of
+        gsStop:
+          GamePause;
+        gsPlaying:
+        begin
+          GameStart;
+          //isFirstStart := false;
+        end;
+        // gsTerminated  : GameTerminate;
+      end;
+    end;
+  end;
+end;
+
+procedure TSimMgr_Client.netOnConnected(sender: TObject);
+var
+//  rec: TRecTCP_Request;
+  rec : TRecCmd_GameCtrl;
+begin
+//  // ini karena dibales lewat udp, maka perlu 'paket id' tambahan
+//  // untuk memastikan paket yg diproses adalah paket hasil request sendiri.
+//  // 'sync time'
+//  rec.reqID := REQ_SYNCH_GAMECTRL_INFO;
+//  FTimeFlag := Random($FFFF);
+//  rec.reqFlag := FTimeFlag;
+//  FTimeReq := FMainVTime.GetMillisecond;
+//
+//  VNetClient.GameCtrl := 0;
+//
+//  VNetClient.SendCommand(CPID_TCP_REQUEST, @rec);
+
+  VNetClient.GameCtrl := 0;
+  netSend_CmdGameState(rec)
 end;
 
 procedure TSimMgr_Client.netRecv_CmdChatUserRole(apRec: PAnsiChar; aSize: word);

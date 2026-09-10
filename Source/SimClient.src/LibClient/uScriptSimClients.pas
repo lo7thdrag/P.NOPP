@@ -44,6 +44,7 @@ begin
   VNetClient.ServerIP         := vNetClientSetting.ServerIP;
 
   VNetClient.StartNetworking;
+  VNetClient.OnConnected := simMgrClient.netOnConnected;
 
   simMgrClient.InitNetwork;
 
