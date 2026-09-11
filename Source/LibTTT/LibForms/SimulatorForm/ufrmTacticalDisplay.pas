@@ -746,7 +746,7 @@ end;
 procedure TfrmTacticalDisplay.UpdateGameState(Sender: TObject);
 begin
 
-  btnConnect.Visible := True;
+//  btnConnect.Visible := True;
   btnLoad.Visible := True;
 
   btnPlanning.Visible := False;

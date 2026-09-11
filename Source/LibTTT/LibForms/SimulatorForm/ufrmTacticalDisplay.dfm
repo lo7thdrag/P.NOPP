@@ -63759,6 +63759,7 @@ object frmTacticalDisplay: TfrmTacticalDisplay
       Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 2
+      Visible = False
       OnClick = btnConnectClick
     end
   end
