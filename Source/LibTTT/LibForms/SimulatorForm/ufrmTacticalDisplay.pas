@@ -87,7 +87,7 @@ type
     FselectedUserRole : TUserRole;
     FIsLoadData : Boolean;
 
-    procedure AddCbbSubRole(tipeTahapan : Integer);
+    procedure AddCbbSubRole(tipeTahapan : Integer; UseConsoleFilter: Boolean = False);
     procedure AddUserRoleLogin(SubRoleId : integer);
 
   public
@@ -142,7 +142,7 @@ begin
 
     cbbSubRole.Visible := True;
 
-    AddCbbSubRole(3);
+    AddCbbSubRole(3, False);
 
     if cbbSubRole.Items.Count > 0 then
       cbbSubRole.ItemIndex := 0;
@@ -237,12 +237,70 @@ begin
 end;
 
 
-procedure TfrmTacticalDisplay.AddCbbSubRole(tipeTahapan : Integer);
+procedure TfrmTacticalDisplay.AddCbbSubRole(tipeTahapan : Integer; UseConsoleFilter: Boolean = False);
 var
   i : Integer;
   subRoleTemp : TSubRole;
+  consoleName : string;
+  isINWO, isNTWO, isATWO, isALWO, isCDWO, isLFWO, isSUWO: Boolean;
 begin
+  {$REGION ' LAMA '}
+//  cbbSubRole.Items.Clear;
+//
+//  for i := 0 to SimManager.SimSubRole.SubRoleList.Count-1 do
+//  begin
+//    subRoleTemp := SimManager.SimSubRole.SubRoleList[i];
+//
+//    if Assigned(subRoleTemp) then
+//    begin
+//      case tipeTahapan of
+//        0:
+//        begin
+//          if subRoleTemp.FData.Perencanaan = 1 then
+//            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+//        end;
+//        1:
+//        begin
+//          if subRoleTemp.FData.Persiapan = 1 then
+//            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+//        end;
+//        2:
+//        begin
+//          if subRoleTemp.FData.Pelaksanaan = 1 then
+//            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+//        end;
+//        3:
+//        begin
+//          if subRoleTemp.FData.Pengakhiran = 1 then
+//            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+//        end;
+//      end;
+//    end;
+//  end;
+  {$ENDREGION}
+
+  {$REGION ' INWO '}
   cbbSubRole.Items.Clear;
+
+  isINWO := False;
+  isNTWO := False;
+  isATWO := False;
+  isALWO := False;
+  isCDWO := False;
+  isLFWO := False;
+  isSUWO := False;
+
+  if UseConsoleFilter then
+  begin
+    consoleName := UpperCase(simMgrClient.MyConsoleData.Identifier);
+    isINWO := Pos('INWO', consoleName) > 0;
+    isNTWO := Pos('NTWO', consoleName) > 0;
+    isATWO := Pos('ATWO', consoleName) > 0;
+    isALWO := Pos('ALWO', consoleName) > 0;
+    isCDWO := Pos('CDWO', consoleName) > 0;
+    isLFWO := Pos('LFWO', consoleName) > 0;
+    isSUWO := Pos('SUWO', consoleName) > 0;
+  end;
 
   for i := 0 to SimManager.SimSubRole.SubRoleList.Count-1 do
   begin
@@ -250,6 +308,58 @@ begin
 
     if Assigned(subRoleTemp) then
     begin
+      if UseConsoleFilter then
+      begin
+        if isINWO and
+           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+           (subRoleTemp.FData.SubRoleAcronim <> 'KOGAB') then
+        begin
+          Continue;
+        end;
+
+        if isNTWO and
+           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASGABLA') then
+        begin
+          Continue;
+        end;
+
+        if isATWO and
+           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASGABFIB') then
+        begin
+          Continue;
+        end;
+
+        if isALWO and
+           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASRATMIN') then
+        begin
+          Continue;
+        end;
+
+        if isCDWO and
+           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASHANTAI') then
+        begin
+          Continue;
+        end;
+
+        if isLFWO and
+           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+           (subRoleTemp.FData.SubRoleAcronim <> 'PASRAT') then
+        begin
+          Continue;
+        end;
+
+        if isSUWO and
+           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+           (subRoleTemp.FData.SubRoleAcronim <> 'SATGASDUK') then
+        begin
+          Continue;
+        end;
+      end;
+
       case tipeTahapan of
         0:
         begin
@@ -274,6 +384,7 @@ begin
       end;
     end;
   end;
+  {$ENDREGION}
 end;
 
 procedure TfrmTacticalDisplay.AddUserRoleLogin(SubRoleId : integer);
@@ -325,11 +436,38 @@ begin
 
     tmrProgressbar.Enabled := True;
     btnLoad.Visible := False;
+  end
+  else
+  begin
+    ShowMessage('Sim Server belum dijalankan!');
   end;
 end;
 
 procedure TfrmTacticalDisplay.btnImplementationClick(Sender: TObject);
 begin
+  {$REGION ' LAMA '}
+//  if btnImplementation.Down then
+//  begin
+//    cbbSubRole.Left := btnImplementation.Left;
+//    lstUserRoleLogin.Left := btnImplementation.Left;
+//
+//    cbbSubRole.Visible := True;
+//
+//    AddCbbSubRole(2);
+//
+//    if cbbSubRole.Items.Count > 0 then
+//      cbbSubRole.ItemIndex := 0;
+//
+//    cbbSubRole.OnSelect(nil);
+//  end
+//  else
+//  begin
+//    cbbSubRole.Visible := False;
+//    lstUserRoleLogin.Visible := False;
+//  end;
+  {$ENDREGION}
+
+  {$REGION ' INWO '}
   if btnImplementation.Down then
   begin
     cbbSubRole.Left := btnImplementation.Left;
@@ -337,7 +475,7 @@ begin
 
     cbbSubRole.Visible := True;
 
-    AddCbbSubRole(2);
+    AddCbbSubRole(2, True);
 
     if cbbSubRole.Items.Count > 0 then
       cbbSubRole.ItemIndex := 0;
@@ -349,7 +487,7 @@ begin
     cbbSubRole.Visible := False;
     lstUserRoleLogin.Visible := False;
   end;
-
+  {$ENDREGION}
 end;
 
 procedure TfrmTacticalDisplay.btnLoginClick(Sender: TObject);

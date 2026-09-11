@@ -1,0 +1,7 @@
+REKAP TEMUAN NOPP
+
+1. Connect to server sudah dihilangkan 
+2. load System tidak bisa diklik Ketika simserver masih Lock
+3. Implementasi sudah menurut Projectnya 
+4. Daftar IP pada Sim server sudah muncul semua dan sudah terbagi sendiri sendiri menurut projectnya
+5. Cubicles.xml sudah lengkap
