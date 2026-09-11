@@ -67,7 +67,7 @@ type
     procedure cbbConsoleNameDropDown(Sender: TObject);
     procedure btnPlanningClick(Sender: TObject);
     procedure btnPreparationClick(Sender: TObject);
-    procedure btnImplementationClick(Sender: TObject);
+    procedure btnImplementasiClick(Sender: TObject);
     procedure btnTerminationClick(Sender: TObject);
     procedure cbbSubRoleSelect(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -443,7 +443,7 @@ begin
   end;
 end;
 
-procedure TfrmTacticalDisplay.btnImplementationClick(Sender: TObject);
+procedure TfrmTacticalDisplay.btnImplementasiClick(Sender: TObject);
 begin
   {$REGION ' LAMA '}
 //  if btnImplementation.Down then
@@ -736,6 +736,8 @@ end;
 procedure TfrmTacticalDisplay.tmrProgressbarTimer(Sender: TObject);
 var
   rec : TRecTCP_Reconnect;
+  consoleName: string;
+  isINWO: Boolean;
 
 begin
   pbLoadSystem.Position := pbLoadSystem.Position + 1;
@@ -800,6 +802,26 @@ begin
         btnImplementation.Visible := False;
         btnTermination.Visible := False;
       end;
+
+      {$REGION ' Menampilkan btn saat INWO atau tidak'}
+      consoleName := UpperCase(simMgrClient.MyConsoleData.Identifier);
+      isINWO := Pos('INWO', consoleName) > 0;
+
+      if isINWO then
+      begin
+        btnImplementation.Visible := True;
+        btnPlanning.Visible := True;
+        btnTermination.Visible := True;
+        btnPreparation.Visible := True;
+      end
+      else
+      begin
+        btnImplementation.Left :=  663;
+        btnPlanning.Visible := False;
+        btnTermination.Visible := False;
+        btnPreparation.Visible := False;
+      end;
+      {$ENDREGION}
     end;
   end;
 

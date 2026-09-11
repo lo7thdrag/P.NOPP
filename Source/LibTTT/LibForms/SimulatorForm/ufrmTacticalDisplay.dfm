@@ -48808,7 +48808,7 @@ object frmTacticalDisplay: TfrmTacticalDisplay
         Spacing = 1
         TabOrder = 0
         Visible = False
-        OnClick = btnImplementationClick
+        OnClick = btnImplementasiClick
       end
       object btnPlanning: TRzBmpButton
         Tag = 14
