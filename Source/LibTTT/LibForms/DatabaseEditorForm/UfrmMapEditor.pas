@@ -40,6 +40,7 @@ type
     pnlLeftMain: TPanel;
     btnSelect: TToolButton;
     btnMultiSelect: TToolButton;
+    pnlMainBackground: TPanel;
     procedure btnCancelClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
     procedure btnDecreaseClick(Sender: TObject);
@@ -64,6 +65,7 @@ type
       Shift: TShiftState; X, Y: Integer);
     procedure edtSearchKeyPress(Sender: TObject; var Key: Char);
     procedure btnMultiSelectClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
 
   private
     FSelectedGameArea : TGame_Area_Definition;
@@ -98,6 +100,7 @@ type
     isOK  : Boolean; {Penanda jika gagal cek input, btn OK tidak langsung close}
     AfterClose : Boolean; {Penanda ketika yg dipilih btn cancel, list tdk perlu di update }
     LastName : string;
+    centLong, centLatt: Double;
 
     function CekInput: Boolean;
     property SelectedGameArea : TGame_Area_Definition read FSelectedGameArea write FSelectedGameArea;
@@ -112,6 +115,18 @@ var
 implementation
 
 {$R *.dfm}
+procedure EnableComposited(WinControl:TWinControl);
+var
+  i:Integer;
+  NewExStyle:DWORD;
+begin
+  NewExStyle := GetWindowLong(WinControl.Handle, GWL_EXSTYLE) or WS_EX_COMPOSITED;
+  SetWindowLong(WinControl.Handle, GWL_EXSTYLE, NewExStyle);
+
+  for I := 0 to WinControl.ControlCount - 1 do
+    if WinControl.Controls[i] is TWinControl then
+      EnableComposited(TWinControl(WinControl.Controls[i]));
+end;
 procedure InitOleVariant(var TheVar: OleVariant);
 begin
   TVarData(TheVar).VType := varError;
@@ -139,7 +154,7 @@ end;
 
 procedure TfrmMapEditor.btnCancelClick(Sender: TObject);
 begin
-Close
+  Close;
 end;
 
 procedure TfrmMapEditor.btnCenterGameClick(Sender: TObject);
@@ -400,7 +415,7 @@ begin
 
   CloseFile(myFile);
 
-  dirP := vGameAreaSetting.MapGSTGame + '\' + edtName.Text;
+  dirP := dbEditSett.MapGSTGame + '\' + edtName.Text;
   CreateDir(dirP);
 
   fileSource := ExtractFilePath(ParamStr(0)) + '\ConfigureLayerENC.txt';
@@ -422,18 +437,18 @@ begin
   end;
 
   {Memaksa memberi background indonesia}
-  fileDest := vGameAreaSetting.Pattern;
+  fileDest := dbEditSett.Pattern;
   FMap1.Layers.AddGeoSetLayers(fileDest);
 
   for i := 0 to FListFiltered.Count - 1 do
   begin
     if SeparateString(FListFiltered.Strings[I], '\', indx, mtype)then
     begin
-      fileDest := vGameAreaSetting.MapTypePath + '\' + mtype + '\' + indx + '\' + indx + '.gst';
+      fileDest := dbEditSett.MapTypePath + '\' + mtype + '\' + indx + '\' + indx + '.gst';
     end
     else
     begin
-      fileDest := vGameAreaSetting.MapTypePath + '\_MAP_ENC\' + FListFiltered[i] + '\' + FListFiltered[i] + '.gst';
+      fileDest := dbEditSett.MapTypePath + '\ENC\' + FListFiltered[i] + '\' + FListFiltered[i] + '.gst';
     end;
 
     FMap1.Layers.AddGeoSetLayers(fileDest);
@@ -677,13 +692,20 @@ procedure TfrmMapEditor.FormCreate(Sender: TObject);
 var
   itemMaxWidth, i, itemWidth : Integer;
 begin
+  LoadFF_AppDBSetting('Setting.ini', dbEditSett);
+  vGameAreaSetting := dbEditSett;
+
+  FCanvas         := TCanvas.Create;
+  FConverter      := TCoordConverter.Create;
+  FConverter.FMap := ENCMap;
+  FMap1           := TMap.Create(Self);
+
   FListMapIndex := TStringList.Create;
   FListFiltered := TStringList.Create;
-  FCanvas := TCanvas.Create;
-  FConverter := TCoordConverter.Create;
-  FMap1 := TMap.Create(Self);
 
-  FListMapIndex.LoadFromFile(vGameAreaSetting.MapENC + '\' + 'mapindex.ini');
+  if FileExists(dbEditSett.MapSourcePathENC + '\ENC\mapindex.ini') then
+    FListMapIndex.LoadFromFile(dbEditSett.MapSourcePathENC + '\ENC\mapindex.ini');
+
   chklstArea.Items := FListMapIndex;
 
   //Set Checklist Area Width
@@ -696,6 +718,16 @@ begin
       itemMaxWidth := itemWidth;
   end;
   SendMessage(chklstArea.Handle, LB_SETHORIZONTALEXTENT, itemMaxWidth + 20, 0);
+
+  EnableComposited(pnlMainBackground);
+end;
+
+procedure TfrmMapEditor.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FCanvas);
+  FreeAndNil(FConverter);
+  FreeAndNil(FListMapIndex);
+  FreeAndNil(FListFiltered);
 end;
 
 procedure TfrmMapEditor.FormResize(Sender: TObject);
@@ -708,13 +740,30 @@ procedure TfrmMapEditor.FormShow(Sender: TObject);
 var
   i, itemMaxWidth, itemWidth : Integer;
   sourceCopy, destCopy : string;
+  gstPath, coveragePath : string;
 begin
-  LoadENC(vGameAreaSetting.MapSourceGeosetENC);
-  FConverter.FMap := ENCMap;
+  if Assigned(FMap1) and Assigned(FMap1.Layers) then
+    FMap1.Layers.RemoveAll;
+
+  if Assigned(ENCMap) and Assigned(ENCMap.Layers) then
+    ENCMap.Layers.RemoveAll;
+
+  if FileExists(dbEditSett.MapSourceGeosetENC) then
+    LoadENC(dbEditSett.MapSourceGeosetENC)
+  else
+    LoadENC('C:\Program Files (x24)\Docs\Map\MapSource\AreaCoverage.gst');
+
+//  FConverter.FMap := ENCMap;
 
   btnSelectClick(nil);
-  cbSetScale.ItemIndex := cbSetScale.Items.Count - 1;
-  cbSetScaleChange(cbSetScale);
+  if cbSetScale.Items.Count > 0 then
+  begin
+    cbSetScale.ItemIndex := cbSetScale.Items.Count - 1;
+    cbSetScaleChange(cbSetScale);
+  end;
+
+  centLong := 116.357322793642;
+  centLatt := -0.328853651464508;
 
   with FSelectedGameArea.FData do
   begin
@@ -824,7 +873,7 @@ begin
   if Assigned(FSelectedGameArea) then
   begin
     nameGameArea := FSelectedGameArea.FData.Game_Area_Identifier;
-    pathConFile := vGameAreaSetting.MapGSTGame + '\' + nameGameArea;
+    pathConFile := dbEditSett.MapDestPathENC + '\' + nameGameArea;
 
     if FileExists(pathConFile + '\' + nameGameArea  + '.txt') then
       FListFiltered.LoadFromFile(pathConFile + '\' + nameGameArea  + '.txt');
@@ -959,7 +1008,7 @@ begin
   begin
     layer := ENCMap.Layers.Item(i);
 
-    if (layer.Name = 'Indonesia_Coastline_Darat') or (layer.Name = 'LYR_DRAW') then
+    if (layer.Name = 'Indonesia_Coastline_Darat') or (layer.Name = 'LYR_DRAW') or (layer.Name = 'ID2000_land') then
       Continue;
 
     SeparateString(layer.Name, '_', layerID, layerName);
@@ -990,7 +1039,7 @@ procedure TfrmMapEditor.UpdateGeosetFile;
 var
   MapDirPath : string;
 begin
-  MapDirPath := vGameAreaSetting.MapGSTGame + '\' + LastName;
+  MapDirPath := dbEditSett.MapGSTGame + '\' + LastName;
   DeleteGameAreaDirectory(MapDirPath, MapDirPath);
   CreateGeosetFile;
 end;

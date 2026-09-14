@@ -19,7 +19,7 @@ begin
 
   LoadFF_NetClientSetting(vSettingFile, vNetClientSetting);
   LoadFF_AppSetting(vSettingFile, vAppSetting);
-  LoadFF_AppDBSetting('setting.ini' , vGameAreaSetting);
+//  LoadFF_AppDBSetting('setting.ini' , dbEditSett);
 
   frmSituationBoard_Instance;
   simMgrClient := TSimMgr_Client.Create(frmSituationBoard.Map1);

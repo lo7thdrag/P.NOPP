@@ -382,6 +382,7 @@ type
     FSelectedAsset : TAsset;
 
     selectedUserChat : string;
+    FUpdateList : Boolean;
 
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
     procedure AddSearchTypeItems;
@@ -1605,22 +1606,27 @@ end;
 
 procedure TfrmDisplayArea.btnAddMapClick(Sender: TObject);
 begin
-  if not Assigned(frmMapEditor) then
-    frmMapEditor := TfrmMapEditor.Create(Self);
+  LoadFF_AppDBSetting('Setting.ini', dbEditSett);
 
+  frmMapEditor := TfrmMapEditor.Create(Self);
   try
-    with frmMapEditor do
+    frmMapEditor.SelectedGameArea := TGame_Area_Definition.Create;
+    frmMapEditor.SelectedGameArea.FData.Detail_Map := 'ENC';
+
+    if frmMapEditor.ShowModal = mrOk then
     begin
-      SelectedGameArea := TGame_Area_Definition.Create;
-      SelectedGameArea.FData.Detail_Map := 'ENC';
-      Show;
-//      FUpdateList := AfterClose;
+      // Opsi jika tombol OK mengembalikan mrOk
     end;
+
+    FUpdateList := frmMapEditor.AfterClose;
+    frmMapEditor.SelectedGameArea.Free;
   finally
+    FreeAndNil(frmMapEditor);
   end;
 
-//  if FUpdateList then
+  if FUpdateList then
     UpdateGameAreaList;
+
 end;
 
 procedure TfrmDisplayArea.btnEditMapClick(Sender: TObject);
@@ -1631,21 +1637,21 @@ begin
     Exit;
   end;
 
-  if not Assigned(frmMapEditor) then
-    frmMapEditor := TfrmMapEditor.Create(Self);
+  LoadFF_AppDBSetting('Setting.ini', dbEditSett);
 
+  frmMapEditor := TfrmMapEditor.Create(Self);
   try
-    with frmMapEditor do
-    begin
-      SelectedGameArea := FSelectedGameArea;
-      Show;
-//      FUpdateList := AfterClose;
-    end;
+    frmMapEditor.SelectedGameArea := FSelectedGameArea;
+    frmMapEditor.ShowModal;
+
+    FUpdateList := frmMapEditor.AfterClose;
   finally
+    FreeAndNil(frmMapEditor);
   end;
 
-//  if FUpdateList then
+  if FUpdateList then
     UpdateGameAreaList;
+
 end;
 
 procedure TfrmDisplayArea.btnPreviewClick(Sender: TObject);
@@ -1692,7 +1698,7 @@ begin
       {Pengecekan Relasi Dengan Tabel Game Environment Definition}
       tempList := TList.Create;
 
-      MapDirPath := vGameAreaSetting.MapGSTGame + '\' + Game_Area_Identifier;
+      MapDirPath := dbEditSett.MapGSTGame + '\' + Game_Area_Identifier;
       DeleteGameAreaDirectory(MapDirPath, MapDirPath);
 
       if dmINWO.DeleteGameAreaDef(Game_Area_Index) then

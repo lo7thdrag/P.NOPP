@@ -15,345 +15,355 @@ object frmMapEditor: TfrmMapEditor
   Position = poDesigned
   WindowState = wsMaximized
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object pnlLeft: TPanel
+  object pnlMainBackground: TPanel
     Left = 0
     Top = 0
-    Width = 401
-    Height = 773
-    Align = alLeft
-    BevelOuter = bvNone
-    Color = 5326139
-    ParentBackground = False
-    TabOrder = 0
-    object pnlLeftBottom: TPanel
-      Left = 0
-      Top = 708
-      Width = 401
-      Height = 65
-      Align = alBottom
-      BevelOuter = bvNone
-      Color = 2826773
-      ParentBackground = False
-      TabOrder = 0
-      object btnOk: TButton
-        Left = 238
-        Top = 24
-        Width = 75
-        Height = 28
-        Caption = 'Ok'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 0
-        OnClick = btnOkClick
-      end
-      object btnCancel: TButton
-        Left = 316
-        Top = 24
-        Width = 75
-        Height = 28
-        Caption = 'Cancel'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -12
-        Font.Name = 'Tahoma'
-        Font.Style = [fsBold]
-        ParentFont = False
-        TabOrder = 1
-        OnClick = btnCancelClick
-      end
-    end
-    object pnlLeftTop: TPanel
-      Left = 0
-      Top = 0
-      Width = 401
-      Height = 105
-      Align = alTop
-      BevelOuter = bvNone
-      Color = 2826773
-      ParentBackground = False
-      TabOrder = 1
-      object Label1: TLabel
-        Left = 8
-        Top = 17
-        Width = 38
-        Height = 15
-        Caption = 'Name :'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWhite
-        Font.Height = -13
-        Font.Name = 'Berlin Sans FB'
-        Font.Style = []
-        ParentFont = False
-      end
-      object Label2: TLabel
-        Left = 113
-        Top = 68
-        Width = 41
-        Height = 15
-        Caption = 'Search :'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWhite
-        Font.Height = -13
-        Font.Name = 'Berlin Sans FB'
-        Font.Style = []
-        ParentFont = False
-      end
-      object edtName: TEdit
-        Left = 8
-        Top = 38
-        Width = 383
-        Height = 21
-        TabOrder = 0
-      end
-      object edtSearch: TEdit
-        Left = 160
-        Top = 65
-        Width = 231
-        Height = 21
-        TabOrder = 1
-        OnKeyPress = edtSearchKeyPress
-      end
-    end
-    object pnlLeftMain: TPanel
-      Left = 0
-      Top = 105
-      Width = 401
-      Height = 603
-      Align = alClient
-      BevelOuter = bvNone
-      BorderWidth = 10
-      Color = 2826773
-      ParentBackground = False
-      TabOrder = 2
-      object chklstArea: TCheckListBox
-        Left = 10
-        Top = 10
-        Width = 381
-        Height = 583
-        OnClickCheck = chklstAreaClickCheck
-        Align = alClient
-        BevelInner = bvNone
-        BevelOuter = bvNone
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -13
-        Font.Name = 'Berlin Sans FB'
-        Font.Style = []
-        ItemHeight = 15
-        ParentFont = False
-        Sorted = True
-        TabOrder = 0
-      end
-    end
-  end
-  object pnlMap: TPanel
-    Left = 401
-    Top = 0
-    Width = 888
+    Width = 1289
     Height = 773
     Align = alClient
-    BevelOuter = bvNone
-    TabOrder = 1
-    object ENCMap: TMap
-      Left = 0
-      Top = 38
-      Width = 888
-      Height = 735
-      ParentColor = False
-      Align = alClient
-      TabOrder = 0
-      OnMouseUp = ENCMapMouseUp
-      OnMouseMove = ENCMapMouseMove
-      OnMouseDown = ENCMapMouseDown
-      OnMapViewChanged = ENCMapMapViewChanged
-      OnDrawUserLayer = ENCMapDrawUserLayer
-      ExplicitLeft = -4
-      ExplicitTop = 34
-      ExplicitWidth = 834
-      ExplicitHeight = 633
-      ControlData = {
-        8A1A0600C75B0000F74B0000010000000F0000FF0D47656F44696374696F6E61
-        727905456D70747900E8030000000000000000000002000E001E000000000000
-        0000000000000000000000000000000000000000000600010000000002202050
-        00010100000A0000000001F4010000050000800C000000000000000000000000
-        FFFFFF000100000000000000000000000000000000000000000000000352E30B
-        918FCE119DE300AA004BB8510100000090010C45090005417269616C000352E3
-        0B918FCE119DE300AA004BB8510100000090015C790C0005417269616C000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        00FFFFFF000000000000000001370000000000FFFFFF000000000000000352E3
-        0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
-        E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
-        626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
-        00000100011801000028956C0F0100000082022D001C00000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        0002000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        00008076C000000000008056C000000000008076400000000000805640010000
-        001801000028956C0F01000000000000001C0000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000020000
-        0000000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        0000000000000000000000000000000000000000000000000000000000000000
-        000000000000000000000000000000000000000000000000005CCF970030CF97
-        0080C29D7460CD9700FEFFFFFF40CF970080C29D742DFD6B2A00000000000000
-        0000000088B3400000000000408F400001000001}
-    end
-    object pnlToolBar: TPanel
-      Left = 0
-      Top = 0
-      Width = 888
-      Height = 38
-      Align = alTop
+    TabOrder = 0
+    object pnlLeft: TPanel
+      Left = 1
+      Top = 1
+      Width = 401
+      Height = 771
+      Align = alLeft
       BevelOuter = bvNone
-      Color = 2826773
+      Color = 5326139
       ParentBackground = False
-      TabOrder = 1
-      object pnlAlignToolBar: TPanel
+      TabOrder = 0
+      object pnlLeftBottom: TPanel
         Left = 0
-        Top = 0
-        Width = 25
-        Height = 38
-        Align = alLeft
+        Top = 706
+        Width = 401
+        Height = 65
+        Align = alBottom
         BevelOuter = bvNone
         Color = 2826773
         ParentBackground = False
         TabOrder = 0
-      end
-      object ToolBar1: TToolBar
-        Left = 25
-        Top = 0
-        Width = 863
-        Height = 38
-        Align = alClient
-        ButtonHeight = 36
-        ButtonWidth = 42
-        Caption = 'ToolBar1'
-        Color = 5326139
-        Images = ImageList1
-        ParentColor = False
-        TabOrder = 1
-        object btnDecrease: TToolButton
-          Left = 0
-          Top = 0
-          Hint = 'Decrease Scale'
-          Caption = 'btnDecrease'
-          ImageIndex = 1
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnDecreaseClick
-        end
-        object cbSetScale: TComboBox
-          Left = 42
-          Top = 0
-          Width = 95
-          Height = 21
-          Hint = 'Map Scales'
-          ParentShowHint = False
-          ShowHint = True
+        object btnOk: TButton
+          Left = 238
+          Top = 20
+          Width = 75
+          Height = 28
+          Caption = 'Ok'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
           TabOrder = 0
-          OnChange = cbSetScaleChange
-          Items.Strings = (
-            '0.125'
-            '0.25'
-            '0.5'
-            '1'
-            '2'
-            '4'
-            '8'
-            '16'
-            '32'
-            '64'
-            '128'
-            '256'
-            '512'
-            '1024'
-            '2048'
-            '2500')
+          OnClick = btnOkClick
         end
-        object btnIncrease: TToolButton
-          Left = 137
-          Top = 0
-          Hint = 'Increase Scale'
-          Caption = 'btnIncrease'
-          ImageIndex = 0
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnIncreaseClick
+        object btnCancel: TButton
+          Left = 316
+          Top = 20
+          Width = 75
+          Height = 28
+          Caption = 'Cancel'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 1
+          OnClick = btnCancelClick
         end
-        object btnSelect: TToolButton
-          Left = 179
-          Top = 0
-          Caption = 'btnSelect'
-          ImageIndex = 13
-          OnClick = btnSelectClick
+      end
+      object pnlLeftTop: TPanel
+        Left = 0
+        Top = 0
+        Width = 401
+        Height = 105
+        Align = alTop
+        BevelOuter = bvNone
+        Color = 2826773
+        ParentBackground = False
+        TabOrder = 1
+        object Label1: TLabel
+          Left = 8
+          Top = 17
+          Width = 38
+          Height = 15
+          Caption = 'Name :'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -13
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ParentFont = False
         end
-        object btnPan: TToolButton
-          Left = 221
-          Top = 0
-          Hint = 'Pan'
-          Caption = 'btnPan'
-          ImageIndex = 3
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnPanClick
+        object Label2: TLabel
+          Left = 113
+          Top = 68
+          Width = 41
+          Height = 15
+          Caption = 'Search :'
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWhite
+          Font.Height = -13
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ParentFont = False
         end
-        object btnCenterGame: TToolButton
-          Left = 263
-          Top = 0
-          Hint = 'Center On Game Center'
-          AllowAllUp = True
-          Caption = 'btnCenterGame'
-          ImageIndex = 4
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnCenterGameClick
+        object edtName: TEdit
+          Left = 8
+          Top = 38
+          Width = 383
+          Height = 21
+          TabOrder = 0
         end
-        object btnZoom: TToolButton
-          Left = 305
-          Top = 0
-          Hint = 'Zoom '
-          Caption = 'btnZoom'
-          ImageIndex = 2
-          ParentShowHint = False
-          ShowHint = True
-          OnClick = btnZoomClick
+        object edtSearch: TEdit
+          Left = 160
+          Top = 65
+          Width = 231
+          Height = 21
+          CharCase = ecUpperCase
+          TabOrder = 1
+          OnKeyPress = edtSearchKeyPress
         end
-        object btnMultiSelect: TToolButton
-          Left = 347
-          Top = 0
-          Cursor = crHandPoint
-          Hint = 'Map Multi Select Tool'
-          Caption = 'btnMultiSelect'
-          ImageIndex = 7
-          ParentShowHint = False
-          ShowHint = True
-          Style = tbsCheck
-          OnClick = btnMultiSelectClick
+      end
+      object pnlLeftMain: TPanel
+        Left = 0
+        Top = 105
+        Width = 401
+        Height = 601
+        Align = alClient
+        BevelOuter = bvNone
+        BorderWidth = 10
+        Color = 2826773
+        ParentBackground = False
+        TabOrder = 2
+        object chklstArea: TCheckListBox
+          Left = 10
+          Top = 10
+          Width = 381
+          Height = 581
+          OnClickCheck = chklstAreaClickCheck
+          Align = alClient
+          BevelInner = bvNone
+          BevelOuter = bvNone
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -13
+          Font.Name = 'Berlin Sans FB'
+          Font.Style = []
+          ItemHeight = 15
+          ParentFont = False
+          Sorted = True
+          TabOrder = 0
         end
       end
     end
-    object ProgressBar1: TProgressBar
-      Left = 306
-      Top = 436
-      Width = 456
-      Height = 17
-      BarColor = clBlue
-      TabOrder = 2
-      Visible = False
+    object pnlMap: TPanel
+      Left = 402
+      Top = 1
+      Width = 886
+      Height = 771
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 1
+      object ENCMap: TMap
+        Left = 0
+        Top = 38
+        Width = 886
+        Height = 733
+        ParentColor = False
+        Align = alClient
+        TabOrder = 0
+        OnMouseUp = ENCMapMouseUp
+        OnMouseMove = ENCMapMouseMove
+        OnMouseDown = ENCMapMouseDown
+        OnMapViewChanged = ENCMapMapViewChanged
+        OnDrawUserLayer = ENCMapDrawUserLayer
+        ExplicitLeft = -4
+        ExplicitTop = 34
+        ExplicitWidth = 834
+        ExplicitHeight = 633
+        ControlData = {
+          8A1A0600925B0000C24B0000010000000F0000FF0D47656F44696374696F6E61
+          727905456D70747900E8030000000000000000000002000E001E000000000000
+          0000000000000000000000000000000000000000000600010000000002202050
+          00010100000A0000000001F4010000050000800C000000000000000000000000
+          FFFFFF000100000000000000000000000000000000000000000000000352E30B
+          918FCE119DE300AA004BB8510100000090010C45090005417269616C000352E3
+          0B918FCE119DE300AA004BB8510100000090015C790C0005417269616C000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00FFFFFF000000000000000001370000000000FFFFFF000000000000000352E3
+          0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
+          E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
+          626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
+          00000100011801000048CAF50E01000000380A03001C00000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0002000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00008076C000000000008056C000000000008076400000000000805640010000
+          001801000048CAF50E010000004D3BB3761C0000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000020000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000000000000ECF19700C0F197
+          0080C27475F0EF9700FEFFFFFFD0F1970080C27475695D5A5D00000000000000
+          0000000088B3400000000000408F400001000001}
+      end
+      object pnlToolBar: TPanel
+        Left = 0
+        Top = 0
+        Width = 886
+        Height = 38
+        Align = alTop
+        BevelOuter = bvNone
+        Color = 2826773
+        ParentBackground = False
+        TabOrder = 1
+        object pnlAlignToolBar: TPanel
+          Left = 0
+          Top = 0
+          Width = 25
+          Height = 38
+          Align = alLeft
+          BevelOuter = bvNone
+          Color = 2826773
+          ParentBackground = False
+          TabOrder = 0
+        end
+        object ToolBar1: TToolBar
+          Left = 25
+          Top = 0
+          Width = 861
+          Height = 38
+          Align = alClient
+          ButtonHeight = 36
+          ButtonWidth = 42
+          Caption = 'ToolBar1'
+          Color = 5326139
+          Images = ImageList1
+          ParentColor = False
+          TabOrder = 1
+          object btnDecrease: TToolButton
+            Left = 0
+            Top = 0
+            Hint = 'Decrease Scale'
+            Caption = 'btnDecrease'
+            ImageIndex = 1
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = btnDecreaseClick
+          end
+          object cbSetScale: TComboBox
+            Left = 42
+            Top = 0
+            Width = 95
+            Height = 21
+            Hint = 'Map Scales'
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 0
+            OnChange = cbSetScaleChange
+            Items.Strings = (
+              '0.125'
+              '0.25'
+              '0.5'
+              '1'
+              '2'
+              '4'
+              '8'
+              '16'
+              '32'
+              '64'
+              '128'
+              '256'
+              '512'
+              '1024'
+              '2048'
+              '2500')
+          end
+          object btnIncrease: TToolButton
+            Left = 137
+            Top = 0
+            Hint = 'Increase Scale'
+            Caption = 'btnIncrease'
+            ImageIndex = 0
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = btnIncreaseClick
+          end
+          object btnSelect: TToolButton
+            Left = 179
+            Top = 0
+            Caption = 'btnSelect'
+            ImageIndex = 13
+            OnClick = btnSelectClick
+          end
+          object btnPan: TToolButton
+            Left = 221
+            Top = 0
+            Hint = 'Pan'
+            Caption = 'btnPan'
+            ImageIndex = 3
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = btnPanClick
+          end
+          object btnCenterGame: TToolButton
+            Left = 263
+            Top = 0
+            Hint = 'Center On Game Center'
+            AllowAllUp = True
+            Caption = 'btnCenterGame'
+            ImageIndex = 4
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = btnCenterGameClick
+          end
+          object btnZoom: TToolButton
+            Left = 305
+            Top = 0
+            Hint = 'Zoom '
+            Caption = 'btnZoom'
+            ImageIndex = 2
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = btnZoomClick
+          end
+          object btnMultiSelect: TToolButton
+            Left = 347
+            Top = 0
+            Cursor = crHandPoint
+            Hint = 'Map Multi Select Tool'
+            Caption = 'btnMultiSelect'
+            ImageIndex = 7
+            ParentShowHint = False
+            ShowHint = True
+            Style = tbsCheck
+            OnClick = btnMultiSelectClick
+          end
+        end
+      end
+      object ProgressBar1: TProgressBar
+        Left = 306
+        Top = 436
+        Width = 456
+        Height = 17
+        BarColor = clBlue
+        TabOrder = 2
+        Visible = False
+      end
     end
   end
   object ImageList1: TImageList

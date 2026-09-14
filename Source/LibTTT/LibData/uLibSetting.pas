@@ -4,7 +4,7 @@ unit uLibSetting;
 interface
 
 uses
-  Graphics, uDataTypes, Windows;
+  Graphics, uDataTypes, Windows,Dialogs;
 
 const
   // aplication.ini setting
@@ -184,7 +184,8 @@ var
   vSymbolSetting      : TSymbolSetting;
 
   vAppSetting         : TApplicationSetting;
-  vGameAreaSetting       : TDBEditorSetting;
+  vGameAreaSetting    : TDBEditorSetting;
+  dbEditSett          : TDBEditorSetting;
 
   vCubicalAssignSetting : TCubicleAssignSetting;
 
@@ -477,27 +478,29 @@ begin
   try
     with dbEditSett do
     begin
-      MapSourcePathENC      := IniFReadstring(inif, c_appsetting, 'MapSourcePathENC', 'D:\Map\mapsource\coverageArea' );
-      MapSourceGeosetENC    := IniFReadstring(inif, c_appsetting, 'MapSourceGeosetENC', 'D:\Map\mapsource\coverage\AreaCoverage.gst' );
+      MapSourcePathENC    := IniF.ReadString(c_appsetting, 'MapSourcePathENC', 'C:\Program Files (x24)\Docs\Map\MapSource');
+      MapSourceGeosetENC  := IniF.ReadString(c_appsetting, 'MapSourceGeosetENC', 'C:\Program Files (x24)\Docs\Map\MapSource\AreaCoverage.gst');
+      MapDestPathENC      := IniF.ReadString(c_appsetting, 'MapDestPathENC', 'C:\Program Files (x24)\Docs\Map\GameArea' );
 
-      MapENC                := IniFReadstring(inif, c_appsetting, 'MapENC', 'D:\MAP\_MAP_ENC' );
+      MapSourcePathVECT   := IniF.ReadString(c_appsetting, 'MapSourcePathVECT', 'C:\Program Files (x24)\Docs\Map\MapSource');
+      MapSourceGeosetVECT := IniF.ReadString(c_appsetting, 'MapSourceGeosetVECT', 'C:\Program Files (x24)\Docs\Map\mapsource\world.gst');
 
-      OverlayPath           := IniFReadstring(inif, c_appsetting, 'OverlayPath', 'D:\Map\overlay' );
-      PlottingPath          := IniFReadString(IniF, c_appsetting, 'PlottingPath', 'D:\Map\Plotting');
-      Pattern               := IniFReadstring(inif, c_appsetting, 'Pattern', 'D:\Map\mapsource\map\background.gst' );
-      predefPattern         := IniFReadstring(inif, c_appsetting, 'predefPattern', 'D:\Map\pattern' );
+      MapENC              := IniF.ReadString(c_appsetting, 'MapENC', 'C:\Program Files (x24)\Docs\Map\MapSource\ENC');
+      OverlayPath         := IniF.ReadString(c_appsetting, 'OverlayPath', 'C:\Program Files (x24)\Docs\Map\Overlay');
+      PlottingPath        := IniF.ReadString(c_appsetting, 'PlottingPath', 'C:\Program Files (x24)\Docs\Map\Plotting\');
+      Pattern             := IniF.ReadString(c_appsetting, 'Pattern', 'C:\Program Files (x24)\Docs\Map\MapSource\Indonesia.gst');
+      predefPattern       := IniF.ReadString(c_appsetting, 'predefPattern', 'C:\Program Files (x24)\Docs\Map\pattern');
 
-      UserDBEditor          := IniFReadstring(inif, c_appsetting, 'UserDBEditor','Administrator');
-      PasswordDBEditor      := IniFReadstring(inif, c_appsetting, 'PasswordDBEditor','admin');
+      UserDBEditor        := IniF.ReadString(c_appsetting, 'UserDBEditor','Administrator');
+      PasswordDBEditor    := IniF.ReadString(c_appsetting, 'PasswordDBEditor','admin');
 
-      MapTypePath           := INIFReadString(IniF, c_appsetting, 'MapTypePath', '');
-      MapGSTGame            := INIFReadString(IniF, c_appsetting, 'MapGSTGame', '');
-      MapDefGame            := INIFReadString(IniF, c_appsetting, 'MapDefGame', '');
+      MapTypePath         := IniF.ReadString(c_appsetting, 'MapTypePath', '');
+      MapGSTGame          := IniF.ReadString(c_appsetting, 'MapGSTGame', '');
+      MapDefGame          := IniF.ReadString(c_appsetting, 'MapDefGame', '');
     end;
   finally
-    IniF.DisposeOf
+    IniF.Free; // Gunakan Free alih-alih DisposeOf
   end;
-//  IniF.Free;
 end;
 
 end.

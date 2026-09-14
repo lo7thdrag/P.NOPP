@@ -29,6 +29,7 @@ type
     ImageList1: TImageList;
     btnout: TToolButton;
     btnLayerTool: TToolButton;
+    btnCancelPriview: TButton;
     procedure FormShow(Sender: TObject);
     procedure FormResize(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -41,6 +42,7 @@ type
     procedure btnPanClick(Sender: TObject);
     procedure btnoutclick(Sender: TObject);
     procedure btnLayerToolClick(Sender: TObject);
+    procedure btnCancelPriviewClick(Sender: TObject);
 
   private
     FSelectedGameArea : TGame_Area_Definition;
@@ -49,6 +51,7 @@ type
     FLyrDraw: CMapXLayer;
     FConverter: TCoordConverter;
     FMapCursor : E_MapCursor;
+    procedure UpAllToolbarButton;
 
   public
     procedure LoadMap(Geoset: String);
@@ -74,6 +77,8 @@ end;
 
 procedure TfrmMapPreview.btnCenterGameClick(Sender: TObject);
 begin
+  UpAllToolbarButton;
+  btnCenterGame.Down := True;
   FMapCursor := mcGameCenter;
 
   ENCMap.CurrentTool := miArrowTool;
@@ -102,6 +107,9 @@ procedure TfrmMapPreview.btnLayerToolClick(Sender: TObject);
 var
   vHelpFile, vHelpID : OleVariant;
 begin
+  UpAllToolbarButton;
+  btnLayerTool.Down := True;
+
   if btnLayerTool.ImageIndex = 16 then
   begin
     btnLayerTool.ImageIndex := 15;
@@ -115,21 +123,24 @@ end;
 
 procedure TfrmMapPreview.btnoutclick(Sender: TObject);
 begin
-   btnZoom.Down := False;
+  UpAllToolbarButton;
+  btnout.Down := True;
 
-  btnout.Down := not btnout.Down;
-  btnPan.Down := false;
+//  btnout.Down := not btnout.Down;
+//  btnPan.Down := false;
 
   FMapCursor := mcSelect;
 
   ENCMap.CurrentTool := miZoomoutTool;
   ENCMap.MousePointer := miZoomoutCursor;
 
-  btnout.ImageIndex := 8;
+//  btnout.ImageIndex := 8;
 end;
 
 procedure TfrmMapPreview.btnPanClick(Sender: TObject);
 begin
+  UpAllToolbarButton;
+  btnPan.Down := True;
   FMapCursor := mcPan;
 
   ENCMap.CurrentTool := miPanTool;
@@ -138,6 +149,8 @@ end;
 
 procedure TfrmMapPreview.btnSelectClick(Sender: TObject);
 begin
+  UpAllToolbarButton;
+  btnSelect.Down := True;
   FMapCursor := mcSelect;
 
   ENCmap.CurrentTool := miSelectTool;
@@ -146,10 +159,17 @@ end;
 
 procedure TfrmMapPreview.btnZoomClick(Sender: TObject);
 begin
+  UpAllToolbarButton;
+  btnZoom.Down := True ;
   FMapCursor := mcZoom;
 
   ENCMap.CurrentTool := miZoomInTool;
   ENCMap.MousePointer := miZoomInCursor;
+end;
+
+procedure TfrmMapPreview.btnCancelPriviewClick(Sender: TObject);
+begin
+  Close;
 end;
 
 procedure TfrmMapPreview.cbSetScaleChange(Sender: TObject);
@@ -190,7 +210,7 @@ procedure TfrmMapPreview.FormShow(Sender: TObject);
 var
   aGeoset, ENCGeoset, VektorGeoset, GameAreaName: string;
 begin
-  LoadMap(vGameAreaSetting.MapGSTGame + '\' + SelectedGameArea.FData.Game_Area_Identifier + '\' + SelectedGameArea.FData.Game_Area_Identifier + '.gst');
+  LoadMap(dbEditSett.MapGSTGame + '\' + SelectedGameArea.FData.Game_Area_Identifier + '\' + SelectedGameArea.FData.Game_Area_Identifier + '.gst');
 
   FConverter.FMap := ENCMap;
 
@@ -235,6 +255,18 @@ begin
   end;
 
   ENCMap.BackColor := RGB(192, 224, 255);
+end;
+
+procedure TfrmMapPreview.UpAllToolbarButton;
+begin
+  btnSelect.Down := False;
+  btnPan.Down := False;
+  btnZoom.Down := False;
+  btnCenterGame.Down := False;
+  btnLayerTool.Down := False;
+
+  ENCMap.CurrentTool := miArrowTool;
+  ENCMap.MousePointer := miDefaultCursor;
 end;
 
 end.
