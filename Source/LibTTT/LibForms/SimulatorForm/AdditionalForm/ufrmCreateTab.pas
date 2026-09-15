@@ -63,7 +63,7 @@ begin
       rec.TabType := cbbType.ItemIndex;
 
       if cbbType.ItemIndex = 0 then
-        rec.TabAddres := '\indonesia-Background\indonesia-Background.gst'
+        rec.TabAddres := 'Indonesia.gst'
       else
         rec.TabAddres := '\DefaultImage.png';
     end;

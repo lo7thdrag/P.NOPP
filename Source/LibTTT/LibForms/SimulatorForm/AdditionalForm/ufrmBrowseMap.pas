@@ -268,10 +268,10 @@ end;
 procedure TfrmBrowseMap.FormShow(Sender: TObject);
 var
   i : Integer;
-  dirP : string;
+zz  dirP : string;
 begin
   lstGSTGame.Clear;
-  dirP := vMapSetting.MapGSTGame;
+  dirP := dbEditSett.MapGSTGame;
   GetFilename(dirP, lstGSTGame.Items);
 end;
 
@@ -289,7 +289,7 @@ begin
       repeat
         if ((sr.Attr and faDirectory <> 0) and (sr.Name <> '.') and (sr.Name <> '..')) then
         begin
-          if (sr.Name <> 'indonesia-Background') then
+          if (sr.Name <> 'indonesia.gst') then
             list.Add(sr.Name);
         end;
 
@@ -336,7 +336,7 @@ end;
 procedure TfrmBrowseMap.lstGSTGameClick(Sender: TObject);
 begin
   gFilename := lstGSTGame.Items[(Sender as TListBox).ItemIndex];
-  gGSTGame := vMapSetting.MapGSTGame + '\' + gFilename + '\' + gFilename + '.gst';
+  gGSTGame := dbEditSett.MapGSTGame;
 
   if FileExists(gGSTGame) then
     Load_Map(gGSTGame);

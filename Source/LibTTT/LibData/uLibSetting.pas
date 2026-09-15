@@ -494,8 +494,8 @@ begin
       UserDBEditor        := IniF.ReadString(c_appsetting, 'UserDBEditor','Administrator');
       PasswordDBEditor    := IniF.ReadString(c_appsetting, 'PasswordDBEditor','admin');
 
-      MapTypePath         := IniF.ReadString(c_appsetting, 'MapTypePath', '');
-      MapGSTGame          := IniF.ReadString(c_appsetting, 'MapGSTGame', '');
+      MapTypePath         := IniF.ReadString(c_appsetting, 'MapTypePath', 'C:\Program Files (x24)\Docs\Map\MapSource');
+      MapGSTGame          := IniF.ReadString(c_appsetting, 'MapGSTGame', 'C:\Program Files (x24)\Docs\Map\GameArea');
       MapDefGame          := IniF.ReadString(c_appsetting, 'MapDefGame', '');
     end;
   finally

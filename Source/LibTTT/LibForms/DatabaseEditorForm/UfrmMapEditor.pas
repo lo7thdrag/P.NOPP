@@ -436,7 +436,6 @@ begin
       ProgressBar1.Position := j;
   end;
 
-  {Memaksa memberi background indonesia}
   fileDest := dbEditSett.Pattern;
   FMap1.Layers.AddGeoSetLayers(fileDest);
 

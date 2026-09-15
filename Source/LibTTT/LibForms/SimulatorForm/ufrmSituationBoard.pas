@@ -441,13 +441,35 @@ end;
 procedure TfrmSituationBoard.LoadTabMap;
 var
   val : Double;
-
+  folderUtama, pathLengkap :string;
+  i : Integer;
 begin
   pnlAlignToolBar.Width := round((pnlToolBar.Width - 433) / 2);
 
-  if Assigned(FSelectedTabProperties) then
+ if Assigned(FSelectedTabProperties) then
   begin
-    LoadMap(vMapSetting.MapGSTGame + FSelectedTabProperties.AddressTab);
+    folderUtama := dbEditSett.MapSourcePathENC;
+    if folderUtama = '' then
+      folderUtama := 'C:\Program Files (x24)\Docs\Map\MapSource';
+
+    pathLengkap := IncludeTrailingPathDelimiter(folderUtama) + ExtractFileName(FSelectedTabProperties.AddressTab);
+
+    // 3. Eksekusi pemuatan peta
+    if FileExists(pathLengkap) then
+    begin
+      LoadMap(pathLengkap);
+
+      // Posisi kamera tepat di Indonesia
+      Map1.CenterX := 116.357322;
+      Map1.CenterY := -0.328853;
+      Map1.Zoom := 2500;
+
+      // Nyalakan semua layer
+      for i := 1 to Map1.Layers.Count do
+        Map1.Layers.Item(i).Visible := True;
+    end
+    else
+      ShowMessage('File peta tidak ditemukan di:' + sLineBreak + pathLengkap);
     FSelectedOverlayTab := SimManager.SimOverlay.GetOverlayTabByID(FSelectedTabProperties.IdOverlayTab);
   end;
 
