@@ -49,7 +49,7 @@ type
     btnIncrease: TToolButton;
     btnPan: TToolButton;
     btnZoomIn: TToolButton;
-    btnLayer: TToolButton;
+    btnZoomOut: TToolButton;
     btnGameArea: TToolButton;
     btnRuller: TToolButton;
     ImageList1: TImageList;
@@ -64,6 +64,7 @@ type
     lblUserRole: TLabel;
     lblJumTab: TLabel;
     lblTabSelect: TLabel;
+    btnLayerTool: TToolButton;
 
     procedure FormShow(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -78,7 +79,7 @@ type
     procedure btnPanClick(Sender: TObject);
     procedure btnGameCenterClick(Sender: TObject);
     procedure btnZoomInClick(Sender: TObject);
-    procedure btnLayerClick(Sender: TObject);
+    procedure btnZoomOutClick(Sender: TObject);
     procedure btnGameAreaClick(Sender: TObject);
     procedure btnRullerClick(Sender: TObject);
     procedure Map1DrawUserLayer(ASender: TObject; const Layer: IDispatch; hOutputDC, hAttributeDC: Integer; const RectFull, RectInvalid: IDispatch);
@@ -93,6 +94,8 @@ type
     procedure btnselectClick(Sender: TObject);
     procedure miRenameClick(Sender: TObject);
     procedure miDeleteClick(Sender: TObject);
+    procedure btnLayerToolClick(Sender: TObject);
+    procedure UpAllToolbarButton;
 
   private
     FCanvas: TCanvas;
@@ -189,11 +192,29 @@ begin
   RefreshButton(2)
 end;
 
-procedure TfrmSituationBoard.btnLayerClick(Sender: TObject);
+procedure TfrmSituationBoard.btnZoomOutClick(Sender: TObject);
 var
   vHelpFile, vHelpID : OleVariant;
 begin
   Map1.Layers.LayersDlg(vHelpFile, vHelpID);
+end;
+
+procedure TfrmSituationBoard.btnLayerToolClick(Sender: TObject);
+var
+  vHelpFile, vHelpID : OleVariant;
+begin
+  UpAllToolbarButton;
+  btnLayerTool.Down := True;
+
+  if btnLayerTool.ImageIndex = 16 then
+  begin
+    btnLayerTool.ImageIndex := 17;
+    try
+      Map1.Layers.LayersDlg(vHelpFile, vHelpID);
+    finally
+      btnLayerTool.ImageIndex := 16;
+    end;
+  end;
 end;
 
 procedure TfrmSituationBoard.btnPanClick(Sender: TObject);
@@ -355,13 +376,29 @@ end;
 
 procedure TfrmSituationBoard.btnOverlayToolsClick(Sender: TObject);
 begin
-  with frmOverlayTools do
+  if btnOverlayTools.ImageIndex = 12 then
   begin
-    SelectedOverlayTab := FSelectedOverlayTab;
-    Show;
+    btnOverlayTools.ImageIndex := 13;
+    try
+      with frmOverlayTools do
+      begin
+        SelectedOverlayTab := FSelectedOverlayTab;
+        Show;
+      end;
+    finally
+      RefreshButton(0);
+      btnOverlayTools.ImageIndex := 12;
+    end;
   end;
-  RefreshButton(0);
-  btnOverlayTools.ImageIndex := 13;
+
+//  with frmOverlayTools do
+//  begin
+//    btnOverlayTools.ImageIndex := 13;
+//    SelectedOverlayTab := FSelectedOverlayTab;
+//    Show;
+//  end;
+//  RefreshButton(0);
+//  btnOverlayTools.ImageIndex := 12;
 end;
 
 procedure TfrmSituationBoard.btnRullerClick(Sender: TObject);
@@ -556,7 +593,7 @@ begin
     1: {btnPan}
     begin
       btnPan.Down := not btnPan.Down;
-      btnlayer.Down := false;
+      btnlayerTool.Down := false;
       btnZoomIn.Down := False;
 
       FMapCursor := mcSelect;
@@ -620,6 +657,19 @@ begin
   begin
     pnlHome.BringToFront;
   end;
+end;
+
+procedure TfrmSituationBoard.UpAllToolbarButton;
+begin
+  btnSelect.Down := False;
+  btnPan.Down := False;
+  btnZoomIn.Down := False;
+  btnZoomOut.Down := False;
+  btnGameArea.Down := False;
+  btnLayerTool.Down := False;
+
+  Map1.CurrentTool := miArrowTool;
+  Map1.MousePointer := miDefaultCursor;
 end;
 
 procedure TfrmSituationBoard.UpdateTab;

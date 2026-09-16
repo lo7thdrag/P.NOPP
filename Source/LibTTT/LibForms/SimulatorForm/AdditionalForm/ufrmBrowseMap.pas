@@ -268,7 +268,7 @@ end;
 procedure TfrmBrowseMap.FormShow(Sender: TObject);
 var
   i : Integer;
-zz  dirP : string;
+  dirP : string;
 begin
   lstGSTGame.Clear;
   dirP := dbEditSett.MapGSTGame;
