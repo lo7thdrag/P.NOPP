@@ -397,70 +397,49 @@ end;
 
 procedure TfrmMapEditor.CreateGeosetFile;
 var
-  myFile : TextFile;
-  i, j : Integer;
-  fileSource, fileDest : string;
-  dirP   : string;
-
-  indx   : string;
-  mtype  : string;
-  ProgressPos : Integer;
-
+I: Integer;
+  FolderPath, FileSource, FileDest: string;
+  LayerPath, IndexName, MapType: string;
 begin
-  AssignFile(myFile, 'ConfigureLayerENC.txt');
-  ReWrite(myFile);
+  FileSource := ExtractFilePath(ParamStr(0)) + 'ConfigureLayerENC.txt';
+  FListFiltered.SaveToFile(FileSource);
 
-  for i := 0 to FListFiltered.Count - 1 do
-    Writeln(myFile, FListFiltered[i]);
+  FolderPath := dbEditSett.MapGSTGame + '\' + edtName.Text;
+  if not DirectoryExists(FolderPath) then
+    ForceDirectories(FolderPath);
 
-  CloseFile(myFile);
-
-  dirP := dbEditSett.MapGSTGame + '\' + edtName.Text;
-  CreateDir(dirP);
-
-  fileSource := ExtractFilePath(ParamStr(0)) + '\ConfigureLayerENC.txt';
-  fileDest := dirP + '\' + edtName.Text + '.txt';
-
-  CopyFile(PChar(fileSource), PChar(fileDest), False);
+  FileDest := FolderPath + '\' + edtName.Text + '.txt';
+  CopyFile(PChar(FileSource), PChar(FileDest), False);
 
   FMap1.Layers.RemoveAll;
 
   ProgressBar1.Visible := True;
   ProgressBar1.Position := 0;
 
-  if FListFiltered.Count > 0 then
-    ProgressPos := Round(100/FListFiltered.Count)
-  else
-  begin
-    for j := 0 to Random(80) do
-      ProgressBar1.Position := j;
-  end;
+  if FileExists(dbEditSett.Pattern) then
+    FMap1.Layers.AddGeoSetLayers(dbEditSett.Pattern);
 
-  fileDest := dbEditSett.Pattern;
-  FMap1.Layers.AddGeoSetLayers(fileDest);
-
-  for i := 0 to FListFiltered.Count - 1 do
+  for I := 0 to FListFiltered.Count - 1 do
   begin
-    if SeparateString(FListFiltered.Strings[I], '\', indx, mtype)then
-    begin
-      fileDest := dbEditSett.MapTypePath + '\' + mtype + '\' + indx + '\' + indx + '.gst';
-    end
+    if SeparateString(FListFiltered[I], '\', IndexName, MapType) then
+      LayerPath := dbEditSett.MapTypePath + '\' + MapType + '\' + IndexName + '\' + IndexName + '.gst'
     else
-    begin
-      fileDest := dbEditSett.MapTypePath + '\ENC\' + FListFiltered[i] + '\' + FListFiltered[i] + '.gst';
-    end;
+      LayerPath := dbEditSett.MapTypePath + '\ENC\' + FListFiltered[I] + '\' + FListFiltered[I] + '.gst';
 
-    FMap1.Layers.AddGeoSetLayers(fileDest);
+    if FileExists(LayerPath) then
+      FMap1.Layers.AddGeoSetLayers(LayerPath);
 
-    ProgressBar1.Position := ProgressBar1.Position + ProgressPos;
+    if FListFiltered.Count > 0 then
+      ProgressBar1.Position := Round(((I + 1) / FListFiltered.Count) * 100);
   end;
 
-  fileDest := dirP + '\' + edtName.Text + '.gst';
-  FMap1.SaveMapAsGeoset('final', fileDest);
+  FileDest := FolderPath + '\' + edtName.Text + '.gst';
+  FMap1.SaveMapAsGeoset('final', FileDest);
 
   ProgressBar1.Position := 100;
   ProgressBar1.Visible := False;
 end;
+
 
 procedure TfrmMapEditor.DeleteGameAreaDirectory(const aPathName,aFileName: string);
 var
@@ -739,7 +718,7 @@ procedure TfrmMapEditor.FormShow(Sender: TObject);
 var
   i, itemMaxWidth, itemWidth : Integer;
   sourceCopy, destCopy : string;
-  gstPath, coveragePath : string;
+  gstPath, coveragePath, defaultGST : string;
 begin
   if Assigned(FMap1) and Assigned(FMap1.Layers) then
     FMap1.Layers.RemoveAll;
@@ -750,7 +729,15 @@ begin
   if FileExists(dbEditSett.MapSourceGeosetENC) then
     LoadENC(dbEditSett.MapSourceGeosetENC)
   else
-    LoadENC('C:\Program Files (x24)\Docs\Map\MapSource\AreaCoverage.gst');
+  begin
+    defaultGST := ExtractFilePath(ParamStr(0)) + 'MapSource\AreaCoverage.gst';
+
+    if FileExists(defaultGST) then
+      LoadENC(defaultGST)
+    else
+      ShowMessage('File default AreaCoverage.gst tidak ditemukan di folder aplikasi!');
+
+  end;
 
 //  FConverter.FMap := ENCMap;
 

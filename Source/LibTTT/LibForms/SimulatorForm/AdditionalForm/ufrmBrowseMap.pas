@@ -193,21 +193,31 @@ end;
 
 procedure TfrmBrowseMap.btnOkClick(Sender: TObject);
 var
-  rec : TRecTCPSendSituationBoardTabProperties;
-
+  baseDir: string;
 begin
-  rec.OrderID := EDIT_TAB;
-  rec.TabId := TabId;
-  rec.UserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-  rec.TabAddres := '\' + gFilename + '\' + gFilename + '.gst';
-  rec.TabCaption := TabCaption;
+  if lstGSTGame.ItemIndex < 0 then
+  begin
+    ShowMessage('Pilih peta terlebih dahulu!');
+    Exit;
+  end;
 
-  simMgrClient.netSend_CmdSituationBoardTabProperties(rec);
+  gFilename := lstGSTGame.Items[lstGSTGame.ItemIndex];
 
-  frmSituationBoard.RefreshTab;
-  frmSituationBoard.btnGameArea.ImageIndex := 10;
+  baseDir := Trim(dbEditSett.MapGSTGame);
+  if (baseDir = '') or not DirectoryExists(baseDir) then
+    baseDir := 'C:\Program Files (x24)\Docs\Map\GameArea';
 
-  Close;
+  // Simpan full path peta ke variabel global gGSTGame
+  gGSTGame := IncludeTrailingPathDelimiter(baseDir) + gFilename + PathDelim + gFilename + '.gst';
+
+  if FileExists(gGSTGame) then
+  begin
+    ModalResult := mrOk; // Ini akan menutup form BrowseMap dan mengembalikan nilai mrOk
+  end
+  else
+  begin
+    ShowMessage('File peta tidak ditemukan di:' + sLineBreak + gGSTGame);
+  end;
 end;
 
 procedure TfrmBrowseMap.btnZoomClick(Sender: TObject);
@@ -267,58 +277,78 @@ end;
 
 procedure TfrmBrowseMap.FormShow(Sender: TObject);
 var
-  i : Integer;
   dirP : string;
 begin
+
+  if Assigned(mpLayer) then
+  begin
+    mpLayer.Layers.RemoveAll;
+
+    mpLayer.BackColor := clWhite;
+    mpLayer.Refresh;
+    mpLayer.Repaint;
+  end;
+
   lstGSTGame.Clear;
-  dirP := dbEditSett.MapGSTGame;
+  gFilename := '';
+  gGSTGame := '';
+
+  dirP := Trim(dbEditSett.MapGSTGame);
+
+  if (dirP = '') or not DirectoryExists(dirP) then
+    dirP := 'C:\Program Files (x24)\Docs\Map\GameArea';
+
   GetFilename(dirP, lstGSTGame.Items);
 end;
 
 procedure TfrmBrowseMap.GetFilename(const dir: string; list: TStrings);
 var
-  sr : TSearchRec;
-  str : string;
-  I : Integer;
+  sr: TSearchRec;
+  targetDir: string;
 begin
+  targetDir := Trim(dir);
+  if targetDir = '' then Exit;
+
+  targetDir := IncludeTrailingPathDelimiter(targetDir);
+
+  list.BeginUpdate;
   try
-    if FindFirst(IncludeTrailingPathDelimiter(dir)+'*.*', faDirectory, sr) < 0 then
-      Exit
-    else
+    list.Clear;
+    if FindFirst(targetDir + '*.*', faDirectory, sr) = 0 then
     begin
       repeat
-        if ((sr.Attr and faDirectory <> 0) and (sr.Name <> '.') and (sr.Name <> '..')) then
+        if ((sr.Attr and faDirectory) <> 0) and (sr.Name <> '.') and (sr.Name <> '..') then
         begin
-          if (sr.Name <> 'indonesia.gst') then
+          if not SameText(sr.Name, 'indonesia') then
             list.Add(sr.Name);
         end;
-
       until FindNext(sr) <> 0;
     end;
   finally
-    FindClose(SR);
+    FindClose(sr);
+    list.EndUpdate;
   end;
 end;
 
 procedure TfrmBrowseMap.Load_Map(geoSet: string);
 var
-  i,j: Integer;
+  i: Integer;
   z: OleVariant;
   mInfo: CMapXLayerInfo;
 begin
-  if mpLayer = nil then
-    Exit;
+  if mpLayer = nil then Exit;
+
   InitOleVariant(z);
   mpLayer.Layers.RemoveAll;
 
-  mpLayer.Geoset := Geoset;
+  mpLayer.Geoset := geoSet;
 
   if geoSet <> '' then
   begin
     for i := 1 to mpLayer.Layers.Count do
     begin
-      mpLayer.Layers.Item(i).Selectable := false;
-      mpLayer.Layers.Item(i).Editable   := false;
+      mpLayer.Layers.Item(i).Selectable := False;
+      mpLayer.Layers.Item(i).Editable   := False;
     end;
 
     mInfo := CoLayerInfo.Create;
@@ -333,13 +363,31 @@ begin
   mpLayer.BackColor := RGB(192, 224, 255);
 end;
 
-procedure TfrmBrowseMap.lstGSTGameClick(Sender: TObject);
-begin
-  gFilename := lstGSTGame.Items[(Sender as TListBox).ItemIndex];
-  gGSTGame := dbEditSett.MapGSTGame;
 
-  if FileExists(gGSTGame) then
-    Load_Map(gGSTGame);
+procedure TfrmBrowseMap.lstGSTGameClick(Sender: TObject);
+var
+  baseDir, fullPathGST: string;
+begin
+  if lstGSTGame.ItemIndex < 0 then Exit;
+
+  gFilename := lstGSTGame.Items[lstGSTGame.ItemIndex];
+
+  baseDir := Trim(dbEditSett.MapGSTGame);
+  if (baseDir = '') or not DirectoryExists(baseDir) then
+    baseDir := 'C:\Program Files (x24)\Docs\Map\GameArea';
+
+  fullPathGST := IncludeTrailingPathDelimiter(baseDir) +
+                 gFilename + PathDelim + gFilename + '.gst';
+
+  if FileExists(fullPathGST) then
+  begin
+    gGSTGame := fullPathGST;
+    Load_Map(fullPathGST);
+  end
+  else
+  begin
+    ShowMessage('File GST tidak ditemukan di:' + sLineBreak + fullPathGST);
+  end;
 end;
 
 procedure TfrmBrowseMap.mpLayerMapViewChanged(Sender: TObject);

@@ -283,34 +283,34 @@ end;
 function LoadFF_MapSetting(const fName: string; var mSet: TMapSetting): boolean;
 var
   IniF: TIniFile;
-  s: string;
+  fullIniPath: string;
 begin
-  IniF := TIniFile.Create(fName);
+  if ExtractFilePath(fName) <> '' then
+    fullIniPath := fName
+  else
+    fullIniPath := ExtractFilePath(ParamStr(0)) + fName;
 
-  s := ExtractFilePath(ParamStr(0));
+  IniF := TIniFile.Create(fullIniPath);
+  try
+    with mSet do
+    begin
+      MapPath       := IncludeTrailingPathDelimiter(IniFReadstring(IniF, c_map, 'mappath', 'C:\Program Files (x24)\Docs\Map\GameArea'));
+      MapGSTGame    := INIFReadString(IniF, c_map, 'MapGSTGame', 'C:\Program Files (x24)\Docs\Map\GameArea');
+      MapGeoset     := IniFReadstring(IniF, c_map, 'defmap', 'Indonesia.gst');
+      MapDataGeoset := IniFReadstring(IniF, c_map, 'mapdata', 'C:\Program Files (x24)\Docs\Map\mapdata\mapdata.gst');
+      ImageGame     := IniFReadstring(IniF, c_map, 'ImageGame', '');
 
-  with mSet do
-  begin
-    MapPath := IncludeTrailingBackslash(IniFReadstring(inif, c_map, 'mappath', 'M:\game_area'));
-    MapGSTGame := INIFReadString(IniF, c_map, 'MapGSTGame', '');
-    MapGeoset := IniFReadstring(inif, c_map, 'defmap', 'Indonesia.gst');
-    MapDataGeoset := IniFReadstring(inif, c_map, 'mapdata','M:\map\mapdata\mapdata.gst');
-    ImageGame := IniFReadstring(inif, c_map, 'ImageGame','');
+      MapZoom := INIFReadInteger(IniF, c_map, 'zoom', 5);
+      if MapZoom > C_MaxZoomIndex then MapZoom := C_MaxZoomIndex;
+      if MapZoom < C_MinZoomIndex then MapZoom := C_MinZoomIndex;
 
-    MapZoom := INIFReadInteger(inif, c_map, 'zoom', 5);
-    if MapZoom > C_MaxZoomIndex then
-      MapZoom := C_MaxZoomIndex;
-    if MapZoom < C_MinZoomIndex then
-        MapZoom := C_MinZoomIndex;
-
-    mX := INIFReadFloat(IniF, c_map, 'long', 112.75 );
-    mY := INIFReadFloat(IniF, c_map, 'latt', -7.2 );
-
+      mX := INIFReadFloat(IniF, c_map, 'long', 112.75);
+      mY := INIFReadFloat(IniF, c_map, 'latt', -7.2);
+    end;
+  finally
+    IniF.Free;
   end;
-  inif.Free;
-
-  result := true;
-
+  Result := True;
 end;
 
 function LoadFF_GameSetting(const fName: string; var gdSet: TGameDataSetting): boolean;
@@ -465,22 +465,23 @@ function LoadFF_AppDBSetting(const fName: string; var dbEditSett: TDBEditorSetti
 const
   c_appsetting = 'dbeditor';
 var
-  IniF : TIniFile;
-  s    : string;
-  str  : string;
+ IniF: TIniFile;
+  fullIniPath: string;
 begin
   Result := True;
-  s     := ExtractFilePath(ParamStr(0));
-  str := s;
-  s := s + fName;
 
-  IniF  := TIniFile.Create(s);
+  if ExtractFilePath(fName) <> '' then
+    fullIniPath := fName
+  else
+    fullIniPath := ExtractFilePath(ParamStr(0)) + fName;
+
+  IniF := TIniFile.Create(fullIniPath);
   try
     with dbEditSett do
     begin
       MapSourcePathENC    := IniF.ReadString(c_appsetting, 'MapSourcePathENC', 'C:\Program Files (x24)\Docs\Map\MapSource');
       MapSourceGeosetENC  := IniF.ReadString(c_appsetting, 'MapSourceGeosetENC', 'C:\Program Files (x24)\Docs\Map\MapSource\AreaCoverage.gst');
-      MapDestPathENC      := IniF.ReadString(c_appsetting, 'MapDestPathENC', 'C:\Program Files (x24)\Docs\Map\GameArea' );
+      MapDestPathENC      := IniF.ReadString(c_appsetting, 'MapDestPathENC', 'C:\Program Files (x24)\Docs\Map\GameArea');
 
       MapSourcePathVECT   := IniF.ReadString(c_appsetting, 'MapSourcePathVECT', 'C:\Program Files (x24)\Docs\Map\MapSource');
       MapSourceGeosetVECT := IniF.ReadString(c_appsetting, 'MapSourceGeosetVECT', 'C:\Program Files (x24)\Docs\Map\mapsource\world.gst');
@@ -491,15 +492,15 @@ begin
       Pattern             := IniF.ReadString(c_appsetting, 'Pattern', 'C:\Program Files (x24)\Docs\Map\MapSource\Indonesia.gst');
       predefPattern       := IniF.ReadString(c_appsetting, 'predefPattern', 'C:\Program Files (x24)\Docs\Map\pattern');
 
-      UserDBEditor        := IniF.ReadString(c_appsetting, 'UserDBEditor','Administrator');
-      PasswordDBEditor    := IniF.ReadString(c_appsetting, 'PasswordDBEditor','admin');
+      UserDBEditor        := IniF.ReadString(c_appsetting, 'UserDBEditor', 'Administrator');
+      PasswordDBEditor    := IniF.ReadString(c_appsetting, 'PasswordDBEditor', 'admin');
 
       MapTypePath         := IniF.ReadString(c_appsetting, 'MapTypePath', 'C:\Program Files (x24)\Docs\Map\MapSource');
       MapGSTGame          := IniF.ReadString(c_appsetting, 'MapGSTGame', 'C:\Program Files (x24)\Docs\Map\GameArea');
       MapDefGame          := IniF.ReadString(c_appsetting, 'MapDefGame', '');
     end;
   finally
-    IniF.Free; // Gunakan Free alih-alih DisposeOf
+    IniF.Free;
   end;
 end;
 

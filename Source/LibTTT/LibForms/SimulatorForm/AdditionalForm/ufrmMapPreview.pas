@@ -43,6 +43,7 @@ type
     procedure btnoutclick(Sender: TObject);
     procedure btnLayerToolClick(Sender: TObject);
     procedure btnCancelPriviewClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
 
   private
     FSelectedGameArea : TGame_Area_Definition;
@@ -179,25 +180,26 @@ var
 begin
   ENCMap.OnMapViewChanged := nil;
 
-  if cbSetScale.ItemIndex < 0  then Exit;
+  if (cbSetScale.ItemIndex < 0) or (cbSetScale.ItemIndex >= cbSetScale.Items.Count) then
+    Exit;
 
-  if (cbSetScale.ItemIndex <= 500) then
-  begin
-   s := cbSetScale.Items[cbSetScale.ItemIndex];
-   try
-     z := StrToFloat(s);
-     ENCMap.ZoomTo(z, ENCMap.CenterX, ENCMap.CenterY);
-   finally
+  s := cbSetScale.Items[cbSetScale.ItemIndex];
+  z := StrToFloatDef(s, 0); // Jika gagal konversi, default ke 0
 
-   end;
-  end
-  else cbSetScale.ItemIndex := cbSetScale.ItemIndex -1 ;
+  if z > 0 then
+    ENCMap.ZoomTo(z, ENCMap.CenterX, ENCMap.CenterY);
 end;
 
 procedure TfrmMapPreview.FormCreate(Sender: TObject);
 begin
   FCanvas := TCanvas.Create;
   FConverter := TCoordConverter.Create;
+end;
+
+procedure TfrmMapPreview.FormDestroy(Sender: TObject);
+begin
+  FreeAndNil(FCanvas);
+  FreeAndNil(FConverter);
 end;
 
 procedure TfrmMapPreview.FormResize(Sender: TObject);
