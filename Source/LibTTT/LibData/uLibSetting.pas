@@ -96,6 +96,7 @@ type
     DemoMode : Boolean;
     LogData : Boolean;
     DelaySendData : Cardinal;
+    Role : Integer; {0:INWO; 1:ATWO; 2:NTWO; 3:ALWO; 4:CDWO; 5:LFWO; 6:SUWO;}
 
 //    ScenarioID : Integer;
 //    RootRecordPath : string;
@@ -342,6 +343,7 @@ begin
     ImageModel           := IniFReadstring(inif, c_gdata, 'ImageModel' , '\\192.168.1.50\Program Files (x24)\Bin\data\Image DBEditor\Interface\');
     FileTransfer         := IniFReadstring(inif, c_gdata, 'FileTransfer' , '');
     ImageBackgroundLogin := IniFReadstring(inif, c_gdata, 'ImageBackgroundLogin' , '');
+    Role                 := INIFReadInteger(IniF, c_gdata, 'Role', 0);
   end;
   inif.Free;
 

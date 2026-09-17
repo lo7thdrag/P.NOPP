@@ -58,6 +58,7 @@ type
     pbSituationBoard: TProgressBar;
     lblPb: TLabel;
     lblPbLoadSystem: TLabel;
+    imgSetting: TImage;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -96,6 +97,7 @@ type
     procedure UpdateGameState(Sender: TObject);
     procedure UpdateClientLogin(Sender: TObject);
     procedure UpdateClientLogout(Sender: TObject);
+    procedure SetWallpaperHome;
 
   end;
 
@@ -279,28 +281,115 @@ begin
 //  end;
   {$ENDREGION}
 
+  {$REGION ' INWO FILTER '}
+//  cbbSubRole.Items.Clear;
+//
+//  isINWO := False;
+//  isNTWO := False;
+//  isATWO := False;
+//  isALWO := False;
+//  isCDWO := False;
+//  isLFWO := False;
+//  isSUWO := False;
+//
+//  if UseConsoleFilter then
+//  begin
+//    consoleName := UpperCase(simMgrClient.MyConsoleData.Identifier);
+//    isINWO := Pos('INWO', consoleName) > 0;
+//    isNTWO := Pos('NTWO', consoleName) > 0;
+//    isATWO := Pos('ATWO', consoleName) > 0;
+//    isALWO := Pos('ALWO', consoleName) > 0;
+//    isCDWO := Pos('CDWO', consoleName) > 0;
+//    isLFWO := Pos('LFWO', consoleName) > 0;
+//    isSUWO := Pos('SUWO', consoleName) > 0;
+//  end;
+//
+//  for i := 0 to SimManager.SimSubRole.SubRoleList.Count-1 do
+//  begin
+//    subRoleTemp := SimManager.SimSubRole.SubRoleList[i];
+//
+//    if Assigned(subRoleTemp) then
+//    begin
+//      if UseConsoleFilter then
+//      begin
+//        if isINWO and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'KOGAB') then
+//        begin
+//          Continue;
+//        end;
+//
+//        if isNTWO and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASGABLA') then
+//        begin
+//          Continue;
+//        end;
+//
+//        if isATWO and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASGABFIB') then
+//        begin
+//          Continue;
+//        end;
+//
+//        if isALWO and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASRATMIN') then
+//        begin
+//          Continue;
+//        end;
+//
+//        if isCDWO and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASHANTAI') then
+//        begin
+//          Continue;
+//        end;
+//
+//        if isLFWO and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'PASRAT') then
+//        begin
+//          Continue;
+//        end;
+//
+//        if isSUWO and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+//           (subRoleTemp.FData.SubRoleAcronim <> 'SATGASDUK') then
+//        begin
+//          Continue;
+//        end;
+//      end;
+//
+//      case tipeTahapan of
+//        0:
+//        begin
+//          if subRoleTemp.FData.Perencanaan = 1 then
+//            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+//        end;
+//        1:
+//        begin
+//          if subRoleTemp.FData.Persiapan = 1 then
+//            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+//        end;
+//        2:
+//        begin
+//          if subRoleTemp.FData.Pelaksanaan = 1 then
+//            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+//        end;
+//        3:
+//        begin
+//          if subRoleTemp.FData.Pengakhiran = 1 then
+//            cbbSubRole.Items.AddObject(subRoleTemp.FData.SubRoleAcronim, subRoleTemp);
+//        end;
+//      end;
+//    end;
+//  end;
+  {$ENDREGION}
+
   {$REGION ' INWO '}
   cbbSubRole.Items.Clear;
-
-  isINWO := False;
-  isNTWO := False;
-  isATWO := False;
-  isALWO := False;
-  isCDWO := False;
-  isLFWO := False;
-  isSUWO := False;
-
-  if UseConsoleFilter then
-  begin
-    consoleName := UpperCase(simMgrClient.MyConsoleData.Identifier);
-    isINWO := Pos('INWO', consoleName) > 0;
-    isNTWO := Pos('NTWO', consoleName) > 0;
-    isATWO := Pos('ATWO', consoleName) > 0;
-    isALWO := Pos('ALWO', consoleName) > 0;
-    isCDWO := Pos('CDWO', consoleName) > 0;
-    isLFWO := Pos('LFWO', consoleName) > 0;
-    isSUWO := Pos('SUWO', consoleName) > 0;
-  end;
 
   for i := 0 to SimManager.SimSubRole.SubRoleList.Count-1 do
   begin
@@ -310,56 +399,53 @@ begin
     begin
       if UseConsoleFilter then
       begin
-        if isINWO and
-           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
-           (subRoleTemp.FData.SubRoleAcronim <> 'KOGAB') then
-        begin
-          Continue;
-        end;
-
-        if isNTWO and
-           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
-           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASGABLA') then
-        begin
-          Continue;
-        end;
-
-        if isATWO and
-           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
-           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASGABFIB') then
-        begin
-          Continue;
-        end;
-
-        if isALWO and
-           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
-           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASRATMIN') then
-        begin
-          Continue;
-        end;
-
-        if isCDWO and
-           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
-           (subRoleTemp.FData.SubRoleAcronim <> 'KOGASHANTAI') then
-        begin
-          Continue;
-        end;
-
-        if isLFWO and
-           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
-           (subRoleTemp.FData.SubRoleAcronim <> 'PASRAT') then
-        begin
-          Continue;
-        end;
-
-        if isSUWO and
-           (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
-           (subRoleTemp.FData.SubRoleAcronim <> 'SATGASDUK') then
-        begin
-          Continue;
+        case vGameDataSetting.Role of
+          0: // INWO
+          begin
+            if (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+               (subRoleTemp.FData.SubRoleAcronim <> 'KOGAB') then
+              Continue;
+          end;
+          1: // ATWO
+          begin
+            if (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+               (subRoleTemp.FData.SubRoleAcronim <> 'KOGASGABFIB') then
+              Continue;
+          end;
+          2: // NTWO
+          begin
+            if (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+               (subRoleTemp.FData.SubRoleAcronim <> 'KOGASGABLA') then
+              Continue;
+          end;
+          3: // ALWO
+          begin
+            if (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+               (subRoleTemp.FData.SubRoleAcronim <> 'KOGASRATMIN') then
+              Continue;
+          end;
+          4: // CDWO
+          begin
+            if (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+               (subRoleTemp.FData.SubRoleAcronim <> 'KOGASHANTAI') then
+              Continue;
+          end;
+          5: // LFWO
+          begin
+            if (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+               (subRoleTemp.FData.SubRoleAcronim <> 'PASRAT') then
+              Continue;
+          end;
+          6: // SUWO
+          begin
+            if (subRoleTemp.FData.SubRoleAcronim <> 'WASDAL') and
+               (subRoleTemp.FData.SubRoleAcronim <> 'SATGASDUK') then
+              Continue;
+          end;
         end;
       end;
 
+      // Pengecekan tahapan tetap sama
       case tipeTahapan of
         0:
         begin
@@ -630,8 +716,13 @@ end;
 
 procedure TfrmTacticalDisplay.FormShow(Sender: TObject);
 begin
+  LoadFF_GameSetting(ExtractFilePath(ParamStr(0)) + 'setting.ini', vGameDataSetting);
+  SetWallpaperHome;
+
   lblConsoleName.Left := (pnlHome.Width-lblConsoleName.Width)div 2;
   pnlButton.Left := (pnlHome.Width-pnlButton.Width)div 2;
+
+
 end;
 
 procedure TfrmTacticalDisplay.Image6Click(Sender: TObject);
@@ -699,6 +790,46 @@ begin
   end;
 
   pnlBackgroundLogin.BringToFront;
+end;
+
+procedure TfrmTacticalDisplay.SetWallpaperHome;
+var
+  imagePath, imageName: string;
+begin
+  imageName := 'nopp.jpg';
+
+  case vGameDataSetting.Role of
+    0: imageName := 'wallpaperINWOLogin.png'; // 0: INWO
+    1: imageName := 'wallpaperATWOLogin.png'; // 1: ATWO
+    2: imageName := 'wallpaperNTWOLogin.png'; // 2: NTWO
+    3: imageName := 'wallpaperALWOLogin.png'; // 3: ALWO
+    4: imageName := 'wallpaperCDWOLogin.png'; // 4: CDWO
+    5: imageName := 'wallpaperLFWOLogin.png'; // 5: LFWO
+    6: imageName := 'wallpaperSUWOLogin.png'; // 6: SUWO
+  end;
+
+  {IncludeTrailingBackslash =  Menambahkan \}
+  if vGameDataSetting.ImageBackgroundLogin <> '' then
+    imagePath := IncludeTrailingBackslash(vGameDataSetting.ImageBackgroundLogin) + imageName
+  else
+    imagePath := ExtractFilePath(ParamStr(0)) + 'data\Image Background\' + imageName;
+
+  if FileExists(imagePath) then
+  begin
+    imgHome.Picture.LoadFromFile(imagePath);
+  end
+  else
+  begin
+    if vGameDataSetting.ImageBackgroundLogin <> '' then
+      imagePath := IncludeTrailingBackslash(vGameDataSetting.ImageBackgroundLogin) + 'nopp.jpg'
+    else
+    imagePath := ExtractFilePath(ParamStr(0)) + 'data\Image Background\nopp.jpg';
+
+    if FileExists(imagePath) then
+      imgHome.Picture.LoadFromFile(imagePath)
+    else
+      ShowMessage('Wallpaper utama dan nopp.jpg tidak ditemukan di: ' + imagePath);
+  end;
 end;
 
 procedure TfrmTacticalDisplay.tmrPBSituationBoardTimer(Sender: TObject);
