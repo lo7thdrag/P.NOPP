@@ -255,8 +255,8 @@ begin
 
       simMgrClient.netSend_CmdFileSharing(rec);
 
-      ShowMessage('File berhasil dikirim!' + #13#10 + 'File  : ' + fileNameArray[i] + #13#10 + 'Size  : ' + IntToStr(TotalSent) +
-                  ' byte' + #13#10 + 'Chunk : ' + IntToStr(ChunkNo));
+//      ShowMessage('File berhasil dikirim!' + #13#10 + 'File  : ' + fileNameArray[i] + #13#10 + 'Size  : ' + IntToStr(TotalSent) +
+//                  ' byte' + #13#10 + 'Chunk : ' + IntToStr(ChunkNo));
       {$ENDREGION}
     except
       on E: Exception do

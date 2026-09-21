@@ -336,21 +336,31 @@ begin
     begin
       FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
 
-      if FileExists(FilePath) then
-      begin
-        FS := TFileStream.Create(FilePath, fmOpenRead or fmShareDenyNone);
-
-        try
-          ShowMessage('FILE TRANSFER FINISH' + #13#10 + 'File : ' + rec.FileName + #13#10 + 'Actual : ' + IntToStr(FS.Size) +
-                      ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
-        finally
-          FS.Free;
-        end;
-      end
-      else
+      if not FileExists(FilePath) then
       begin
         ShowMessage('File tidak ditemukan:' + #13#10 + FilePath);
+        Exit;
       end;
+
+      FS := TFileStream.Create(FilePath, fmOpenRead or fmShareDenyNone);
+
+      {$REGION 'Debug untuk cek ukuran file'}
+//      try
+//        ShowMessage('FILE TRANSFER FINISH' + #13#10 + 'File     : ' + rec.FileName + #13#10 +
+//          'Actual   : ' + IntToStr(FS.Size) + ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
+//
+//        if FS.Size <> rec.FileSize then
+//        begin
+//          ShowMessage('FILE TRANSFER TIDAK LENGKAP!' + #13#10 + 'File     : ' + rec.FileName + #13#10 +
+//            'Actual   : ' + IntToStr(FS.Size) + ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
+//
+//          Exit;
+//        end;
+//
+//      finally
+//        FS.Free;
+//      end;
+      {$ENDREGION}
 
       EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, FilePath);
     end;
@@ -367,7 +377,6 @@ var
   FilePath : string;
   FS       : TFileStream;
 begin
-
   case rec.OrderID of
     SEND_FILE_SHARING_INFO:
     begin
@@ -407,27 +416,35 @@ begin
 
     SEND_FILE_SHARING_FINISH:
     begin
-      FilePath := vGameDataSetting.LocalDirectory +'\File Sharing\' + rec.FolderName + '\' + rec.FileName;
+      FilePath := vGameDataSetting.LocalDirectory + '\File Sharing\' + rec.FolderName + '\' + rec.FileName;
 
-      {$REGION 'Debug ukuran file receiver'}
-      if FileExists(FilePath) then
-      begin
-        FS := TFileStream.Create(FilePath,fmOpenRead or fmShareDenyNone);
-
-        try
-          ShowMessage('FILE SHARING FINISH' + #13#10 + 'File : ' + rec.FileName + #13#10 + 'Actual : ' + IntToStr(FS.Size) +
-            ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
-        finally
-          FS.Free;
-        end;
-      end
-      else
+      if not FileExists(FilePath) then
       begin
         ShowMessage('File tidak ditemukan:' + #13#10 + FilePath);
+        Exit;
       end;
+
+      FS := TFileStream.Create(FilePath,fmOpenRead or fmShareDenyNone);
+
+      {$REGION 'Debug untuk cek ukuran file'}
+//      try
+//        ShowMessage('FILE SHARING FINISH' + #13#10 + 'File     : ' + rec.FileName + #13#10 +
+//        'Actual   : ' + IntToStr(FS.Size) + ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
+//
+//        if FS.Size <> rec.FileSize then
+//        begin
+//          ShowMessage('FILE SHARING TIDAK LENGKAP!' + #13#10 + 'File     : ' + rec.FileName + #13#10 +
+//            'Actual   : ' + IntToStr(FS.Size) + ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
+//
+//          Exit;
+//        end;
+//
+//      finally
+//        FS.Free;
+//      end;
       {$ENDREGION}
 
-      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName,FilePath);
+      EventManager.OnUpdateFileSharingChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, FilePath);
     end;
 
     SEND_FILE_SHARING_OPENED:
@@ -488,6 +505,24 @@ begin
     SEND_FILE_FINISH :
     begin
       FilePath := vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.SenderName + '\' + rec.FolderName + '\' + rec.FileName;
+
+      {$REGION 'Debug ukuran file receiver'}
+      if FileExists(FilePath) then
+      begin
+        FS := TFileStream.Create(FilePath,fmOpenRead or fmShareDenyNone);
+
+        try
+//          ShowMessage('TELEGRAM FINISH' + #13#10 + 'File : ' + rec.FileName + #13#10 + 'Actual : ' + IntToStr(FS.Size) +
+//            ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
+        finally
+          FS.Free;
+        end;
+      end
+      else
+      begin
+        ShowMessage('File tidak ditemukan:' + #13#10 + FilePath);
+      end;
+      {$ENDREGION}
 
       EventManager.OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, FilePath);
     end;

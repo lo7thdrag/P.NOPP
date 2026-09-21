@@ -290,6 +290,7 @@ begin
       rec.FileName           := fileNameArray[i];
       rec.FolderName         := DateTimeNowTemp;
       rec.SenderName         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+      rec.FileSize           := FileSize;
       rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
       rec.ReceiverUserRoleId := ReceiverID;
 

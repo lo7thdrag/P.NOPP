@@ -787,18 +787,6 @@ var
   FilePath: string;
 begin
   inherited;
-
-  // Receiver
-  if MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId then
-  begin
-    FilePath := vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.SenderName + '\' + rec.FolderName + '\' + rec.FileName;
-
-    TT3ClientEventManager(EventManager).OnUpdateFileSyncChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName,FilePath);
-  end
-  else if MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId then      //sender
-  begin
-    TT3ClientEventManager(EventManager).OnUpdateFileSyncChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, '');
-  end;
 end;
 
 procedure TSimMgr_Client.OnSyncFileSharing(const rec: TRecTCPFileSharing);
@@ -806,18 +794,6 @@ var
   FilePath: string;
 begin
   inherited;
-
-  // Receiver
-  if MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId then
-  begin
-    FilePath := vGameDataSetting.LocalDirectory + '\File Sharing\' + rec.FolderName + '\' +  rec.FileName;
-
-    TT3ClientEventManager(EventManager).OnUpdateFileSharingChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName,FilePath);
-  end
-  else if MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId then       //sender
-  begin
-    TT3ClientEventManager(EventManager).OnUpdateFileSharingChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, '');
-  end;
 end;
 
 procedure TSimMgr_Client.OnSyncFileTransferToteDisplay(const rec: TRecTCPFileTransfer);
@@ -825,18 +801,6 @@ var
   FilePath: string;
 begin
   inherited;
-
-  // Receiver
-  if MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId then
-  begin
-    FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' +  rec.FileName;
-
-    TT3ClientEventManager(EventManager).OnUpdateFileTransferChange(rec.SenderUserRoleId,rec.ReceiverUserRoleId,rec.FileName,FilePath);
-  end
-  else if MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId then      //sender
-  begin
-    TT3ClientEventManager(EventManager).OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, '');
-  end;
 end;
 
 procedure TSimMgr_Client.OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);

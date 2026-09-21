@@ -509,8 +509,8 @@ begin
     simMgrClient.netSend_CmdFileTransferToteDisplay(rec);
     {$ENDREGION}
 
-    ShowMessage('File transfer successfully sent!' + #13#10 + 'File  : ' + fileTemp.FData.Nama_File + #13#10 + 'Size : ' + IntToStr(TotalSent) +
-                ' byte' + #13#10 + 'Chunk : ' +  IntToStr(ChunkNo));
+//    ShowMessage('File transfer successfully sent!' + #13#10 + 'File  : ' + fileTemp.FData.Nama_File + #13#10 + 'Size : ' + IntToStr(TotalSent) +
+//                ' byte' + #13#10 + 'Chunk : ' +  IntToStr(ChunkNo));
 
   except
     on E: Exception do

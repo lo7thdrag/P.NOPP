@@ -2230,9 +2230,9 @@ begin
   end;
 
   // buat testing
-  {$REGION 'Testing chat diri sendiri'}
-    lstUserChat.Items.AddObject('[SELF TEST] ' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim, simMgrClient.MyConsoleData.UserRoleData);
-  {$ENDREGION}
+//  {$REGION 'Testing chat diri sendiri'}
+//    lstUserChat.Items.AddObject('[SELF TEST] ' + simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim, simMgrClient.MyConsoleData.UserRoleData);
+//  {$ENDREGION}
 end;
 
 {$ENDREGION}
@@ -2380,7 +2380,7 @@ begin
     frmPopChat.ShowMessagePopup(IdReceiver, UserName, 'File berhasil terkirim : ' + FileName, '', IdSender, fptNone);
 
     trycnMessage.BalloonTitle := 'File Terkirim';
-    trycnMessage.BalloonHint := 'Berhasil dikirim ke ' + UserName;
+    trycnMessage.BalloonHint  := 'Berhasil dikirim ke ' + UserName;
     trycnMessage.BalloonFlags := bfInfo;
     trycnMessage.ShowBalloonHint;
   end;
@@ -2397,7 +2397,7 @@ begin
     frmPopChat.ShowMessagePopup(IdSender, UserName, 'File masuk : ' + FileName, FilePath, IdReceiver, AFilePopupType);
 
     trycnMessage.BalloonTitle := 'File Masuk';
-    trycnMessage.BalloonHint := UserName + ': ' + FileName;
+    trycnMessage.BalloonHint  := UserName + ': ' + FileName;
     trycnMessage.BalloonFlags := bfInfo;
     trycnMessage.ShowBalloonHint;
   end;
