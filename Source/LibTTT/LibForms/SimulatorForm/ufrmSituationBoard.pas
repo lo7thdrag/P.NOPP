@@ -487,13 +487,14 @@ end;
 procedure TfrmSituationBoard.LoadTabMap;
 var
   baseGameArea, baseMapSource: string;
-  fileNameOnly, cleanName, pathLengkap: string;
+  pathLengkap: string;
   i: Integer;
 begin
   pnlAlignToolBar.Width := Round((pnlToolBar.Width - 433) / 2);
 
   if Assigned(FSelectedTabProperties) then
   begin
+//    ShowMessage('AddressTab di DB: ' + FSelectedTabProperties.AddressTab);
 
     baseGameArea := Trim(dbEditSett.MapGSTGame);
     if (baseGameArea = '') or not DirectoryExists(baseGameArea) then
@@ -503,39 +504,30 @@ begin
     if (baseMapSource = '') or not DirectoryExists(baseMapSource) then
       baseMapSource := 'C:\Program Files (x24)\Docs\Map\MapSource';
 
-
-    fileNameOnly := ExtractFileName(FSelectedTabProperties.AddressTab);
-    cleanName    := ChangeFileExt(fileNameOnly, '');
-
-
-    pathLengkap := IncludeTrailingPathDelimiter(baseGameArea) + cleanName + PathDelim + cleanName + '.gst';
-
+    pathLengkap := FSelectedTabProperties.AddressTab;
 
     if not FileExists(pathLengkap) then
     begin
-      pathLengkap := IncludeTrailingPathDelimiter(baseGameArea) + fileNameOnly;
-      if ExtractFileExt(pathLengkap) = '' then
-        pathLengkap := pathLengkap + '.gst';
+      pathLengkap := IncludeTrailingPathDelimiter(baseGameArea) + FSelectedTabProperties.AddressTab;
     end;
-
 
     if not FileExists(pathLengkap) then
     begin
-      pathLengkap := IncludeTrailingPathDelimiter(baseMapSource) + fileNameOnly;
-      if ExtractFileExt(pathLengkap) = '' then
-        pathLengkap := pathLengkap + '.gst';
+      pathLengkap := IncludeTrailingPathDelimiter(baseMapSource) + ExtractFileName(FSelectedTabProperties.AddressTab);
     end;
 
+    if (ExtractFileExt(pathLengkap) = '') and FileExists(pathLengkap + '.gst') then
+      pathLengkap := pathLengkap + '.gst';
+
+//    ShowMessage('Path Lengkap yang dicari: ' + pathLengkap);
 
     if FileExists(pathLengkap) then
     begin
       LoadMap(pathLengkap);
 
-
       Map1.CenterX := 116.357322;
       Map1.CenterY := -0.328853;
       Map1.Zoom := 2500;
-
 
       for i := 1 to Map1.Layers.Count do
         Map1.Layers.Item(i).Visible := True;

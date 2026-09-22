@@ -30,6 +30,571 @@ object frmSituationBoard: TfrmSituationBoard
     Color = 5918252
     ParentBackground = False
     TabOrder = 0
+    object pnlMap: TPanel
+      Left = 0
+      Top = 35
+      Width = 1917
+      Height = 1010
+      Align = alClient
+      BevelOuter = bvNone
+      Color = 5918252
+      TabOrder = 0
+      DesignSize = (
+        1917
+        1010)
+      object Map1: TMap
+        Left = 0
+        Top = 35
+        Width = 1917
+        Height = 975
+        ParentColor = False
+        Align = alClient
+        TabOrder = 0
+        OnMouseUp = Map1MouseUp
+        OnMouseMove = Map1MouseMove
+        OnMouseDown = Map1MouseDown
+        OnMapViewChanged = Map1MapViewChanged
+        OnDrawUserLayer = Map1DrawUserLayer
+        ExplicitLeft = 6
+        ExplicitTop = 29
+        ExplicitHeight = 1010
+        ControlData = {
+          8A1A060021C60000C5640000010000000F0000FF0D47656F44696374696F6E61
+          727905456D70747900E8030000000000000000000002000E001E000000000000
+          0000000000000000000000000000000000000000000600010000000002202050
+          00010100000A0000000001F4010000050000800C000000000000000000000000
+          FFFFFF000100000000000000000000000000000000000000000000000352E30B
+          918FCE119DE300AA004BB851010000009001105C0C0005417269616C000352E3
+          0B918FCE119DE300AA004BB8510100000090015C790C0005417269616C000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00FFFFFF000000000000000001370000000000FFFFFF000000000000000352E3
+          0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
+          E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
+          626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
+          000001000118010000A825260F01000000DC9BD1771C00000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0002000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00008076C000000000008056C000000000008076400000000000805640010000
+          0018010000A825260F01000000881300C01C0000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000020000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          00000000000000000000000000000000000000000000000000E8EC9700DD6661
+          771F00000000000000C0666177A8A29642363520F128ED970000000000000000
+          0000000088B3400000000000408F400001000001}
+      end
+      object pnlToolBar: TPanel
+        Left = 0
+        Top = 0
+        Width = 1917
+        Height = 35
+        Align = alTop
+        BevelOuter = bvNone
+        Color = 3683636
+        TabOrder = 1
+        object pnlAlignToolBar: TPanel
+          Left = 0
+          Top = 0
+          Width = 25
+          Height = 35
+          Align = alLeft
+          BevelOuter = bvNone
+          Color = 3683636
+          TabOrder = 0
+        end
+        object ToolBar1: TToolBar
+          Left = 25
+          Top = 0
+          Width = 1892
+          Height = 35
+          Align = alClient
+          ButtonHeight = 36
+          ButtonWidth = 42
+          Caption = 'ToolBar1'
+          Color = 3683636
+          Images = ImageList1
+          ParentColor = False
+          TabOrder = 1
+          object btnDecrease: TToolButton
+            Left = 0
+            Top = 0
+            Cursor = crHandPoint
+            Hint = 'Decrease Scale'
+            Caption = 'btnDecrease'
+            ImageIndex = 1
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = btnDecreaseClick
+          end
+          object cbSetScale: TComboBox
+            Left = 42
+            Top = 0
+            Width = 95
+            Height = 21
+            Cursor = crHandPoint
+            Hint = 'Map Scales'
+            ItemIndex = 15
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 0
+            Text = '2500'
+            OnChange = cbSetScaleChange
+            Items.Strings = (
+              '0.125'
+              '0.25'
+              '0.5'
+              '1'
+              '2'
+              '4'
+              '8'
+              '16'
+              '32'
+              '64'
+              '128'
+              '256'
+              '512'
+              '1024'
+              '2048'
+              '2500')
+          end
+          object btnIncrease: TToolButton
+            Left = 137
+            Top = 0
+            Cursor = crHandPoint
+            Hint = 'Increase Scale'
+            Caption = 'btnIncrease'
+            ImageIndex = 0
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = btnIncreaseClick
+          end
+          object btnselect: TToolButton
+            Left = 179
+            Top = 0
+            Cursor = crHandPoint
+            Caption = 'btnSelect'
+            ImageIndex = 2
+            OnClick = btnselectClick
+          end
+          object btnPan: TToolButton
+            Left = 221
+            Top = 0
+            Cursor = crHandPoint
+            Hint = 'Pan'
+            Caption = 'btnPan'
+            ImageIndex = 4
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = btnPanClick
+          end
+          object btnZoomIn: TToolButton
+            Left = 263
+            Top = 0
+            Cursor = crHandPoint
+            Hint = 'Zoom In'
+            Caption = 'btnZoomIn'
+            ImageIndex = 6
+            ParentShowHint = False
+            ShowHint = True
+            OnClick = btnZoomInClick
+          end
+          object btnZoomOut: TToolButton
+            Left = 305
+            Top = 0
+            Cursor = crHandPoint
+            Hint = 'Zoom out'
+            Caption = 'btnZoomOut'
+            ImageIndex = 8
+            ParentShowHint = False
+            ShowHint = True
+            Visible = False
+            OnClick = btnZoomOutClick
+          end
+          object btnGameArea: TToolButton
+            Left = 347
+            Top = 0
+            Cursor = crHandPoint
+            Hint = 'Game Area'
+            Caption = 'btnGameArea'
+            ImageIndex = 10
+            OnClick = btnGameAreaClick
+          end
+          object btnOverlayTools: TToolButton
+            Left = 389
+            Top = 0
+            Cursor = crHandPoint
+            Caption = 'btnOverlayTools'
+            ImageIndex = 12
+            OnClick = btnOverlayToolsClick
+          end
+          object btnRuller: TToolButton
+            Left = 431
+            Top = 0
+            Cursor = crHandPoint
+            Hint = 'Ruler'
+            ImageIndex = 14
+            ParentShowHint = False
+            ShowHint = True
+            Visible = False
+            OnClick = btnRullerClick
+          end
+          object btnLayerTool: TToolButton
+            Left = 473
+            Top = 0
+            Caption = 'btnLayerTool'
+            ImageIndex = 16
+            OnClick = btnLayerToolClick
+          end
+        end
+      end
+      object pnlCloseMap: TPanel
+        Left = 5
+        Top = 974
+        Width = 30
+        Height = 30
+        Cursor = crHandPoint
+        Anchors = [akLeft, akBottom]
+        BevelOuter = bvNone
+        Caption = 'X'
+        Color = clLime
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clRed
+        Font.Height = -21
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 2
+        OnClick = pnlCloseClick
+      end
+    end
+    object Panel1: TPanel
+      Left = 0
+      Top = 0
+      Width = 1917
+      Height = 35
+      Align = alTop
+      BevelOuter = bvNone
+      Color = 5918252
+      TabOrder = 4
+      object lblUserRole: TLabel
+        Left = 0
+        Top = 0
+        Width = 500
+        Height = 35
+        Align = alLeft
+        AutoSize = False
+        Caption = '---'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindow
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Layout = tlCenter
+      end
+      object lblJumTab: TLabel
+        Left = 1417
+        Top = 0
+        Width = 500
+        Height = 35
+        Align = alRight
+        Alignment = taRightJustify
+        AutoSize = False
+        Caption = '---'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindow
+        Font.Height = -16
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitLeft = 880
+        ExplicitTop = 10
+        ExplicitHeight = 19
+      end
+      object lblTabSelect: TLabel
+        Left = 500
+        Top = 0
+        Width = 917
+        Height = 35
+        Align = alClient
+        Alignment = taCenter
+        AutoSize = False
+        Caption = '---'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindow
+        Font.Height = -19
+        Font.Name = 'Tahoma'
+        Font.Style = []
+        ParentFont = False
+        Layout = tlCenter
+        ExplicitLeft = 880
+        ExplicitTop = 10
+        ExplicitWidth = 500
+        ExplicitHeight = 19
+      end
+    end
+    object pnlHeaderSituationBoard: TPanel
+      Left = 0
+      Top = 1045
+      Width = 1917
+      Height = 35
+      Align = alBottom
+      BevelOuter = bvNone
+      Color = 5918252
+      TabOrder = 3
+      object btn1: TSpeedButton
+        Tag = 1
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+      end
+      object btn2: TSpeedButton
+        Tag = 2
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+      end
+      object btn3: TSpeedButton
+        Tag = 3
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+      end
+      object btn4: TSpeedButton
+        Tag = 4
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+      end
+      object btn5: TSpeedButton
+        Tag = 5
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+      end
+      object btn6: TSpeedButton
+        Tag = 6
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+      end
+      object btn7: TSpeedButton
+        Tag = 7
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+      end
+      object btn8: TSpeedButton
+        Tag = 8
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+      end
+      object btn10: TSpeedButton
+        Tag = 10
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+        ExplicitLeft = 40
+      end
+      object btn11: TSpeedButton
+        Tag = 11
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+        ExplicitLeft = 40
+      end
+      object btn12: TSpeedButton
+        Tag = 12
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+        ExplicitLeft = 40
+      end
+      object btn13: TSpeedButton
+        Tag = 13
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+        ExplicitLeft = 40
+      end
+      object btnCreateTab: TSpeedButton
+        Tag = 14
+        Left = 0
+        Top = 0
+        Width = 25
+        Height = 35
+        Align = alLeft
+        Caption = ' + '
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -21
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnCreateTabClick
+        ExplicitLeft = 66
+      end
+      object btn9: TSpeedButton
+        Tag = 9
+        Left = 0
+        Top = 0
+        Width = 0
+        Height = 35
+        Align = alLeft
+        Caption = '---'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        Transparent = False
+        OnClick = btnTabClick
+        OnMouseDown = tabMouseDown
+      end
+    end
     object pnlImage: TPanel
       Left = 0
       Top = 35
@@ -2410,259 +2975,6 @@ object frmSituationBoard: TfrmSituationBoard
         ParentFont = False
         TabOrder = 1
         OnClick = pnlCloseClick
-      end
-    end
-    object pnlHeaderSituationBoard: TPanel
-      Left = 0
-      Top = 1045
-      Width = 1917
-      Height = 35
-      Align = alBottom
-      BevelOuter = bvNone
-      Color = 5918252
-      TabOrder = 3
-      object btn1: TSpeedButton
-        Tag = 1
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-      end
-      object btn2: TSpeedButton
-        Tag = 2
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-      end
-      object btn3: TSpeedButton
-        Tag = 3
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-      end
-      object btn4: TSpeedButton
-        Tag = 4
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-      end
-      object btn5: TSpeedButton
-        Tag = 5
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-      end
-      object btn6: TSpeedButton
-        Tag = 6
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-      end
-      object btn7: TSpeedButton
-        Tag = 7
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-      end
-      object btn8: TSpeedButton
-        Tag = 8
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-      end
-      object btn9: TSpeedButton
-        Tag = 9
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        Transparent = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-      end
-      object btn10: TSpeedButton
-        Tag = 10
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-        ExplicitLeft = 40
-      end
-      object btn11: TSpeedButton
-        Tag = 11
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-        ExplicitLeft = 40
-      end
-      object btn12: TSpeedButton
-        Tag = 12
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-        ExplicitLeft = 40
-      end
-      object btn13: TSpeedButton
-        Tag = 13
-        Left = 0
-        Top = 0
-        Width = 0
-        Height = 35
-        Align = alLeft
-        Caption = '---'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -16
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnTabClick
-        OnMouseDown = tabMouseDown
-        ExplicitLeft = 40
-      end
-      object btnCreateTab: TSpeedButton
-        Tag = 14
-        Left = 0
-        Top = 0
-        Width = 25
-        Height = 35
-        Align = alLeft
-        Caption = ' + '
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clWindowText
-        Font.Height = -21
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        OnClick = btnCreateTabClick
-        ExplicitLeft = 66
       end
     end
     object pnlHome: TPanel
@@ -45047,318 +45359,6 @@ object frmSituationBoard: TfrmSituationBoard
         Font.Style = []
         ParentFont = False
         TabOrder = 0
-        OnClick = pnlCloseClick
-      end
-    end
-    object Panel1: TPanel
-      Left = 0
-      Top = 0
-      Width = 1917
-      Height = 35
-      Align = alTop
-      BevelOuter = bvNone
-      Color = 5918252
-      TabOrder = 4
-      object lblUserRole: TLabel
-        Left = 0
-        Top = 0
-        Width = 500
-        Height = 35
-        Align = alLeft
-        AutoSize = False
-        Caption = '---'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindow
-        Font.Height = -16
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        Layout = tlCenter
-      end
-      object lblJumTab: TLabel
-        Left = 1417
-        Top = 0
-        Width = 500
-        Height = 35
-        Align = alRight
-        Alignment = taRightJustify
-        AutoSize = False
-        Caption = '---'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindow
-        Font.Height = -16
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        Layout = tlCenter
-        ExplicitLeft = 880
-        ExplicitTop = 10
-        ExplicitHeight = 19
-      end
-      object lblTabSelect: TLabel
-        Left = 500
-        Top = 0
-        Width = 917
-        Height = 35
-        Align = alClient
-        Alignment = taCenter
-        AutoSize = False
-        Caption = '---'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clWindow
-        Font.Height = -19
-        Font.Name = 'Tahoma'
-        Font.Style = []
-        ParentFont = False
-        Layout = tlCenter
-        ExplicitLeft = 880
-        ExplicitTop = 10
-        ExplicitWidth = 500
-        ExplicitHeight = 19
-      end
-    end
-    object pnlMap: TPanel
-      Left = 0
-      Top = 35
-      Width = 1917
-      Height = 1010
-      Align = alClient
-      BevelOuter = bvNone
-      Color = 5918252
-      TabOrder = 0
-      DesignSize = (
-        1917
-        1010)
-      object Map1: TMap
-        Left = 0
-        Top = 35
-        Width = 1917
-        Height = 975
-        ParentColor = False
-        Align = alClient
-        TabOrder = 0
-        OnMouseUp = Map1MouseUp
-        OnMouseMove = Map1MouseMove
-        OnMouseDown = Map1MouseDown
-        OnMapViewChanged = Map1MapViewChanged
-        OnDrawUserLayer = Map1DrawUserLayer
-        ExplicitLeft = 6
-        ExplicitTop = 29
-        ExplicitHeight = 1010
-        ControlData = {
-          8A1A060021C60000C5640000010000000F0000FF0D47656F44696374696F6E61
-          727905456D70747900E8030000000000000000000002000E001E000000000000
-          0000000000000000000000000000000000000000000600010000000002202050
-          00010100000A0000000001F4010000050000800C000000000000000000000000
-          FFFFFF000100000000000000000000000000000000000000000000000352E30B
-          918FCE119DE300AA004BB851010000009001105C0C0005417269616C000352E3
-          0B918FCE119DE300AA004BB8510100000090015C790C0005417269616C000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          00FFFFFF000000000000000001370000000000FFFFFF000000000000000352E3
-          0B918FCE119DE300AA004BB851010000009001DC7C010005417269616C000352
-          E30B918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D
-          626F6C730000000000000001000100FFFFFF000200FFFFFF0000000000000100
-          000001000118010000A025910401000000DC9BD1771C00000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0002000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          00008076C000000000008056C000000000008076400000000000805640010000
-          0018010000A025910401000000881300C01C0000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000020000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000000000000000000
-          0000000000000000000000000000000000000000000000000040CE9700DD6661
-          771F00000000000000C06661771870C82AEAB8524D80CE970000000000000000
-          0000000088B3400000000000408F400001000001}
-      end
-      object pnlToolBar: TPanel
-        Left = 0
-        Top = 0
-        Width = 1917
-        Height = 35
-        Align = alTop
-        BevelOuter = bvNone
-        Color = 3683636
-        TabOrder = 1
-        object pnlAlignToolBar: TPanel
-          Left = 0
-          Top = 0
-          Width = 25
-          Height = 35
-          Align = alLeft
-          BevelOuter = bvNone
-          Color = 3683636
-          TabOrder = 0
-        end
-        object ToolBar1: TToolBar
-          Left = 25
-          Top = 0
-          Width = 1892
-          Height = 35
-          Align = alClient
-          ButtonHeight = 36
-          ButtonWidth = 42
-          Caption = 'ToolBar1'
-          Color = 3683636
-          Images = ImageList1
-          ParentColor = False
-          TabOrder = 1
-          object btnDecrease: TToolButton
-            Left = 0
-            Top = 0
-            Cursor = crHandPoint
-            Hint = 'Decrease Scale'
-            Caption = 'btnDecrease'
-            ImageIndex = 1
-            ParentShowHint = False
-            ShowHint = True
-            OnClick = btnDecreaseClick
-          end
-          object cbSetScale: TComboBox
-            Left = 42
-            Top = 0
-            Width = 95
-            Height = 21
-            Cursor = crHandPoint
-            Hint = 'Map Scales'
-            ItemIndex = 15
-            ParentShowHint = False
-            ShowHint = True
-            TabOrder = 0
-            Text = '2500'
-            OnChange = cbSetScaleChange
-            Items.Strings = (
-              '0.125'
-              '0.25'
-              '0.5'
-              '1'
-              '2'
-              '4'
-              '8'
-              '16'
-              '32'
-              '64'
-              '128'
-              '256'
-              '512'
-              '1024'
-              '2048'
-              '2500')
-          end
-          object btnIncrease: TToolButton
-            Left = 137
-            Top = 0
-            Cursor = crHandPoint
-            Hint = 'Increase Scale'
-            Caption = 'btnIncrease'
-            ImageIndex = 0
-            ParentShowHint = False
-            ShowHint = True
-            OnClick = btnIncreaseClick
-          end
-          object btnselect: TToolButton
-            Left = 179
-            Top = 0
-            Cursor = crHandPoint
-            Caption = 'btnSelect'
-            ImageIndex = 2
-            OnClick = btnselectClick
-          end
-          object btnPan: TToolButton
-            Left = 221
-            Top = 0
-            Cursor = crHandPoint
-            Hint = 'Pan'
-            Caption = 'btnPan'
-            ImageIndex = 4
-            ParentShowHint = False
-            ShowHint = True
-            OnClick = btnPanClick
-          end
-          object btnZoomIn: TToolButton
-            Left = 263
-            Top = 0
-            Cursor = crHandPoint
-            Hint = 'Zoom In'
-            Caption = 'btnZoomIn'
-            ImageIndex = 6
-            ParentShowHint = False
-            ShowHint = True
-            OnClick = btnZoomInClick
-          end
-          object btnZoomOut: TToolButton
-            Left = 305
-            Top = 0
-            Cursor = crHandPoint
-            Hint = 'Zoom out'
-            Caption = 'btnZoomOut'
-            ImageIndex = 8
-            ParentShowHint = False
-            ShowHint = True
-            Visible = False
-            OnClick = btnZoomOutClick
-          end
-          object btnGameArea: TToolButton
-            Left = 347
-            Top = 0
-            Cursor = crHandPoint
-            Hint = 'Game Area'
-            Caption = 'btnGameArea'
-            ImageIndex = 10
-            OnClick = btnGameAreaClick
-          end
-          object btnOverlayTools: TToolButton
-            Left = 389
-            Top = 0
-            Cursor = crHandPoint
-            Caption = 'btnOverlayTools'
-            ImageIndex = 12
-            OnClick = btnOverlayToolsClick
-          end
-          object btnRuller: TToolButton
-            Left = 431
-            Top = 0
-            Cursor = crHandPoint
-            Hint = 'Ruler'
-            ImageIndex = 14
-            ParentShowHint = False
-            ShowHint = True
-            Visible = False
-            OnClick = btnRullerClick
-          end
-          object btnLayerTool: TToolButton
-            Left = 473
-            Top = 0
-            Caption = 'btnLayerTool'
-            ImageIndex = 16
-            OnClick = btnLayerToolClick
-          end
-        end
-      end
-      object pnlCloseMap: TPanel
-        Left = 5
-        Top = 974
-        Width = 30
-        Height = 30
-        Cursor = crHandPoint
-        Anchors = [akLeft, akBottom]
-        BevelOuter = bvNone
-        Caption = 'X'
-        Color = clLime
-        Font.Charset = ANSI_CHARSET
-        Font.Color = clRed
-        Font.Height = -21
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-        TabOrder = 2
         OnClick = pnlCloseClick
       end
     end
