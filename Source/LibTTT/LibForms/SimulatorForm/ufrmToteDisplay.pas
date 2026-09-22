@@ -396,7 +396,13 @@ var
   TotalSent : Int64;
   ChunkNo   : Integer;
   FileSize  : Int64;
+
+  fileSend  : Boolean;
+  i         : Integer;
+  UserDisplayName : string;
 begin
+  fileSend := False;
+
   if cbbConsole.ItemIndex = -1 then
   begin
     ShowMessage('Select receiver');
@@ -425,7 +431,7 @@ begin
     Exit;
   end;
 
-  FolderTemp := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\' +FormatDateTime('dd-mm-yy_hh-nn-ss', Now);
+  FolderTemp := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\' + FormatDateTime('dd-mm-yy_hh-nn-ss', Now);
 
   TotalSent := 0;
   ChunkNo   := 0;
@@ -475,7 +481,7 @@ begin
         rec.FileName   := fileTemp.FData.Nama_File;
         rec.FolderName := FolderTemp;
         rec.Position   := FS.Position - bufferSize;
-        rec.DataSize   :=  bufferSize;
+        rec.DataSize   := bufferSize;
 
         rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
         rec.ReceiverUserRoleId := userRoleTemp.FData.UserRoleIndex;
@@ -489,13 +495,14 @@ begin
 
     if TotalSent <> FileSize then
     begin
-      ShowMessage('File tidak selesai dibaca!' + #13#10 + 'File  : ' + fileTemp.FData.Nama_File + #13#10 + 'File Size : ' + IntToStr(FileSize) +
-                  ' byte' + #13#10 + 'Total Sent : ' + IntToStr(TotalSent) + ' byte' + #13#10 +  'Chunk : ' + IntToStr(ChunkNo));
+      ShowMessage('File tidak selesai dibaca!' + #13#10 + 'File : ' + fileTemp.FData.Nama_File + #13#10 +
+        'File Size : ' + IntToStr(FileSize) + ' byte' + #13#10 + 'Total Sent : ' + IntToStr(TotalSent) + ' byte' + #13#10 +
+        'Chunk : ' + IntToStr(ChunkNo));
 
       Exit;
     end;
 
-   {$REGION 'Send Finish'}
+    {$REGION 'Send Finish'}
     FillChar(rec, SizeOf(rec), 0);
 
     rec.OrderID    := SEND_FILE_TRANSFER_FINISH;
@@ -509,15 +516,33 @@ begin
     simMgrClient.netSend_CmdFileTransferToteDisplay(rec);
     {$ENDREGION}
 
-//    ShowMessage('File transfer successfully sent!' + #13#10 + 'File  : ' + fileTemp.FData.Nama_File + #13#10 + 'Size : ' + IntToStr(TotalSent) +
-//                ' byte' + #13#10 + 'Chunk : ' +  IntToStr(ChunkNo));
+    fileSend := True;
 
   except
     on E: Exception do
     begin
+      fileSend := False;
+
       ShowMessage('Transfer failed : ' + E.Message);
     end;
   end;
+
+  {$REGION 'Indikator Success'}
+  if fileSend then
+  begin
+    UserDisplayName := userRoleTemp.FData.UserRoleAcronim + '-' + userRoleTemp.FSubRoleData.SubRoleIdentifier;
+
+    for i := 0 to lstUserSend.Items.Count - 1 do
+    begin
+      if SameText(lstUserSend.Items[i], UserDisplayName) then
+      begin
+        lstUserSend.Items[i] := UserDisplayName + '-SUCCESS';
+
+        Break;
+      end;
+    end;
+  end;
+  {$ENDREGION}
 end;
 
 procedure TfrmToteDisplay.UpdateFile;
@@ -566,7 +591,7 @@ var
 begin
   cbbConsole.Items.Clear;
 
-  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count-1 do
+  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count - 1 do
   begin
     consoleInfoTemp := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[i]);
 
@@ -574,15 +599,15 @@ begin
 
     if Assigned(userRoleTemp) and userRoleTemp.isInUse then
     begin
-      cbbConsole.Items.AddObject(userRoleTemp.FData.UserRoleAcronim, TObject(userRoleTemp));
+      cbbConsole.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + '-' + userRoleTemp.FSubRoleData.SubRoleIdentifier, TObject(userRoleTemp));
     end;
   end;
 end;
 
 procedure TfrmToteDisplay.cbbConsoleSelect(Sender: TObject);
 var
-  userRoleTemp : TUserRole;
   i : Integer;
+  userRoleTemp : TUserRole;
 begin
   if cbbConsole.ItemIndex = -1 then
     Exit;
@@ -601,15 +626,17 @@ var
   userRoleTemp: TUserRole;
   i : Integer;
 begin
+  lstUserSend.Items.Clear;
+
   for i := 0 to cbbConsole.Items.Count - 1 do
   begin
-    userRoleTemp := TUserRole(cbbConsole.Items.Objects[cbbConsole.ItemIndex]);
+    userRoleTemp := TUserRole(cbbConsole.Items.Objects[i]);
 
-    if Assigned(userRoleTemp) then
+    if Assigned(userRoleTemp) and userRoleTemp.isInUse then
     begin
-      if lstUserSend.Items.IndexOf(userRoleTemp.FData.UserRoleAcronim) = -1 then
+      if lstUserSend.Items.IndexOf(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier) = -1 then
       begin
-         lstUserSend.Items.Add(userRoleTemp.FData.UserRoleAcronim);
+        lstUserSend.Items.Add(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier);
       end;
     end;
   end;

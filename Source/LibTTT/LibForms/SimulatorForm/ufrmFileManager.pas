@@ -170,7 +170,9 @@ begin
   begin
 
     if not FileExists(pathFileArray[i]) then
+    begin
       Continue;
+    end;
 
     FolderTemp := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\' + FormatDateTime('dd-mm-yy_hh-nn-ss', Now);
 
