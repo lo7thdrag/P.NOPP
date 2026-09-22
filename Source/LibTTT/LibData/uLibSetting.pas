@@ -299,7 +299,7 @@ begin
       MapGSTGame    := INIFReadString(IniF, c_map, 'MapGSTGame', 'C:\Program Files (x24)\Docs\Map\GameArea');
       MapGeoset     := IniFReadstring(IniF, c_map, 'defmap', 'Indonesia.gst');
       MapDataGeoset := IniFReadstring(IniF, c_map, 'mapdata', 'C:\Program Files (x24)\Docs\Map\mapdata\mapdata.gst');
-      ImageGame     := IniFReadstring(IniF, c_map, 'ImageGame', '');
+      ImageGame     := IniFReadstring(IniF, c_map, 'ImageGame', 'C:\Program Files (x24)\Bin\data\Image Game\');
 
       MapZoom := INIFReadInteger(IniF, c_map, 'zoom', 5);
       if MapZoom > C_MaxZoomIndex then MapZoom := C_MaxZoomIndex;
