@@ -632,6 +632,9 @@ begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
+  if rec^.SenderUserRoleId = MyConsoleData.UserRoleData.FData.UserRoleIndex then
+    Exit;
+
   OnFileSharingChange(rec^);
 end;
 
@@ -642,6 +645,9 @@ var
 begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  if rec^.SenderUserRoleId = MyConsoleData.UserRoleData.FData.UserRoleIndex then
+    Exit;
 
   OnFileFileTransferChange(rec^);
 end;

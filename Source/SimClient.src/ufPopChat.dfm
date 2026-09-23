@@ -15,36 +15,36 @@ object frmPopChat: TfrmPopChat
   PixelsPerInch = 96
   TextHeight = 13
   object Panel1: TPanel
-    Left = 0
+    Left = -1
     Top = -1
     Width = 628
     Height = 328
-    Color = 14016033
+    Color = 5981737
     ParentBackground = False
     TabOrder = 0
     object lblSender: TLabel
       Left = 22
       Top = 6
-      Width = 49
-      Height = 19
+      Width = 43
+      Height = 17
       Alignment = taCenter
       Caption = 'Sender'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
       Font.Height = -16
-      Font.Name = 'Tahoma'
+      Font.Name = 'Jefferies'
       Font.Style = []
       ParentFont = False
     end
     object lblMessage: TLabel
       Left = 22
-      Top = 43
+      Top = 35
       Width = 59
       Height = 19
       Alignment = taCenter
       Caption = 'Message'
       Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
+      Font.Color = clWhite
       Font.Height = -16
       Font.Name = 'Tahoma'
       Font.Style = []
@@ -52,7 +52,7 @@ object frmPopChat: TfrmPopChat
     end
     object btnOpen: TButton
       Left = 267
-      Top = 46
+      Top = 53
       Width = 75
       Height = 25
       Caption = 'Open'

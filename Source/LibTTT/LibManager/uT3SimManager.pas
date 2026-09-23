@@ -103,7 +103,6 @@ var
 
 implementation
 
-
 { TT3SimManager }
 
 constructor TT3SimManager.Create(Map : TMap);

@@ -174,7 +174,8 @@ begin
       Continue;
     end;
 
-    FolderTemp := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '\' + FormatDateTime('dd-mm-yy_hh-nn-ss', Now);
+    FolderTemp := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' +  simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier +
+                '\' + FormatDateTime('dd-mm-yy_hh-nn-ss', Now);
 
     TotalSent := 0;
     ChunkNo   := 0;

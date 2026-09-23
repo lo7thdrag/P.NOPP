@@ -175,8 +175,9 @@ end;
 
 procedure TfrmTelegram.btnKirimClick(Sender: TObject);
 var
-  DateTimeNowTemp : string;
-  SentPath        : string;
+  DateTimeNowTemp  : string;
+  SentPath         : string;
+  SenderFolderName : string;
 
   i           : Integer;
   rec         : TRecTCPFileSync;
@@ -201,7 +202,9 @@ begin
     Exit;
   end;
 
-  ReceiverID      := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]).FData.UserRoleIndex;
+  ReceiverID       := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]).FData.UserRoleIndex;
+  SenderFolderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
+
   DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
   SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + cbbxTo.Text + '\' + DateTimeNowTemp;
 
@@ -223,7 +226,8 @@ begin
       rec.OrderID    := SEND_FILE_INFO;
       rec.FileName   := fileNameArray[i];
       rec.FolderName := DateTimeNowTemp;
-      rec.SenderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+//      rec.SenderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+      rec.SenderName := SenderFolderName;
 
       FS := TFileStream.Create(pathFileArray[i], fmOpenRead or fmShareDenyNone);
 
@@ -260,7 +264,8 @@ begin
           rec.OrderID    := SEND_FILE_DATA;
           rec.FileName   := fileNameArray[i];
           rec.FolderName := DateTimeNowTemp;
-          rec.SenderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+//          rec.SenderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+          rec.SenderName := SenderFolderName;
           rec.Position   := FS.Position - BufferSize;
           rec.DataSize   := BufferSize;
 
@@ -289,7 +294,8 @@ begin
       rec.OrderID            := SEND_FILE_FINISH;
       rec.FileName           := fileNameArray[i];
       rec.FolderName         := DateTimeNowTemp;
-      rec.SenderName         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+//      rec.SenderName         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
+      rec.SenderName         := SenderFolderName;
       rec.FileSize           := FileSize;
       rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
       rec.ReceiverUserRoleId := ReceiverID;
