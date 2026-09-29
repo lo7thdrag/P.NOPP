@@ -45,6 +45,8 @@ type
     procedure netRecv_CmdSyncSendFileTelegram(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSyncFileTransferToteDisplay(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSyncFileSharing(apRec: PAnsiChar; aSize: word);
+
+    procedure netRecv_CmdRemote(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     procedure FGameThread_OnRunning(const dt: double); override;
@@ -62,6 +64,7 @@ type
 
   private
     FConsoleData : TConsoleData;
+    FCubicleList : TConsoleContainer;
 
     FOnMapViewChange: TNotifyEvent;
     FLastSecond: word;
@@ -75,6 +78,9 @@ type
   public
     DrawFlagPoint : TFlagPointbContainer;
     DrawRuler : TRuler;
+
+    FRemoteServerCMD: TAppExecute;
+    FRemoteClientCMD: TAppExecute;
 
     constructor Create(Map : TMap);
     destructor Destroy; override;
@@ -130,6 +136,7 @@ type
     property OnUpdateForm: TNotifyEvent read FOnUpdateForm write FOnUpdateForm;
     property OnUpdateTime: TNotifyEvent read FOnUpdateTime write FOnUpdateTime;
     property OnMapViewChange : TNotifyEvent read FOnMapViewChange write FOnMapViewChange;
+    property CubicleList : TConsoleContainer read FCubicleList;
 
   end;
 
@@ -174,6 +181,8 @@ begin
   DrawFlagPoint := TFlagPointbContainer.Create;
   DrawRuler := TRuler.Create(Converter);
 
+  FCubicleList := TConsoleContainer.Create;
+
   SimManager := Self;
 end;
 
@@ -198,6 +207,14 @@ begin
 
   FCompass.Free;
   FConsoleData.Free;
+  FCubicleList.Free;
+
+  if FRemoteServerCMD <> nil then
+  begin
+    if FRemoteServerCMD.Active then
+      FRemoteServerCMD.Terminates;
+    FreeAndNil(FRemoteServerCMD);
+  end;
 
   inherited;
 end;
@@ -279,6 +296,7 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync),netRecv_CmdSyncSendFileTelegram);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransferToteDisplay);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing),netRecv_CmdSyncFileSharing);
+   VNetClient.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_UserState),netRecv_CmdSyncUserState);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdSyncChatUserRole);
@@ -699,6 +717,110 @@ begin
 
 end;
 
+procedure TSimMgr_Client.netRecv_CmdRemote(apRec: PAnsiChar; aSize: word);
+var
+  r: ^TRecTCPSendRemote;
+  rec: TRecTCPSendRemote;
+
+  prmIp: string;
+  prmColor: Byte;
+  prmPort: integer;
+  prmControl: Boolean;
+  prmCaption: string;
+
+  isControl: string;
+  sCommand: string;
+begin
+  r := @apRec^;
+//  LogEventRecv(r^.pid.recID);
+
+  case r^.OrderID of
+    REMOTE_STATE_FALSE:
+      begin
+        if FRemoteServerCMD <> nil then
+        begin
+          if FRemoteServerCMD.Active then
+            FRemoteServerCMD.Terminates;
+        end;
+
+        if FRemoteClientCMD <> nil then
+        begin
+          if FRemoteClientCMD.Active then
+            FRemoteClientCMD.Terminates;
+        end;
+
+        if isExeRunning(vAppSetting.RemoteServerName, false) then
+          CloseCurrentHandleApplication(vAppSetting.RemoteServerName);
+        if isExeRunning(vAppSetting.RemoteClientName, false) then
+          CloseCurrentHandleApplication(vAppSetting.RemoteClientName);
+      end;
+
+    REMOTE_STATE_TRUE:
+      begin
+        if FRemoteServerCMD = nil then
+        begin
+          if isExeRunning(vAppSetting.RemoteServerName, false) then
+            CloseCurrentHandleApplication(vAppSetting.RemoteServerName);
+
+          FRemoteServerCMD := TAppExecute.Create;
+          FRemoteServerCMD.OnStartExecute := nil;
+          FRemoteServerCMD.OnEndExecute := nil;
+
+          FRemoteServerCMD.FExecFname := vAppSetting.RemoteServerName;
+          sCommand := IntToStr(r^.FPort) + ' ' + IntToStr (vGameDataSetting.RemoteScreen);
+          FRemoteServerCMD.ExecutesWithParams(sCommand);
+        end;
+
+        /// send back
+        rec.pid.ipReceiver := r^.FClient;
+        rec.SessionID := FSessionID;
+        rec.FServer := StrIp_To_LongIp(MyConsoleData.IpAdrres);
+        rec.FClient := StrIp_To_LongIp(prmIp);
+        rec.FPort := r^.FPort;
+        rec.FColor := r^.FColor;
+        rec.FControl := r^.FControl;
+        rec.OrderID := REMOTE_STATE_READY;
+        VNetClient.SendCommand(CPID_CMD_REMOTE, @rec);
+      end;
+
+    REMOTE_STATE_READY:
+      begin
+        if FRemoteClientCMD = nil then
+        begin
+          FRemoteClientCMD := TAppExecute.Create;
+          FRemoteClientCMD.OnStartExecute := nil;
+          FRemoteClientCMD.OnEndExecute := nil;
+
+          if isExeRunning(vAppSetting.RemoteClientName, false) then
+            CloseCurrentHandleApplication(vAppSetting.RemoteClientName);
+        end;
+
+        if FRemoteClientCMD <> nil then
+        begin
+          if FRemoteClientCMD.Active then
+            FRemoteClientCMD.Terminates;
+        end;
+
+        prmIp := LongIp_To_StrIp(r^.FServer);
+        prmPort := r^.FPort;
+        prmColor := r^.FColor;
+        prmControl := r^.FControl;
+        prmCaption := FCubicleList.GetConsoleName(prmIp);
+
+        isControl := 'false';
+        if prmControl then
+          isControl := 'true';
+
+        sCommand := prmIp + ' ' + IntToStr(prmPort) + ' ' + IntToStr(prmColor)
+          + ' ' + isControl + ' ' + prmCaption;
+        FRemoteClientCMD.FExecFname := vAppSetting.RemoteClientName;
+        FRemoteClientCMD.ExecutesWithParams(sCommand);
+
+//        TT3ClientEventManager(EventManager).OnRemoteViewerRun();
+      end;
+  end;
+end;
+
 {$ENDREGION}
 
 {$REGION ' Send TCP '}
@@ -872,6 +994,10 @@ begin
       end;
     end;
   end;
+  {$ENDREGION}
+
+  {$REGION ' Refresh Console '}
+
   {$ENDREGION}
 end;
 

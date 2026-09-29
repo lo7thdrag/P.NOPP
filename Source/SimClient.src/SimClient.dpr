@@ -164,7 +164,8 @@ uses
   ufrmSummaryTowedJammerDecoy in '..\LibTTT\LibForms\DatabaseEditorForm\Countermeasure\ufrmSummaryTowedJammerDecoy.pas' {frmSummaryTowedjammerDecoy},
   ufrmFileManager in '..\LibTTT\LibForms\SimulatorForm\ufrmFileManager.pas' {frmFileManager},
   newClassASTT in '..\LibTTT\libDBScenario\newClassASTT.pas',
-  ufPopChat in 'ufPopChat.pas' {frmPopChat};
+  ufPopChat in 'ufPopChat.pas' {frmPopChat},
+  uRemoteHost in '..\RRemote\uRemoteHost.pas' {frmRemoteHost};
 
 {$R *.res}
 
@@ -186,6 +187,7 @@ begin
   Application.CreateForm(TfrmTacticalDisplay, frmTacticalDisplay);
   Application.CreateForm(TfrmToteDisplay, frmToteDisplay);
   Application.CreateForm(TfrmPopChat, frmPopChat);
+  Application.CreateForm(TfrmRemoteHost, frmRemoteHost);
   //  Application.CreateForm(TfrmSummaryRadar, frmSummaryRadar);
 //  Application.CreateForm(TfrmSummaryEOD, frmSummaryEOD);
 //  Application.CreateForm(TfrmSummaryESM, frmSummaryESM);

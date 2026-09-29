@@ -62,6 +62,7 @@ type
     procedure netRecv_CmdFileSendTelegram(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdFileSharing(apRec: PAnsiChar; aSize: Word);
+    procedure netRecv_CmdRemote(apRec: PAnsiChar; aSize: word);
 //    procedure netRecv_CmdClientStateInfo(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
@@ -268,6 +269,8 @@ begin
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync), netRecv_CmdFileSendTelegram);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer), netRecv_CmdFileTransfer);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing), netRecv_CmdFileSharing);
+  VNetServer.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
+
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_Reconnect), netRecv_CmdReconnect);
 
   VNetServer.RegisterTCPPacket(CPID_TCP_REQUEST, SizeOf(TRecTCP_Request), netRecv_TCPRequest);
@@ -451,6 +454,17 @@ begin
     end;
   end;
   {$ENDREGION}
+end;
+
+procedure TSimMgr_Server.netRecv_CmdRemote(apRec: PAnsiChar; aSize: word);
+var
+  rec  :  ^TRecTCPSendRemote;
+  ipTo : string;
+begin
+  rec  := @apRec^;
+  ipTo := LongIp_To_StrIp(rec^.pid.ipReceiver);
+
+  VNetServer.SendTo(CPID_CMD_REMOTE, apRec, ipTo);
 end;
 
 procedure TSimMgr_Server.netRecv_CmdSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);

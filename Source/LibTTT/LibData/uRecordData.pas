@@ -85,7 +85,7 @@ type
     reqFlag     : word;
   end;
 
-  // CPID_REMOTE_CMD
+  // CPID_CMD_REMOTE
   TRecTCPSendRemote = record
     pid         : TPacketID;
     SessionID   : Integer;
@@ -220,7 +220,6 @@ type
     isSelected    : Boolean;
     role          : Byte;
   end;
-  {$ENDREGION}
 
   {$REGION ' Class Data Record '}
 

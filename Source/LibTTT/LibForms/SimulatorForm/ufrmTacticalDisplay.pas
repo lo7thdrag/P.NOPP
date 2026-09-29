@@ -9,7 +9,7 @@ uses
   RzButton, jpeg, System.ImageList, Vcl.Imaging.pngimage, RzBmpBtn, Printers, Math,
 
   {Project Uses}
-  uClassData, uRecordData, uConstantaData, uConsoleData,uBaseCoordSystem, uCoordConvertor, uLibSetting, uSimObjects,
+  uNetBaseSocket, uClassData, uRecordData, uConstantaData, uConsoleData,uBaseCoordSystem, uCoordConvertor, uLibSetting, uSimObjects,
   uSimMgr_Client, uT3SimManager, ufrmDisplayArea, ufrmSituationBoard, ufrmTelegram, ufrmToteDisplay ;
 
 type
@@ -59,6 +59,7 @@ type
     lblPb: TLabel;
     lblPbLoadSystem: TLabel;
     imgSetting: TImage;
+    btnMonitor: TButton;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -81,6 +82,7 @@ type
     procedure tmrProgressbarTimer(Sender: TObject);
     procedure Image6Click(Sender: TObject);
     procedure tmrPBSituationBoardTimer(Sender: TObject);
+    procedure btnMonitorClick(Sender: TObject);
 
   private
 //    FTimerbutton : Integer;
@@ -105,6 +107,9 @@ var
   frmTacticalDisplay: TfrmTacticalDisplay;
 
 implementation
+
+uses
+  uRemoteHost;
 
 {$R *.dfm}
 
@@ -182,22 +187,29 @@ var
   userRoleTemp : TUserRole;
 
 begin
-  cbbConsoleName.Clear;
-
-  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count-1 do
-  begin
-    consoleInfoTemp := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[i]);
-
-    userRoleTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
-
-    if Assigned(userRoleTemp) then
-    begin
-      if userRoleTemp.isInUse then
-      begin
-        cbbConsoleName.Items.Add(consoleInfoTemp.ConsoleName);
-      end
-    end;
-  end;
+//  cbbConsoleName.Clear;
+//
+//  simMgrClient.GetALLConsoleInfo;
+//  for i := 0 to simMgrClient.AllConsoleInfo.Count - 1 do
+//  begin
+//     con := simMgrClient.AllConsoleInfo.Objects[i] as TConsoleInfo;
+//     pForm.ComboBox1.Items.Add(con.ConsoleName);
+//  end;
+//
+//  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count-1 do
+//  begin
+//    consoleInfoTemp := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[i]);
+//
+//    userRoleTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
+//
+//    if Assigned(userRoleTemp) then
+//    begin
+//      if userRoleTemp.isInUse then
+//      begin
+//        cbbConsoleName.Items.Add(consoleInfoTemp.ConsoleName);
+//      end
+//    end;
+//  end;
 
 end;
 
@@ -645,6 +657,100 @@ begin
   end
 end;
 
+procedure TfrmTacticalDisplay.btnMonitorClick(Sender: TObject);
+var
+  pForm: TfrmRemoteHost;
+
+  prmIp       : string ;
+  prmColor    : byte ;
+  prmControl  : boolean ;
+
+  i     : integer ;
+  sIP   : string;
+  con   :  TConsoleInfo;
+
+  roleStringTemp : string;
+
+  rec: TRecTCPSendRemote;
+
+  userRoleTemp : TUserRole;
+
+begin
+  //// remote
+  pForm := TfrmRemoteHost.Create(Self);
+
+  pForm.ComboBox1.Items.Clear;
+  for I := 0 to simMgrClient.SimConsole.ConsoleList.Count - 1 do
+  begin
+     con := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[i]);
+
+     if (con.RoleName = 'SituationBoard Group') or (con.RoleName = 'Instructor Group') or (con.RoleName = 'Wasdal Group') then
+      Continue;
+
+     case vGameDataSetting.Role of
+        0: roleStringTemp := 'INWO';
+        1: roleStringTemp := 'ATWO';
+        2: roleStringTemp := 'NTWO';
+        3: roleStringTemp := 'ALWO';
+        4: roleStringTemp := 'CDWO';
+        5: roleStringTemp := 'LFWO';
+        6: roleStringTemp := 'SUWO';
+     end;
+
+     if Copy(con.ConsoleName,1,4) <> roleStringTemp then
+      Continue;
+
+    userRoleTemp := nil;
+    userRoleTemp := simMgrClient.SimUserRole.getUserRoleByIPAddress(con.IPAddress);
+
+    if not Assigned(userRoleTemp) then
+      Continue;
+
+    if not userRoleTemp.isInUse then
+      Continue;
+
+     pForm.ComboBox1.Items.Add(con.ConsoleName);
+  end;
+
+  if pForm.ComboBox1.Items.Count > 0 then
+    pForm.ComboBox1.ItemIndex := 0 ;
+
+  if (pForm.ShowModal = mrOk) then
+  begin
+    if (Length(pForm.ComboBox1.Text) > 0) then
+    begin
+
+      sIP :='';
+      for I := 0 to simMgrClient.SimConsole.ConsoleList.Count - 1 do
+      begin
+        con:= TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[i]);
+
+        if UpperCase (con.ConsoleName) = UpperCase( pForm.ComboBox1.Text) then
+        begin
+          sIP := con.IPAddress;
+          Break;
+        end;
+      end;
+
+//      prmIp := sIP ;
+//      prmColor := pForm.rg1.ItemIndex ;
+//      prmControl := False;
+
+      rec.pid.ipReceiver := StrIp_To_LongIp(sIP);
+      rec.FServer := StrIp_To_LongIp(sIP);
+      rec.FClient := StrIp_To_LongIp(simMgrClient.MyConsoleData.IpAdrres);
+      rec.FPort := vGameDataSetting.RemotePort;
+      rec.FControl := False;
+      rec.OrderID := REMOTE_STATE_TRUE;
+
+      simMgrClient.netSend_CmdRemote( rec );
+
+    end;
+  end;
+
+  pForm.Free;
+end;
+
 procedure TfrmTacticalDisplay.btnPlanningClick(Sender: TObject);
 begin
   if btnPlanning.Down then
@@ -721,7 +827,6 @@ begin
 
   lblConsoleName.Left := (pnlHome.Width-lblConsoleName.Width)div 2;
   pnlButton.Left := (pnlHome.Width-pnlButton.Width)div 2;
-
 
 end;
 

@@ -35,8 +35,8 @@ type
     FConverter : TCoordConverter;
 
     function GetConsoleIdentification : Boolean;
-    procedure OnSyncSituationBoardTabProperties(
-      const rec: TRecTCPSendSituationBoardTabProperties);
+
+    procedure OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);
     procedure OnSyncUserChat(const rec: TRecTCPSendChatUserRole);
     procedure OnSyncUserState(const rec: TRecTCP_UserState);
 

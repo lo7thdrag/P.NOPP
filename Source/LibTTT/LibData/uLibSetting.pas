@@ -91,6 +91,7 @@ type
     FileSharing : string;
     Telegram : string;
     RemotePort : integer ;
+    RemoteScreen : integer ;
     TacticalScreen : Integer;
     ToteScreen : Integer;
     DemoMode : Boolean;
@@ -125,6 +126,8 @@ type
     GameServerName  : string;
     GameClientName  : string;
     DBEditorName    : string;
+    RemoteServerName: string;
+    RemoteClientName: string;
   end;
 
   TCubicleAssignSetting = record
@@ -328,6 +331,7 @@ begin
     GroupSetting         := DataPath + IniFReadstring(inif, c_gdata, 'GroupSetting' , 'cubicles.xml');
     SessionID            := INIFReadInteger(IniF, c_gdata, 'SessionId', 1111);
     RemotePort           := INIFReadInteger(IniF, c_gdata, 'RemotePort',9000);
+    RemoteScreen         := INIFReadInteger(IniF, c_gdata, 'RemoteScreen',0);
     TacticalScreen       := INIFReadInteger(IniF, c_gdata, 'TacticalScreen',0);
     ToteScreen           := INIFReadInteger(IniF, c_gdata, 'ToteScreen',0);
     DemoMode             := INIFReadBool(IniF, c_gdata, 'DemoMode', False);
@@ -457,6 +461,8 @@ begin
     GameServerName  := IniFReadstring(inif, c_appsetting, 'gameserver', 'SimServer.exe' );
     GameClientName  := IniFReadstring(inif, c_appsetting, 'gameclient', 'SimClient.exe' );
     DBEditorName    := IniFReadstring(inif, c_appsetting, 'dbeditclient', 'pDBEditor.exe' );
+    RemoteServerName:= IniFReadstring(inif, c_appsetting, 'remoteserver', 'RemoteServer.exe' );
+    RemoteClientName:= IniFReadstring(inif, c_appsetting, 'remoteclient', 'RemoteClient.exe' );
   end;
   inif.Free;
 

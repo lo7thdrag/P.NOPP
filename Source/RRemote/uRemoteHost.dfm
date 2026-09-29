@@ -2,10 +2,9 @@ object frmRemoteHost: TfrmRemoteHost
   Left = 300
   Top = 146
   BorderIcons = []
-  BorderStyle = bsToolWindow
-  Caption = ' Monitor Student'
-  ClientHeight = 90
-  ClientWidth = 281
+  BorderStyle = bsNone
+  ClientHeight = 119
+  ClientWidth = 287
   Color = 2695445
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

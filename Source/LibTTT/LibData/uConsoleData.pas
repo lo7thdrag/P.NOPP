@@ -47,12 +47,14 @@ type
     FLoaded : Boolean;
 
     FNodeInstructor : TGmXmlNode;
+    FNodeWasdal : TGmXmlNode;
     FNodeSituationBoard : TGmXmlNode;
     FNodeOfficer : TGmXmlNode;
 
+    FConsoleList : TStringList;
+
   public
     RoleGroupList : TStringList;
-    ConsoleList : TStringList;
 
     constructor Create;
     destructor Destroy; override;
@@ -67,7 +69,7 @@ type
     function GetConsoleRole(const cbName: string): TRoleInfo;
     function GetConsoleInfo(const ipAdd: string): TConsoleInfo;
 
-    procedure GetListConsole(var al : TStringList);
+    property ConsoleList : TStringList read FConsoleList write FConsoleList;
 
   end;
 
@@ -75,6 +77,7 @@ implementation
 
 const
   cTag_instructor  = 'instructor';
+  cTag_Wasdal = 'wasdal';
   cTag_situationboard  = 'situationboard';
   cTag_officer     = 'officer';
 
@@ -119,6 +122,7 @@ end;
 constructor TConsoleContainer.Create;
 begin
   FNodeInstructor := nil;
+  FNodeWasdal := nil;
   FNodeSituationBoard  := nil;
   FNodeOfficer     := nil;
 
@@ -128,20 +132,21 @@ begin
   RoleGroupList := TStringList.Create;
   RoleGroupList.Sorted := true;
 
-  ConsoleList := TStringList.Create;
-  ConsoleList.Sorted := true;
+  FConsoleList := TStringList.Create;
+  FConsoleList.Sorted := true;
 
 end;
 
 destructor TConsoleContainer.Destroy;
 begin
-  ConsoleList.Clear;
-  ConsoleList.Free;
+  FConsoleList.Clear;
+  FConsoleList.Free;
 
   RoleGroupList.Clear;
   RoleGroupList.Free;
 
   FNodeInstructor := nil;
+  FNodeWasdal := nil;
   FNodeSituationBoard := nil;
   FNodeOfficer := nil;
 
@@ -161,7 +166,7 @@ var
 
 begin
 
-  ClearAndFreeItems(ConsoleList);
+  ClearAndFreeItems(FConsoleList);
   ClearAndFreeItems(RoleGroupList);
 
   FXML := TGmXML.Create(nil);
@@ -189,7 +194,34 @@ begin
       con.ConsoleName := consoleNodeTemp.ConsoleName;
       con.RoleName := groupNodeTemp.RoleName;
 
-      ConsoleList.AddObject(con.IPAddress, con);
+      FConsoleList.AddObject(con.IPAddress, con);
+      groupRoleTemp.ConsoleIPs.Add(con.IPAddress);
+    end;
+    RoleGroupList.AddObject(groupRoleTemp.RoleName, groupRoleTemp);
+
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Wasdal '}
+  FNodeWasdal := FXML.Nodes.Node[0].Children.NodeByName[cTag_wasdal];
+  groupNodeTemp.Assign(FNodeWasdal);
+
+  groupRoleTemp := TRoleInfo.Create;
+  groupRoleTemp.RoleID   := groupNodeTemp.RoleID;
+  groupRoleTemp.RoleName := groupNodeTemp.RoleName;
+
+  if Assigned(FNodeWasdal) then
+  begin
+    for i := 0 to FNodeWasdal.Children.Count-1 do
+    begin
+      consoleNodeTemp.Assign(FNodeWasdal.Children.Node[i]);
+
+      con :=  TConsoleInfo.Create;
+      con.IPAddress   := consoleNodeTemp.IPAddress;
+      con.ConsoleName := consoleNodeTemp.ConsoleName;
+      con.RoleName := groupNodeTemp.RoleName;
+
+      FConsoleList.AddObject(con.IPAddress, con);
       groupRoleTemp.ConsoleIPs.Add(con.IPAddress);
     end;
     RoleGroupList.AddObject(groupRoleTemp.RoleName, groupRoleTemp);
@@ -216,7 +248,7 @@ begin
       con.ConsoleName := consoleNodeTemp.ConsoleName;
       con.RoleName := groupNodeTemp.RoleName;
 
-      ConsoleList.AddObject(con.IPAddress, con);
+      FConsoleList.AddObject(con.IPAddress, con);
       groupRoleTemp.ConsoleIPs.Add(con.IPAddress);
     end;
     RoleGroupList.AddObject(groupRoleTemp.RoleName, groupRoleTemp);
@@ -243,7 +275,7 @@ begin
       con.ConsoleName := consoleNodeTemp.ConsoleName;
       con.RoleName := groupNodeTemp.RoleName;
 
-      ConsoleList.AddObject(con.IPAddress, con);
+      FConsoleList.AddObject(con.IPAddress, con);
 
       groupRoleTemp.ConsoleIPs.Add(con.IPAddress);
     end;
@@ -266,7 +298,7 @@ begin
   FNodeSituationBoard  := nil;
   FNodeOfficer     := nil;
 
-  ClearAndFreeItems(ConsoleList);
+  ClearAndFreeItems(FConsoleList);
   ClearAndFreeItems(RoleGroupList);
 end;
 
@@ -276,8 +308,8 @@ var
 begin
   Result := nil;
 
-  if ConsoleList.Find(ipAdd, i) then
-    Result := ConsoleList.Objects[i] as TConsoleInfo;
+  if FConsoleList.Find(ipAdd, i) then
+    Result := FConsoleList.Objects[i] as TConsoleInfo;
 
 end;
 
@@ -286,9 +318,9 @@ var
   i: integer;
   con:  TConsoleInfo;
 begin
-  if ConsoleList.Find(ipAdd, i) then
+  if FConsoleList.Find(ipAdd, i) then
   begin
-    con     := ConsoleList.Objects[i] as TConsoleInfo;
+    con     := FConsoleList.Objects[i] as TConsoleInfo;
     result  := con.ConsoleName;
   end
   else
@@ -301,9 +333,9 @@ var
   con:  TConsoleInfo;
 begin
   result := '';
-  if ConsoleList.Find(ipAdd, i) then
+  if FConsoleList.Find(ipAdd, i) then
   begin
-    con :=  ConsoleList.Objects[i] as TConsoleInfo;
+    con :=  FConsoleList.Objects[i] as TConsoleInfo;
     result := con.RoleName;
   end;
 end;
@@ -315,28 +347,15 @@ var
 begin
   result := '';
 
-  for i := 0 to ConsoleList.Count - 1 do
+  for i := 0 to FConsoleList.Count - 1 do
   begin
-    con :=  ConsoleList.Objects[i] as TConsoleInfo;
+    con :=  FConsoleList.Objects[i] as TConsoleInfo;
 
     if con.ConsoleName =  cbName then
     begin
       result := con.IPAddress;
       Break;
     end;
-  end;
-end;
-
-procedure TConsoleContainer.GetListConsole(var al: TStringList);
-var
-    i: integer;
-    con:  TConsoleInfo;
-begin
-  if al = nil then exit;
-  for i := 0 to ConsoleList.Count - 1 do
-  begin
-     con :=  ConsoleList.Objects[i] as TConsoleInfo;
-     al.AddObject(con.IPAddress,con);
   end;
 end;
 
@@ -354,7 +373,7 @@ end;
 function TConsoleContainer.IsGroupMember(const ipAdd: string): boolean;
 var i: integer;
 begin
-  result := ConsoleList.Find(ipAdd, i);
+  result := FConsoleList.Find(ipAdd, i);
 end;
 
 { TCubicleInfo }

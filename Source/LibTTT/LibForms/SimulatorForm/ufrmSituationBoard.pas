@@ -67,7 +67,6 @@ type
     btnLayerTool: TToolButton;
 
     procedure FormShow(Sender: TObject);
-    procedure Button1Click(Sender: TObject);
     procedure btnTabClick(Sender: TObject);
     procedure btnCreateTabClick(Sender: TObject);
     procedure FormResize(Sender: TObject);
@@ -220,31 +219,6 @@ end;
 procedure TfrmSituationBoard.btnPanClick(Sender: TObject);
 begin
   RefreshButton(1)
-end;
-
-procedure TfrmSituationBoard.Button1Click(Sender: TObject);
-var
-  ipTemp : string ;
-  rec : TRecTCPSendRemote;
-
-begin
-//  if cbbPapanSituasi.ItemIndex = -1 then
-//  begin
-//    ShowMessage('Silahkan pilih Papan Situasi ');
-//    Exit;
-//  end;
-//
-//  ipTemp := SimManager.SimConsole.GetIPAddress(cbbPapanSituasi.Text);
-//
-//  rec.pid.ipReceiver := StrIp_To_LongIp(ipTemp);
-//  rec.FServer := StrIp_To_LongIp(ipTemp);
-//  rec.FClient := StrIp_To_LongIp(simMgrClient.MyConsoleData.IpAdrres);
-//  rec.FPort := vGameDataSetting.RemotePort;
-////  rec.FColor := mColor;
-//  rec.FControl := False;
-//  rec.OrderID := REMOTE_STATE_TRUE;
-//
-//  simMgrClient.netSend_CmdRemote(rec);
 end;
 
 procedure TfrmSituationBoard.cbSetScaleChange(Sender: TObject);
