@@ -10,7 +10,7 @@
   </instructor>
 
   <situationBoard id="SituationBoard" name="SituationBoard Group">
-    <console ip="192.168.1.21" name="INWO SITUATION BOARD 1"></console>
+    <console ip="192.168.0.125" name="INWO SITUATION BOARD 1"></console>
     <console ip="192.168.1.22" name="INWO SITUATION BOARD 2"></console>
     <console ip="192.168.1.38" name="NTWO SITUATION BOARD 1"></console>
     <console ip="192.168.1.39" name="NTWO SITUATION BOARD 2"></console>
@@ -26,9 +26,18 @@
     <console ip="192.168.1.121" name="SUWO SITUATION BOARD 2"></console>
   </situationBoard>
 
+  <wasdal id="Wasdal" name="Wasdal Group">
+    <console ip="192.168.1.201" name="INWO WASDAL"></console>
+    <console ip="192.168.1.202" name="NTWO WASDAL"></console>
+    <console ip="192.168.1.203" name="ATWO WASDAL"></console>
+    <console ip="192.168.1.204" name="ALWO WASDAL"></console>
+    <console ip="192.168.1.205" name="CDWO WASDAL"></console>
+    <console ip="192.168.1.206" name="LFWO WASDAL"></console>
+    <console ip="192.168.1.207" name="SUWO WASDAL"></console>
+  </Wasdal>
 
   <officer id="Officer" name="Officer Group">   
-    <console ip="192.168.123.11" name="ATWO PROGRAMMER"></console>
+    <console ip="192.168.0.1215" name="INWO PROGRAMMER"></console>
  
     <console ip="192.168.1.11" name="INWO OFFICIAL 1"></console>  
     <console ip="192.168.1.12" name="INWO OFFICIAL 2"></console>
@@ -39,8 +48,7 @@
     <console ip="192.168.1.17" name="INWO OFFICIAL 7"></console>
     <console ip="192.168.1.18" name="INWO OFFICIAL 8"></console>
     <console ip="192.168.1.19" name="INWO OFFICIAL 9"></console>
-    <console ip="192.168.1.20" name="INWO OFFICIAL 10"></console>
-    <console ip="192.168.1.201" name="INWO WASDAL"></console>  
+    <console ip="192.168.1.20" name="INWO OFFICIAL 10"></console>  
     
     <console ip="192.168.1.23" name="NTWO OFFICIAL 1"></console>  
     <console ip="192.168.1.24" name="NTWO OFFICIAL 2"></console>
@@ -56,8 +64,7 @@
     <console ip="192.168.1.34" name="NTWO OFFICIAL 12"></console>
     <console ip="192.168.1.35" name="NTWO OFFICIAL 13"></console>
     <console ip="192.168.1.36" name="NTWO OFFICIAL 14"></console>
-    <console ip="192.168.1.37" name="NTWO OFFICIAL 15"></console>
-    <console ip="192.168.1.202" name="NTWO WASDAL"></console>
+    <console ip="192.168.1.37" name="NTWO OFFICIAL 15"></console>    
 
     <console ip="192.168.1.40" name="ATWO OFFICIAL 1"></console>  
     <console ip="192.168.1.41" name="ATWO OFFICIAL 2"></console>
@@ -74,8 +81,7 @@
     <console ip="192.168.1.52" name="ATWO OFFICIAL 13"></console>
     <console ip="192.168.1.53" name="ATWO OFFICIAL 14"></console>
     <console ip="192.168.1.54" name="ATWO OFFICIAL 15"></console>
-    <console ip="192.168.1.55" name="ATWO OFFICIAL 16"></console>
-    <console ip="192.168.1.203" name="ATWO WASDAL"></console>
+    <console ip="192.168.1.55" name="ATWO OFFICIAL 16"></console>    
   
     <console ip="192.168.1.58" name="ALWO OFFICIAL 1"></console>  
     <console ip="192.168.1.59" name="ALWO OFFICIAL 2"></console>
@@ -91,7 +97,6 @@
     <console ip="192.168.1.69" name="ALWO OFFICIAL 12"></console>
     <console ip="192.168.1.70" name="ALWO OFFICIAL 13"></console>
     <console ip="192.168.1.71" name="ALWO OFFICIAL 14"></console>
-    <console ip="192.168.1.204" name="ALWO WASDAL"></console>
   
     <console ip="192.168.1.74" name="CDWO OFFICIAL 1"></console>  
     <console ip="192.168.1.75" name="CDWO OFFICIAL 2"></console>
@@ -106,7 +111,6 @@
     <console ip="192.168.1.84" name="CDWO OFFICIAL 11"></console>
     <console ip="192.168.1.85" name="CDWO OFFICIAL 12"></console>
     <console ip="192.168.1.86" name="CDWO OFFICIAL 13"></console>
-    <console ip="192.168.1.205" name="CDWO WASDAL"></console>
    
     <console ip="192.168.1.89" name="LFWO OFFICIAL 1"></console>  
     <console ip="192.168.1.90" name="LFWO OFFICIAL 2"></console>
@@ -119,7 +123,6 @@
     <console ip="192.168.1.97" name="LFWO OFFICIAL 9"></console>
     <console ip="192.168.1.98" name="LFWO OFFICIAL 10"></console>
     <console ip="192.168.1.99" name="LFWO OFFICIAL 11"></console>
-    <console ip="192.168.1.206" name="LFWO WASDAL"></console>
   
     <console ip="192.168.1.102" name="SUWO OFFICIAL 1"></console>  
     <console ip="192.168.1.103" name="SUWO OFFICIAL 2"></console>
@@ -139,7 +142,6 @@
     <console ip="192.168.1.117" name="SUWO OFFICIAL 16"></console>
     <console ip="192.168.1.118" name="SUWO OFFICIAL 17"></console>
     <console ip="192.168.1.119" name="SUWO OFFICIAL 18"></console>
-    <console ip="192.168.1.207" name="SUWO WASDAL"></console>
   </officer>
 
 </ppkmgroups>

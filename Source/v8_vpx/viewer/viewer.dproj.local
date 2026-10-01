@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.788,D:\TechnoIT\research\delphi_ics_custom_packet\v5\viewer\viewer.dproj=D:\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.574,D:\TechnoIT\research\delphi_ics_custom_packet\v5\viewer\UMain.dfm=D:\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.574,D:\TechnoIT\research\delphi_ics_custom_packet\v5\viewer\UMain.pas=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.161,=D:\TechnoIT\TCMS\CWC\for_commisioning\v8_vpx\libs\codec\libyuv.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.321,=D:\TechnoIT\research\delphi_ics_custom_packet\v5\commons\UCommands.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.648,=D:\TechnoIT\TCMS\CWC\for_commisioning\v5\commons\UData.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.258,=D:\TechnoIT\research\delphi_ics_custom_packet\v5\viewer\UFrmCommand.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.211,=D:\TechnoIT\TCMS\CWC\for_commisioning\v8_vpx\libs\codec\vpx_codec.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.985,=D:\TechnoIT\TCMS\CWC\for_commisioning\v8_vpx\libs\uProcessManager.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.295,=D:\TechnoIT\TCMS\CWC\for_commisioning\v8_vpx\libs\codec\vpx_image.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.684,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.193,=D:\TechnoIT\TCMS\CWC\for_commisioning\v8_vpx\libs\codec\vp8dx.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.616,=D:\TechnoIT\TCMS\CWC\for_commisioning\v8_vpx\libs\codec\video_decoder_vpx.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.337,=D:\TechnoIT\research\delphi_ics_custom_packet\v5\commons\USettings.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.251,=D:\TechnoIT\TCMS\CWC\for_commisioning\v8_vpx\libs\codec\vpx_decoder.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.684,=D:\TechnoIT\TCMS\CWC\for_commisioning\v5\libs\UJPEGCompression.pas</Transaction>
+  </Transactions>
+</BorlandProject>

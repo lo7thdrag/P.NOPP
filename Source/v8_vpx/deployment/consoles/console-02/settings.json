@@ -1,0 +1,21 @@
+{
+  "id" : 2,
+  "port": 56789,
+  "cast fps": 30,
+  "source region" : {
+    "left" : 0,
+    "top" : 0,
+    "width" : 1920,
+    "height" : 1080
+  },
+  "destination region" : {
+    "left" : 0,
+    "top" : 0,
+    "width" : 1728,
+    "height" : 1080
+  }, 
+  "controller" : {
+    "address" : "127.0.0.1",
+    "port": 45678
+  }    
+}

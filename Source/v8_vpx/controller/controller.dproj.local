@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899-12-30 00:00:00.000.289,D:\Documents\Embarcadero\Studio\Projects\Unit1.pas=D:\TechnoIT\research\delphi_ics_custom_packet\v5\controller\UMain.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.289,D:\Documents\Embarcadero\Studio\Projects\Unit1.dfm=D:\TechnoIT\research\delphi_ics_custom_packet\v5\controller\UMain.dfm</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.509,=D:\TechnoIT\research\delphi_ics_custom_packet\v5\commons\UCommands.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.532,=D:\TechnoIT\research\delphi_ics_custom_packet\v5\commons\USettings.pas</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.454,D:\Documents\Embarcadero\Studio\Projects\Project1.dproj=D:\TechnoIT\research\delphi_ics_custom_packet\v5\controller\controller.dproj</Transaction>
+    <Transaction>1899-12-30 00:00:00.000.479,=D:\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

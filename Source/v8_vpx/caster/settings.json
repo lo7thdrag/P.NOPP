@@ -1,0 +1,9 @@
+{
+  "id" : 1,
+  "port": 56789,
+  "cast fps": 3,
+  "controller" : {
+    "address" : "127.0.0.1",
+    "port": 45678
+  }    
+}
