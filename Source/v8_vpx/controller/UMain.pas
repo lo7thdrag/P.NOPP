@@ -89,8 +89,7 @@ type
     lblDisplay1: TLabel;
     pnlDisplay2: TPanel;
     lblDisplay2: TLabel;
-    lbl1: TLabel;
-    lbl2: TLabel;
+    imgBackground: TImage;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
