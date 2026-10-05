@@ -19,36 +19,48 @@ type
     lblConcoleList: TLabel;
     pnlMenu: TPanel;
     lblFileTransfer: TLabel;
-    btnLogout: TButton;
+    btnLogout1: TButton;
     btnSend: TButton;
     pnlConsole: TPanel;
     pnlFileTransfer: TPanel;
     pnllvConsoleList: TPanel;
-    pnlHeader: TPanel;
-    Label1: TLabel;
-    cbbConsole: TComboBox;
-    btnUpload: TRzBmpButton;
     pnlSend: TPanel;
     pnlLogout: TPanel;
-    pnlHeaderConsole: TPanel;
-    Label2: TLabel;
     pnllvTransfer: TPanel;
     lvFileTransfer: TListView;
-    btnDelete: TRzBmpButton;
-    btnClear: TRzBmpButton;
     btnConsoleList: TSpeedButton;
     btnMyDesktop: TSpeedButton;
     pnlDestination: TPanel;
     lstUserSend: TCheckListBox;
     lblClose: TLabel;
     btnClose: TSpeedButton;
+    imgpnlMenu: TImage;
+    imgFileTransfer: TImage;
+    imgClose: TImage;
+    imgFileT: TImage;
+    cbbConsole: TComboBox;
     btnRefresh: TRzBmpButton;
+    btnUpload: TRzBmpButton;
+    btnDelete: TRzBmpButton;
+    btnClear: TRzBmpButton;
+    imgConsoleList: TImage;
+    imgSearch: TImage;
+    imgDestination: TImage;
+    imgRefresh: TImage;
+    Image1: TImage;
+    imgAdd: TImage;
+    imgDelete: TImage;
+    imgClear: TImage;
+    imgSend: TImage;
+    imgConsoleListMain: TImage;
+    Image2: TImage;
+    btnLogout: TImage;
 
     {$REGION 'Console List'}
     procedure pnlConsoleListManajemenShow;
     procedure lvConsoleListSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
     procedure UpdateConsoleList;
-    procedure btnLogoutClick(Sender: TObject);
+    procedure btnLogout1Click(Sender: TObject);
     procedure ConsoleListClick(Sender: TObject);
     procedure cbbConsoleSelect(Sender: TObject);
     {$ENDREGION}
@@ -70,6 +82,12 @@ type
 
     procedure FormShow(Sender: TObject);
     procedure CloseClick(Sender: TObject);
+    procedure lvFileTransferCustomDrawItem(Sender: TCustomListView;
+      Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
+    procedure btnLogoutClick(Sender: TObject);
+    procedure lvConsoleListAdvancedCustomDrawItem(Sender: TCustomListView;
+      Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage;
+      var DefaultDraw: Boolean);
   private
     FConsoleList  : TList;
     FFileTransfer : TList;
@@ -138,7 +156,16 @@ end;
 
 procedure TfrmToteDisplay.ConsoleListClick(Sender: TObject);
 begin
-  pnlConsoleListManajemenShow;
+  if Sender = imgConsoleList then
+  begin
+    imgConsoleList.Picture.LoadFromFile('data\Image Tote Display\btn_console0.bmp');
+  end;
+  try
+    imgFileTransfer.Picture.LoadFromFile('data\Image Tote Display\btn_transfer1.bmp');
+    pnlConsoleListManajemenShow;
+  finally
+
+  end;
 end;
 
 procedure TfrmToteDisplay.pnlConsoleListManajemenShow;
@@ -181,6 +208,16 @@ begin
   end;
 end;
 
+procedure TfrmToteDisplay.lvConsoleListAdvancedCustomDrawItem(
+  Sender: TCustomListView; Item: TListItem; State: TCustomDrawState;
+  Stage: TCustomDrawStage; var DefaultDraw: Boolean);
+begin
+  if Item.Index mod 2 = 0 then
+    Sender.Canvas.Brush.Color := RGB(1, 12, 30)   // Baris Genap
+  else
+    Sender.Canvas.Brush.Color := RGB(2, 30, 73);
+end;
+
 procedure TfrmToteDisplay.lvConsoleListSelectItem(Sender: TObject;
   Item: TListItem; Selected: Boolean);
 begin
@@ -207,7 +244,7 @@ begin
    end;
 end;
 
-procedure TfrmToteDisplay.btnLogoutClick(Sender: TObject);
+procedure TfrmToteDisplay.btnLogout1Click(Sender: TObject);
 var
   rec : TRecTCP_UserState;
   consoleInfoTemp : TConsoleInfo;
@@ -235,12 +272,26 @@ begin
   frmTacticalDisplay.UpdateClientLogout(Self);
 end;
 
+procedure TfrmToteDisplay.btnLogoutClick(Sender: TObject);
+begin
+
+end;
+
 {$ENDREGION}
 
 {$REGION 'File Transfer'}
 procedure TfrmToteDisplay.FileTransferClick(Sender: TObject);
 begin
- pnlFileTransferManajemenShow;
+  if Sender = imgFileTransfer then
+  begin
+    imgFileTransfer.Picture.LoadFromFile('data\Image Tote Display\btn_transfer0.bmp');
+  end;
+  try
+    imgConsoleList.Picture.LoadFromFile('data\Image Tote Display\btn_console1.bmp');
+    pnlFileTransferManajemenShow;
+  finally
+
+  end;
 end;
 
 procedure TfrmToteDisplay.Initialize;
@@ -355,6 +406,15 @@ begin
   end;
 
   UpdateFile;
+end;
+
+procedure TfrmToteDisplay.lvFileTransferCustomDrawItem(Sender: TCustomListView;
+  Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
+begin
+  if Item.Index mod 2 = 0 then
+    Sender.Canvas.Brush.Color := RGB(1, 12, 30)   // Baris Genap
+  else
+    Sender.Canvas.Brush.Color := RGB(2, 30, 73);
 end;
 
 procedure TfrmToteDisplay.lvFileTransferSelectItem(Sender: TObject;
