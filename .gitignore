@@ -56,3 +56,5 @@ Source/LibTTT/LibForms/DatabaseEditorForm/Platform/OnBoardPickList/__history/ufr
 /Source/v8_vpx/restart/__history
 /Source/v8_vpx/viewer/__history
 /Source/Comp
+Source/v8_vpx/viewer/RemoteViewer.dproj.local
+Source/v8_vpx/controller/RemoteController.dproj.local
