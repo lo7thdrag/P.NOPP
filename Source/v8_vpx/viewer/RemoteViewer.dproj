@@ -86,9 +86,9 @@
         <DCC_UnitSearchPath>..\libs\GraphicsLib;..\libs\LibNets\NetLinkComp;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <DCC_ExeOutput>..\..\Bin\</DCC_ExeOutput>
-        <DCC_BplOutput>..\trash\</DCC_BplOutput>
-        <DCC_DcuOutput>..\..\Comp\</DCC_DcuOutput>
+        <DCC_ExeOutput>..\..\..\Bin\</DCC_ExeOutput>
+        <DCC_BplOutput>..\..\trash\</DCC_BplOutput>
+        <DCC_DcuOutput>..\..\..\Comp\</DCC_DcuOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
