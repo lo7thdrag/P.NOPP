@@ -147,7 +147,7 @@ procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   MmoLog.Lines.Add('Loading App Setting ...');
   AppSetting:= TCasterSetting.Create;
-  if not AppSetting.LoadFromFile('settings.json') then
+  if not AppSetting.LoadFromFile('RemoteCasterSettings.json') then
   begin
     ShowMessage('Error Loading Setting');
     PostQuitMessage(1);

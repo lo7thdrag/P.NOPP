@@ -110,6 +110,8 @@ type
     procedure btnRestartDisplay1Click(Sender: TObject);
     procedure btnRestartDisplay2Click(Sender: TObject);
     procedure btnRestartDisplay3Click(Sender: TObject);
+    procedure imgBackgroundMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
   private
     { Private declarations }
     IsClose: Boolean;
@@ -278,11 +280,23 @@ end;
 
 procedure TFrmMain.btnShowDisplay1Click(Sender: TObject);
 begin
+  if (cbCasterDisplay2.Text = cbCasterDisplay1.Text) and (btnShowDisplay2.Enabled = False) then
+  begin
+    ShowMessage('System tidak mewadahi Display ganda');
+    Exit
+  end;
+
   AssignConsoleToDisplay(1, True);
 end;
 
 procedure TFrmMain.btnShowDisplay2Click(Sender: TObject);
 begin
+  if (cbCasterDisplay2.Text = cbCasterDisplay1.Text) and (btnShowDisplay1.Enabled = False) then
+  begin
+    ShowMessage('System tidak mewadahi Display ganda');
+    Exit
+  end;
+
   AssignConsoleToDisplay(2, True);
 end;
 
@@ -375,7 +389,7 @@ procedure TFrmMain.FormCreate(Sender: TObject);
 begin
   IsClose:= False;
   AppSetting:= TControllerSetting.Create;
-  if not AppSetting.LoadFromFile('settings.json') then
+  if not AppSetting.LoadFromFile('RemoteControllerSettings.json') then
   begin
     ShowMessage('Error Loading Setting');
     PostQuitMessage(1);
@@ -516,6 +530,22 @@ end;
 procedure TFrmMain.Handle_WM_GET_PACKET(var Msg: TMessage);
 begin
   Server.GetPacket;
+end;
+
+procedure TFrmMain.imgBackgroundMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+const
+  {F012 nilai kombinasi dari delphi untuk move}
+  {F012 dari SC_MOVE ($F010) + HTCAPTION ($0002)}
+  SC_DRAGMOVE = $F012;
+begin
+  if Button = mbLeft then
+  begin
+    {Kunci kursor}
+    ReleaseCapture;
+    {WM_SYSCOMMAND = disystem, 0 = koordinatnya}
+    Perform(WM_SYSCOMMAND, SC_DRAGMOVE, 0);
+  end;
 end;
 
 procedure TFrmMain.tmrGetPacketTimer(Sender: TObject);
@@ -725,7 +755,7 @@ begin
       1: begin
          cbCasterDisplay1.Enabled:= False;
          shpDisplayConnected1.Brush.Color:= clMaroon;
-         imgSituationBoard1.Picture.LoadFromFile('Image\offline.png');
+         imgSituationBoard1.Picture.LoadFromFile('data\Image Remote\offline.png');
          btnShowDisplay1.Enabled:= False;
          btnStopDisplay1.Enabled:= False;
          btnRestartDisplay1.Enabled:= False;
@@ -733,7 +763,7 @@ begin
       2: begin
          cbCasterDisplay2.Enabled:= False;
          shpDisplayConnected2.Brush.Color:= clMaroon;
-         imgSituationBoard2.Picture.LoadFromFile('Image\offline.png');
+         imgSituationBoard2.Picture.LoadFromFile('data\Image Remote\offline.png');
          btnShowDisplay2.Enabled:= False;
          btnStopDisplay2.Enabled:= False;
          btnRestartDisplay2.Enabled:= False;
@@ -936,7 +966,7 @@ begin
       1: begin
          cbCasterDisplay1.Enabled:= True;
          shpDisplayConnected1.Brush.Color:= clLime;
-         imgSituationBoard1.Picture.LoadFromFile('Image\running.png');
+         imgSituationBoard1.Picture.LoadFromFile('data\Image Remote\running.png');
          btnShowDisplay1.Enabled:= True;
          btnStopDisplay1.Enabled:= False;
          btnRestartDisplay1.Enabled:= True;
@@ -944,7 +974,7 @@ begin
       2: begin
          cbCasterDisplay2.Enabled:= True;
          shpDisplayConnected2.Brush.Color:= clLime;
-         imgSituationBoard2.Picture.LoadFromFile('Image\running.png');
+         imgSituationBoard2.Picture.LoadFromFile('data\Image Remote\running.png');
          btnShowDisplay2.Enabled:= True;
          btnStopDisplay2.Enabled:= False;
          btnRestartDisplay2.Enabled:= True;

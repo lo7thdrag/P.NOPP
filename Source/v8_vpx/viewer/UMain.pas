@@ -163,7 +163,7 @@ begin
 
   Log('Loading App Setting ...');
   AppSetting:= TViewerSetting.Create;
-  if not AppSetting.LoadFromFile('settings.json') then
+  if not AppSetting.LoadFromFile('RemoteViewerSettings.json') then
   begin
     ShowMessage('Error Loading Setting');
     PostQuitMessage(1);

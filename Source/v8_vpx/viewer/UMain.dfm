@@ -30,8 +30,6 @@ object FrmMain: TFrmMain
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitWidth = 651
-    ExplicitHeight = 338
     object pbDraw: TPaintBox
       Left = 0
       Top = 0
