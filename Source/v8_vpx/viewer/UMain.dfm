@@ -1,10 +1,10 @@
 object FrmMain: TFrmMain
   Left = 0
-  Top = 0
-  BorderStyle = bsSingle
+  Top = 1028
+  BorderStyle = bsNone
   Caption = 'Monitor'
-  ClientHeight = 309
-  ClientWidth = 645
+  ClientHeight = 49
+  ClientWidth = 132
   Color = clWindow
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -18,23 +18,25 @@ object FrmMain: TFrmMain
   OnDblClick = FormDblClick
   OnDestroy = FormDestroy
   DesignSize = (
-    645
-    309)
+    132
+    49)
   PixelsPerInch = 96
   TextHeight = 13
   object pnlDraw: TPanel
     Left = 0
     Top = 0
-    Width = 645
-    Height = 309
+    Width = 132
+    Height = 49
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 645
+    ExplicitHeight = 309
     object pbDraw: TPaintBox
       Left = 0
       Top = 0
-      Width = 645
-      Height = 309
+      Width = 132
+      Height = 49
       Align = alClient
       OnDblClick = pbDrawDblClick
       OnPaint = pbDrawPaint
@@ -46,7 +48,7 @@ object FrmMain: TFrmMain
   end
   object pnlOfficial: TPanel
     Left = 8
-    Top = 268
+    Top = 8
     Width = 113
     Height = 33
     Anchors = [akLeft, akBottom]
@@ -55,6 +57,7 @@ object FrmMain: TFrmMain
     Color = clAqua
     ParentBackground = False
     TabOrder = 1
+    ExplicitTop = 268
   end
   object tmrClientGetPacket: TTimer
     Enabled = False

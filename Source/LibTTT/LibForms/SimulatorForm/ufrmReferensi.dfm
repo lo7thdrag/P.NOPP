@@ -14184,7 +14184,7 @@ object frmReferensi: TfrmReferensi
       TabOrder = 0
       object imgReferensi: TImage
         Left = 180
-        Top = 168
+        Top = 203
         Width = 137
         Height = 130
         ParentShowHint = False
@@ -14193,7 +14193,7 @@ object frmReferensi: TfrmReferensi
       end
       object Label2: TLabel
         Left = 138
-        Top = 224
+        Top = 259
         Width = 218
         Height = 15
         Caption = 'Files in the form of documents and images'
@@ -14234,6 +14234,21 @@ object frmReferensi: TfrmReferensi
         ParentColor = False
         ParentFont = False
       end
+      object lbl1: TLabel
+        Left = 22
+        Top = 148
+        Width = 37
+        Height = 18
+        Caption = 'Role :'
+        Color = 5186054
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Berlin Sans FB'
+        Font.Style = []
+        ParentColor = False
+        ParentFont = False
+      end
       object edtNameDocument: TEdit
         Tag = 4
         Left = 22
@@ -14263,6 +14278,29 @@ object frmReferensi: TfrmReferensi
         ParentFont = False
         TabOrder = 0
         OnChange = editKategoriChange
+      end
+      object cbbRole: TComboBox
+        Left = 22
+        Top = 173
+        Width = 110
+        Height = 23
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Berlin Sans FB'
+        Font.Style = []
+        ItemIndex = 0
+        ParentFont = False
+        TabOrder = 2
+        Text = 'INWO'
+        Items.Strings = (
+          'INWO'
+          'NTWO'
+          'ATWO'
+          'LFWO'
+          'ALWO'
+          'CDWO'
+          'SUWO')
       end
     end
     object btnOk: TRzBmpButton
@@ -16342,8 +16380,8 @@ object frmReferensi: TfrmReferensi
       OnClick = btnCancelClick
     end
     object btnUpload: TRzBmpButton
-      Left = 256
-      Top = 344
+      Left = 253
+      Top = 383
       Width = 120
       Cursor = crHandPoint
       Bitmaps.Hot.Data = {

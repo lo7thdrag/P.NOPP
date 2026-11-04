@@ -816,6 +816,7 @@ begin
       SQL.Add('Tipe_File=' + QuotedStr(rec.Tipe_File)+',');
       SQL.Add('Modified_Date=' + QuotedStr(rec.Modified_Date)+',');
       SQL.Add('Modified_By=' + QuotedStr(rec.Modified_By)+',');
+      SQL.Add('Role=' + IntToStr(rec.Role));
       SQL.Add('id_User=' + IntToStr(rec.id_User));
       SQL.Add(' WHERE (ID_File =' + IntToStr(rec.ID_File) + ')');
       ExecSQL;
@@ -895,6 +896,7 @@ begin
           Modified_Date       := FieldByName('Modified_Date').AsString;
           Modified_By         := FieldByName('Modified_By').AsString;
           Kategori            := FieldByName('Kategori').AsString;
+          Role                := FieldByName('Role').AsInteger;
           id_User             := FieldByName('id_User').AsInteger;
         end;
 
@@ -935,6 +937,10 @@ begin
       begin
         SQL.Add('WHERE Kategori = '  + quotedStr(SearchContent));
       end;
+      3: {Role}
+      begin
+        SQL.Add('WHERE Role = '  + SearchContent);
+      end;
     end;
 
     Open;
@@ -972,6 +978,7 @@ begin
           Modified_Date       := FieldByName('Modified_Date').AsString;
           Modified_By         := FieldByName('Modified_By').AsString;
           Kategori            := FieldByName('Kategori').AsString;
+          Role                := FieldByName('Role').AsInteger;
           id_User             := FieldByName('id_User').AsInteger;
         end;
 
@@ -1023,7 +1030,7 @@ begin
     SQL.Clear;
 
     SQL.Add('INSERT INTO File_Referensi');
-    SQL.Add('(Nama_File, Directory_Path, Encripted_File_Name, Tipe_File, Modified_Date, Modified_By, Kategori, id_User)');
+    SQL.Add('(Nama_File, Directory_Path, Encripted_File_Name, Tipe_File, Modified_Date, Modified_By, Kategori, Role, id_User)');
     SQL.Add('VALUES (');
 
     with rec do
@@ -1035,6 +1042,7 @@ begin
       SQL.Add(QuotedStr(Modified_Date) + ', ');
       SQL.Add(QuotedStr(Modified_By) + ', ');
       SQL.Add(QuotedStr(Kategori) + ', ');
+      SQL.Add(IntToStr(Role) + ', ');
       SQL.Add(IntToStr(id_User) + ')');
     end;
     ExecSQL;

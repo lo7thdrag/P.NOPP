@@ -860,26 +860,26 @@ begin
   begin
 
       {$REGION ' pengecekan khusus console instruktur '}
-      if simMgrClient.MyConsoleData.Group = cgInstructor then
-      begin
-        if not ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
-            or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO') or
-               (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur')) then
-        begin
-          ShowMessage('This User Role can only be used in the instructor console');
-          Exit;
-        end;
-      end
-      else
-      begin
-        if ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
-            or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO') or
-               (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur')) then
-        begin
-          ShowMessage('This User Role can only be used in the official console');
-          Exit;
-        end;
-      end;
+//      if simMgrClient.MyConsoleData.Group = cgInstructor then
+//      begin
+//        if not ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
+//            or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO') or
+//               (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur')) then
+//        begin
+//          ShowMessage('This User Role can only be used in the instructor console');
+//          Exit;
+//        end;
+//      end
+//      else
+//      begin
+//        if ((FselectedUserRole.FData.UserRoleIdentifier = 'instruktur atwo') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur ntwo')
+//            or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR ATWO') or (FselectedUserRole.FData.UserRoleIdentifier = 'INSTRUKTUR NTWO') or
+//               (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur') or (FselectedUserRole.FData.UserRoleIdentifier = 'instruktur')) then
+//        begin
+//          ShowMessage('This User Role can only be used in the official console');
+//          Exit;
+//        end;
+//      end;
       {$ENDREGION}
 
       lblUserIdentifier.Caption := FselectedUserRole.FData.UserRoleIdentifier + ' - ' + FselectedUserRole.FSubRoleData.SubRoleAcronim;

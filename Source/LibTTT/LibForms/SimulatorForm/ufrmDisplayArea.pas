@@ -6,7 +6,7 @@ uses
   {Delphi Uses}
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms,
   Vcl.Dialogs, Vcl.StdCtrls, Vcl.Imaging.pngimage, Winapi.ShellAPI, Vcl.Imaging.jpeg, Vcl.ExtCtrls, Vcl.Buttons, Vcl.ComCtrls,
-  System.ImageList, Vcl.ImgList, Vcl.WinXCalendars, AdvTimePickerDropDown, Vcl.FileCtrl,
+  System.ImageList, Vcl.ImgList, Vcl.WinXCalendars, AdvTimePickerDropDown, Vcl.FileCtrl, Winapi.TlHelp32,
 
   {Project Uses}
   uRecordData, uConstantaData, uSimMgr_Client, uT3SimManager, uClassData, ufrmVideoConference, ufrmSituationBoard,
@@ -114,7 +114,6 @@ type
     lvUserRole: TListView;
     pnlCariReferensi: TPanel;
     Label4: TLabel;
-    cbbSearchReferensi: TComboBox;
     cbbKategoriReferensi: TComboBox;
     pnlListReferensi: TPanel;
     lvReferensi: TListView;
@@ -218,6 +217,9 @@ type
     btnToteDisplay: TSpeedButton;
     lblToteDisplay: TLabel;
     trycnMessage: TTrayIcon;
+    pnlSituationBoardController: TPanel;
+    lblSituationBoardController: TLabel;
+    btn1: TSpeedButton;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -342,6 +344,10 @@ type
     procedure ToteDisplayClick(Sender: TObject);
     {$ENDREGION}
 
+    {$REGION ' Situation Board Controller Procedure '}
+    procedure SituationBoardControllerClick(Sender: TObject);
+    {$ENDREGION}
+
     procedure LogOutClick(Sender: TObject);
 
     procedure btnSendChatClick(Sender: TObject);
@@ -384,6 +390,8 @@ type
     selectedUserChat : string;
     FUpdateList : Boolean;
 
+    function GetApp(appName : String): Boolean;
+
     procedure RoundCornerOf(Control: TWinControl; val1, val2: Integer);
     procedure AddSearchTypeItems;
     procedure AddSearchTacticalSymbolItems;
@@ -405,6 +413,7 @@ type
     procedure SetPanelInstruktur;
     procedure SetPanelOfficial;
 
+    procedure SetPanelController;
 
   end;
 
@@ -520,9 +529,18 @@ begin
 //      imgMainBackground.Picture.LoadFromFile(vGameDataSetting.ImageBackgroundLogin + 'wallpaperINWODisplayArea.png')
   end;
 
-  if simMgrClient.MyConsoleData.Group = cgInstructor then
+//  if simMgrClient.MyConsoleData.Group = cgInstructor then
+//  begin
+//    SetPanelInstruktur;
+//  end
+//  else
+//  begin
+//    SetPanelOfficial;
+//  end;
+
+  if vGameDataSetting.FormController then
   begin
-    SetPanelInstruktur;
+    SetPanelController;
   end
   else
   begin
@@ -965,6 +983,36 @@ begin
   begin
     roleTemp := FRoleList.Items[i];
     cbbSearchType.Items.AddObject(roleTemp.FData.RoleAcronim, roleTemp);
+  end;
+end;
+
+function TfrmDisplayArea.GetApp(appName: String): Boolean;
+var
+  connector, killer :THandle;
+  stamped : LongBool;
+  exe : TProcessEntry32;
+  IDExe : Integer;
+  flag : Boolean;
+
+begin
+
+  Result := False;
+
+  connector := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  exe.dwSize := sizeOf(exe);
+  stamped := Process32First(connector, exe);
+
+  while stamped do
+  begin
+    stamped := Process32Next(connector, exe);
+
+    if exe.szExeFile = appName then
+    begin
+      IDExe := exe.th32ProcessID;
+      Result := True;
+      Break
+    end;
+
   end;
 end;
 
@@ -1903,10 +1951,28 @@ begin
   for i := 0 to FFileReferensiList.Count - 1 do
   begin
     fileDataTemp := FFileReferensiList.Items[i];
+
+    if not vGameDataSetting.FormController then
+    begin
+      if fileDataTemp.FData.Role <> vGameDataSetting.Role then
+        Continue;
+    end;
+
     li := lvReferensi.Items.Add;
     li.SubItems.Add(fileDataTemp.FData.Nama_File);
     li.StateIndex := Integer(SetFileExtentionToEnum(fileDataTemp.FData.Tipe_File));
     li.SubItems.Add(fileDataTemp.FData.Kategori);
+
+    case fileDataTemp.FData.Role of
+      0 : li.SubItems.Add('INWO');
+      1 : li.SubItems.Add('ATWO');
+      2 : li.SubItems.Add('NTWO');
+      3 : li.SubItems.Add('ALWO');
+      4 : li.SubItems.Add('CDWO');
+      5 : li.SubItems.Add('LFWO');
+      6 : li.SubItems.Add('SUWO');
+    end;
+
     li.SubItems.Add(fileDataTemp.FData.Modified_Date);
 
     li.Data := fileDataTemp;
@@ -1919,17 +1985,26 @@ begin
   if cbbKategoriReferensi.ItemIndex = 0 then
   begin
     edtSearchReferensi.Clear;
+    edtSearchReferensi.Visible := False;
     flagTable := False;
     UpdateDataReferensi;
   end
   {Nama Dokumen}
   else if cbbKategoriReferensi.ItemIndex = 1 then
   begin
+    edtSearchReferensi.Visible := True;
     edtSearchReferensi.Text;
   end
   {Kategori}
   else if cbbKategoriReferensi.ItemIndex = 2 then
   begin
+    edtSearchReferensi.Visible := True;
+    edtSearchReferensi.Text;
+  end
+  {Role}
+  else if cbbKategoriReferensi.ItemIndex = 3 then
+  begin
+    edtSearchReferensi.Visible := True;
     edtSearchReferensi.Text;
   end
 end;
@@ -1946,6 +2021,27 @@ begin
       ItemSearchIndex := cbbKategoriReferensi.ItemIndex;
       SearchName := edtSearchReferensi.Text;
       flagTable := true;
+
+      if cbbKategoriReferensi.ItemIndex = 3 then
+      begin
+        if edtSearchReferensi.Text = 'INWO' then
+          SearchName := '0'
+        else if edtSearchReferensi.Text = 'ATWO' then
+          SearchName := '1'
+        else if edtSearchReferensi.Text = 'NTWO' then
+          SearchName := '2'
+        else if edtSearchReferensi.Text = 'ALWO' then
+          SearchName := '3'
+        else if edtSearchReferensi.Text = 'CDWO' then
+          SearchName := '4'
+        else if edtSearchReferensi.Text = 'LFWO' then
+          SearchName := '5'
+        else if edtSearchReferensi.Text = 'SUWO' then
+          SearchName := '6'
+        else
+          Exit
+      end;
+
       UpdateDataReferensi;
     end
     else if edtSearchReferensi.Text = '' then
@@ -2049,6 +2145,22 @@ begin
   except
     Exception.Create('Error');
   end;
+end;
+
+procedure TfrmDisplayArea.SituationBoardControllerClick(Sender: TObject);
+begin
+  {$REGION ' Session Server '}
+  if not GetApp('RemoteController.exe') then
+  begin
+    try
+      ShellExecute(Handle, 'open', PWideChar('RemoteController'), nil, nil, SW_SHOW) ;
+    except
+      Exception.Create('Error');
+    end;
+  end
+  else
+    ShowMessage('Can not Run, double load RemoteController');
+  {$ENDREGION}
 end;
 
 procedure TfrmDisplayArea.imgChromeClick(Sender: TObject);
@@ -2310,32 +2422,50 @@ end;
 
 {$ENDREGION}
 
-procedure TfrmDisplayArea.SetPanelInstruktur;
+procedure TfrmDisplayArea.SetPanelController;
 begin
-  {ini untuk user role}
+  {ini untuk Resource}
   pnlUserRole.Height := 35;
-
-  {ini untuk resource}
   pnlResources.Height := 250;
 
-  pnlToteDisplay.Height := 35;
-  pnlServices.Height := 250;
-
+  {ini untuk Services}
   pnlVideoConference.Height := 0;
+  pnlToteDisplay.Height := 35;
+  pnlSituationBoardController.Height := 35;
+  pnlServices.Height := 285;
 
   btnUploadReferensi.Visible := True;
   btnDeleteReferensi.Visible := True;
 end;
 
+procedure TfrmDisplayArea.SetPanelInstruktur;
+begin
+//  {ini untuk user role}
+//  pnlUserRole.Height := 35;
+//
+//  {ini untuk resource}
+//  pnlResources.Height := 250;
+//
+//  pnlToteDisplay.Height := 35;
+//  pnlServices.Height := 250;
+//
+//  pnlVideoConference.Height := 0;
+//
+//  btnUploadReferensi.Visible := True;
+//  btnDeleteReferensi.Visible := True;
+end;
+
 procedure TfrmDisplayArea.SetPanelOfficial;
 begin
+  {ini untuk Resource}
   pnlUserRole.Height := 0;
   pnlResources.Height := 215;
 
-  pnlToteDisplay.Height := 0;
-  pnlServices.Height := 215;
-
+  {ini untuk Services}
   pnlVideoConference.Height := 35;
+  pnlToteDisplay.Height := 0;
+  pnlSituationBoardController.Height := 0;
+  pnlServices.Height := 215;
 
   btnUploadReferensi.Visible := False;
   btnDeleteReferensi.Visible := False;

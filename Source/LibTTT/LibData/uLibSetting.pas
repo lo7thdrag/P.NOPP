@@ -78,8 +78,9 @@ type
     DataPath: string;
     GroupSetting: string;
     SessionID : Integer;
-    FormOfficer: Boolean;
-    FormSituationBoard: Boolean;
+//    FormOfficer: Boolean;
+//    FormSituationBoard: Boolean;
+    FormController: Boolean;
     FileDirectory : string;
     FileReferensi : string;
     FileSimbolTaktis : string;
@@ -337,8 +338,9 @@ begin
     DemoMode             := INIFReadBool(IniF, c_gdata, 'DemoMode', False);
     DelaySendData        := INIFReadInteger(IniF, c_gdata, 'DelaySendData', 500);
     LogData              := INIFReadBool(IniF, c_gdata, 'LogData', LogData);
-    FormOfficer          := INIFReadBool(inif, c_map, 'FormOfficer', True );
-    FormSituationBoard   := INIFReadBool(inif, c_map, 'FormSituationBoard', True );
+//    FormOfficer          := INIFReadBool(inif, c_map, 'FormOfficer', True );
+//    FormSituationBoard   := INIFReadBool(inif, c_map, 'FormSituationBoard', True );
+    FormController       := INIFReadBool(inif, c_gdata, 'FormController', True );
     FileDirectory        := IniFReadstring(inif, c_gdata, 'FileDirectory' , '');
     FileReferensi        := IniFReadstring(inif, c_gdata, 'FileReferensi' , '');
     FileSimbolTaktis     := IniFReadstring(inif, c_gdata, 'FileSimbolTaktis' , '');
@@ -368,8 +370,9 @@ begin
     WriteBool(c_gdata, 'DemoMode', DemoMode);
     WriteInteger(c_gdata, 'DelaySendData', DelaySendData);
     WriteBool(c_gdata, 'LogData', LogData);
-    WriteBool(c_gdata, 'FormOfficer', FormOfficer);
-    WriteBool(c_gdata, 'FormSituationBoard', FormSituationBoard);
+//    WriteBool(c_gdata, 'FormOfficer', FormOfficer);
+//    WriteBool(c_gdata, 'FormSituationBoard', FormSituationBoard);
+    WriteBool(c_gdata, 'FormController', FormController);
     WriteString(c_gdata, 'FileDirectory', FileDirectory);
 
 //    WriteInteger (c_gdata,  'scenarioid',  ScenarioID);

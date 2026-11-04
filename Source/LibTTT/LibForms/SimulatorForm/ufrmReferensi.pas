@@ -27,6 +27,8 @@ type
     btnApply: TRzBmpButton;
     btnCancel: TRzBmpButton;
     btnUpload: TRzBmpButton;
+    lbl1: TLabel;
+    cbbRole: TComboBox;
     procedure btnUploadClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
     procedure btnApplyClick(Sender: TObject);
@@ -129,6 +131,7 @@ begin
       Tipe_File           := ExtractFileExt(FAddressPath);
       Modified_Date       := DateToStr(Now);
       Kategori            := edtKategori.Text;
+      Role                := cbbRole.ItemIndex;
       Modified_By         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIdentifier;
       id_User             := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
 

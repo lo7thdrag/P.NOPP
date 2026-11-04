@@ -269,6 +269,7 @@ type
     Modified_Date       : string[35];
     Modified_By         : string[25];
     Kategori            : string[255];
+    Role                : Integer;
     id_User             : Integer;
   end;
 
