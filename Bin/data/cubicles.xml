@@ -2,7 +2,7 @@
 <ppkmgroups>
 
   <instructor id="Instructor" name="Instructor Group">
-    <console ip="192.168.1.2" name="NTWO INSTRUKTUR"></console>
+    <console ip="192.168.0.188" name="NTWO INSTRUKTUR"></console>
     <console ip="192.168.1.3" name="ATWO INSTRUKTUR"></console>  
     <console ip="192.168.1.4" name="ALWO INSTRUKTUR"></console>  
     <console ip="192.168.1.5" name="CDWO INSTRUKTUR"></console>   
@@ -27,7 +27,7 @@
   </situationBoard>
 
   <wasdal id="Wasdal" name="Wasdal Group">
-    <console ip="192.168.1.201" name="INWO WASDAL"></console>
+    <console ip="192.168.0.88" name="INWO WASDAL"></console>
     <console ip="192.168.1.202" name="NTWO WASDAL"></console>
     <console ip="192.168.1.203" name="ATWO WASDAL"></console>
     <console ip="192.168.1.204" name="ALWO WASDAL"></console>
@@ -37,7 +37,7 @@
   </Wasdal>
 
   <officer id="Officer" name="Officer Group">   
-    <console ip="192.168.0.1215" name="INWO PROGRAMMER"></console>
+    <console ip="192.168.1.88" name="INWO PROGRAMMER"></console>
  
     <console ip="192.168.1.11" name="INWO OFFICIAL 1"></console>  
     <console ip="192.168.1.12" name="INWO OFFICIAL 2"></console>

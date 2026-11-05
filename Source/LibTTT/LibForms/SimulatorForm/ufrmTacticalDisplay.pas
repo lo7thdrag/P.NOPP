@@ -534,11 +534,13 @@ begin
 
     tmrProgressbar.Enabled := True;
     btnLoad.Visible := False;
+
   end
   else
   begin
     ShowMessage('Sim Server belum dijalankan!');
   end;
+
 end;
 
 procedure TfrmTacticalDisplay.btnImplementasiClick(Sender: TObject);
@@ -818,6 +820,9 @@ procedure TfrmTacticalDisplay.FormResize(Sender: TObject);
 begin
   lblConsoleName.Left := (pnlHome.Width-lblConsoleName.Width)div 2;
   pnlButton.Left := (pnlHome.Width-pnlButton.Width)div 2;
+
+  pbLoadSystem.Left := (pnlHome.Width-pbLoadSystem.Width)div 2;
+  btnLoad.Left := (pnlHome.Width-btnLoad.Width)div 2;
 end;
 
 procedure TfrmTacticalDisplay.FormShow(Sender: TObject);
@@ -1016,6 +1021,15 @@ begin
         pnlBackgroundLogin.BringToFront;
         pnlSituationBoard.BringToFront;
         pnlLogo.Visible := True;
+      end
+      else if simMgrClient.MyConsoleData.Group = cgWasdal then
+      begin
+        Label5.Visible := False;
+        pnlBackgroundLogin.BringToFront;
+        pnlSituationBoard.BringToFront;
+  //      pnlSituationBoard.Visible := False;
+        pnlLogin.Visible := False;
+  //      pnlLogo.Visible := True;
       end
       else
       begin
