@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Imaging.pngimage, Vcl.ExtCtrls, Types,
   ImageButton, Vcl.StdCtrls, Vcl.OleCtrls, MapXLib_TLB, System.ImageList,
   Vcl.ImgList, Vcl.ComCtrls, Vcl.ToolWin,
 
@@ -80,6 +80,11 @@ type
     FConverter : TCoordConverter;
     FLyrDraw : CMapXLayer;
     FMap1 : TMap;
+
+    FSelectionRectStart : Types.TPoint;
+    FSelectionRectEnd : Types.TPoint;
+    FZoomRectStart :Types.TPoint;
+    FZoomRectEnd : Types.TPoint;
 
     FMapCursor : E_MapCursor;
 
@@ -267,11 +272,14 @@ procedure TfrmMapEditor.btnZoomClick(Sender: TObject);
 begin
   UpAllToolbarButton;
   btnZoom.Down := True ;
-  FMapCursor := mcZoom;
-//  LoadNormalButtonImage;
+//  FMapCursor := mcZoom;
 
   ENCMap.CurrentTool := miZoomInTool;
   ENCMap.MousePointer := miZoomInCursor;
+
+//  LoadNormalButtonImage;
+//  ENCMap.CurrentTool := miZoomInTool;
+//  ENCMap.MousePointer := miZoomInCursor;
 
 //  btnZoom.Picture.LoadFromFile('data\Image DBEditor\Interface\Button\btnZoomIn_Select.PNG');
 end;
@@ -527,10 +535,34 @@ begin
       Pen.Color := clYellow;
       Pen.Width := 3;
       Brush.Style := bsClear;
-      Rectangle(Round(FSelectionStartX), Round(FSelectionStartY), Round(FSelectionEndX), Round(FSelectionEndY));
-//      Rectangle(FSelectionStartX, FSelectionStartY), Round(FSelectionEndX), Round(FSelectionEndY));
+      Rectangle(FSelectionRectStart.X, FSelectionRectStart.Y, FSelectionRectEnd.X, FSelectionRectEnd.Y);
+    end;
+
+    if FIsMouseDown and btnZoom.Down then
+    begin
+      Pen.Color := clWhite;
+      Pen.Width := 1;
+      Pen.Style := psDash;
+      Brush.Style := bsClear;
+      Rectangle(FZoomRectStart.X, FZoomRectStart.Y, FZoomRectEnd.X, FZoomRectEnd.Y);
     end;
   end;
+
+  {$REGION ' LAMA '}
+//  with FCanvas do
+//  begin
+//    Handle := hOutputDC;
+//
+//    if FIsMouseDown then
+//    begin
+//      Pen.Color := clYellow;
+//      Pen.Width := 3;
+//      Brush.Style := bsClear;
+//      Rectangle(Round(FSelectionStartX), Round(FSelectionStartY), Round(FSelectionEndX), Round(FSelectionEndY));
+////      Rectangle(FSelectionStartX, FSelectionStartY), Round(FSelectionEndX), Round(FSelectionEndY));
+//    end;
+//  end;
+  {$ENDREGION}
 end;
 
 procedure TfrmMapEditor.ENCMapMapViewChanged(Sender: TObject);
@@ -572,6 +604,15 @@ var
   i : Integer;
   layer : CMapXLayer;
 begin
+  {$Region ' Set Zoom '}
+  if btnZoom.Down then
+  begin
+    FIsMouseDown := True;
+
+    FZoomRectStart := Types.Point(X, Y);
+    FZoomRectEnd := Types.Point(X, Y);
+  end;
+  {$ENDREGION}
 
   {$Region ' Select '}
   if FMapCursor = mcSelect then
@@ -625,45 +666,71 @@ var
   centerX, centerY : Double;
 
 begin
-  if (FMapCursor = mcMultiSelect) and FIsMouseDown then
+  {$Region ' Set Zoom '}
+  if btnZoom.Down and FIsMouseDown then
   begin
-    FSelectionEndX := X;
-    FSelectionEndY := Y;
-
-    ENCmap.Repaint;
+    FZoomRectEnd := Types.Point(X, Y);
+    ENCMap.Repaint;
   end;
+  {$ENDREGION}
 
-  FConverter.ConvertToMap(X, Y, xx, yy);
-
-  centerX := FSelectedGameArea.FData.Game_Centre_Long;
-  centerY := FSelectedGameArea.FData.Game_Centre_Lat;
+  {$REGION ' LAMA '}
+//  if (FMapCursor = mcMultiSelect) and FIsMouseDown then
+//  begin
+//    FSelectionEndX := X;
+//    FSelectionEndY := Y;
+//
+//    ENCmap.Repaint;
+//  end;
+//
+//  FConverter.ConvertToMap(X, Y, xx, yy);
+//
+//  centerX := FSelectedGameArea.FData.Game_Centre_Long;
+//  centerY := FSelectedGameArea.FData.Game_Centre_Lat;
 
 
 //  lblBearing.Caption := FormatFloat('0.00', CalcBearing(centerX, centerY, xx, yy));
 //  lblDistance.Caption := FormatFloat('0.00',CalcRange(centerX, centerY, xx, yy));
 //  getGridCursorPos;
-
+  {$ENDREGION}
 end;
 
 procedure TfrmMapEditor.ENCMapMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
+var
+  X1, Y1, X2, Y2: Integer;
+  MapX1, MapY1, MapX2, MapY2: Double;
+  CenterMapX, CenterMapY: Double;
+  RectWidth, RectHeight: Double;
+  ScreenRatio, RectRatio: Double;
+  NewZoom: Double;
 begin
- if FMapCursor = mcSelect then
-  begin
-    SelectionArea;
-    ENCmap.Repaint;
-  end;
-
-  if (FMapCursor = mcMultiSelect) and FIsMouseDown then
+  {$ENDREGION}
+  if btnZoom.Down and FIsMouseDown then
   begin
     FIsMouseDown := False;
-//    FSelectionRectEnd := Point(X, Y);
-    FSelectionEndX := X;
-    FSelectionEndY := Y;
-    SelectionArea;
-    ENCmap.Repaint;
+    FZoomRectEnd:= Types.Point(X, Y);
+    ENCMap.OnMapViewChanged := ENCMapMapViewChanged;
+    ENCMap.Repaint;
   end;
 
+  {$REGION ' LAMA '}
+// if FMapCursor = mcSelect then
+//  begin
+//    SelectionArea;
+//    ENCmap.Repaint;
+//  end;
+//
+//  if (FMapCursor = mcMultiSelect) and FIsMouseDown then
+//  begin
+//    FIsMouseDown := False;
+////    FSelectionRectEnd := Point(X, Y);
+//    FSelectionEndX := X;
+//    FSelectionEndY := Y;
+//    SelectionArea;
+//    ENCmap.Repaint;
+//  end;
+  {$ENDREGION}
 end;
 
 procedure TfrmMapEditor.FormCreate(Sender: TObject);

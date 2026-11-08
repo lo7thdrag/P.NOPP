@@ -44086,6 +44086,7 @@ object frmTacticalDisplay: TfrmTacticalDisplay
         86B4A587B4A687B5A788B5A889B6A989B6A98AB7A98BB8AA8CB9AB8CBBAE90C0
         B497}
       Stretch = True
+      Visible = False
     end
     object pnlButton: TPanel
       Left = 32

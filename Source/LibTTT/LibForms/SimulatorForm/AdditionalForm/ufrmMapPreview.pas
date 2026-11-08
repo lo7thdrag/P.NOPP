@@ -4,7 +4,7 @@ interface
 
 uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.ImageList, Vcl.ImgList,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.ImageList, Vcl.ImgList, Types,
   Vcl.StdCtrls, Vcl.ComCtrls, Vcl.ToolWin, Vcl.OleCtrls, MapXLib_TLB,
   Vcl.ExtCtrls,
 
@@ -44,6 +44,15 @@ type
     procedure btnLayerToolClick(Sender: TObject);
     procedure btnCancelPriviewClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure ENCMapDrawUserLayer(ASender: TObject; const Layer: IDispatch;
+      hOutputDC, hAttributeDC: Integer; const RectFull, RectInvalid: IDispatch);
+    procedure ENCMapMouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ENCMapMouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure ENCMapMouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; X, Y: Integer);
+    procedure ENCMapMapViewChanged(Sender: TObject);
 
   private
     FSelectedGameArea : TGame_Area_Definition;
@@ -52,6 +61,13 @@ type
     FLyrDraw: CMapXLayer;
     FConverter: TCoordConverter;
     FMapCursor : E_MapCursor;
+
+    FIsMouseDown : Boolean;
+    FSelectionRectStart : Types.TPoint;
+    FSelectionRectEnd : Types.TPoint;
+    FZoomRectStart :Types.TPoint;
+    FZoomRectEnd : Types.TPoint;
+
     procedure UpAllToolbarButton;
 
   public
@@ -166,6 +182,9 @@ begin
 
   ENCMap.CurrentTool := miZoomInTool;
   ENCMap.MousePointer := miZoomInCursor;
+
+//  ENCMap.CurrentTool := miZoomInTool;
+//  ENCMap.MousePointer := miZoomInCursor;
 end;
 
 procedure TfrmMapPreview.btnCancelPriviewClick(Sender: TObject);
@@ -188,6 +207,105 @@ begin
 
   if z > 0 then
     ENCMap.ZoomTo(z, ENCMap.CenterX, ENCMap.CenterY);
+end;
+
+procedure TfrmMapPreview.ENCMapDrawUserLayer(ASender: TObject;
+  const Layer: IDispatch; hOutputDC, hAttributeDC: Integer; const RectFull,
+  RectInvalid: IDispatch);
+begin
+  with FCanvas do
+  begin
+    Handle := hOutputDC;
+
+    if FIsMouseDown then
+    begin
+      Pen.Color := clYellow;
+      Pen.Width := 3;
+      Brush.Style := bsClear;
+      Rectangle(FSelectionRectStart.X, FSelectionRectStart.Y, FSelectionRectEnd.X, FSelectionRectEnd.Y);
+    end;
+
+    if FIsMouseDown and btnZoom.Down then
+    begin
+      Pen.Color := clWhite;
+      Pen.Width := 1;
+      Pen.Style := psDash;
+      Brush.Style := bsClear;
+      Rectangle(FZoomRectStart.X, FZoomRectStart.Y, FZoomRectEnd.X, FZoomRectEnd.Y);
+    end;
+  end;
+end;
+
+procedure TfrmMapPreview.ENCMapMapViewChanged(Sender: TObject);
+var
+  tempZoom : double;
+begin
+  if (ENCMap.CurrentTool = miZoomInTool)  or (ENCMap.CurrentTool = miZoomOutTool) then
+  begin
+     if ENCMap.Zoom <= 0.125 then tempZoom := 0.125;
+     if (ENCMap.Zoom > 0.125) AND (ENCMap.Zoom < 1) then tempZoom := ENCMap.Zoom;
+     if (ENCMap.Zoom >= 1) AND (ENCMap.Zoom <= 3500) then tempZoom := round(ENCMap.Zoom);
+     if ENCMap.Zoom > 3500 then tempZoom := 3500;
+
+     ENCMap.OnMapViewChanged := nil;
+     ENCMap.ZoomTo(tempZoom, ENCMap.CenterX, ENCMap.CenterY);
+
+     if (ENCMap.Zoom > 0.125) AND (ENCMap.Zoom < 0.25) then
+     begin
+       cbSetScale.Text := FormatFloat('0.000', tempZoom);
+     end
+     else if (ENCMap.Zoom >= 0.25) AND (ENCMap.Zoom < 0.5) then
+     begin
+       cbSetScale.Text := FormatFloat('0.00', tempZoom);
+     end
+     else if (ENCMap.Zoom >= 0.5) AND (ENCMap.Zoom < 1) then
+     begin
+       cbSetScale.Text := FormatFloat('0.0', tempZoom);
+     end
+     else
+       cbSetScale.Text := floattostr(tempZoom);
+
+     ENCMap.OnMapViewChanged := ENCMapMapViewChanged;
+  end;
+end;
+
+procedure TfrmMapPreview.ENCMapMouseDown(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+begin
+  {$Region ' Set Zoom '}
+  if btnZoom.Down then
+  begin
+    FIsMouseDown := True;
+
+    FZoomRectStart := Types.Point(X, Y);
+    FZoomRectEnd := Types.Point(X, Y);
+  end;
+  {$ENDREGION}
+end;
+
+procedure TfrmMapPreview.ENCMapMouseMove(Sender: TObject; Shift: TShiftState; X,
+  Y: Integer);
+begin
+  {$Region ' Set Zoom '}
+  if btnZoom.Down and FIsMouseDown then
+  begin
+    FZoomRectEnd := Types.Point(X, Y);
+    ENCMap.Repaint;
+  end;
+  {$ENDREGION}
+end;
+
+procedure TfrmMapPreview.ENCMapMouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; X, Y: Integer);
+
+begin
+  if btnZoom.Down and FIsMouseDown then
+  begin
+    FIsMouseDown := False;
+    FZoomRectEnd:= Types.Point(X, Y);
+    ENCMap.OnMapViewChanged := ENCMapMapViewChanged;
+    ENCMap.Repaint;
+end;
 end;
 
 procedure TfrmMapPreview.FormCreate(Sender: TObject);

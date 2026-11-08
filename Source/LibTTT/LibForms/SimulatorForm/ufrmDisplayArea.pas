@@ -220,6 +220,7 @@ type
     pnlSituationBoardController: TPanel;
     lblSituationBoardController: TLabel;
     btn1: TSpeedButton;
+    imgNotifikasi: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -2491,6 +2492,7 @@ begin
   trycnMessage.BalloonHint  := SenderName + ': ' + Msg;
   trycnMessage.BalloonFlags := bfInfo;
   trycnMessage.ShowBalloonHint;
+  imgNotifikasi.Visible := True;
 end;
 
 procedure TfrmDisplayArea.ShowFilePopupNotify(IdSender: Integer; IdReceiver: Integer; FileName: string; FilePath: string;
@@ -2530,6 +2532,7 @@ begin
     trycnMessage.BalloonHint  := UserName + ': ' + FileName;
     trycnMessage.BalloonFlags := bfInfo;
     trycnMessage.ShowBalloonHint;
+    imgNotifikasi.Visible := True;
   end;
   {$ENDREGION}
 end;
@@ -2549,6 +2552,7 @@ begin
     frmPopChat := TfrmPopChat.Create(Application);
 
   frmPopChat.ShowMessagePopup(IdUser,UserName,'telah membaca pesan Anda', '',simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex,fptNone);
+  imgNotifikasi.Visible := False;
 end;
 
 procedure TfrmDisplayArea.ShowFileReadNotify(IdSender, IdReceiver: Integer;FileName: string);
@@ -2569,6 +2573,7 @@ begin
     frmPopChat := TfrmPopChat.Create(Application);
 
   frmPopChat.ShowMessagePopup(IdSender, UserName,'telah membuka file ' + FileName,'', IdReceiver,fptNone);
+  imgNotifikasi.Visible := False;
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);
