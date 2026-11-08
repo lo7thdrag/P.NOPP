@@ -53,8 +53,9 @@ type
     imgClear: TImage;
     imgSend: TImage;
     imgConsoleListMain: TImage;
-    Image2: TImage;
     btnLogout: TImage;
+    cbbSubRole: TComboBox;
+    lblSearch: TLabel;
 
     {$REGION 'Console List'}
     procedure pnlConsoleListManajemenShow;
@@ -88,6 +89,7 @@ type
     procedure lvConsoleListAdvancedCustomDrawItem(Sender: TCustomListView;
       Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage;
       var DefaultDraw: Boolean);
+    procedure cbbSubRoleChange(Sender: TObject);
   private
     FConsoleList  : TList;
     FFileTransfer : TList;
@@ -183,29 +185,29 @@ var
   subRoleTemp     : TSubRole;
   li : TListItem;
 begin
-  lvConsoleList.Items.Clear;
-
-  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count-1 do
-  begin
-    consoleInfoTemp := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[i]);
-    li := lvConsoleList.Items.Add;
-    li.Caption := consoleInfoTemp.ConsoleName;
-
-    consoleListTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
-
-    if Assigned(consoleListTemp) then
-    begin
-      if consoleListTemp.isInUse then
-      begin
-        li.SubItems.Add(consoleListTemp.FData.UserRoleAcronim);
-
-        subRoleTemp := SimManager.SimSubRole.getSubRoleByID(consoleListTemp.FData.SubRoleIndex);
-        li.SubItems.Add(subRoleTemp.FData.SubRoleAcronim);
-      end;
-    end;
-    li.Data := consoleInfoTemp;
-    li.Data := consoleListTemp;
-  end;
+//  lvConsoleList.Items.Clear;
+//
+//  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count-1 do
+//  begin
+//    consoleInfoTemp := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[i]);
+//    li := lvConsoleList.Items.Add;
+//    li.Caption := consoleInfoTemp.ConsoleName;
+//
+//    consoleListTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
+//
+//    if Assigned(consoleListTemp) then
+//    begin
+//      if consoleListTemp.isInUse then
+//      begin
+//        li.SubItems.Add(consoleListTemp.FData.UserRoleAcronim);
+//
+//        subRoleTemp := SimManager.SimSubRole.getSubRoleByID(consoleListTemp.FData.SubRoleIndex);
+//        li.SubItems.Add(subRoleTemp.FData.SubRoleAcronim);
+//      end;
+//    end;
+//    li.Data := consoleInfoTemp;
+//    li.Data := consoleListTemp;
+//  end;
 end;
 
 procedure TfrmToteDisplay.lvConsoleListAdvancedCustomDrawItem(
@@ -213,9 +215,9 @@ procedure TfrmToteDisplay.lvConsoleListAdvancedCustomDrawItem(
   Stage: TCustomDrawStage; var DefaultDraw: Boolean);
 begin
   if Item.Index mod 2 = 0 then
-    Sender.Canvas.Brush.Color := RGB(1, 12, 30)   // Baris Genap
+    Sender.Canvas.Brush.Color := RGB(48, 109, 143)   // Baris Genap
   else
-    Sender.Canvas.Brush.Color := RGB(2, 30, 73);
+    Sender.Canvas.Brush.Color := RGB(11, 37, 50);
 end;
 
 procedure TfrmToteDisplay.lvConsoleListSelectItem(Sender: TObject;
@@ -412,9 +414,9 @@ procedure TfrmToteDisplay.lvFileTransferCustomDrawItem(Sender: TCustomListView;
   Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
 begin
   if Item.Index mod 2 = 0 then
-    Sender.Canvas.Brush.Color := RGB(1, 12, 30)   // Baris Genap
+    Sender.Canvas.Brush.Color := RGB(48, 109, 143)   // Baris Genap
   else
-    Sender.Canvas.Brush.Color := RGB(2, 30, 73);
+    Sender.Canvas.Brush.Color := RGB(11, 37, 50);
 end;
 
 procedure TfrmToteDisplay.lvFileTransferSelectItem(Sender: TObject;
@@ -691,6 +693,61 @@ begin
   end;
 
   UpdateUserList;
+end;
+
+procedure TfrmToteDisplay.cbbSubRoleChange(Sender: TObject);
+var
+  i : Integer;
+  consoleListTemp : TUserRole;
+  consoleInfoTemp : TConsoleInfo;
+  subRoleTemp     : TSubRole;
+  li : TListItem;
+  currentRole     : string;
+begin
+  lvConsoleList.Items.Clear;
+
+  vGameDataSetting.Role := cbbSubRole.ItemIndex;
+
+  case vGameDataSetting.Role of
+    0 : currentRole := 'INWO';
+    1 : currentRole := 'ATWO';
+    2 : currentRole := 'NTWO';
+    3 : currentRole := 'ALWO';
+    4 : currentRole := 'CDWO';
+    5 : currentRole := 'LFWO';
+    6 : currentRole := 'SUWO';
+  else
+    currentRole := '';
+  end;
+
+  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count-1 do
+  begin
+    consoleInfoTemp := TConsoleInfo(simMgrClient.SimConsole.ConsoleList.Objects[i]);
+    if not Assigned(consoleInfoTemp) then Continue;
+
+    if (currentRole <> '') and
+       (Pos(currentRole, UpperCase(consoleInfoTemp.ConsoleName)) <> 1) then
+      Continue;
+
+    li := lvConsoleList.Items.Add;
+    li.Caption := consoleInfoTemp.ConsoleName;
+
+    consoleListTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
+
+    if Assigned(consoleListTemp) then
+    begin
+      if consoleListTemp.isInUse then
+      begin
+        li.SubItems.Add(consoleListTemp.FData.UserRoleAcronim);
+
+        subRoleTemp := SimManager.SimSubRole.getSubRoleByID(consoleListTemp.FData.SubRoleIndex);
+        if Assigned(subRoleTemp) then
+          li.SubItems.Add(subRoleTemp.FData.SubRoleAcronim);
+      end;
+    end;
+
+    li.Data := consoleListTemp;
+  end;
 end;
 
 procedure TfrmToteDisplay.UpdateUserList;
