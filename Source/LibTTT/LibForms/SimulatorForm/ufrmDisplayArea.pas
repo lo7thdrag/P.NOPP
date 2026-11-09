@@ -2536,14 +2536,11 @@ begin
 
     frmPopChat.ShowMessagePopup(IdSender, UserName, 'File masuk : ' + FileName, FilePath, IdReceiver, AFilePopupType);
 
-    if Status = 2 then
-    begin
-      trycnMessage.BalloonTitle := 'File Masuk';
-      trycnMessage.BalloonHint  := UserName + ': ' + FileName;
-      trycnMessage.BalloonFlags := bfInfo;
-      trycnMessage.ShowBalloonHint;
-      imgNotifikasi.Visible := True;
-    end;
+    trycnMessage.BalloonTitle := 'File Masuk';
+    trycnMessage.BalloonHint  := UserName + ': ' + FileName;
+    trycnMessage.BalloonFlags := bfInfo;
+    trycnMessage.ShowBalloonHint;
+    imgNotifikasi.Visible := True;
   end;
   {$ENDREGION}
 end;

@@ -59,7 +59,7 @@ begin
   inherited;
 
  if Assigned(frmDisplayArea) then
-    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName, FilePath, fptTelegram, 2);
+    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName, FilePath, fptTelegram);
 end;
 
 procedure TT3ClientEventManager.OnUpdateFileSyncOpened(IdSender, IdReceiver: Integer; FileName: string);
@@ -75,7 +75,7 @@ begin
   inherited;
 
   if Assigned(frmDisplayArea) then
-    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName, FilePath,fptToteDisplay, 2)
+    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName, FilePath,fptToteDisplay)
 end;
 
 procedure TT3ClientEventManager.OnUpdateFileTransferOpened(IdSender, IdReceiver: Integer; FileName: string);
