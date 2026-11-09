@@ -221,6 +221,8 @@ type
     lblSituationBoardController: TLabel;
     btn1: TSpeedButton;
     imgNotifikasi: TImage;
+    imgNotifikasiTel: TImage;
+    imgNotifikasiFil: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -334,7 +336,7 @@ type
 
     {$REGION ' Telegram Procedure '}
     procedure TelegramClick(Sender: TObject);
-    procedure ShowFilePopupNotify(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath : string; AFilePopupType : TFilePopupType);
+    procedure ShowFilePopupNotify(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath : string; AFilePopupType : TFilePopupType; Status: Integer);
     {$ENDREGION}
 
     {$REGION ' Video Conference Procedure '}
@@ -2496,10 +2498,13 @@ begin
 end;
 
 procedure TfrmDisplayArea.ShowFilePopupNotify(IdSender: Integer; IdReceiver: Integer; FileName: string; FilePath: string;
-AFilePopupType: TFilePopupType);
+AFilePopupType: TFilePopupType; Status: Integer);
 var
   UserName: string;
 begin
+  if IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+    Exit;
+
   {$REGION 'SENDER'}
   if (IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
      (IdSender <> IdReceiver) then
@@ -2519,6 +2524,9 @@ begin
   {$ENDREGION}
 
   {$REGION 'RECEIVER'}
+  if IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+    Exit;
+
   if IdReceiver = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
   begin
     UserName := GetUserNameById(IdSender);
@@ -2528,11 +2536,14 @@ begin
 
     frmPopChat.ShowMessagePopup(IdSender, UserName, 'File masuk : ' + FileName, FilePath, IdReceiver, AFilePopupType);
 
-    trycnMessage.BalloonTitle := 'File Masuk';
-    trycnMessage.BalloonHint  := UserName + ': ' + FileName;
-    trycnMessage.BalloonFlags := bfInfo;
-    trycnMessage.ShowBalloonHint;
-    imgNotifikasi.Visible := True;
+    if Status = 2 then
+    begin
+      trycnMessage.BalloonTitle := 'File Masuk';
+      trycnMessage.BalloonHint  := UserName + ': ' + FileName;
+      trycnMessage.BalloonFlags := bfInfo;
+      trycnMessage.ShowBalloonHint;
+      imgNotifikasi.Visible := True;
+    end;
   end;
   {$ENDREGION}
 end;
