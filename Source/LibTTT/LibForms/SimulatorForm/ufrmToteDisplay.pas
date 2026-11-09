@@ -47,7 +47,6 @@ type
     imgSearch: TImage;
     imgDestination: TImage;
     imgRefresh: TImage;
-    Image1: TImage;
     imgAdd: TImage;
     imgDelete: TImage;
     imgClear: TImage;
@@ -56,6 +55,7 @@ type
     btnLogout: TImage;
     cbbSubRole: TComboBox;
     lblSearch: TLabel;
+    imgKotak: TImage;
 
     {$REGION 'Console List'}
     procedure pnlConsoleListManajemenShow;
@@ -90,6 +90,8 @@ type
       Item: TListItem; State: TCustomDrawState; Stage: TCustomDrawStage;
       var DefaultDraw: Boolean);
     procedure cbbSubRoleChange(Sender: TObject);
+    procedure lvConsoleListCustomDrawItem(Sender: TCustomListView;
+      Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
   private
     FConsoleList  : TList;
     FFileTransfer : TList;
@@ -213,6 +215,15 @@ end;
 procedure TfrmToteDisplay.lvConsoleListAdvancedCustomDrawItem(
   Sender: TCustomListView; Item: TListItem; State: TCustomDrawState;
   Stage: TCustomDrawStage; var DefaultDraw: Boolean);
+begin
+//  if Item.Index mod 2 = 0 then
+//    Sender.Canvas.Brush.Color := RGB(48, 109, 143)   // Baris Genap
+//  else
+//    Sender.Canvas.Brush.Color := RGB(11, 37, 50);
+end;
+
+procedure TfrmToteDisplay.lvConsoleListCustomDrawItem(Sender: TCustomListView;
+  Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
 begin
   if Item.Index mod 2 = 0 then
     Sender.Canvas.Brush.Color := RGB(48, 109, 143)   // Baris Genap
