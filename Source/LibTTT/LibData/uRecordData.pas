@@ -1889,7 +1889,8 @@ const
     SEND_FILE_SHARING_DATA    = 2;
     SEND_FILE_SHARING_FINISH  = 3;
     SEND_FILE_SHARING_OPENED  = 4;
-  CPID_TCP_MAX              	            = CPID_TCP + 13;
+  CPID_CMD_RECONNECT_USER                 = CPID_TCP + 13;
+  CPID_TCP_MAX              	            = CPID_TCP + 14;
 
   {$ENDREGION}
 
@@ -1920,7 +1921,8 @@ const
   'CPID_CMD_RECONNECT                     ',    // + 9
   'CPID_CMD_FILE_SYNC                     ',    // + 10
   'CPID_CMD_FILE_TRANSFER                 ',     // + 11
-  'CPID_CMD_FILE_SHARING                  '     // + 12
+  'CPID_CMD_FILE_SHARING                  ',     // + 12
+  'CPID_CMD_RECONNECT_USER                '     // + 14
 );
 
 begin

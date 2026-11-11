@@ -4,6 +4,7 @@ object frmMainGameServer: TfrmMainGameServer
   Anchors = [akTop, akRight]
   BorderIcons = [biSystemMenu]
   BorderStyle = bsNone
+  Caption = 'k'
   ClientHeight = 665
   ClientWidth = 1098
   Color = clBtnFace
@@ -68527,8 +68528,8 @@ object frmMainGameServer: TfrmMainGameServer
       0000}
     Stretch = True
     OnMouseDown = imgMainBackgroundMouseDown
-    ExplicitLeft = -1
-    ExplicitHeight = 583
+    ExplicitLeft = -184
+    ExplicitTop = 28
   end
   object img1: TImage
     Left = 625

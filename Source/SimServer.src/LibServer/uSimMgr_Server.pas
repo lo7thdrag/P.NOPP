@@ -393,7 +393,7 @@ begin
       recUserTemp.UserRoleInUse := userRoleTemp.isInUse;
       recUserTemp.ConsoleIP := userRoleTemp.ConsoleIP;
 
-      VNetServer.SendTo(CPID_CMD_RECONNECT, @recUserTemp, sIP);
+      VNetServer.SendTo(CPID_CMD_RECONNECT_USER, @recUserTemp, sIP);
     end;
   end;
   {$ENDREGION}
