@@ -41860,7 +41860,6 @@ object frmDisplayArea: TfrmDisplayArea
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 6
-      ExplicitLeft = 1887
     end
     object pnlRight: TPanel
       Left = 1517
@@ -41881,7 +41880,6 @@ object frmDisplayArea: TfrmDisplayArea
         Color = clBlack
         ParentBackground = False
         TabOrder = 1
-        ExplicitWidth = 0
         object imgMsWord: TImage
           Left = 15
           Top = 66
@@ -43174,8 +43172,8 @@ object frmDisplayArea: TfrmDisplayArea
           Tag = 1
           Left = 14
           Top = 21
-          Width = 103
-          Height = 23
+          Width = 117
+          Height = 24
           Cursor = crHandPoint
           Caption = 'Office Editor'
           Font.Charset = ANSI_CHARSET
@@ -43615,7 +43613,6 @@ object frmDisplayArea: TfrmDisplayArea
         Color = 15979925
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 0
         object pnlSparatorchat: TPanel
           Left = 8
           Top = 873
@@ -43625,7 +43622,6 @@ object frmDisplayArea: TfrmDisplayArea
           BevelOuter = bvNone
           Color = clBackground
           TabOrder = 1
-          ExplicitWidth = 184
         end
         object pnlBottomChat: TPanel
           Left = 8
@@ -43637,7 +43633,6 @@ object frmDisplayArea: TfrmDisplayArea
           Color = clBackground
           TabOrder = 2
           Visible = False
-          ExplicitWidth = 184
           object edtChatBox: TEdit
             Left = 0
             Top = 4
@@ -43671,7 +43666,6 @@ object frmDisplayArea: TfrmDisplayArea
           Color = 5918252
           ParentBackground = False
           TabOrder = 3
-          ExplicitWidth = 184
           object btnCloseChat: TSpeedButton
             Tag = 4
             Left = 385
@@ -43780,8 +43774,8 @@ object frmDisplayArea: TfrmDisplayArea
               Font.Name = 'Jefferies'
               Font.Style = []
               ParentFont = False
-              ExplicitWidth = 7
-              ExplicitHeight = 22
+              ExplicitWidth = 6
+              ExplicitHeight = 23
             end
           end
         end
@@ -43801,7 +43795,6 @@ object frmDisplayArea: TfrmDisplayArea
           Font.Style = []
           ParentFont = False
           TabOrder = 0
-          ExplicitWidth = 184
         end
         object lstUserChat: TListBox
           Left = 8
@@ -43818,11 +43811,10 @@ object frmDisplayArea: TfrmDisplayArea
           Font.Height = -16
           Font.Name = 'Jefferies'
           Font.Style = []
-          ItemHeight = 17
+          ItemHeight = 18
           ParentFont = False
           TabOrder = 4
           OnDblClick = lstUserChatDblClick
-          ExplicitWidth = 184
         end
       end
     end
@@ -43914,8 +43906,8 @@ object frmDisplayArea: TfrmDisplayArea
           Tag = 9
           Left = 55
           Top = 6
-          Width = 54
-          Height = 23
+          Width = 64
+          Height = 24
           Cursor = crHandPoint
           Caption = 'Logout'
           Font.Charset = ANSI_CHARSET
@@ -44027,8 +44019,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 1
             Left = 55
             Top = 6
-            Width = 81
-            Height = 23
+            Width = 102
+            Height = 24
             Cursor = crHandPoint
             Caption = 'Resources'
             Font.Charset = ANSI_CHARSET
@@ -44121,8 +44113,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 3
             Left = 55
             Top = 10
-            Width = 41
-            Height = 16
+            Width = 45
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Assets'
             Font.Charset = ANSI_CHARSET
@@ -44213,8 +44205,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 62
-            Height = 16
+            Width = 68
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Reference'
             Color = 12826787
@@ -44307,8 +44299,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 5
             Left = 55
             Top = 10
-            Width = 29
-            Height = 16
+            Width = 35
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Maps'
             Font.Charset = ANSI_CHARSET
@@ -44399,8 +44391,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 2
             Left = 55
             Top = 10
-            Width = 35
-            Height = 16
+            Width = 39
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Users'
             Font.Charset = ANSI_CHARSET
@@ -44491,8 +44483,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 97
-            Height = 16
+            Width = 110
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Tactical Symbols'
             Color = 12826787
@@ -44585,8 +44577,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 3
             Left = 55
             Top = 10
-            Width = 29
-            Height = 16
+            Width = 39
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Home'
             Font.Charset = ANSI_CHARSET
@@ -44839,8 +44831,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 2
             Left = 55
             Top = 10
-            Width = 77
-            Height = 16
+            Width = 81
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Office Editor'
             Font.Charset = ANSI_CHARSET
@@ -44930,8 +44922,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 1
             Left = 55
             Top = 6
-            Width = 66
-            Height = 23
+            Width = 83
+            Height = 24
             Cursor = crHandPoint
             Caption = 'Services'
             Font.Charset = ANSI_CHARSET
@@ -45021,8 +45013,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 3
             Left = 55
             Top = 10
-            Width = 88
-            Height = 16
+            Width = 99
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Situation Board'
             Font.Charset = ANSI_CHARSET
@@ -45113,8 +45105,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 25
-            Height = 16
+            Width = 31
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Chat'
             Color = 12826787
@@ -45355,8 +45347,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 5
             Left = 55
             Top = 10
-            Width = 53
-            Height = 16
+            Width = 60
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Telegram'
             Font.Charset = ANSI_CHARSET
@@ -45577,8 +45569,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 71
-            Height = 16
+            Width = 77
+            Height = 17
             Cursor = crHandPoint
             Caption = 'File Sharing'
             Color = 12826787
@@ -45734,8 +45726,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 77
-            Height = 16
+            Width = 83
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Tote Display '
             Color = 12826787
@@ -45828,8 +45820,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 6
-            Width = 161
-            Height = 16
+            Width = 166
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Situation Board Controller'
             Color = 12826787
@@ -45920,7 +45912,6 @@ object frmDisplayArea: TfrmDisplayArea
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitWidth = 1607
       object pnlMainCenter: TPanel
         Left = 0
         Top = 0
@@ -45930,7 +45921,6 @@ object frmDisplayArea: TfrmDisplayArea
         BevelOuter = bvNone
         Color = clBackground
         TabOrder = 0
-        ExplicitWidth = 1607
       end
       object pnlMenejemenPengguna: TPanel
         Left = 0
@@ -45940,7 +45930,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitWidth = 1607
         object pnlCariPengguna: TPanel
           Left = 0
           Top = 60
@@ -45949,7 +45938,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1607
           DesignSize = (
             1207
             63)
@@ -45992,7 +45980,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 159
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -46006,7 +45994,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 0
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -46722,7 +46710,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnAddClick
-            ExplicitLeft = 1232
           end
           object btnEditUser: TRzBmpButton
             Left = 957
@@ -47424,7 +47411,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnEditClick
-            ExplicitLeft = 1357
           end
           object btnDeleteUser: TRzBmpButton
             Left = 1082
@@ -48126,7 +48112,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 5
             OnClick = btnDeleteClick
-            ExplicitLeft = 1482
           end
         end
         object pnlListPengguna: TPanel
@@ -48137,7 +48122,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1607
           object lvUserRole: TListView
             Left = 0
             Top = 0
@@ -48204,7 +48188,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1607
           object Label7: TLabel
             Tag = 1
             Left = 0
@@ -48234,7 +48217,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 2
-        ExplicitWidth = 1607
         object pnlCariSimbolTaktis: TPanel
           Left = 0
           Top = 60
@@ -48243,7 +48225,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1607
           DesignSize = (
             1207
             63)
@@ -48286,7 +48267,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 159
             Top = 29
             Width = 218
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -48300,7 +48281,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 0
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -49360,7 +49341,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnAddTacticalSymbolClick
-            ExplicitLeft = 1112
           end
           object btnEditTacticalSymbol: TRzBmpButton
             Left = 837
@@ -50062,7 +50042,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnEditTacticalSymbolClick
-            ExplicitLeft = 1237
           end
           object btnDownloadTacticalSymbol: TRzBmpButton
             Left = 962
@@ -50764,7 +50743,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 5
             OnClick = btnUnduhClick
-            ExplicitLeft = 1362
           end
           object btnDeleteTacticalSymbol: TRzBmpButton
             Left = 1087
@@ -51466,7 +51444,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 6
             OnClick = btnDeleteTacticalSymbolClick
-            ExplicitLeft = 1487
           end
         end
         object pnlHeaderSimbolTaktis: TPanel
@@ -51477,7 +51454,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1607
           object Label15: TLabel
             Tag = 1
             Left = 0
@@ -51506,7 +51482,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1188
           object lvTacticalSymbol: TListView
             Left = 0
             Top = 0
@@ -51557,7 +51532,6 @@ object frmDisplayArea: TfrmDisplayArea
           BevelWidth = 3
           BorderStyle = bsSingle
           TabOrder = 3
-          ExplicitLeft = 1198
           object imgPreview: TImage
             Left = 34
             Top = 80
@@ -51705,8 +51679,8 @@ object frmDisplayArea: TfrmDisplayArea
           object Label11: TLabel
             Left = 165
             Top = 13
-            Width = 85
-            Height = 17
+            Width = 103
+            Height = 18
             Caption = 'Image Preview'
             Font.Charset = ANSI_CHARSET
             Font.Color = clWhite
@@ -51766,8 +51740,8 @@ object frmDisplayArea: TfrmDisplayArea
             object Label17: TLabel
               Left = 16
               Top = 120
-              Width = 36
-              Height = 17
+              Width = 41
+              Height = 18
               Caption = 'Detail'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -51779,8 +51753,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblKeterangan: TLabel
               Left = 16
               Top = 160
-              Width = 74
-              Height = 17
+              Width = 89
+              Height = 18
               Caption = 'Keterangan :'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -51792,8 +51766,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblTipe: TLabel
               Left = 16
               Top = 183
-              Width = 32
-              Height = 17
+              Width = 38
+              Height = 18
               Caption = 'Tipe :'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -51805,8 +51779,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblKategori: TLabel
               Left = 16
               Top = 206
-              Width = 57
-              Height = 17
+              Width = 68
+              Height = 18
               Caption = 'Kategori :'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -54088,8 +54062,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblNamaGambar: TLabel
               Left = 72
               Top = 32
-              Width = 78
-              Height = 17
+              Width = 100
+              Height = 18
               Caption = 'Nama gambar'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -54108,7 +54082,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alRight
           BevelOuter = bvNone
           TabOrder = 4
-          ExplicitLeft = 1188
         end
       end
       object pnlMenejemenBeranda: TPanel
@@ -54119,7 +54092,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 5
-        ExplicitWidth = 1607
         object pnlMdmMainLeft: TPanel
           Left = 0
           Top = 60
@@ -54150,8 +54122,8 @@ object frmDisplayArea: TfrmDisplayArea
                 Tag = 1
                 Left = 20
                 Top = 10
-                Width = 113
-                Height = 21
+                Width = 141
+                Height = 22
                 Cursor = crHandPoint
                 Caption = 'Console Name : '
                 Font.Charset = ANSI_CHARSET
@@ -54195,8 +54167,8 @@ object frmDisplayArea: TfrmDisplayArea
                 Tag = 1
                 Left = 20
                 Top = 10
-                Width = 42
-                Height = 21
+                Width = 50
+                Height = 22
                 Cursor = crHandPoint
                 Caption = 'Role :'
                 Font.Charset = ANSI_CHARSET
@@ -54241,8 +54213,8 @@ object frmDisplayArea: TfrmDisplayArea
                 Tag = 1
                 Left = 20
                 Top = 10
-                Width = 74
-                Height = 21
+                Width = 89
+                Height = 22
                 Cursor = crHandPoint
                 Caption = 'Sub Role :'
                 Font.Charset = ANSI_CHARSET
@@ -54287,8 +54259,8 @@ object frmDisplayArea: TfrmDisplayArea
                 Tag = 1
                 Left = 20
                 Top = 10
-                Width = 81
-                Height = 21
+                Width = 95
+                Height = 22
                 Cursor = crHandPoint
                 Caption = 'User Role :'
                 Font.Charset = ANSI_CHARSET
@@ -56529,7 +56501,6 @@ object frmDisplayArea: TfrmDisplayArea
           Color = 3287589
           ParentBackground = False
           TabOrder = 1
-          ExplicitWidth = 477
           object AdvWatch1: TAdvWatch
             Left = 20
             Top = 300
@@ -56557,7 +56528,6 @@ object frmDisplayArea: TfrmDisplayArea
             Settings.Auto = True
             Time = 45535.058385011570000000
             Version = '1.2.1.1'
-            ExplicitWidth = 437
           end
           object CalendarView1: TCalendarView
             Left = 20
@@ -56585,7 +56555,6 @@ object frmDisplayArea: TfrmDisplayArea
             HeaderInfo.Font.Style = []
             ParentFont = False
             TabOrder = 1
-            ExplicitWidth = 437
           end
           object Panel22: TPanel
             Left = 20
@@ -56595,7 +56564,6 @@ object frmDisplayArea: TfrmDisplayArea
             Align = alTop
             BevelOuter = bvNone
             TabOrder = 2
-            ExplicitWidth = 437
           end
           object Panel23: TPanel
             Left = 20
@@ -56605,7 +56573,6 @@ object frmDisplayArea: TfrmDisplayArea
             Align = alTop
             BevelOuter = bvNone
             TabOrder = 3
-            ExplicitWidth = 437
           end
           object Memo1: TMemo
             Left = 20
@@ -56620,7 +56587,6 @@ object frmDisplayArea: TfrmDisplayArea
             Font.Style = []
             ParentFont = False
             TabOrder = 4
-            ExplicitWidth = 437
           end
         end
         object pnlSparMdm: TPanel
@@ -56640,7 +56606,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 3
-          ExplicitWidth = 1607
           object Label6: TLabel
             Tag = 1
             Left = 0
@@ -56670,7 +56635,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 4
-        ExplicitWidth = 1607
         object pnlCariReferensi: TPanel
           Left = 0
           Top = 60
@@ -56679,7 +56643,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1607
           DesignSize = (
             1207
             63)
@@ -56703,7 +56666,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 0
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -57440,7 +57403,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 2
             OnClick = btnUploadReferensiClick
-            ExplicitLeft = 1357
           end
           object btnDownloadReferensi: TRzBmpButton
             Left = 1086
@@ -58143,7 +58105,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnDownloadReferensiClick
-            ExplicitLeft = 1486
           end
           object btnDeleteReferensi: TRzBmpButton
             Left = 829
@@ -58846,7 +58807,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnRemoveReferensiClick
-            ExplicitLeft = 1229
           end
         end
         object pnlListReferensi: TPanel
@@ -58857,7 +58817,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1607
           object lvReferensi: TListView
             Left = 0
             Top = 0
@@ -58912,7 +58871,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1607
           object Label13: TLabel
             Tag = 1
             Left = 0
@@ -58942,7 +58900,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 6
-        ExplicitWidth = 1607
         object pnlHeaderAsset: TPanel
           Left = 0
           Top = 0
@@ -58951,7 +58908,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1607
           object Label18: TLabel
             Tag = 1
             Left = 0
@@ -58980,7 +58936,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1607
           DesignSize = (
             1207
             63)
@@ -59004,7 +58959,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 159
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -59018,7 +58973,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 0
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -59752,7 +59707,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnAddAssetClick
-            ExplicitLeft = 1232
           end
           object btnEditAsset: TRzBmpButton
             Left = 957
@@ -60454,7 +60408,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnEditAssetClick
-            ExplicitLeft = 1357
           end
           object btnDeleteAsset: TRzBmpButton
             Left = 1082
@@ -61156,7 +61109,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 5
             OnClick = btnDeleteAssetClick
-            ExplicitLeft = 1482
           end
         end
         object pnlListAsset: TPanel
@@ -61218,7 +61170,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 3
-        ExplicitWidth = 1607
         object pnlCariPeta: TPanel
           Left = 0
           Top = 60
@@ -61227,7 +61178,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1607
           DesignSize = (
             1207
             63)
@@ -61962,7 +61912,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 1
             OnClick = btnAddMapClick
-            ExplicitLeft = 1110
           end
           object btnEdit: TRzBmpButton
             Left = 835
@@ -62664,7 +62613,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 2
             OnClick = btnEditMapClick
-            ExplicitLeft = 1235
           end
           object btnPreview: TRzBmpButton
             Left = 960
@@ -63366,7 +63314,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnPreviewClick
-            ExplicitLeft = 1360
           end
           object btnDeleteMap: TRzBmpButton
             Left = 1085
@@ -64068,7 +64015,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnDeleteMapClick
-            ExplicitLeft = 1485
           end
         end
         object pnlListPeta: TPanel
@@ -64079,7 +64025,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1607
           object lvGameArea: TListView
             Left = 0
             Top = 0
@@ -64119,7 +64064,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1607
           object Label16: TLabel
             Tag = 1
             Left = 0

@@ -2283,7 +2283,8 @@ begin
       if (chattingTemp.IdUserRoleSending = FSelectedUserChat.FData.UserRoleIndex) then
       begin
         mmoChat.Font.Color := clBlue;
-        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleAcronim + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier + ' :');
+
+        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleAcronim + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier + ' :        ' + chattingTemp.ChatStatus.ToString );
         mmoChat.Lines.Add(chattingTemp.ChatMessage);
         mmoChat.Lines.Add('');
       end;

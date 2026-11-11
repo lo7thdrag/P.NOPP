@@ -396142,8 +396142,8 @@ object frmToteDisplay: TfrmToteDisplay
     object lblFileTransfer: TLabel
       Left = 77
       Top = 440
-      Width = 80
-      Height = 16
+      Width = 81
+      Height = 17
       Cursor = crHandPoint
       Caption = 'File Transfer'
       Font.Charset = ANSI_CHARSET
@@ -396158,8 +396158,8 @@ object frmToteDisplay: TfrmToteDisplay
     object lblConcoleList: TLabel
       Left = 79
       Top = 408
-      Width = 77
-      Height = 16
+      Width = 81
+      Height = 17
       Cursor = crHandPoint
       Caption = 'Concole List'
       Font.Charset = ANSI_CHARSET
@@ -396329,8 +396329,8 @@ object frmToteDisplay: TfrmToteDisplay
       Tag = 9
       Left = 75
       Top = 470
-      Width = 34
-      Height = 16
+      Width = 38
+      Height = 17
       Cursor = crHandPoint
       Caption = 'Close'
       Font.Charset = ANSI_CHARSET

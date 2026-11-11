@@ -282,7 +282,7 @@ begin
   simMgrClient.netSend_CmdUserState(rec);
   ShowMessage('User "' + consolenameTemp + '" has been logged out');
 
-  frmTacticalDisplay.UpdateClientLogout(Self);
+//  frmTacticalDisplay.UpdateClientLogout(Self);
 end;
 
 procedure TfrmToteDisplay.btnLogoutClick(Sender: TObject);
