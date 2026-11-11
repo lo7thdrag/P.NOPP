@@ -2344,7 +2344,7 @@ end;
 
 procedure TfrmDisplayArea.UpdateClientChatting;
 var
-  i : Integer;
+  i, j : Integer;
   userRoleTemp : TUserRole;
   chatTemp : Tchatting;
   sumTemp : Integer;
@@ -2360,9 +2360,9 @@ begin
       if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
       begin
         sumTemp := 0;
-        for i := 0 to SimManager.SimChatting.ChattingList.Count - 1  do
+        for j := 0 to SimManager.SimChatting.ChattingList.Count - 1  do
         begin
-          chatTemp := SimManager.SimChatting.ChattingList.Items[i];
+          chatTemp := SimManager.SimChatting.ChattingList.Items[j];
 
           if (chatTemp.IdUserRoleSending = FSelectedUserChat.FData.UserRoleIndex) and
              (chatTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
