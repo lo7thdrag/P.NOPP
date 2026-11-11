@@ -406,6 +406,7 @@ type
 
   public
     ChatOpen : Boolean;
+    ChatPage : Byte; {0: userpage; 1: chatpage}
 
     function GetUserNameById(Id: Integer): string;
     function GetLastChatMessage(IdSender, IdReceiver: Integer): string;
@@ -2218,6 +2219,7 @@ begin
   pnlRight.Width := 0;
   lstUserChat.BringToFront;
   lblNamaChat.Caption := 'CHAT';
+  ChatPage := 0;
   ChatOpen := False;
   mmoChat.Clear;
   edtChatBox.Clear;
@@ -2238,6 +2240,7 @@ begin
   lblNamaChat.Caption := 'CHAT';
   lstUserChat.BringToFront;
   UpdateClientChatting;
+  ChatPage := 0;
 end;
 
 procedure TfrmDisplayArea.lstUserChatDblClick(Sender: TObject);
@@ -2250,6 +2253,7 @@ begin
   if lstUserChat.ItemIndex = -1 then
     Exit;
 
+  ChatPage := 1;
   FSelectedUserChat := TUserRole(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
   mmoChat.BringToFront;
   lblNamaChat.Caption := FSelectedUserChat.FData.UserRoleIdentifier + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier;
@@ -2315,19 +2319,11 @@ begin
         mmoChat.Lines.Add(chattingTemp.ChatMessage);
         mmoChat.Lines.Add('');
       end;
-
-  //    userRoleTemp := SimUserRole.getUserRoleByID(rec.UserRoleId);
-  //    mmoChat.Lines.Add(chattingTemp.IdUserRoleReceive, chattingTemp.ChatMessage);
-  //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleSending));
-  //    mmoChat.Lines.Add(IntToStr(chattingTemp.IdUserRoleReceive));
-  //    mmoChat.Lines.Add(chattingTemp.ChatMessage);
     end;
   end;
   finally
     tempList.Free;
   end;
-
-
 end;
 
 procedure TfrmDisplayArea.btnSendChatClick(Sender: TObject);
@@ -2350,6 +2346,9 @@ procedure TfrmDisplayArea.UpdateClientChatting;
 var
   i : Integer;
   userRoleTemp : TUserRole;
+  chatTemp : Tchatting;
+  sumTemp : Integer;
+
 begin
   lstUserChat.Items.Clear;
 
@@ -2360,7 +2359,20 @@ begin
     begin
       if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
       begin
-        lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
+        sumTemp := 0;
+        for i := 0 to SimManager.SimChatting.ChattingList.Count - 1  do
+        begin
+          chatTemp := SimManager.SimChatting.ChattingList.Items[i];
+
+          if (chatTemp.IdUserRoleSending = FSelectedUserChat.FData.UserRoleIndex) and
+             (chatTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+             (chatTemp.ChatStatus <> 2) then
+          begin
+            sumTemp := sumTemp + 1;
+          end;
+        end;
+
+        lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier + '     (' + sumTemp.ToString + ' Unread)', userRoleTemp);
       end;
     end;
   end;
@@ -2606,8 +2618,37 @@ begin
 end;
 
 procedure TfrmDisplayArea.ShowNotificationChat;
+var
+  i : Integer;
+  chatTemp : Tchatting;
+  flagTemp : Boolean;
+
 begin
   imgNotifikasi.Visible := not ChatOpen;
+
+  if ChatOpen and (ChatPage = 1) then
+  begin
+
+    if not Assigned(FSelectedUserChat) then
+      Exit;
+
+    flagTemp := False;
+    for i := 0 to SimManager.SimChatting.ChattingList.Count - 1  do
+    begin
+      chatTemp := SimManager.SimChatting.ChattingList.Items[i];
+
+      if (chatTemp.IdUserRoleSending = FSelectedUserChat.FData.UserRoleIndex) and
+         (chatTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+         (chatTemp.ChatStatus <> 2) then
+      begin
+        flagTemp := True;
+      end;
+    end;
+
+    if flagTemp then
+      simMgrClient.SendChatRead(FSelectedUserChat.FData.UserRoleIndex);
+  end;
+
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);
