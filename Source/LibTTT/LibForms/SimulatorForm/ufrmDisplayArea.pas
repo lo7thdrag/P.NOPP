@@ -336,7 +336,7 @@ type
 
     {$REGION ' Telegram Procedure '}
     procedure TelegramClick(Sender: TObject);
-    procedure ShowFilePopupNotify(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath : string; AFilePopupType : TFilePopupType; Status: Integer);
+    procedure ShowFilePopupNotify(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath : string; AFilePopupType : TFilePopupType);
     {$ENDREGION}
 
     {$REGION ' Video Conference Procedure '}
@@ -2492,7 +2492,7 @@ begin
 end;
 
 procedure TfrmDisplayArea.ShowFilePopupNotify(IdSender: Integer; IdReceiver: Integer; FileName: string; FilePath: string;
-AFilePopupType: TFilePopupType; Status: Integer);
+AFilePopupType: TFilePopupType);
 var
   UserName: string;
 begin

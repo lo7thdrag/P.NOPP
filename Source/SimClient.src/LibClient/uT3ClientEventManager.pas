@@ -43,7 +43,7 @@ begin
   inherited;
 
   if Assigned(frmDisplayArea) then
-    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName,FilePath, fptFileSharing, 2)
+    frmDisplayArea.ShowFilePopupNotify(IdSender, IdReceiver, FileName,FilePath, fptFileSharing)
 end;
 
 procedure TT3ClientEventManager.OnUpdateFileSharingOpened(IdSender,IdReceiver: Integer; FileName: string);

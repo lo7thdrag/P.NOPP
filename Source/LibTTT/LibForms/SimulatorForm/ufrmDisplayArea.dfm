@@ -48194,7 +48194,6 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvUserRoleSelectItem
-            ExplicitWidth = 1607
           end
         end
         object pnlHeaderPengguna: TPanel
@@ -51547,7 +51546,6 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvTacticalSymbolleSelectItem
-            ExplicitWidth = 1188
           end
         end
         object pnlRightTactical: TPanel
@@ -58904,7 +58902,6 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvReferensiSelectItem
-            ExplicitWidth = 1607
           end
         end
         object pnlHeaderReferensi: TPanel
@@ -64112,7 +64109,6 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvGameAreaSelectItem
-            ExplicitWidth = 1607
           end
         end
         object pnlHeaderPeta: TPanel
