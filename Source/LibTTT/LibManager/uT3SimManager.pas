@@ -38,7 +38,7 @@ type
 
     procedure OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);
     procedure OnSyncUserChat(const rec: TRecTCPSendChatUserRole);
-    procedure OnSyncUserState(const rec: TRecTCP_UserState);
+
 
   protected
     FSessionID : integer;
@@ -78,6 +78,7 @@ type
     procedure OnFileSyncChange(const rec: TRecTCPFileSync);
     procedure OnFileFileTransferChange(const rec : TRecTCPFileTransfer);
     procedure OnFileSharingChange(const rec : TRecTCPFileSharing);
+    procedure OnSyncUserState(const rec: TRecTCP_UserState); virtual;
 
     {$ENDREGION}
 

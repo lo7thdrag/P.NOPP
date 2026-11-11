@@ -105,7 +105,7 @@ type
     procedure SendChatRead(SenderID: Integer);
 
     procedure netOnConnected(sender: TObject);
-    procedure OnSyncUserState(const rec : TRecTCP_UserState); // override;
+    procedure OnSyncUserState(const rec : TRecTCP_UserState); override;
     procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); // override;
     procedure OnSyncUserChat(const rec : TRecTCPSendChatUserRole); // override;
     procedure OnSyncFileSendTelegram(const rec : TRecTCPFileSync);

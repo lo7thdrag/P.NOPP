@@ -2274,7 +2274,7 @@ begin
       if chattingTemp.IdUserRoleSending = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
       begin
         mmoChat.Font.Color := clBlack;
-        mmoChat.Lines.Add('You :');
+        mmoChat.Lines.Add('You :        ' + chattingTemp.ChatStatus.ToString);
         mmoChat.Lines.Add(chattingTemp.ChatMessage);
         mmoChat.Lines.Add('');
       end;
