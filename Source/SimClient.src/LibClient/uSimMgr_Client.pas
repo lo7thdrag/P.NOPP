@@ -973,20 +973,17 @@ begin
     READ_CHAT :
     begin
 
-      {console yg nrima update chat}
+      {console yg baca update chat}
       if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
       begin
-//        TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
-//        TT3ClientEventManager(EventManager).OnShowNotificationChat(rec.OrderID);
+        TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
       end;
 
       {console yg ngirim update chat}
       if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
       begin
-//        TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+        TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
       end;
-
-//      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
     end;
   end;
 end;

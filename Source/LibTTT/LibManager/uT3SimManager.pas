@@ -1166,7 +1166,6 @@ procedure TT3SimManager.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole)
 var
   i : Integer;
   chatTemp : Tchatting;
-  tempList : TList;
 
 begin
   case rec.OrderID of
@@ -1194,7 +1193,7 @@ begin
           chatTemp.ChatStatus := 2;
       end;
 
-      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
+//      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
     end;
   end;
 end;

@@ -2241,6 +2241,11 @@ begin
 end;
 
 procedure TfrmDisplayArea.lstUserChatDblClick(Sender: TObject);
+var
+  i : Integer;
+  chatTemp : Tchatting;
+  flagTemp : Boolean;
+
 begin
   if lstUserChat.ItemIndex = -1 then
     Exit;
@@ -2252,16 +2257,30 @@ begin
 
   UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex, simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex);
 
-  simMgrClient.SendChatRead(FSelectedUserChat.FData.UserRoleIndex);
+  flagTemp := False;
+  for i := 0 to SimManager.SimChatting.ChattingList.Count - 1  do
+  begin
+    chatTemp := SimManager.SimChatting.ChattingList.Items[i];
+
+    if (chatTemp.IdUserRoleSending = FSelectedUserChat.FData.UserRoleIndex) and
+       (chatTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+       (chatTemp.ChatStatus <> 2) then
+    begin
+      flagTemp := True;
+    end;
+  end;
+
+  if flagTemp then
+    simMgrClient.SendChatRead(FSelectedUserChat.FData.UserRoleIndex);
 end;
 
 procedure TfrmDisplayArea.UpdateClientHistoryChat(IdSender, IdReceiver: Integer);
 var
-tempList : TList;
-i : Integer;
-chattingTemp : TChatting;
-userRoleTemp : TUserRole;
-namaRole : string;
+  tempList : TList;
+  i : Integer;
+  chattingTemp : TChatting;
+  userRoleTemp : TUserRole;
+  namaRole : string;
 begin
 
   tempList := TList.Create;

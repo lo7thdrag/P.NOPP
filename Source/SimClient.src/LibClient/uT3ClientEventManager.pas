@@ -138,8 +138,8 @@ procedure TT3ClientEventManager.OnUserRoleChatRead(IdUser: Integer);
 begin
   inherited;
 
-   if Assigned(frmDisplayArea) then
-    frmDisplayArea.ShowReadNotify(IdUser);
+//   if Assigned(frmDisplayArea) then
+//    frmDisplayArea.ShowReadNotify(IdUser);
 end;
 
 end.
