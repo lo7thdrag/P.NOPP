@@ -105,6 +105,7 @@ end;
 procedure TT3ClientEventManager.OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer);
 begin
   inherited;
+
   frmDisplayArea.UpdateClientHistoryChat(IdSender, IdReceiver);
   frmDisplayArea.UpdateClientChatting;
 

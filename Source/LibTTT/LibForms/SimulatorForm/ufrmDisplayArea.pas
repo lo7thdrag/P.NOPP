@@ -405,6 +405,8 @@ type
     function GetRoleIndex(id : string):Integer;
 
   public
+    ChatOpen : Boolean;
+
     function GetUserNameById(Id: Integer): string;
     function GetLastChatMessage(IdSender, IdReceiver: Integer): string;
 
@@ -2205,6 +2207,7 @@ begin
   pnlRight.Width := 430;
   pnlMainChatting.BringToFront;
   lblNamaChat.Caption := 'CHAT';
+  ChatOpen := True;
   UpdateClientChatting;
 end;
 
@@ -2213,6 +2216,7 @@ begin
   pnlRight.Width := 0;
   lstUserChat.BringToFront;
   lblNamaChat.Caption := 'CHAT';
+  ChatOpen := False;
   mmoChat.Clear;
   edtChatBox.Clear;
   pnlBottomChat.Visible := False;
@@ -2257,12 +2261,15 @@ chattingTemp : TChatting;
 userRoleTemp : TUserRole;
 namaRole : string;
 begin
+  imgNotifikasi.Visible := not ChatOpen;
+
   tempList := TList.Create;
   try
   if ((Assigned(FSelectedUserChat)) and ((IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
      (IdReceiver = FSelectedUserChat.FData.UserRoleIndex))) or ((Assigned(FSelectedUserChat)) and ((IdReceiver = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
      (IdSender = FSelectedUserChat.FData.UserRoleIndex)))then
   begin
+
     SimManager.SimChatting.GetChattingBySending(IdReceiver, IdSender, tempList);
 
     mmoChat.Clear;
@@ -2489,7 +2496,7 @@ begin
   trycnMessage.BalloonHint  := SenderName + ': ' + Msg;
   trycnMessage.BalloonFlags := bfInfo;
   trycnMessage.ShowBalloonHint;
-  imgNotifikasi.Visible := True;
+//  imgNotifikasi.Visible := True;
 end;
 
 procedure TfrmDisplayArea.ShowFilePopupNotify(IdSender: Integer; IdReceiver: Integer; FileName: string; FilePath: string;
@@ -2535,7 +2542,7 @@ begin
     trycnMessage.BalloonHint  := UserName + ': ' + FileName;
     trycnMessage.BalloonFlags := bfInfo;
     trycnMessage.ShowBalloonHint;
-    imgNotifikasi.Visible := True;
+//    imgNotifikasi.Visible := True;
   end;
   {$ENDREGION}
 end;
@@ -2555,7 +2562,7 @@ begin
     frmPopChat := TfrmPopChat.Create(Application);
 
   frmPopChat.ShowMessagePopup(IdUser,UserName,'telah membaca pesan Anda', '',simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex,fptNone);
-  imgNotifikasi.Visible := False;
+//  imgNotifikasi.Visible := False;
 end;
 
 procedure TfrmDisplayArea.ShowFileReadNotify(IdSender, IdReceiver: Integer;FileName: string);
@@ -2576,7 +2583,7 @@ begin
     frmPopChat := TfrmPopChat.Create(Application);
 
   frmPopChat.ShowMessagePopup(IdSender, UserName,'telah membuka file ' + FileName,'', IdReceiver,fptNone);
-  imgNotifikasi.Visible := False;
+//  imgNotifikasi.Visible := False;
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);

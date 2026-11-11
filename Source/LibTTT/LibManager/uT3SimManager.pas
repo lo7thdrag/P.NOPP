@@ -1164,7 +1164,10 @@ end;
 
 procedure TT3SimManager.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole);
 var
+  i : Integer;
   chatTemp : Tchatting;
+  tempList : TList;
+
 begin
   case rec.OrderID of
     SEND_CHAT :
@@ -1182,6 +1185,17 @@ begin
 
     READ_CHAT :
     begin
+//      tempList := TList.Create;
+//
+//      SimChatting.GetChattingBySending(rec.ReceiverUserRoleId, rec.SenderUserRoleId, tempList);
+      for i := 0 to SimChatting.ChattingList.Count - 1  do
+      begin
+        chatTemp := SimChatting.ChattingList.Items[i];
+
+        if chatTemp.IdUserRoleSending = rec.SenderUserRoleId  then
+          chatTemp.ChatStatus := 2;
+      end;
+
       EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
     end;
   end;
