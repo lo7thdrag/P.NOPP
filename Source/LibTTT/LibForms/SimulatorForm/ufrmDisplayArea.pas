@@ -2209,6 +2209,7 @@ begin
   pnlMainChatting.BringToFront;
   lblNamaChat.Caption := 'CHAT';
   ChatOpen := True;
+  imgNotifikasi.Visible := False;
   UpdateClientChatting;
 end;
 
@@ -2246,9 +2247,9 @@ begin
 
   FSelectedUserChat := TUserRole(lstUserChat.Items.Objects[lstUserChat.ItemIndex]);
   mmoChat.BringToFront;
-//  selectedUserChat := FSelectedUserChat.FData.UserRoleIdentifier + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier;
   lblNamaChat.Caption := FSelectedUserChat.FData.UserRoleIdentifier + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier;
   pnlBottomChat.Visible := True;
+
   UpdateClientHistoryChat(FSelectedUserChat.FData.UserRoleIndex, simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex);
 
   simMgrClient.SendChatRead(FSelectedUserChat.FData.UserRoleIndex);
@@ -2339,7 +2340,6 @@ begin
     if Assigned(userRoleTemp) then
     begin
       if (userRoleTemp.isInUse) and (userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) then
-//      if userRoleTemp.FData.UserRoleIndex <> simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
       begin
         lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier, userRoleTemp);
       end;

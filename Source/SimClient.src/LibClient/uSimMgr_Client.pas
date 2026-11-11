@@ -953,18 +953,42 @@ procedure TSimMgr_Client.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole
 begin
   inherited;
 
-  {Update untuk yg ngirim dan yang nerima}
-  if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
-  begin
-    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
-    TT3ClientEventManager(EventManager).OnShowNotificationChat(rec.OrderID);
-  end;
+  case rec.OrderID of
+    SEND_CHAT :
+    begin
+      {console yg nrima update chat}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+        TT3ClientEventManager(EventManager).OnShowNotificationChat(rec.OrderID);
+      end;
 
-  if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
-  begin
-    TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
-  end;
+      {console yg ngirim update chat}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+      end;
+    end;
 
+    READ_CHAT :
+    begin
+
+      {console yg nrima update chat}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
+      begin
+//        TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+//        TT3ClientEventManager(EventManager).OnShowNotificationChat(rec.OrderID);
+      end;
+
+      {console yg ngirim update chat}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
+      begin
+//        TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+      end;
+
+//      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
+    end;
+  end;
 end;
 
 procedure TSimMgr_Client.OnUserStateChange(const rec: TRecTCP_UserState);

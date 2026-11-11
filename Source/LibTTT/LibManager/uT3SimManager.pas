@@ -1185,14 +1185,12 @@ begin
 
     READ_CHAT :
     begin
-//      tempList := TList.Create;
-//
-//      SimChatting.GetChattingBySending(rec.ReceiverUserRoleId, rec.SenderUserRoleId, tempList);
+
       for i := 0 to SimChatting.ChattingList.Count - 1  do
       begin
         chatTemp := SimChatting.ChattingList.Items[i];
 
-        if chatTemp.IdUserRoleSending = rec.SenderUserRoleId  then
+        if (chatTemp.IdUserRoleSending = rec.ReceiverUserRoleId) and (chatTemp.IdUserRoleReceive = rec.SenderUserRoleId) then
           chatTemp.ChatStatus := 2;
       end;
 
