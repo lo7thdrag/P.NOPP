@@ -2305,7 +2305,12 @@ begin
       if chattingTemp.IdUserRoleSending = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
       begin
         mmoChat.Font.Color := clBlack;
-        mmoChat.Lines.Add('You :        ' + chattingTemp.ChatStatus.ToString);
+
+        if chattingTemp.ChatStatus = 0 then
+          mmoChat.Lines.Add('You : ---> Send ')
+        else
+          mmoChat.Lines.Add('You : ---> Read ');
+
         mmoChat.Lines.Add(chattingTemp.ChatMessage);
         mmoChat.Lines.Add('');
       end;
@@ -2315,7 +2320,7 @@ begin
       begin
         mmoChat.Font.Color := clBlue;
 
-        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleAcronim + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier + ' :        ' + chattingTemp.ChatStatus.ToString );
+        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleAcronim + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier + ' : ' );
         mmoChat.Lines.Add(chattingTemp.ChatMessage);
         mmoChat.Lines.Add('');
       end;
@@ -2364,7 +2369,7 @@ begin
         begin
           chatTemp := SimManager.SimChatting.ChattingList.Items[j];
 
-          if (chatTemp.IdUserRoleSending = FSelectedUserChat.FData.UserRoleIndex) and
+          if (chatTemp.IdUserRoleSending = userRoleTemp.FData.UserRoleIndex) and
              (chatTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
              (chatTemp.ChatStatus <> 2) then
           begin
@@ -2372,7 +2377,10 @@ begin
           end;
         end;
 
-        lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier + '     (' + sumTemp.ToString + ' Unread)', userRoleTemp);
+        if sumTemp > 0 then
+          lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier + '     (' + sumTemp.ToString + ' Unread)', userRoleTemp)
+        else
+          lstUserChat.Items.AddObject(userRoleTemp.FData.UserRoleAcronim + ' - ' + userRoleTemp.FSubRoleData.SubRoleIdentifier , userRoleTemp)
       end;
     end;
   end;
