@@ -179,6 +179,7 @@ type
     FIdUserRoleSending : Integer;
     FIdUserRoleReceive : Integer;
     FChatMessage : string;
+    FChatStatus : Byte; {0: centang1, 1: centang2, 2: centang2Biru}
 
   public
     constructor Create;
@@ -188,6 +189,7 @@ type
     property IdUserRoleSending: Integer read FIdUserRoleSending write FIdUserRoleSending;
     property IdUserRoleReceive: Integer read FIdUserRoleReceive write FIdUserRoleReceive;
     property ChatMessage: string read FChatMessage write FChatMessage;
+    property ChatStatus: Byte read FChatStatus write FChatStatus;
 
   end;
 

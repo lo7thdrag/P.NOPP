@@ -1174,6 +1174,7 @@ begin
       chatTemp.IdUserRoleSending := rec.SenderUserRoleId;
       chatTemp.IdUserRoleReceive := rec.ReceiverUserRoleId;
       chatTemp.ChatMessage := rec.ChatMessage;
+      chatTemp.ChatStatus := rec.ChatStatus;
 
       SimChatting.ChattingList.Add(chatTemp);
     end;

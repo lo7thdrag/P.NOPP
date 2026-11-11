@@ -120,6 +120,7 @@ type
     ReceiverUserRoleId  : Integer;
     ChatId              : Integer;
     ChatMessage         : string[255];
+    ChatStatus          : Byte; {0: centang1, 1: centang2, 2: centang2Biru}
   end;
 
   //CPID_FILE_SEND_TELEGRAM
