@@ -19,6 +19,7 @@ type
     procedure OnUpdateSituationBoardTabPropertiesChange; virtual;
     procedure OnUpdateSituationBoardOverlayChange; virtual;
     procedure OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer); virtual;
+    procedure OnShowNotificationChat(status : Byte); virtual;
     procedure OnUserRoleChatRead(IdUser : Integer); virtual;
     procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); virtual;
     procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); virtual;
@@ -89,6 +90,11 @@ begin
 end;
 
 procedure TT3EventManager.OnUserRoleChatRead(IdUser: Integer);
+begin
+
+end;
+
+procedure TT3EventManager.OnShowNotificationChat(status : Byte);
 begin
 
 end;

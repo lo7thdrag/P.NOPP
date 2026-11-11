@@ -413,6 +413,7 @@ type
     procedure UpdateDataAset;
 
     procedure UpdateClientChatting;
+    procedure ShowNotificationChat;
     procedure UpdateClientHistoryChat(IdSender, IdReceiver : Integer);
 
     procedure SetPanelInstruktur;
@@ -2261,7 +2262,6 @@ chattingTemp : TChatting;
 userRoleTemp : TUserRole;
 namaRole : string;
 begin
-  imgNotifikasi.Visible := not ChatOpen;
 
   tempList := TList.Create;
   try
@@ -2584,6 +2584,11 @@ begin
 
   frmPopChat.ShowMessagePopup(IdSender, UserName,'telah membuka file ' + FileName,'', IdReceiver,fptNone);
 //  imgNotifikasi.Visible := False;
+end;
+
+procedure TfrmDisplayArea.ShowNotificationChat;
+begin
+  imgNotifikasi.Visible := not ChatOpen;
 end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);

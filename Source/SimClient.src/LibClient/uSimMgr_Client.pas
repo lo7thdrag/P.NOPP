@@ -957,6 +957,7 @@ begin
   if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
   begin
     TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+    TT3ClientEventManager(EventManager).OnShowNotificationChat(rec.OrderID);
   end;
 
   if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then

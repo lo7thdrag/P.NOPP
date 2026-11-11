@@ -20,6 +20,7 @@ type
     procedure OnUpdateSituationBoardTabPropertiesChange; override;
     procedure OnUpdateSituationBoardOverlayChange; override;
     procedure OnUpdateUserRoleChatChange(IdSender, IdReceiver : integer); override;
+    procedure OnShowNotificationChat(status : Byte); override;
     procedure OnUserRoleChatRead(IdUser : Integer); override;
     procedure OnUpdateFileSyncChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); override;
     procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); override;
@@ -37,6 +38,16 @@ uses
   ufrmTacticalDisplay ;
 
 { TT3ClientEventManager }
+
+procedure TT3ClientEventManager.OnShowNotificationChat(status : Byte);
+begin
+  inherited;
+  if Assigned(frmDisplayArea) then
+  begin
+    if status = SEND_CHAT then
+      frmDisplayArea.ShowNotificationChat;
+  end;
+end;
 
 procedure TT3ClientEventManager.OnUpdateFileSharingChange(IdSender, IdReceiver: Integer; FileName: string; FilePath: string);
 begin
