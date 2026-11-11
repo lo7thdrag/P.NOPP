@@ -1922,7 +1922,7 @@ const
   'CPID_CMD_FILE_SYNC                     ',    // + 10
   'CPID_CMD_FILE_TRANSFER                 ',     // + 11
   'CPID_CMD_FILE_SHARING                  ',     // + 12
-  'CPID_CMD_RECONNECT_USER                '     // + 14
+  'CPID_CMD_RECONNECT_USER                '     // + 13
 );
 
 begin
