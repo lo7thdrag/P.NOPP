@@ -49,6 +49,10 @@ type
     pnlSend: TPanel;
     imgbtnSend: TImageButton;
     lblSend: TLabel;
+    pnlInbox: TPanel;
+    lblTele: TLabel;
+    edtSearch: TEdit;
+    lvConsoleList: TListView;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -189,6 +193,7 @@ var
   FileSize    : Int64;
 
   ReceiverID  : Integer;
+  recsend : TRecTCPSendChatUserRole;
 begin
   if cbbxTo.ItemIndex = -1 then
   begin
@@ -294,16 +299,17 @@ begin
       rec.OrderID            := SEND_FILE_FINISH;
       rec.FileName           := fileNameArray[i];
       rec.FolderName         := DateTimeNowTemp;
-//      rec.SenderName         := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim;
       rec.SenderName         := SenderFolderName;
       rec.FileSize           := FileSize;
       rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
       rec.ReceiverUserRoleId := ReceiverID;
+      rec.Status             := 0;
 
       simMgrClient.netSend_CmdFileSendTelegram(rec);
 
       CopyFile(PChar(pathFileArray[i]), PChar(IncludeTrailingPathDelimiter(SentPath) + fileNameArray[i]), False);
       {$ENDREGION}
+
     except
       on E: Exception do
       begin

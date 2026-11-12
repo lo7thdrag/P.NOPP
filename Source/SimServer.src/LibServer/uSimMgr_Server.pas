@@ -270,9 +270,12 @@ begin
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer), netRecv_CmdFileTransfer);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing), netRecv_CmdFileSharing);
   VNetServer.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
-
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_Reconnect), netRecv_CmdReconnect);
+
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserState),nil);
+  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPSendChatUserRole),nil);
+  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_SITUATIONBOARD, SizeOf(TRecTCPSendSituationBoardTabProperties),nil);
+  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_OVERLAY, SizeOf(TRecTCPSendSituationBoardTabProperties),nil);
 
   VNetServer.RegisterTCPPacket(CPID_TCP_REQUEST, SizeOf(TRecTCP_Request), netRecv_TCPRequest);
   {$ENDREGION}
@@ -411,7 +414,7 @@ begin
       recChatTemp.ReceiverUserRoleId := chatTemp.IdUserRoleReceive;
       recChatTemp.ChatMessage := chatTemp.ChatMessage;
 
-      VNetServer.SendTo(CPID_CMD_RECONNECT, @recChatTemp, sIP);
+      VNetServer.SendTo(CPID_CMD_RECONNECT_CHATTING, @recChatTemp, sIP);
     end;
   end;
   {$ENDREGION}
@@ -431,7 +434,7 @@ begin
       recTabTemp.TabActive := tabPropertiesTemp.ActiveTab;
       recTabTemp.TabAddres := tabPropertiesTemp.AddressTab;
 
-      VNetServer.SendTo(CPID_CMD_RECONNECT, @recTabTemp, sIP);
+      VNetServer.SendTo(CPID_CMD_RECONNECT_SITUATIONBOARD, @recTabTemp, sIP);
     end;
   end;
   {$ENDREGION}
@@ -451,7 +454,7 @@ begin
       recTabTemp.TabActive := tabPropertiesTemp.ActiveTab;
       recTabTemp.TabAddres := tabPropertiesTemp.AddressTab;
 
-      VNetServer.SendTo(CPID_CMD_RECONNECT, @recTabTemp, sIP);
+      VNetServer.SendTo(CPID_CMD_RECONNECT_OVERLAY, @recTabTemp, sIP);
     end;
   end;
   {$ENDREGION}

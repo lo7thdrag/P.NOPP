@@ -139,6 +139,7 @@ type
 
     SenderUserRoleId    : Integer;
     ReceiverUserRoleId  : Integer;
+    Status : Byte;
   end;
 
   //CPID_FILE_TRANSFER_TOTEDISPLAY
@@ -1890,7 +1891,12 @@ const
     SEND_FILE_SHARING_FINISH  = 3;
     SEND_FILE_SHARING_OPENED  = 4;
   CPID_CMD_RECONNECT_USER                 = CPID_TCP + 13;
-  CPID_TCP_MAX              	            = CPID_TCP + 14;
+  CPID_CMD_RECONNECT_CHATTING             = CPID_TCP + 14;
+  CPID_CMD_RECONNECT_TELEGRAM             = CPID_TCP + 15;
+  CPID_CMD_RECONNECT_FILESHARING          = CPID_TCP + 16;
+  CPID_CMD_RECONNECT_SITUATIONBOARD       = CPID_TCP + 17;
+  CPID_CMD_RECONNECT_OVERLAY              = CPID_TCP + 18;
+  CPID_TCP_MAX              	            = CPID_TCP + 19;
 
   {$ENDREGION}
 
@@ -1918,11 +1924,16 @@ const
   'CPID_CMD_CHAT_USER_ROLE                ',   // + 6
   'CPID_CMD_OVERLAYSHAPE                  ',   // + 7
   'CPID_CMD_TELEGRAM_USER_ROLE            ',   // + 8
-  'CPID_CMD_RECONNECT                     ',    // + 9
-  'CPID_CMD_FILE_SYNC                     ',    // + 10
-  'CPID_CMD_FILE_TRANSFER                 ',     // + 11
-  'CPID_CMD_FILE_SHARING                  ',     // + 12
-  'CPID_CMD_RECONNECT_USER                '     // + 13
+  'CPID_CMD_RECONNECT                     ',   // + 9
+  'CPID_CMD_FILE_SYNC                     ',   // + 10
+  'CPID_CMD_FILE_TRANSFER                 ',   // + 11
+  'CPID_CMD_FILE_SHARING                  ',   // + 12
+  'CPID_CMD_RECONNECT_USER                ',   // + 13
+  'CPID_CMD_RECONNECT_CHATTING            ',   // + 14
+  'CPID_CMD_RECONNECT_TELEGRAM            ',   // + 15
+  'CPID_CMD_RECONNECT_FILESHARING         ',   // + 16
+  'CPID_CMD_RECONNECT_SITUATIONBOARD      ',   // + 17
+  'CPID_CMD_RECONNECT_OVERLAY             '    // + 18
 );
 
 begin

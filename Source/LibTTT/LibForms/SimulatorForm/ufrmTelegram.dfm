@@ -5,7 +5,7 @@ object frmTelegram: TfrmTelegram
   BorderStyle = bsNone
   Caption = 'Telegram'
   ClientHeight = 510
-  ClientWidth = 681
+  ClientWidth = 982
   Color = clBtnFace
   DragMode = dmAutomatic
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@ object frmTelegram: TfrmTelegram
   PixelsPerInch = 96
   TextHeight = 13
   object pnlRight: TPanel
-    Left = -301
+    Left = 0
     Top = 0
     Width = 982
     Height = 510
@@ -30,6 +30,7 @@ object frmTelegram: TfrmTelegram
     Color = 3023637
     ParentBackground = False
     TabOrder = 0
+    ExplicitLeft = -301
     object lblSendTelegram: TLabel
       Tag = 3
       Left = 673
@@ -1155,6 +1156,74 @@ object frmTelegram: TfrmTelegram
             OnClick = btnKirimClick
           end
         end
+      end
+    end
+    object pnlInbox: TPanel
+      Left = 220
+      Top = 0
+      Width = 395
+      Height = 510
+      BevelOuter = bvNone
+      Color = 5981737
+      ParentBackground = False
+      TabOrder = 1
+      object lblTele: TLabel
+        Tag = 3
+        Left = 118
+        Top = 14
+        Width = 159
+        Height = 29
+        Cursor = crHandPoint
+        Caption = 'Inbox Telegram'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = 12826787
+        Font.Height = -27
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+      end
+      object edtSearch: TEdit
+        Left = 13
+        Top = 48
+        Width = 159
+        Height = 26
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Deusex'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Search...'
+      end
+      object lvConsoleList: TListView
+        Left = 13
+        Top = 80
+        Width = 369
+        Height = 417
+        Color = clWhite
+        Columns = <
+          item
+            Caption = 'User Role'
+            Width = 180
+          end
+          item
+            Alignment = taCenter
+            Caption = 'User Role'
+            Width = 180
+          end>
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Deusex'
+        Font.Style = []
+        GridLines = True
+        HideSelection = False
+        ReadOnly = True
+        RowSelect = True
+        ParentFont = False
+        TabOrder = 1
+        ViewStyle = vsReport
       end
     end
   end
