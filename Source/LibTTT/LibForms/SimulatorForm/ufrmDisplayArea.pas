@@ -2366,8 +2366,56 @@ begin
 end;
 
 procedure TfrmDisplayArea.UpdateClientHistoryTelegram(IdSender, IdReceiver: Integer);
+var
+  tempList : TList;
+  i : Integer;
+  TelegramTemp : TTelegram;
+  userRoleTemp : TUserRole;
+  namaRole : string;
 begin
-  ShowMessage( 'Berhasil' );
+
+  TelegramTemp := TList.Create;
+  try
+  if ((Assigned(FSelectedUserChat)) and ((IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+     (IdReceiver = FSelectedUserChat.FData.UserRoleIndex))) or ((Assigned(FSelectedUserChat)) and ((IdReceiver = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+     (IdSender = FSelectedUserChat.FData.UserRoleIndex)))then
+  begin
+
+    SimManager.SimChatting.GetChattingBySending(IdReceiver, IdSender, TelegramTemp);
+
+//    mmoChat.Clear;
+//    for i := 0 to TelegramTemp.Count - 1 do
+//    begin
+//      TelegramTemp := TelegramTemp.Items[i];
+//
+//      {Ngeprint chatting yg kamu kirim}
+//      if TelegramTemp.IdUserRoleSendingTelegram = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex then
+//      begin
+//        mmoChat.Font.Color := clBlack;
+//
+//        if TelegramTemp.TelegramStatus = 0 then
+//          mmoChat.Lines.Add('You : ---> Send ')
+//        else
+//          mmoChat.Lines.Add('You : ---> Read ');
+//
+//        mmoChat.Lines.Add(TelegramTemp.TelegramMessage);
+//        mmoChat.Lines.Add('');
+//      end;
+//
+//      {Ngeprint chatting yg ngirim}
+//      if (TelegramTemp.IdUserRoleSendingTelegram = FSelectedUserChat.FData.UserRoleIndex) then
+//      begin
+//        mmoChat.Font.Color := clBlue;
+//
+//        mmoChat.Lines.Add(FSelectedUserChat.FData.UserRoleAcronim + ' - ' + FSelectedUserChat.FSubRoleData.SubRoleIdentifier + ' : ' );
+//        mmoChat.Lines.Add(TelegramTemp.TelegramMessage);
+//        mmoChat.Lines.Add('');
+//      end;
+//    end;
+  end;
+  finally
+    TelegramTemp.Free;
+  end;
 end;
 
 procedure TfrmDisplayArea.UpdateClientTelegram;

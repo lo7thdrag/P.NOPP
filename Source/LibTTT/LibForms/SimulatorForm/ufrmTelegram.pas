@@ -447,9 +447,48 @@ begin
 end;
 
 procedure TfrmTelegram.UpdateInboxTelegram;
+var
+  tempList : TList;
 
+  li : TListItem;
+  i : Integer;
+  TelegramTemp : TTelegram;
+  userRoleTemp : TUserRole;
+  namaRole : string;
 begin
 
+  tempList := TList.Create;
+
+  SimManager.SimTelegram.GetTelegramByUserRole(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
+
+  lvInbox.Clear;
+
+  for i := 0 to tempList.Count - 1 do
+  begin
+    TelegramTemp := tempList.Items[i];
+
+    li := lvInbox.Items.Add;
+    li.Caption := TelegramTemp.IdUserRoleSendingTelegram;
+
+    {Ngeprint Telegram yg kamu kirim}
+    if TelegramTemp.TelegramStatus = 0 then
+      li.SubItems.Add('Send ')
+    else
+      li.SubItems.Add('Read ');
+
+//    {Ngeprint Telegram yg ngirim}
+//    if (TelegramTemp.IdUserRoleSendingTelegram = FSelectedUserTelegram.FData.UserRoleIndex) then
+//    begin
+//      tempList := lvInbox.Items.Add;
+//      tempList.Caption := (FSelectedUserTelegram.FData.UserRoleAcronim + ' - ' + FSelectedUserTelegram.FSubRoleData.SubRoleIdentifier + ' : ' );
+//
+//    {Ngeprint Telegram yg kamu kirim}
+//      if TelegramTemp.TelegramStatus = 0 then
+//        tempList.SubItems.Add('Send ')
+//      else
+//        tempList.SubItems.Add('Read ');
+//    end;
+  end;
 end;
 
 procedure TfrmTelegram.OpenApplicationFileFolder(FullPath: String);

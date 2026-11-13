@@ -340,8 +340,8 @@ type
     destructor  Destroy; override;
 
     function GetTelegramById(TelegramId : Integer):TTelegram;
-    function GetTelegramBySending(IdRoleReceiving, IdRoleSending : Integer; var chatList : TList): Boolean;
-    function GetTelegramByUserRole(UserRoleId : Integer; var chatList : TList): Boolean;
+    function GetTelegramBySending(IdRoleReceiving, IdRoleSending : Integer; var telegramList : TList): Boolean;
+    function GetTelegramByUserRole(UserRoleId : Integer; var telegramList : TList): Boolean;
 
     property TelegramList : TList read FTelegramList write FTelegramList;
   end;
@@ -3249,25 +3249,24 @@ begin
 end;
 
 function TTelegramContainer.GetTelegramBySending(IdRoleReceiving,
-  IdRoleSending: Integer; var chatList: TList): Boolean;
+  IdRoleSending: Integer; var telegramList: TList): Boolean;
 var
   i : Integer;
-  TelegramTemp : TChatting;
+  TelegramTemp : TTelegram;
 begin
   for i := 0 to FTelegramList.Count - 1 do
   begin
     TelegramTemp := FTelegramList.Items[i];
 
 //    if (chattingTemp.FIdUserRoleReceive = IdRoleReceiving) and (chattingTemp.FIdUserRoleSending = IdRoleReceiving) then
-      if ((TelegramTemp.FIdUserRoleReceive = IdRoleReceiving) and (TelegramTemp.FIdUserRoleSending = IdRoleSending)) or
-         ((TelegramTemp.FIdUserRoleReceive = IdRoleSending) and (TelegramTemp.FIdUserRoleSending = IdRoleReceiving)) then
-      chatList.Add(TelegramTemp);
+      if ((TelegramTemp.FIdUserRoleReceiveTelegram = IdRoleReceiving) and (TelegramTemp.FIdUserRoleSendingTelegram = IdRoleSending)) or
+         ((TelegramTemp.FIdUserRoleReceiveTelegram = IdRoleSending) and (TelegramTemp.FIdUserRoleSendingTelegram = IdRoleReceiving)) then
+      telegramList.Add(TelegramTemp);
 
   end;
 end;
 
-function TTelegramContainer.GetTelegramByUserRole(UserRoleId: Integer;
-  var chatList: TList): Boolean;
+function TTelegramContainer.GetTelegramByUserRole(UserRoleId: Integer; var telegramList: TList): Boolean;
 var
   i : Integer;
   TelegramTemp : TChatting;
@@ -3277,7 +3276,7 @@ begin
     TelegramTemp := FTelegramList.Items[i];
 
     if (TelegramTemp.FIdUserRoleReceive = UserRoleId) then
-      chatList.Add(TelegramTemp);
+      telegramList.Add(TelegramTemp);
   end;
 end;
 
