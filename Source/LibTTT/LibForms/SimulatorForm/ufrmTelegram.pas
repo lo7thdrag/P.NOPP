@@ -374,7 +374,10 @@ begin
   if cbbxTo.ItemIndex = -1 then
     Exit;
 
-  userRoleTemp := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]);
+//  userRoleTemp := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]);
+
+  FSelectedUserTelegram := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]);
+
   ipTelegramSentTo := userRoleTemp.ConsoleIP;
 end;
 
