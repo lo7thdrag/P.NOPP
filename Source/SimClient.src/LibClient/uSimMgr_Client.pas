@@ -715,7 +715,7 @@ end;
 
 procedure TSimMgr_Client.netRecv_CmdTelegramUserRole(apRec: PAnsiChar; aSize: word);
 var
-  rec : ^TRecTCPSendChatUserRole;
+  rec : ^TRecTCPSendUserRoleTelegram;
   sIP : String;
 begin
   rec := @apRec^;
