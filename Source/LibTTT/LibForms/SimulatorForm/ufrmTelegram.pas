@@ -392,6 +392,7 @@ end;
 
 procedure TfrmTelegram.imgBtnKirimTelegramClick(Sender: TObject);
 begin
+
   pnlSendTelegram.Visible := True;
   pnlSendTelegram.BringToFront;
   cbbxTo.ItemIndex := -1;
@@ -500,6 +501,10 @@ procedure TfrmTelegram.pnlTelegramMasukClick(Sender: TObject);
 var
   path : string;
 begin
+  pnlInbox.Visible := True;
+  pnlInbox.BringToFront;
+  frmTelegram.Width := 681;
+
   path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
 
   if not TDirectory.Exists(path) then
