@@ -8,7 +8,7 @@ uses
 
   {Project Uses}
   uConstantaData, uT3Listener, uT3EventManager, uT3SimManager, uBaseCoordSystem, uDataTypes, uClassData, uRecordData,
-  ufrmSituationBoard, ufrmDisplayArea, ufPopChat;
+  ufrmSituationBoard, ufrmDisplayArea, ufPopChat, ufrmTelegram;
 
 type
   TT3ClientEventManager = class(TT3EventManager)
@@ -143,8 +143,8 @@ procedure TT3ClientEventManager.OnUpdateUserRoleTelegramChange(IdSender,
 begin
   inherited;
 
-  frmDisplayArea.UpdateClientHistoryTelegram(IdSender, IdReceiver);
-  frmDisplayArea.UpdateClientTelegram;
+//  frmDisplayArea.UpdateClientHistoryTelegram(IdSender, IdReceiver);
+  frmTelegram.UpdateInboxTelegram;
 end;
 
 procedure TT3ClientEventManager.OnUpdateUserStateChange(state: Integer);
