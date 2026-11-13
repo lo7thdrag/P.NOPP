@@ -1183,7 +1183,7 @@ var
 begin
   SimTelegram.TelegramList.Clear;
 
-  TelegramTemp := TChatting.Create;
+  TelegramTemp := TTelegram.Create;
 
   TelegramTemp.IdTelegram := rec.TelegramId;
   TelegramTemp.IdUserRoleSendingTelegram := rec.SenderUserRoleId;
@@ -1221,7 +1221,7 @@ begin
       begin
         chatTemp := SimChatting.ChattingList.Items[i];
 
-        if (chatTemp.IdUserRoleSending = rec.ReceiverUserRoleId) and (chatTemp.IdUserRoleReceiveTelegram = rec.SenderUserRoleId) then
+        if (chatTemp.IdUserRoleSending = rec.ReceiverUserRoleId) and (chatTemp.IdUserRoleReceive = rec.SenderUserRoleId) then
           chatTemp.ChatStatus := 2;
       end;
 
