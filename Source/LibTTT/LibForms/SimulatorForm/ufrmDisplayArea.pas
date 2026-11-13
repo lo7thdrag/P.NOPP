@@ -411,6 +411,9 @@ type
     function GetUserNameById(Id: Integer): string;
     function GetLastChatMessage(IdSender, IdReceiver: Integer): string;
 
+    {Cicil Cantik}
+    function GetLastTelegramMessage(IdSender, IdReceiver: Integer): string;
+
     procedure UpdateDataAset;
 
     procedure UpdateClientChatting;
@@ -1039,6 +1042,30 @@ begin
     begin
       chat := tempList.Items[tempList.Count - 1];
       Result := chat.ChatMessage;
+    end;
+  finally
+    tempList.Free;
+  end;
+
+end;
+
+function TfrmDisplayArea.GetLastTelegramMessage(IdSender,
+  IdReceiver: Integer): string;
+var
+  tempList: TList;
+  i: Integer;
+  Telegram: TTelegram;
+begin
+  Result := '';
+
+  tempList := TList.Create;
+  try
+    SimManager.SimTelegram.GetTelegramBySending(IdReceiver, IdSender, tempList);
+
+    if tempList.Count > 0 then
+    begin
+      Telegram := tempList.Items[tempList.Count - 1];
+      Result := Telegram.TelegramMessage;
     end;
   finally
     tempList.Free;

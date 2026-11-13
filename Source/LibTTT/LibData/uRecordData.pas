@@ -123,6 +123,17 @@ type
     ChatStatus          : Byte; {0: centang1, 1: centang2, 2: centang2Biru}
   end;
 
+  TRecTCPSendUserRoleTelegram = record
+    pid                 : TPacketID;
+    SessionID           : Integer;
+    OrderID             : Byte;
+    SenderUserRoleId    : Integer;
+    ReceiverUserRoleId  : Integer;
+    TelegramId          : Integer;
+    TelegramMessage     : string[255];
+    TelegramStatus      : Byte; {0: , 1: , 2: }
+  end;
+
   //CPID_FILE_SEND_TELEGRAM
   TRecTCPFileSync = record
     pid        : TPacketID;
@@ -1896,7 +1907,10 @@ const
   CPID_CMD_RECONNECT_FILESHARING          = CPID_TCP + 16;
   CPID_CMD_RECONNECT_SITUATIONBOARD       = CPID_TCP + 17;
   CPID_CMD_RECONNECT_OVERLAY              = CPID_TCP + 18;
-  CPID_TCP_MAX              	            = CPID_TCP + 19;
+  CPID_CMD_USER_ROLE_TELEGRAM             = CPID_TCP + 19;
+    SEND_TELEGRAMM = 0;
+    READ_TELEGRAMM = 1;
+  CPID_TCP_MAX              	            = CPID_TCP + 20;
 
   {$ENDREGION}
 
@@ -1933,7 +1947,8 @@ const
   'CPID_CMD_RECONNECT_TELEGRAM            ',   // + 15
   'CPID_CMD_RECONNECT_FILESHARING         ',   // + 16
   'CPID_CMD_RECONNECT_SITUATIONBOARD      ',   // + 17
-  'CPID_CMD_RECONNECT_OVERLAY             '    // + 18
+  'CPID_CMD_RECONNECT_OVERLAY             ',   // + 18
+  'CPID_CMD_USER_ROLE_TELEGRAM            '     // +19
 );
 
 begin

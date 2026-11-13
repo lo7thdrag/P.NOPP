@@ -193,6 +193,27 @@ type
 
   end;
 
+  TTelegram = class
+
+  private
+    FIdTelegram : Integer;
+    FIdUserRoleSendingTelegram : Integer;
+    FIdUserRoleReceiveTelegram : Integer;
+    FTelegramMessage : string;
+    FTelegramStatus : Byte; {0: , 1: , 2: }
+
+  public
+    constructor Create;
+    destructor Destroy;override;
+
+    property IdTelegram: Integer read FIdTelegram write FIdTelegram;
+    property IdUserRoleSendingTelegram: Integer read FIdUserRoleSendingTelegram write FIdUserRoleSendingTelegram;
+    property IdUserRoleReceiveTelegram: Integer read FIdUserRoleReceiveTelegram write FIdUserRoleReceiveTelegram;
+    property TelegramMessage: string read FTelegramMessage write FTelegramMessage;
+    property TelegramStatus: Byte read FTelegramStatus write FTelegramStatus;
+
+  end;
+
   // file send telegram
   TFileSyncData = class
   private
@@ -308,6 +329,21 @@ type
     function GetChattingByUserRole(UserRoleId : Integer; var chatList : TList): Boolean;
 
     property ChattingList : TList read FChattingList write FChattingList;
+  end;
+
+  TTelegramContainer = class
+  private
+    FTelegramList : TList;
+
+  public
+    constructor Create;
+    destructor  Destroy; override;
+
+    function GetTelegramById(TelegramId : Integer):TTelegram;
+    function GetTelegramBySending(IdRoleReceiving, IdRoleSending : Integer; var chatList : TList): Boolean;
+    function GetTelegramByUserRole(UserRoleId : Integer; var chatList : TList): Boolean;
+
+    property TelegramList : TList read FTelegramList write FTelegramList;
   end;
 
   TGame_Area_Definition = class
@@ -3179,5 +3215,83 @@ begin
 end;
 
 {$ENDREGION}
+
+{ TTelegramContainer }
+
+constructor TTelegramContainer.Create;
+begin
+  TelegramList := TList.Create;
+end;
+
+destructor TTelegramContainer.Destroy;
+begin
+  TelegramList.Free;
+  inherited;
+end;
+
+function TTelegramContainer.GetTelegramById(TelegramId: Integer): TTelegram;
+var
+  i : Integer;
+  TelegramTemp : TTelegram;
+begin
+  Result := nil;
+
+  for i := 0 to FTelegramList.Count - 1 do
+  begin
+    TelegramTemp := FTelegramList.Items[i];
+
+    if TelegramTemp.FIdTelegram = TelegramId then
+    begin
+      Result := TelegramTemp;
+      Break;
+    end;
+  end;
+end;
+
+function TTelegramContainer.GetTelegramBySending(IdRoleReceiving,
+  IdRoleSending: Integer; var chatList: TList): Boolean;
+var
+  i : Integer;
+  TelegramTemp : TChatting;
+begin
+  for i := 0 to FTelegramList.Count - 1 do
+  begin
+    TelegramTemp := FTelegramList.Items[i];
+
+//    if (chattingTemp.FIdUserRoleReceive = IdRoleReceiving) and (chattingTemp.FIdUserRoleSending = IdRoleReceiving) then
+      if ((TelegramTemp.FIdUserRoleReceive = IdRoleReceiving) and (TelegramTemp.FIdUserRoleSending = IdRoleSending)) or
+         ((TelegramTemp.FIdUserRoleReceive = IdRoleSending) and (TelegramTemp.FIdUserRoleSending = IdRoleReceiving)) then
+      chatList.Add(TelegramTemp);
+
+  end;
+end;
+
+function TTelegramContainer.GetTelegramByUserRole(UserRoleId: Integer;
+  var chatList: TList): Boolean;
+var
+  i : Integer;
+  TelegramTemp : TChatting;
+begin
+  for i := 0 to FTelegramList.Count - 1 do
+  begin
+    TelegramTemp := FTelegramList.Items[i];
+
+    if (TelegramTemp.FIdUserRoleReceive = UserRoleId) then
+      chatList.Add(TelegramTemp);
+  end;
+end;
+
+{ TTelegram }
+
+constructor TTelegram.Create;
+begin
+
+end;
+
+destructor TTelegram.Destroy;
+begin
+
+  inherited;
+end;
 
 end.

@@ -18,6 +18,7 @@ type
     FShapeID  : Integer;
     FTabSituationBoardID  : Integer;
     FChatId : Integer;
+    FTelegramId : Integer;
 
     procedure FGameThread_OnTerminate(sender: TObject);
     procedure FGameThread_OnRunning(const dt: double); virtual;
@@ -39,6 +40,10 @@ type
     procedure OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);
     procedure OnSyncUserChat(const rec: TRecTCPSendChatUserRole);
 
+    {Telegram}
+    {Cicil Cantik}
+    procedure OnSyncUserTelegram(const rec: TRecTCPSendUserRoleTelegram);
+
 
   protected
     FSessionID : integer;
@@ -56,6 +61,7 @@ type
     SimUserRole : TUserRoleContainer; {load dari database, Jabatan}
     SimTabProperties : TTabPropertiesContainer; {load saat running}
     SimChatting : TChattingContainer; {load saat running}
+    SimTelegram : TTelegramContainer; {load saat running}
     SimOverlay : TOverlayTabContainer; {load saat running}
     SimFileSendTelegram : TFileSendTelegramCOntainer;
     SimFileTransfer : TFileSendTransferContainer;
@@ -80,11 +86,17 @@ type
     procedure OnFileSharingChange(const rec : TRecTCPFileSharing);
     procedure OnSyncUserState(const rec: TRecTCP_UserState); virtual;
 
+    {Cicil Cantik}
+    procedure OnUserRoleTelegramChange(const rec : TRecTCPSendUserRoleTelegram); virtual;
+
     {$ENDREGION}
 
     function GetSerialTabSituationBoardID : Integer;
     function GetSerialShapeID : Integer;
     function GetSerialChatID : Integer;
+
+    {Cicil Cantik}
+    function GetSerialTelegramID : Integer;
 
     procedure GameStart; override;
     procedure GamePause; override;
@@ -134,6 +146,7 @@ begin
   SimOverlay := TOverlayTabContainer.Create;
 
   SimChatting := TChattingContainer.Create;
+  SimTelegram := TTelegramContainer.Create;
   SimFileSendTelegram := TFileSendTelegramContainer.Create;
 //  SimOverlay.Converter := Converter;
 end;
@@ -153,6 +166,7 @@ begin
   SimUserRole.Free;
   SimTabProperties.Free;
   SimChatting.Free;
+  SimTelegram.Free;
   SimFileSendTelegram.Free;
   SimFileTransfer.Free;
 
@@ -1162,6 +1176,24 @@ begin
 
 end;
 
+procedure TT3SimManager.OnSyncUserTelegram(const rec: TRecTCPSendUserRoleTelegram);
+var
+  TelegramTemp : TTelegram;
+
+begin
+  SimTelegram.TelegramList.Clear;
+
+  TelegramTemp := TChatting.Create;
+
+  TelegramTemp.IdTelegram := rec.TelegramId;
+  TelegramTemp.IdUserRoleSendingTelegram := rec.SenderUserRoleId;
+  TelegramTemp.IdUserRoleReceiveTelegram := rec.ReceiverUserRoleId;
+  TelegramTemp.TelegramMessage := rec.TelegramMessage;
+
+  SimTelegram.TelegramList.Add(TelegramTemp);
+
+end;
+
 procedure TT3SimManager.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole);
 var
   i : Integer;
@@ -1189,8 +1221,45 @@ begin
       begin
         chatTemp := SimChatting.ChattingList.Items[i];
 
-        if (chatTemp.IdUserRoleSending = rec.ReceiverUserRoleId) and (chatTemp.IdUserRoleReceive = rec.SenderUserRoleId) then
+        if (chatTemp.IdUserRoleSending = rec.ReceiverUserRoleId) and (chatTemp.IdUserRoleReceiveTelegram = rec.SenderUserRoleId) then
           chatTemp.ChatStatus := 2;
+      end;
+
+//      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
+    end;
+  end;
+end;
+
+procedure TT3SimManager.OnUserRoleTelegramChange(
+  const rec: TRecTCPSendUserRoleTelegram);
+var
+  i : Integer;
+  TelegramTemp : TTelegram;
+
+begin
+  case rec.OrderID of
+    SEND_TELEGRAMM :
+    begin
+      TelegramTemp := TTelegram.Create;
+
+      TelegramTemp.IdTelegram := GetSerialTelegramID;
+      TelegramTemp.IdUserRoleSendingTelegram := rec.SenderUserRoleId;
+      TelegramTemp.IdUserRoleReceiveTelegram := rec.ReceiverUserRoleId;
+      TelegramTemp.TelegramMessage := rec.TelegramMessage;
+      TelegramTemp.TelegramStatus := rec.TelegramStatus;
+
+      SimTelegram.TelegramList.Add(TelegramTemp);
+    end;
+
+    READ_TELEGRAMM :
+    begin
+
+      for i := 0 to SimChatting.ChattingList.Count - 1  do
+      begin
+        TelegramTemp := SimChatting.ChattingList.Items[i];
+
+        if (TelegramTemp.IdUserRoleSendingTelegram = rec.ReceiverUserRoleId) and (TelegramTemp.IdUserRoleReceiveTelegram = rec.SenderUserRoleId) then
+          TelegramTemp.TelegramStatus := 2;
       end;
 
 //      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
@@ -1270,6 +1339,12 @@ function TT3SimManager.GetSerialTabSituationBoardID: Integer;
 begin
   Result := FTabSituationBoardID;
   Inc(FTabSituationBoardID);
+end;
+
+function TT3SimManager.GetSerialTelegramID: Integer;
+begin
+  Result := FTelegramId;
+  Inc(FTelegramId);
 end;
 
 procedure TT3SimManager.StopNetwork;

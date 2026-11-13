@@ -128,6 +128,9 @@ type
     procedure netSend_CmdFileSendTelegram(r: TRecTCPFileSync);
     procedure netSend_CmdFileTransferToteDisplay(r: TRecTCPFileTransfer);
     procedure netSend_CmdFileSharing(r: TRecTCPFileSharing);
+
+    {Cicil Cantik}
+    procedure netSend_CmdSendTelegram(r : TRecTCPSendUserRoleTelegram);
     {$ENDREGION}
 
     property MyConsoleData: TConsoleData read FConsoleData;
@@ -872,6 +875,13 @@ procedure TSimMgr_Client.netSend_CmdSendMessage(r: TRecTCPSendChatUserRole);
 begin
   r.SessionID := FSessionID;
   VNetClient.SendCommand(CPID_CMD_CHAT_USER_ROLE, @r);
+end;
+
+procedure TSimMgr_Client.netSend_CmdSendTelegram(
+  r: TRecTCPSendUserRoleTelegram);
+begin
+  r.SessionID := FSessionID;
+  VNetClient.SendCommand(CPID_CMD_USER_ROLE_TELEGRAM, @r);
 end;
 
 procedure TSimMgr_Client.netSend_CmdSituationBoardTabProperties(r: TRecTCPSendSituationBoardTabProperties);

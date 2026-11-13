@@ -30,7 +30,6 @@ object frmTelegram: TfrmTelegram
     Color = 3023637
     ParentBackground = False
     TabOrder = 0
-    ExplicitLeft = -301
     object lblSendTelegram: TLabel
       Tag = 3
       Left = 673
@@ -1167,7 +1166,7 @@ object frmTelegram: TfrmTelegram
       Color = 5981737
       ParentBackground = False
       TabOrder = 1
-      object lblTele: TLabel
+      object lblInboxTele: TLabel
         Tag = 3
         Left = 118
         Top = 14
@@ -1182,11 +1181,11 @@ object frmTelegram: TfrmTelegram
         Font.Style = []
         ParentFont = False
       end
-      object edtSearch: TEdit
+      object edtfilterinbox: TEdit
         Left = 13
         Top = 48
         Width = 159
-        Height = 26
+        Height = 24
         Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
@@ -1196,7 +1195,7 @@ object frmTelegram: TfrmTelegram
         TabOrder = 0
         Text = 'Search...'
       end
-      object lvConsoleList: TListView
+      object lvInbox: TListView
         Left = 13
         Top = 80
         Width = 369
@@ -1209,7 +1208,75 @@ object frmTelegram: TfrmTelegram
           end
           item
             Alignment = taCenter
+            Caption = 'Status'
+            Width = 180
+          end>
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWhite
+        Font.Height = -16
+        Font.Name = 'Deusex'
+        Font.Style = []
+        GridLines = True
+        HideSelection = False
+        ReadOnly = True
+        RowSelect = True
+        ParentFont = False
+        TabOrder = 1
+        ViewStyle = vsReport
+      end
+    end
+    object pnlSent: TPanel
+      Left = 220
+      Top = 0
+      Width = 395
+      Height = 510
+      BevelOuter = bvNone
+      Color = 5981737
+      ParentBackground = False
+      TabOrder = 2
+      object Label1: TLabel
+        Tag = 3
+        Left = 118
+        Top = 14
+        Width = 154
+        Height = 29
+        Cursor = crHandPoint
+        Caption = 'Sent Telegram'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = 12826787
+        Font.Height = -27
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+      end
+      object edtfiltersent: TEdit
+        Left = 13
+        Top = 48
+        Width = 159
+        Height = 24
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Deusex'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 0
+        Text = 'Search...'
+      end
+      object lvSent: TListView
+        Left = 13
+        Top = 80
+        Width = 369
+        Height = 417
+        Color = clWhite
+        Columns = <
+          item
             Caption = 'User Role'
+            Width = 180
+          end
+          item
+            Alignment = taCenter
+            Caption = 'Status'
             Width = 180
           end>
         Font.Charset = ANSI_CHARSET
