@@ -283,7 +283,7 @@ begin
   VNetServer.RegisterTCPPacket(CPID_TCP_REQUEST, SizeOf(TRecTCP_Request), netRecv_TCPRequest);
 
   {Cicil Cantik}
-  VNetServer.RegisterTCPPacket(CPID_CMD_USER_ROLE_TELEGRAM, SizeOf(TRecTCPSendUserRoleTelegram), netRecv_CmdUserState);
+  VNetServer.RegisterTCPPacket(CPID_CMD_USER_ROLE_TELEGRAM, SizeOf(TRecTCPSendUserRoleTelegram), netRecv_CmdTelegramUserRole);
   {$ENDREGION}
 
   VNetServer.StartListen;
@@ -500,7 +500,7 @@ begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnUserRoleChatChange(rec^);
+  OnUserRoleTelegramChange(rec^);
 
   VNetServer.SendBroadcastCommand(CPID_CMD_USER_ROLE_TELEGRAM, apRec);
 
@@ -514,7 +514,7 @@ begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnUserRoleTelegramChange(rec^);
+  OnUserStateChange(rec^);
 
   VNetServer.SendBroadcastCommand(CPID_CMD_USER_STATE, apRec);
 end;
