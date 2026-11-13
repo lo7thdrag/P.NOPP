@@ -384,6 +384,7 @@ type
 
     FSelectedPengguna : TUserRole;
     FSelectedUserChat : TUserRole;
+    FSelectedUserTelegram : TUserRole;
     FSelectedFileBeranda : TFile_Data;
     FSelectedFileReferensi : TFile_Data;
     FSelectedGameArea : TGame_Area_Definition;
@@ -405,14 +406,20 @@ type
     function GetRoleIndex(id : string):Integer;
 
   public
-    ChatOpen : Boolean;
-    ChatPage : Byte; {0: userpage; 1: chatpage}
+    ChatOpen      : Boolean;
+    TelegramOpen  : Boolean;
+    ChatPage      : Byte; {0: userpage; 1: chatpage}
+    TelegramPage  : Byte; {0: userpage; 1: chatpage}
 
     function GetUserNameById(Id: Integer): string;
     function GetLastChatMessage(IdSender, IdReceiver: Integer): string;
 
     {Cicil Cantik}
     function GetLastTelegramMessage(IdSender, IdReceiver: Integer): string;
+
+    procedure UpdateClientHistoryTelegram(IdSender, IdReceiver : Integer);
+    procedure UpdateClientTelegram;
+    procedure ShowNotificationTelegram;
 
     procedure UpdateDataAset;
 
@@ -2358,6 +2365,16 @@ begin
   end;
 end;
 
+procedure TfrmDisplayArea.UpdateClientHistoryTelegram(IdSender, IdReceiver: Integer);
+begin
+  ShowMessage( 'Berhasil' );
+end;
+
+procedure TfrmDisplayArea.UpdateClientTelegram;
+begin
+  ShowMessage( 'Berhasil' );
+end;
+
 procedure TfrmDisplayArea.btnSendChatClick(Sender: TObject);
 var
 //i : Integer;
@@ -2675,6 +2692,40 @@ begin
       if (chatTemp.IdUserRoleSending = FSelectedUserChat.FData.UserRoleIndex) and
          (chatTemp.IdUserRoleReceive = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
          (chatTemp.ChatStatus <> 2) then
+      begin
+        flagTemp := True;
+      end;
+    end;
+
+    if flagTemp then
+      simMgrClient.SendChatRead(FSelectedUserChat.FData.UserRoleIndex);
+  end;
+
+end;
+
+procedure TfrmDisplayArea.ShowNotificationTelegram;
+  var
+  i : Integer;
+  TelegramTemp : TTelegram;
+  flagTemp : Boolean;
+
+begin
+  imgNotifikasiTel.Visible := not TelegramOpen;
+
+  if TelegramOpen and (TelegramPage = 1) then
+  begin
+
+    if not Assigned(FSelectedUserTelegram) then
+      Exit;
+
+    flagTemp := False;
+    for i := 0 to SimManager.SimTelegram.TelegramList.Count - 1  do
+    begin
+      TelegramTemp := SimManager.SimTelegram.TelegramList.Items[i];
+
+      if (TelegramTemp.IdUserRoleSendingTelegram = FSelectedUserChat.FData.UserRoleIndex) and
+         (TelegramTemp.IdUserRoleReceiveTelegram = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+         (TelegramTemp.TelegramStatus <> 2) then
       begin
         flagTemp := True;
       end;

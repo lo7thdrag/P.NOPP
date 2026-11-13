@@ -104,6 +104,9 @@ type
     procedure OnUserRoleChatChange(const rec : TRecTCPSendChatUserRole); override;
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); override;
 
+    {Cicil Cantik}
+    procedure OnUserRoleTelegramChange(const rec : TRecTCPSendUserRoleTelegram); override;
+
     // buat chat read
     procedure SendChatRead(SenderID: Integer);
 
@@ -1009,6 +1012,45 @@ begin
       if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
       begin
         TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+      end;
+    end;
+  end;
+end;
+
+procedure TSimMgr_Client.OnUserRoleTelegramChange(const rec: TRecTCPSendUserRoleTelegram);
+begin
+  inherited;
+
+  case rec.OrderID of
+    SEND_TELEGRAMM :
+    begin
+      {console yg nrima update Telegram}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateUserRoleTelegramChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+        TT3ClientEventManager(EventManager).OnShowNotificationTelegram(rec.OrderID);
+      end;
+
+      {console yg ngirim update Telegram}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateUserRoleTelegramChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+      end;
+    end;
+
+    READ_TELEGRAMM :
+    begin
+
+      {console yg baca update Telegram}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateUserRoleTelegramChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+      end;
+
+      {console yg ngirim update Telegram}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateUserRoleTelegramChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
       end;
     end;
   end;

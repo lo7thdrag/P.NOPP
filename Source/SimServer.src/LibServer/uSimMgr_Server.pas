@@ -491,13 +491,12 @@ begin
 
 end;
 
-procedure TSimMgr_Server.netRecv_CmdTelegramUserRole(apRec: PAnsiChar;
-  aSize: Word);
+procedure TSimMgr_Server.netRecv_CmdTelegramUserRole(apRec: PAnsiChar;aSize: Word);
 var
   rec : ^TrecTCPSendUserRoleTelegram;
   sIP : String;
 begin
-  rec := @apRec^;
+   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
   OnUserRoleTelegramChange(rec^);

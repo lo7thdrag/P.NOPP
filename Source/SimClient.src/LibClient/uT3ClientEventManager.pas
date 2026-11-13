@@ -26,6 +26,10 @@ type
     procedure OnUpdateFileTransferChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); override;
     procedure OnUpdateFileSharingChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); override;
 
+    {CICIL CANTIK}
+    procedure OnUpdateUserRoleTelegramChange(IdSender, IdReceiver : integer); override;
+    procedure OnShowNotificationTelegram(status : Byte); override;
+
     // File Opened Notifikasi
     procedure OnUpdateFileSyncOpened(IdSender, IdReceiver: Integer; FileName: string); override;
     procedure OnUpdateFileTransferOpened(IdSender, IdReceiver: Integer; FileName: string); override;
@@ -46,6 +50,16 @@ begin
   begin
     if status = SEND_CHAT then
       frmDisplayArea.ShowNotificationChat;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnShowNotificationTelegram(status: Byte);
+begin
+  inherited;
+  if Assigned(frmDisplayArea) then
+  begin
+    if status = SEND_TELEGRAMM then
+      frmDisplayArea.ShowNotificationTelegram;
   end;
 end;
 
@@ -122,6 +136,15 @@ begin
 
 //   if Assigned(frmDisplayArea) then
 //    frmDisplayArea.ShowChatPopupNotify(IdSender, IdReceiver);
+end;
+
+procedure TT3ClientEventManager.OnUpdateUserRoleTelegramChange(IdSender,
+  IdReceiver: integer);
+begin
+  inherited;
+
+  frmDisplayArea.UpdateClientHistoryTelegram(IdSender, IdReceiver);
+  frmDisplayArea.UpdateClientTelegram;
 end;
 
 procedure TT3ClientEventManager.OnUpdateUserStateChange(state: Integer);
