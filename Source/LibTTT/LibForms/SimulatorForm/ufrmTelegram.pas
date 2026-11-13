@@ -378,7 +378,7 @@ begin
 
   FSelectedUserTelegram := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]);
 
-  ipTelegramSentTo := userRoleTemp.ConsoleIP;
+//  ipTelegramSentTo := userRoleTemp.ConsoleIP;
 end;
 
 procedure TfrmTelegram.FormShow(Sender: TObject);
