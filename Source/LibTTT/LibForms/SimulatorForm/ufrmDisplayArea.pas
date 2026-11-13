@@ -2374,14 +2374,14 @@ var
   namaRole : string;
 begin
 
-  TelegramTemp := TList.Create;
-  try
-  if ((Assigned(FSelectedUserChat)) and ((IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
-     (IdReceiver = FSelectedUserChat.FData.UserRoleIndex))) or ((Assigned(FSelectedUserChat)) and ((IdReceiver = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
-     (IdSender = FSelectedUserChat.FData.UserRoleIndex)))then
-  begin
-
-    SimManager.SimChatting.GetChattingBySending(IdReceiver, IdSender, TelegramTemp);
+//  TelegramTemp := TList.Create;
+//  try
+//  if ((Assigned(FSelectedUserChat)) and ((IdSender = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+//     (IdReceiver = FSelectedUserChat.FData.UserRoleIndex))) or ((Assigned(FSelectedUserChat)) and ((IdReceiver = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+//     (IdSender = FSelectedUserChat.FData.UserRoleIndex)))then
+//  begin
+//
+//    SimManager.SimChatting.GetChattingBySending(IdReceiver, IdSender, TelegramTemp);
 
 //    mmoChat.Clear;
 //    for i := 0 to TelegramTemp.Count - 1 do
@@ -2412,10 +2412,10 @@ begin
 //        mmoChat.Lines.Add('');
 //      end;
 //    end;
-  end;
-  finally
-    TelegramTemp.Free;
-  end;
+//  end;
+//  finally
+//    TelegramTemp.Free;
+//  end;
 end;
 
 procedure TfrmDisplayArea.UpdateClientTelegram;

@@ -468,7 +468,7 @@ begin
     TelegramTemp := tempList.Items[i];
 
     li := lvInbox.Items.Add;
-    li.Caption := TelegramTemp.IdUserRoleSendingTelegram;
+    li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
 
     {Ngeprint Telegram yg kamu kirim}
     if TelegramTemp.TelegramStatus = 0 then
