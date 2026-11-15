@@ -1230,8 +1230,7 @@ begin
   end;
 end;
 
-procedure TT3SimManager.OnUserRoleTelegramChange(
-  const rec: TRecTCPSendUserRoleTelegram);
+procedure TT3SimManager.OnUserRoleTelegramChange(const rec: TRecTCPSendUserRoleTelegram);
 var
   i : Integer;
   TelegramTemp : TTelegram;
