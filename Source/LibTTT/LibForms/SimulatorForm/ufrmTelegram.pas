@@ -50,7 +50,6 @@ type
     imgbtnSend: TImageButton;
     lblSend: TLabel;
     pnlInbox: TPanel;
-    lblInboxTele: TLabel;
     edtfilterinbox: TEdit;
     lvInbox: TListView;
     pnlSent: TPanel;
@@ -59,6 +58,11 @@ type
     lvSent: TListView;
     ImageButton1: TImageButton;
     ImageButton2: TImageButton;
+    imgbtnOpen: TImageButton;
+    lblOpen: TLabel;
+    Label3: TLabel;
+    imgbtnOpenInbox: TImageButton;
+    lblOpenSent: TLabel;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -73,6 +77,12 @@ type
     procedure FormShow(Sender: TObject);
     procedure imgbtnDraftClick(Sender: TObject);
     procedure cbbxToSelect(Sender: TObject);
+    procedure lblOpenClick(Sender: TObject);
+    procedure lvInboxSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
+    procedure lvSentSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
+    procedure lblOpenSentClick(Sender: TObject);
   private
     FLastFileCount: Integer;
     FLastFileName : string;
@@ -404,6 +414,30 @@ begin
   frmTelegram.Width := 681;
 end;
 
+procedure TfrmTelegram.lblOpenClick(Sender: TObject);
+var
+  path: string;
+begin
+  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
+
+  if not TDirectory.Exists(path) then
+    TDirectory.CreateDirectory(path);
+
+  ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW);
+end;
+
+procedure TfrmTelegram.lblOpenSentClick(Sender: TObject);
+var
+  SentPath: string;
+begin
+  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT';
+
+  if not TDirectory.Exists(SentPath) then
+    TDirectory.CreateDirectory(SentPath);
+
+  ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW);
+end;
+
 procedure TfrmTelegram.lblPilihFileClick(Sender: TObject);
 var
   OpenDialog   : TOpenDialog;
@@ -443,6 +477,32 @@ begin
   end;
 
   UpdateFilenameComboBox;
+end;
+
+procedure TfrmTelegram.lvInboxSelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+  if Selected then
+  begin
+    if (Item = nil) or (Item.Data = nil) then
+    Exit;
+
+    imgbtnOpen.Enabled := True;
+    lblOpen.Enabled := True;
+  end;
+end;
+
+procedure TfrmTelegram.lvSentSelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+  if Selected then
+  begin
+    if (Item = nil) or (Item.Data = nil) then
+    Exit;
+
+    imgbtnOpen.Enabled := True;
+    lblOpen.Enabled := True;
+  end;
 end;
 
 procedure TfrmTelegram.UpdateFilenameComboBox;
