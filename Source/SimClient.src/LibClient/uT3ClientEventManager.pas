@@ -145,6 +145,7 @@ begin
 
 //  frmDisplayArea.UpdateClientHistoryTelegram(IdSender, IdReceiver);
   frmTelegram.UpdateInboxTelegram;
+  frmTelegram.UpdateSentTelegram;
 end;
 
 procedure TT3ClientEventManager.OnUpdateUserStateChange(state: Integer);

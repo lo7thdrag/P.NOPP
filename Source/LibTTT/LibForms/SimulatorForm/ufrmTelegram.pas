@@ -57,6 +57,8 @@ type
     Label1: TLabel;
     edtfiltersent: TEdit;
     lvSent: TListView;
+    ImageButton1: TImageButton;
+    ImageButton2: TImageButton;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -88,6 +90,7 @@ type
     procedure OpenApplicationFileFolder(FullPath: String);
     procedure UpdateFilenameComboBox;
     procedure UpdateInboxTelegram;
+    procedure UpdateSentTelegram;
   end;
 
 var
@@ -450,11 +453,9 @@ end;
 procedure TfrmTelegram.UpdateInboxTelegram;
 var
   tempList : TList;
-
   li : TListItem;
   i : Integer;
   TelegramTemp : TTelegram;
-  userRoleTemp : TUserRole;
   namaRole : string;
 begin
 
@@ -489,6 +490,36 @@ begin
 //      else
 //        tempList.SubItems.Add('Read ');
 //    end;
+  end;
+end;
+
+procedure TfrmTelegram.UpdateSentTelegram;
+var
+  tempList : TList;
+  li : TListItem;
+  i : Integer;
+  TelegramTemp : TTelegram;
+  namaRole : string;
+begin
+
+  tempList := TList.Create;
+
+  SimManager.SimTelegram.GetTelegramByUserRole(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
+
+  lvSent.Clear;
+
+  for i := 0 to tempList.Count - 1 do
+  begin
+    TelegramTemp := tempList.Items[i];
+
+    li := lvSent.Items.Add;
+    li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
+
+    {Ngeprint Telegram yg kamu kirim}
+    if TelegramTemp.TelegramStatus = 0 then
+      li.SubItems.Add('Send ')
+    else
+      li.SubItems.Add('Read ');
   end;
 end;
 
@@ -529,6 +560,8 @@ procedure TfrmTelegram.pnlTelegramTerkirimClick(Sender: TObject);
 var
   SentPath: string;
 begin
+  pnlSent.Visible := True;
+  pnlSent.BringToFront;
   SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT';
 
   if not TDirectory.Exists(SentPath) then
