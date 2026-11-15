@@ -340,8 +340,8 @@ type
     destructor  Destroy; override;
 
     function GetTelegramById(TelegramId : Integer):TTelegram;
-    function GetTelegramBySending(IdRoleReceiving, IdRoleSending : Integer; var telegramList : TList): Boolean;
-    function GetTelegramByUserRole(UserRoleId : Integer; var telegramList : TList): Boolean;
+    function GetTelegramBySender(IdSender : Integer; var telegramList : TList): Boolean;
+    function GetTelegramByReceiver(IdReceiver : Integer; var telegramList : TList): Boolean;
 
     property TelegramList : TList read FTelegramList write FTelegramList;
   end;
@@ -3248,8 +3248,7 @@ begin
   end;
 end;
 
-function TTelegramContainer.GetTelegramBySending(IdRoleReceiving,
-  IdRoleSending: Integer; var telegramList: TList): Boolean;
+function TTelegramContainer.GetTelegramBySender(IdSender : Integer; var telegramList : TList): Boolean;
 var
   i : Integer;
   TelegramTemp : TTelegram;
@@ -3258,15 +3257,13 @@ begin
   begin
     TelegramTemp := FTelegramList.Items[i];
 
-//    if (chattingTemp.FIdUserRoleReceive = IdRoleReceiving) and (chattingTemp.FIdUserRoleSending = IdRoleReceiving) then
-      if ((TelegramTemp.FIdUserRoleReceiveTelegram = IdRoleReceiving) and (TelegramTemp.FIdUserRoleSendingTelegram = IdRoleSending)) or
-         ((TelegramTemp.FIdUserRoleReceiveTelegram = IdRoleSending) and (TelegramTemp.FIdUserRoleSendingTelegram = IdRoleReceiving)) then
+    if TelegramTemp.FIdUserRoleSendingTelegram = IdSender then
       telegramList.Add(TelegramTemp);
 
   end;
 end;
 
-function TTelegramContainer.GetTelegramByUserRole(UserRoleId: Integer; var telegramList: TList): Boolean;
+function TTelegramContainer.GetTelegramByReceiver(IdReceiver: Integer; var telegramList: TList): Boolean;
 var
   i : Integer;
   TelegramTemp : TChatting;
@@ -3275,7 +3272,7 @@ begin
   begin
     TelegramTemp := FTelegramList.Items[i];
 
-    if (TelegramTemp.FIdUserRoleReceive = UserRoleId) then
+    if (TelegramTemp.FIdUserRoleReceive = IdReceiver) then
       telegramList.Add(TelegramTemp);
   end;
 end;

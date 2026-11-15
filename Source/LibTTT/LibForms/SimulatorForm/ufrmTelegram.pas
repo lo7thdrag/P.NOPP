@@ -462,7 +462,7 @@ begin
 
   tempList := TList.Create;
 
-  SimManager.SimTelegram.GetTelegramByUserRole(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
+  SimManager.SimTelegram.GetTelegramByReceiver(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
 
   lvInbox.Clear;
 
@@ -501,11 +501,13 @@ var
   i : Integer;
   TelegramTemp : TTelegram;
   namaRole : string;
+
+  userTemp : TUserRole;
 begin
 
   tempList := TList.Create;
 
-  SimManager.SimTelegram.GetTelegramByUserRole(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
+  SimManager.SimTelegram.GetTelegramBySender(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
 
   lvSent.Clear;
 
@@ -514,7 +516,13 @@ begin
     TelegramTemp := tempList.Items[i];
 
     li := lvSent.Items.Add;
-    li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
+
+    userTemp := SimManager.SimUserRole.getUserRoleByID(TelegramTemp.IdUserRoleSendingTelegram);
+
+    if Assigned(userTemp) then
+      li.Caption := userTemp.FData.UserRoleIdentifier
+    else
+      li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
 
     {Ngeprint Telegram yg kamu kirim}
     if TelegramTemp.TelegramStatus = 0 then
@@ -539,12 +547,12 @@ begin
   pnlInbox.BringToFront;
   frmTelegram.Width := 681;
 
-  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
-
-  if not TDirectory.Exists(path) then
-    TDirectory.CreateDirectory(path);
-
-  ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW);
+//  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
+//
+//  if not TDirectory.Exists(path) then
+//    TDirectory.CreateDirectory(path);
+//
+//  ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.imgbtnDraftClick(Sender: TObject);
@@ -568,12 +576,13 @@ begin
   pnlSent.Visible := True;
   pnlSent.BringToFront;
   frmTelegram.Width := 681;
-  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT';
 
-  if not TDirectory.Exists(SentPath) then
-    TDirectory.CreateDirectory(SentPath);
-
-  ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW);
+//  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT';
+//
+//  if not TDirectory.Exists(SentPath) then
+//    TDirectory.CreateDirectory(SentPath);
+//
+//  ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.UpdateClientTelegramList;

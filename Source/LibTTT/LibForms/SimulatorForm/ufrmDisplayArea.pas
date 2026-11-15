@@ -1056,8 +1056,7 @@ begin
 
 end;
 
-function TfrmDisplayArea.GetLastTelegramMessage(IdSender,
-  IdReceiver: Integer): string;
+function TfrmDisplayArea.GetLastTelegramMessage(IdSender, IdReceiver: Integer): string;
 var
   tempList: TList;
   i: Integer;
@@ -1067,7 +1066,7 @@ begin
 
   tempList := TList.Create;
   try
-    SimManager.SimTelegram.GetTelegramBySending(IdReceiver, IdSender, tempList);
+    SimManager.SimTelegram.GetTelegramBySender(IdSender, tempList);
 
     if tempList.Count > 0 then
     begin
