@@ -50,11 +50,9 @@ type
     imgbtnSend: TImageButton;
     lblSend: TLabel;
     pnlInbox: TPanel;
-    edtfilterinbox: TEdit;
     lvInbox: TListView;
     pnlSent: TPanel;
     Label1: TLabel;
-    edtfiltersent: TEdit;
     lvSent: TListView;
     ImageButton1: TImageButton;
     ImageButton2: TImageButton;

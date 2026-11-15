@@ -2492,12 +2492,13 @@ begin
     frmTelegram := TfrmTelegram.Create(Self);
 
 //  frmTelegram.Show;
-  imgNotifikasi.Visible := False;
   try
     if frmTelegram.Showing then
       frmTelegram.Close
     else
       frmTelegram.Show;
+
+    imgNotifikasi.Visible := False;
   finally
   end;
 end;
