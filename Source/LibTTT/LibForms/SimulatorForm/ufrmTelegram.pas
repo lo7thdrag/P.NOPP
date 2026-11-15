@@ -61,6 +61,7 @@ type
     Label3: TLabel;
     imgbtnOpenInbox: TImageButton;
     lblOpenSent: TLabel;
+    ODTelegram: TOpenDialog;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -87,6 +88,8 @@ type
     FSelectedUserTelegram : TUserRole;
 
     ipTelegramSentTo : string;
+
+    SourceFile, DestFolder, DestFile: string;
   public
     { Public declarations }
     fileNameArray : array of string;
@@ -212,16 +215,32 @@ var
 //  ReceiverID  : Integer;
 //  recsend : TRecTCPSendChatUserRole;
   rec : TRecTCPSendUserRoleTelegram;
+//  SourceFile, DestFile: string;
 begin
   {$REGION ' CICIL CANTIK '}
-   rec.OrderID := 0;
-   rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-   rec.ReceiverUserRoleId := FSelectedUserTelegram.FData.UserRoleIndex;
-   FillChar(rec.TelegramMessage, SizeOf(rec.TelegramMessage), 0);
-//   rec.ChatMessage := edtChatBox.Text;
-   rec.TelegramStatus := 0; {centang1}
 
-   simMgrClient.netSend_CmdSendTelegram(rec);
+  {$REGION ' Send File '}
+  if CopyFile(PChar(SourceFile), PChar(DestFile), False) then
+  begin
+    {$REGION ' Send Paket '}
+    rec.OrderID := 0;
+    rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+    rec.ReceiverUserRoleId := FSelectedUserTelegram.FData.UserRoleIndex;
+    rec.TelegramAddres := DestFolder;
+    FillChar(rec.TelegramMessage, SizeOf(rec.TelegramMessage), 0);
+    rec.TelegramStatus := 0; {centang1}
+
+    simMgrClient.netSend_CmdSendTelegram(rec);
+    {$ENDREGION}
+
+    ShowMessage('File berhasil dikirim dari D:\Send ke D:\Inbox!');
+  end
+  else
+  begin
+    ShowMessage('Gagal menyalin file. Kode error Windows: ' + IntToStr(GetLastError));
+  end;
+  {$ENDREGION}
+
 //   edtChatBox.Clear;
   {$ENDREGION}
   {$REGION ' DENTA '}
@@ -441,28 +460,45 @@ var
   OpenDialog   : TOpenDialog;
   i            : Integer;
   TelegramPath : string;
+
+  ReceiverID, SenderFolderName, DateTimeNowTemp, SentPath : string;
 begin
+    if cbbxTo.ItemIndex = -1 then
+  begin
+    ShowMessage('Choose who you want to share file to!');
+    Exit;
+  end;
+
   OpenDialog := TOpenDialog.Create(Self);
   try
     TelegramPath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram);
 
     OpenDialog.InitialDir := TelegramPath;
     OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
-    OpenDialog.Filter     := 'All Files (*.*)|*.*';
-
-    SetLength(fileNameArray, 0);
-    SetLength(pathFileArray, 0);
+    OpenDialog.Filter     := 'Dokumen Word (*.doc, *.docx)|*.doc;*.docx|File Word (*.doc, *.docx)|*.doc;*.docx|';
 
     if OpenDialog.Execute then
     begin
-      SetLength(pathFileArray, OpenDialog.Files.Count);
-      SetLength(fileNameArray, OpenDialog.Files.Count);
+      SourceFile := OpenDialog.FileName;
 
-      for i := 0 to OpenDialog.Files.Count - 1 do
-      begin
-        pathFileArray[i] := OpenDialog.Files[i];
-        fileNameArray[i] := ExtractFileName(OpenDialog.Files[i]);
-      end;
+      ReceiverID       := TUserRole(cbbxTo.Items.Objects[cbbxTo.ItemIndex]).ConsoleIP;
+      SenderFolderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
+
+      DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
+      SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + cbbxTo.Text + '\' + DateTimeNowTemp;
+
+      if not DirectoryExists(SentPath) then
+        ForceDirectories(SentPath);
+
+      DestFolder := TelegramPath + SenderFolderName + '\' + DateTimeNowTemp;
+
+      if not DirectoryExists(DestFolder) then
+        ForceDirectories(DestFolder);
+
+      DestFile := DestFolder + '\' + ExtractFileName(SourceFile);
+
+      lstbxTelegramFileName.Clear;
+      lstbxTelegramFileName.Items.AddStrings(ExtractFileName(SourceFile));
     end
     else
     begin
@@ -474,7 +510,7 @@ begin
     OpenDialog.Free;
   end;
 
-  UpdateFilenameComboBox;
+//  UpdateFilenameComboBox;
 end;
 
 procedure TfrmTelegram.lvInboxSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
@@ -500,6 +536,7 @@ procedure TfrmTelegram.UpdateFilenameComboBox;
 begin
   lstbxTelegramFileName.Clear;
   lstbxTelegramFileName.Items.AddStrings(TArray<string>(fileNameArray));
+//  lstbxTelegramFileName.Items.AddStrings(TArray<string>(fileNameArray));
 end;
 
 procedure TfrmTelegram.UpdateInboxTelegram;

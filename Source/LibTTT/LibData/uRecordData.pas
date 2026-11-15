@@ -130,6 +130,7 @@ type
     SenderUserRoleId    : Integer;
     ReceiverUserRoleId  : Integer;
     TelegramId          : Integer;
+    TelegramAddres      : string[255];
     TelegramMessage     : string[255];
     TelegramStatus      : Byte; {0: , 1: , 2: }
   end;
