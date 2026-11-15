@@ -2488,12 +2488,11 @@ end;
 
 procedure TfrmDisplayArea.TelegramClick(Sender: TObject);
 begin
-
   if not Assigned(frmTelegram) then
     frmTelegram := TfrmTelegram.Create(Self);
 
 //  frmTelegram.Show;
-
+  imgNotifikasi.Visible := False;
   try
     if frmTelegram.Showing then
       frmTelegram.Close

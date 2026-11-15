@@ -487,8 +487,8 @@ begin
     if (Item = nil) or (Item.Data = nil) then
     Exit;
 
-    imgbtnOpen.Enabled := True;
-    lblOpen.Enabled := True;
+    imgbtnOpen.Visible := True;
+    lblOpen.Visible := True;
   end;
 end;
 

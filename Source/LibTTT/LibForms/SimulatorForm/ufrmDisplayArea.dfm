@@ -43172,8 +43172,8 @@ object frmDisplayArea: TfrmDisplayArea
           Tag = 1
           Left = 14
           Top = 21
-          Width = 103
-          Height = 23
+          Width = 117
+          Height = 24
           Cursor = crHandPoint
           Caption = 'Office Editor'
           Font.Charset = ANSI_CHARSET
@@ -43775,8 +43775,8 @@ object frmDisplayArea: TfrmDisplayArea
               Font.Name = 'Jefferies'
               Font.Style = []
               ParentFont = False
-              ExplicitWidth = 7
-              ExplicitHeight = 22
+              ExplicitWidth = 6
+              ExplicitHeight = 23
             end
           end
         end
@@ -43812,7 +43812,7 @@ object frmDisplayArea: TfrmDisplayArea
           Font.Height = -16
           Font.Name = 'Jefferies'
           Font.Style = []
-          ItemHeight = 17
+          ItemHeight = 18
           ParentFont = False
           TabOrder = 4
           OnDblClick = lstUserChatDblClick
@@ -43907,8 +43907,8 @@ object frmDisplayArea: TfrmDisplayArea
           Tag = 9
           Left = 55
           Top = 6
-          Width = 54
-          Height = 23
+          Width = 64
+          Height = 24
           Cursor = crHandPoint
           Caption = 'Logout'
           Font.Charset = ANSI_CHARSET
@@ -44020,8 +44020,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 1
             Left = 55
             Top = 6
-            Width = 81
-            Height = 23
+            Width = 102
+            Height = 24
             Cursor = crHandPoint
             Caption = 'Resources'
             Font.Charset = ANSI_CHARSET
@@ -44114,8 +44114,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 3
             Left = 55
             Top = 10
-            Width = 41
-            Height = 16
+            Width = 45
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Assets'
             Font.Charset = ANSI_CHARSET
@@ -44206,8 +44206,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 62
-            Height = 16
+            Width = 68
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Reference'
             Color = 12826787
@@ -44300,8 +44300,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 5
             Left = 55
             Top = 10
-            Width = 29
-            Height = 16
+            Width = 35
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Maps'
             Font.Charset = ANSI_CHARSET
@@ -44392,8 +44392,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 2
             Left = 55
             Top = 10
-            Width = 35
-            Height = 16
+            Width = 39
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Users'
             Font.Charset = ANSI_CHARSET
@@ -44484,8 +44484,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 97
-            Height = 16
+            Width = 110
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Tactical Symbols'
             Color = 12826787
@@ -44578,8 +44578,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 3
             Left = 55
             Top = 10
-            Width = 29
-            Height = 16
+            Width = 39
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Home'
             Font.Charset = ANSI_CHARSET
@@ -44832,8 +44832,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 2
             Left = 55
             Top = 10
-            Width = 77
-            Height = 16
+            Width = 81
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Office Editor'
             Font.Charset = ANSI_CHARSET
@@ -44923,8 +44923,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 1
             Left = 55
             Top = 6
-            Width = 66
-            Height = 23
+            Width = 83
+            Height = 24
             Cursor = crHandPoint
             Caption = 'Services'
             Font.Charset = ANSI_CHARSET
@@ -45014,8 +45014,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 3
             Left = 55
             Top = 10
-            Width = 88
-            Height = 16
+            Width = 99
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Situation Board'
             Font.Charset = ANSI_CHARSET
@@ -45106,8 +45106,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 25
-            Height = 16
+            Width = 31
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Chat'
             Color = 12826787
@@ -45348,8 +45348,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 5
             Left = 55
             Top = 10
-            Width = 53
-            Height = 16
+            Width = 60
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Telegram'
             Font.Charset = ANSI_CHARSET
@@ -45570,8 +45570,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 71
-            Height = 16
+            Width = 77
+            Height = 17
             Cursor = crHandPoint
             Caption = 'File Sharing'
             Color = 12826787
@@ -45727,8 +45727,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 77
-            Height = 16
+            Width = 83
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Tote Display '
             Color = 12826787
@@ -45821,8 +45821,8 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 6
-            Width = 161
-            Height = 16
+            Width = 166
+            Height = 17
             Cursor = crHandPoint
             Caption = 'Situation Board Controller'
             Color = 12826787
@@ -45981,7 +45981,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 159
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -45995,7 +45995,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 0
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -48268,7 +48268,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 159
             Top = 29
             Width = 218
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -48282,7 +48282,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 0
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -51680,8 +51680,8 @@ object frmDisplayArea: TfrmDisplayArea
           object Label11: TLabel
             Left = 165
             Top = 13
-            Width = 85
-            Height = 17
+            Width = 103
+            Height = 18
             Caption = 'Image Preview'
             Font.Charset = ANSI_CHARSET
             Font.Color = clWhite
@@ -51741,8 +51741,8 @@ object frmDisplayArea: TfrmDisplayArea
             object Label17: TLabel
               Left = 16
               Top = 120
-              Width = 36
-              Height = 17
+              Width = 41
+              Height = 18
               Caption = 'Detail'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -51754,8 +51754,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblKeterangan: TLabel
               Left = 16
               Top = 160
-              Width = 74
-              Height = 17
+              Width = 89
+              Height = 18
               Caption = 'Keterangan :'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -51767,8 +51767,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblTipe: TLabel
               Left = 16
               Top = 183
-              Width = 32
-              Height = 17
+              Width = 38
+              Height = 18
               Caption = 'Tipe :'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -51780,8 +51780,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblKategori: TLabel
               Left = 16
               Top = 206
-              Width = 57
-              Height = 17
+              Width = 68
+              Height = 18
               Caption = 'Kategori :'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -54063,8 +54063,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblNamaGambar: TLabel
               Left = 72
               Top = 32
-              Width = 78
-              Height = 17
+              Width = 100
+              Height = 18
               Caption = 'Nama gambar'
               Font.Charset = ANSI_CHARSET
               Font.Color = clWhite
@@ -54123,8 +54123,8 @@ object frmDisplayArea: TfrmDisplayArea
                 Tag = 1
                 Left = 20
                 Top = 10
-                Width = 113
-                Height = 21
+                Width = 141
+                Height = 22
                 Cursor = crHandPoint
                 Caption = 'Console Name : '
                 Font.Charset = ANSI_CHARSET
@@ -54168,8 +54168,8 @@ object frmDisplayArea: TfrmDisplayArea
                 Tag = 1
                 Left = 20
                 Top = 10
-                Width = 42
-                Height = 21
+                Width = 50
+                Height = 22
                 Cursor = crHandPoint
                 Caption = 'Role :'
                 Font.Charset = ANSI_CHARSET
@@ -54214,8 +54214,8 @@ object frmDisplayArea: TfrmDisplayArea
                 Tag = 1
                 Left = 20
                 Top = 10
-                Width = 74
-                Height = 21
+                Width = 89
+                Height = 22
                 Cursor = crHandPoint
                 Caption = 'Sub Role :'
                 Font.Charset = ANSI_CHARSET
@@ -54260,8 +54260,8 @@ object frmDisplayArea: TfrmDisplayArea
                 Tag = 1
                 Left = 20
                 Top = 10
-                Width = 81
-                Height = 21
+                Width = 95
+                Height = 22
                 Cursor = crHandPoint
                 Caption = 'User Role :'
                 Font.Charset = ANSI_CHARSET
@@ -56667,7 +56667,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 0
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -58960,7 +58960,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 159
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16
@@ -58974,7 +58974,7 @@ object frmDisplayArea: TfrmDisplayArea
             Left = 0
             Top = 29
             Width = 155
-            Height = 25
+            Height = 26
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -16

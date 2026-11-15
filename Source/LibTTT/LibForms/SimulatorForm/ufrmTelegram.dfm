@@ -45,7 +45,7 @@ object frmTelegram: TfrmTelegram
       Font.Style = []
       ParentFont = False
     end
-    object pnlInbox: TPanel
+    object pnlSent: TPanel
       Left = 528
       Top = 6
       Width = 441
@@ -53,9 +53,23 @@ object frmTelegram: TfrmTelegram
       BevelOuter = bvNone
       Color = 5981737
       ParentBackground = False
-      TabOrder = 1
-      Visible = False
-      object ImageButton2: TImageButton
+      TabOrder = 2
+      object Label1: TLabel
+        Tag = 3
+        Left = 143
+        Top = 14
+        Width = 174
+        Height = 32
+        Cursor = crHandPoint
+        Caption = 'Sent Telegram'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = 12826787
+        Font.Height = -27
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+      end
+      object ImageButton1: TImageButton
         Left = 418
         Top = 4
         Width = 19
@@ -111,13 +125,12 @@ object frmTelegram: TfrmTelegram
           7DEF21217CFF21217DEF21217CBF20207D8F20207F2000000000000000000000
           00000000000000000000}
       end
-      object imgbtnOpen: TImageButton
-        Left = 173
+      object imgbtnOpenInbox: TImageButton
+        Left = 181
         Top = 453
         Width = 94
         Height = 31
         Enabled = False
-        OnClick = lblOpenClick
         Picture.Data = {
           CA2D0000424DCA2D00000000000042000000280000005E0000001F0000000100
           200003000000882D0000130B0000130B000000000000000000000000FF0000FF
@@ -487,9 +500,9 @@ object frmTelegram: TfrmTelegram
           95FFF3D595FFF3D595FFF3D595FFF3D595FFF3D595FFF3D595FFF3D595EFF3D6
           94BFF4D7965F0000000000000000}
       end
-      object lblOpen: TLabel
+      object lblOpenSent: TLabel
         Tag = 3
-        Left = 204
+        Left = 212
         Top = 458
         Width = 31
         Height = 21
@@ -502,24 +515,9 @@ object frmTelegram: TfrmTelegram
         Font.Name = 'Deusex'
         Font.Style = []
         ParentFont = False
-        OnClick = lblOpenClick
+        OnClick = lblOpenSentClick
       end
-      object Label3: TLabel
-        Tag = 3
-        Left = 134
-        Top = 8
-        Width = 183
-        Height = 32
-        Cursor = crHandPoint
-        Caption = 'Inbox Telegram'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = 12826787
-        Font.Height = -27
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-      end
-      object edtfilterinbox: TEdit
+      object edtfiltersent: TEdit
         Left = 13
         Top = 48
         Width = 159
@@ -533,9 +531,9 @@ object frmTelegram: TfrmTelegram
         TabOrder = 0
         Text = 'Search...'
       end
-      object lvInbox: TListView
+      object lvSent: TListView
         Left = 15
-        Top = 80
+        Top = 78
         Width = 411
         Height = 364
         Color = clWhite
@@ -550,7 +548,7 @@ object frmTelegram: TfrmTelegram
             Width = 200
           end>
         Font.Charset = ANSI_CHARSET
-        Font.Color = clBlack
+        Font.Color = clWhite
         Font.Height = -16
         Font.Name = 'Deusex'
         Font.Style = []
@@ -561,7 +559,7 @@ object frmTelegram: TfrmTelegram
         ParentFont = False
         TabOrder = 1
         ViewStyle = vsReport
-        OnSelectItem = lvInboxSelectItem
+        OnSelectItem = lvSentSelectItem
       end
     end
     object pnlBase: TPanel
@@ -1676,7 +1674,7 @@ object frmTelegram: TfrmTelegram
         end
       end
     end
-    object pnlSent: TPanel
+    object pnlInbox: TPanel
       Left = 528
       Top = 6
       Width = 441
@@ -1684,23 +1682,9 @@ object frmTelegram: TfrmTelegram
       BevelOuter = bvNone
       Color = 5981737
       ParentBackground = False
-      TabOrder = 2
-      object Label1: TLabel
-        Tag = 3
-        Left = 143
-        Top = 14
-        Width = 174
-        Height = 32
-        Cursor = crHandPoint
-        Caption = 'Sent Telegram'
-        Font.Charset = ANSI_CHARSET
-        Font.Color = 12826787
-        Font.Height = -27
-        Font.Name = 'Jefferies'
-        Font.Style = []
-        ParentFont = False
-      end
-      object ImageButton1: TImageButton
+      TabOrder = 1
+      Visible = False
+      object ImageButton2: TImageButton
         Left = 418
         Top = 4
         Width = 19
@@ -1756,12 +1740,13 @@ object frmTelegram: TfrmTelegram
           7DEF21217CFF21217DEF21217CBF20207D8F20207F2000000000000000000000
           00000000000000000000}
       end
-      object imgbtnOpenInbox: TImageButton
-        Left = 181
+      object imgbtnOpen: TImageButton
+        Left = 173
         Top = 453
         Width = 94
         Height = 31
-        Enabled = False
+        Visible = False
+        OnClick = lblOpenClick
         Picture.Data = {
           CA2D0000424DCA2D00000000000042000000280000005E0000001F0000000100
           200003000000882D0000130B0000130B000000000000000000000000FF0000FF
@@ -2131,24 +2116,39 @@ object frmTelegram: TfrmTelegram
           95FFF3D595FFF3D595FFF3D595FFF3D595FFF3D595FFF3D595FFF3D595EFF3D6
           94BFF4D7965F0000000000000000}
       end
-      object lblOpenSent: TLabel
+      object lblOpen: TLabel
         Tag = 3
-        Left = 212
+        Left = 204
         Top = 458
         Width = 31
         Height = 21
         Cursor = crHandPoint
         Caption = 'Open'
-        Enabled = False
         Font.Charset = ANSI_CHARSET
         Font.Color = 12826787
         Font.Height = -21
         Font.Name = 'Deusex'
         Font.Style = []
         ParentFont = False
-        OnClick = lblOpenSentClick
+        Visible = False
+        OnClick = lblOpenClick
       end
-      object edtfiltersent: TEdit
+      object Label3: TLabel
+        Tag = 3
+        Left = 134
+        Top = 8
+        Width = 183
+        Height = 32
+        Cursor = crHandPoint
+        Caption = 'Inbox Telegram'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = 12826787
+        Font.Height = -27
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+      end
+      object edtfilterinbox: TEdit
         Left = 13
         Top = 48
         Width = 159
@@ -2162,9 +2162,9 @@ object frmTelegram: TfrmTelegram
         TabOrder = 0
         Text = 'Search...'
       end
-      object lvSent: TListView
+      object lvInbox: TListView
         Left = 15
-        Top = 78
+        Top = 80
         Width = 411
         Height = 364
         Color = clWhite
@@ -2179,7 +2179,7 @@ object frmTelegram: TfrmTelegram
             Width = 200
           end>
         Font.Charset = ANSI_CHARSET
-        Font.Color = clWhite
+        Font.Color = clBlack
         Font.Height = -16
         Font.Name = 'Deusex'
         Font.Style = []
@@ -2190,7 +2190,7 @@ object frmTelegram: TfrmTelegram
         ParentFont = False
         TabOrder = 1
         ViewStyle = vsReport
-        OnSelectItem = lvSentSelectItem
+        OnSelectItem = lvInboxSelectItem
       end
     end
   end
