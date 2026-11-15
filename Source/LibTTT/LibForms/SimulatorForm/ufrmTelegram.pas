@@ -479,17 +479,10 @@ begin
   UpdateFilenameComboBox;
 end;
 
-procedure TfrmTelegram.lvInboxSelectItem(Sender: TObject; Item: TListItem;
-  Selected: Boolean);
+procedure TfrmTelegram.lvInboxSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
 begin
-  if Selected then
-  begin
-    if (Item = nil) or (item.Data = nil) then
-    Exit;
-
-    imgbtnOpen.Enabled := True;
-    lblOpen.Enabled := True;
-  end;
+  imgbtnOpen.Enabled := Selected;
+  lblOpen.Enabled := Selected;
 end;
 
 procedure TfrmTelegram.lvSentSelectItem(Sender: TObject; Item: TListItem;
@@ -615,6 +608,8 @@ begin
   pnlInbox.BringToFront;
   frmTelegram.Width := 681;
 
+  UpdateInboxTelegram;
+
 //  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
 //
 //  if not TDirectory.Exists(path) then
@@ -644,6 +639,8 @@ begin
   pnlSent.Visible := True;
   pnlSent.BringToFront;
   frmTelegram.Width := 681;
+
+  UpdateSentTelegram;
 
 //  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT';
 //
