@@ -458,6 +458,8 @@ var
   i : Integer;
   TelegramTemp : TTelegram;
   namaRole : string;
+
+  userTemp : TUserRole;
 begin
 
   tempList := TList.Create;
@@ -471,7 +473,13 @@ begin
     TelegramTemp := tempList.Items[i];
 
     li := lvInbox.Items.Add;
-    li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
+
+    userTemp := SimManager.SimUserRole.getUserRoleByID(TelegramTemp.IdUserRoleSendingTelegram);
+
+    if Assigned(userTemp) then
+      li.Caption := userTemp.FData.UserRoleIdentifier
+    else
+      li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
 
     {Ngeprint Telegram yg kamu kirim}
     if TelegramTemp.TelegramStatus = 0 then

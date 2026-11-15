@@ -131,21 +131,26 @@ procedure TT3ClientEventManager.OnUpdateUserRoleChatChange(IdSender, IdReceiver 
 begin
   inherited;
 
-  frmDisplayArea.UpdateClientHistoryChat(IdSender, IdReceiver);
-  frmDisplayArea.UpdateClientChatting;
+  if Assigned(frmDisplayArea) then
+  begin
+    frmDisplayArea.UpdateClientHistoryChat(IdSender, IdReceiver);
+    frmDisplayArea.UpdateClientChatting;
+  end;
 
 //   if Assigned(frmDisplayArea) then
 //    frmDisplayArea.ShowChatPopupNotify(IdSender, IdReceiver);
 end;
 
-procedure TT3ClientEventManager.OnUpdateUserRoleTelegramChange(IdSender,
-  IdReceiver: integer);
+procedure TT3ClientEventManager.OnUpdateUserRoleTelegramChange(IdSender, IdReceiver: integer);
 begin
   inherited;
 
 //  frmDisplayArea.UpdateClientHistoryTelegram(IdSender, IdReceiver);
-  frmTelegram.UpdateInboxTelegram;
-  frmTelegram.UpdateSentTelegram;
+  if Assigned(frmTelegram) then
+  begin
+    frmTelegram.UpdateInboxTelegram;
+    frmTelegram.UpdateSentTelegram;
+  end;
 end;
 
 procedure TT3ClientEventManager.OnUpdateUserStateChange(state: Integer);
