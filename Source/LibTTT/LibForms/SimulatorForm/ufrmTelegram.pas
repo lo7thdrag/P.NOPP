@@ -484,11 +484,11 @@ procedure TfrmTelegram.lvInboxSelectItem(Sender: TObject; Item: TListItem;
 begin
   if Selected then
   begin
-    if (Item = nil) or (Item.Data = nil) then
+    if (Item = nil) or (item.Data = nil) then
     Exit;
 
-    imgbtnOpen.Visible := True;
-    lblOpen.Visible := True;
+    imgbtnOpen.Enabled := True;
+    lblOpen.Enabled := True;
   end;
 end;
 
@@ -543,9 +543,9 @@ begin
 
     {Ngeprint Telegram yg kamu kirim}
     if TelegramTemp.TelegramStatus = 0 then
-      li.SubItems.Add('Send ')
+      li.SubItems.Add('Belum Terbaca ')
     else
-      li.SubItems.Add('Read ');
+      li.SubItems.Add('Terbaca ');
 
 //    {Ngeprint Telegram yg ngirim}
 //    if (TelegramTemp.IdUserRoleSendingTelegram = FSelectedUserTelegram.FData.UserRoleIndex) then
@@ -594,9 +594,9 @@ begin
 
     {Ngeprint Telegram yg kamu kirim}
     if TelegramTemp.TelegramStatus = 0 then
-      li.SubItems.Add('Send ')
+      li.SubItems.Add('Terkirim ')
     else
-      li.SubItems.Add('Read ');
+      li.SubItems.Add('Terbaca ');
   end;
 end;
 

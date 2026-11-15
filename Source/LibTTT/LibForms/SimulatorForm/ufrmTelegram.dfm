@@ -548,7 +548,7 @@ object frmTelegram: TfrmTelegram
             Width = 200
           end>
         Font.Charset = ANSI_CHARSET
-        Font.Color = clWhite
+        Font.Color = clBlack
         Font.Height = -16
         Font.Name = 'Deusex'
         Font.Style = []
@@ -1745,7 +1745,7 @@ object frmTelegram: TfrmTelegram
         Top = 453
         Width = 94
         Height = 31
-        Visible = False
+        Enabled = False
         OnClick = lblOpenClick
         Picture.Data = {
           CA2D0000424DCA2D00000000000042000000280000005E0000001F0000000100
@@ -2124,13 +2124,13 @@ object frmTelegram: TfrmTelegram
         Height = 21
         Cursor = crHandPoint
         Caption = 'Open'
+        Enabled = False
         Font.Charset = ANSI_CHARSET
         Font.Color = 12826787
         Font.Height = -21
         Font.Name = 'Deusex'
         Font.Style = []
         ParentFont = False
-        Visible = False
         OnClick = lblOpenClick
       end
       object Label3: TLabel
