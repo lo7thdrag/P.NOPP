@@ -344,10 +344,12 @@ begin
     FileDirectory        := IniFReadstring(inif, c_gdata, 'FileDirectory' , '');
     FileReferensi        := IniFReadstring(inif, c_gdata, 'FileReferensi' , '');
     FileSimbolTaktis     := IniFReadstring(inif, c_gdata, 'FileSimbolTaktis' , '');
+    FileTransfer         := IniFReadstring(inif, c_gdata, 'FileTransfer' , '');
+    FileTelegram         := IniFReadstring(inif, c_gdata, 'FileTelegram' , '\\192.168.1.50\Program Files (x24)\Docs\File Telegram\');
     LocalDirectory       := IniFReadstring(inif, c_gdata, 'LocalDirectory' , 'D:\');
     ImgPath              := IniFReadstring(inif, c_gdata, 'ImgPath' , '.\data\bitmap\');
     ImageModel           := IniFReadstring(inif, c_gdata, 'ImageModel' , '\\192.168.1.50\Program Files (x24)\Bin\data\Image DBEditor\Interface\');
-    FileTransfer         := IniFReadstring(inif, c_gdata, 'FileTransfer' , '');
+
     ImageBackgroundLogin := IniFReadstring(inif, c_gdata, 'ImageBackgroundLogin' , '');
     Role                 := INIFReadInteger(IniF, c_gdata, 'Role', 0);
   end;
