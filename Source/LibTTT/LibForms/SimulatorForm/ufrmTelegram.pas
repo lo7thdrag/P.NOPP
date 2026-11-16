@@ -88,7 +88,7 @@ type
     FLastFileName : string;
     FSelectedUserTelegram : TUserRole;
 
-    FSelectedIdTelegram : Integer;
+    FSelectedTelegram : TTelegram;
 
     ipTelegramSentTo : string;
 
@@ -443,7 +443,9 @@ var
   path: string;
 begin
   rec.OrderID := READ_TELEGRAMM;
-  rec.TelegramId := FSelectedIdTelegram;
+  rec.TelegramId := FSelectedTelegram.IdTelegram;
+  rec.SenderUserRoleId := FSelectedTelegram.IdUserRoleSendingTelegram;
+  rec.ReceiverUserRoleId := FSelectedTelegram.IdUserRoleReceiveTelegram;
   rec.TelegramStatus := 1; {centang1}
 
   simMgrClient.netSend_CmdSendTelegram(rec);
@@ -539,7 +541,7 @@ begin
     if (Item = nil) or (Item.Data = nil) then
     Exit;
 
-    FSelectedIdTelegram := TTelegram(Item.Data).IdTelegram;
+    FSelectedTelegram := TTelegram(lvInbox.Selected.Data);
 
   end;
 end;
@@ -602,7 +604,7 @@ begin
     else
       li.SubItems.Add('Terbaca ');
 
-    li.SubItems.AddObject(userTemp.FData.UserRoleIdentifier, TelegramTemp);
+    li.Data := TelegramTemp;
 
   end;
 end;
