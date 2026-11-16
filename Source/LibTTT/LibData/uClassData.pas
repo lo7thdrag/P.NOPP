@@ -201,6 +201,7 @@ type
     FIdUserRoleReceiveTelegram : Integer;
     FTelegramMessage : string;
     FTelegramStatus : Byte; {0: , 1: , 2: }
+    FTelegramAddres : string;
 
   public
     constructor Create;
@@ -211,6 +212,7 @@ type
     property IdUserRoleReceiveTelegram: Integer read FIdUserRoleReceiveTelegram write FIdUserRoleReceiveTelegram;
     property TelegramMessage: string read FTelegramMessage write FTelegramMessage;
     property TelegramStatus: Byte read FTelegramStatus write FTelegramStatus;
+    property TelegramAddres: string read FTelegramAddres write FTelegramAddres;
 
   end;
 

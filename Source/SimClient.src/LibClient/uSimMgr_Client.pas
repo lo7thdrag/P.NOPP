@@ -50,7 +50,8 @@ type
 
     {CICIL CANTIK}
     procedure netRecv_CmdTelegramUserRole(apRec: PAnsiChar; aSize: word);
-    procedure netRecv_CmdSyncFileTelegram(apRec: PAnsiChar; aSize: word);
+//    procedure netRecv_CmdSyncFileTelegram(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdSendTelegram(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     procedure FGameThread_OnRunning(const dt: double); override;
@@ -106,7 +107,7 @@ type
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); override;
 
     {Cicil Cantik}
-    procedure OnUserRoleTelegramChange(const rec : TRecTCPSendUserRoleTelegram); override;
+    procedure OnSendTelegram(const rec : TRecTCPSendTelegram); override;
 
     // buat chat read
     procedure SendChatRead(SenderID: Integer);
@@ -137,7 +138,7 @@ type
     procedure netSend_CmdFileSharing(r: TRecTCPFileSharing);
 
     {Cicil Cantik}
-    procedure netSend_CmdSendTelegram(r : TRecTCPSendUserRoleTelegram);
+    procedure netSend_CmdSendTelegram(r : TRecTCPSendTelegram);
     {$ENDREGION}
 
     property MyConsoleData: TConsoleData read FConsoleData;
@@ -302,7 +303,7 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_USER_STATE, SizeOf(TRecTCP_UserState),netRecv_CmdUserState);
    VNetClient.RegisterTCPPacket(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
    VNetClient.RegisterTCPPacket(CPID_CMD_CHAT_USER_ROLE, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdChatUserRole);
-   VNetClient.RegisterTCPPacket(CPID_CMD_USER_ROLE_TELEGRAM, SizeOf(TRecTCPSendUserRoleTelegram),netRecv_CmdTelegramUserRole);
+//   VNetClient.RegisterTCPPacket(CPID_CMD_SEND_TELEGRAM, SizeOf(TRecTCPSendTelegram),netRecv_CmdTelegramUserRole);
    VNetClient.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape),netRecv_CmdOverlayShape);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync),netRecv_CmdSyncSendFileTelegram);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransferToteDisplay);
@@ -310,7 +311,7 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
 
    {CICIL TELEGRAM}
-   VNetClient.RegisterTCPPacket(CPID_CMD_USER_ROLE_TELEGRAM, SizeOf(TRecTCPSendUserRoleTelegram),netRecv_CmdSyncFileTelegram);
+   VNetClient.RegisterTCPPacket(CPID_CMD_SEND_TELEGRAM, SizeOf(TRecTCPSendTelegram),netRecv_CmdSendTelegram);
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserState),netRecv_CmdSyncUserState);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdSyncChatUserRole);
@@ -633,6 +634,17 @@ begin
 
 end;
 
+procedure TSimMgr_Client.netRecv_CmdSendTelegram(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCPSendTelegram;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnSendTelegram(rec^);
+end;
+
 procedure TSimMgr_Client.netRecv_CmdSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
 var
   rec : ^TRecTCPSendSituationBoardTabProperties;
@@ -671,17 +683,16 @@ begin
   OnFileSharingChange(rec^);
 end;
 
-procedure TSimMgr_Client.netRecv_CmdSyncFileTelegram(apRec: PAnsiChar;
-  aSize: word);
-var
-  rec : ^TRecTCPFileSync;
-  sIP : String;
-begin
-  rec := @apRec^;
-  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
-
-  OnFileSyncTelegram(rec^);
-end;
+//procedure TSimMgr_Client.netRecv_CmdSyncFileTelegram(apRec: PAnsiChar;aSize: word);
+//var
+//  rec : ^TRecTCPSendTelegram;
+//  sIP : String;
+//begin
+//  rec := @apRec^;
+//  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+//
+//  OnFileSyncTelegram(rec^);
+//end;
 
 procedure TSimMgr_Client.netRecv_CmdSyncFileTransferToteDisplay(apRec: PAnsiChar; aSize: word);
 var
@@ -734,13 +745,13 @@ end;
 
 procedure TSimMgr_Client.netRecv_CmdTelegramUserRole(apRec: PAnsiChar; aSize: word);
 var
-  rec : ^TRecTCPSendUserRoleTelegram;
+  rec : ^TRecTCPSendTelegram;
   sIP : String;
 begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnUserRoleTelegramChange(rec^);
+  OnSendTelegram(rec^);
 
 end;
 
@@ -912,10 +923,10 @@ begin
   VNetClient.SendCommand(CPID_CMD_CHAT_USER_ROLE, @r);
 end;
 
-procedure TSimMgr_Client.netSend_CmdSendTelegram(r: TRecTCPSendUserRoleTelegram);
+procedure TSimMgr_Client.netSend_CmdSendTelegram(r: TRecTCPSendTelegram);
 begin
   r.SessionID := FSessionID;
-  VNetClient.SendCommand(CPID_CMD_USER_ROLE_TELEGRAM, @r);
+  VNetClient.SendCommand(CPID_CMD_SEND_TELEGRAM, @r);
 end;
 
 procedure TSimMgr_Client.netSend_CmdSituationBoardTabProperties(r: TRecTCPSendSituationBoardTabProperties);
@@ -1033,7 +1044,7 @@ begin
   end;
 end;
 
-procedure TSimMgr_Client.OnUserRoleTelegramChange(const rec: TRecTCPSendUserRoleTelegram);
+procedure TSimMgr_Client.OnSendTelegram(const rec: TRecTCPSendTelegram);
 begin
   inherited;
 
@@ -1043,14 +1054,14 @@ begin
       {console yg nrima update Telegram}
       if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
       begin
-        TT3ClientEventManager(EventManager).OnUpdateUserRoleTelegramChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+        TT3ClientEventManager(EventManager).OnUpdateTelegram(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
         TT3ClientEventManager(EventManager).OnShowNotificationTelegram(rec.OrderID);
       end;
 
       {console yg ngirim update Telegram}
       if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
       begin
-        TT3ClientEventManager(EventManager).OnUpdateUserRoleTelegramChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+        TT3ClientEventManager(EventManager).OnUpdateTelegram(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
       end;
     end;
 
@@ -1060,13 +1071,13 @@ begin
       {console yg baca update Telegram}
       if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
       begin
-        TT3ClientEventManager(EventManager).OnUpdateUserRoleTelegramChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+        TT3ClientEventManager(EventManager).OnUpdateTelegram(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
       end;
 
       {console yg ngirim update Telegram}
       if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
       begin
-        TT3ClientEventManager(EventManager).OnUpdateUserRoleTelegramChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+        TT3ClientEventManager(EventManager).OnUpdateTelegram(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
       end;
     end;
   end;

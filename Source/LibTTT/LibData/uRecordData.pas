@@ -123,7 +123,7 @@ type
     ChatStatus          : Byte; {0: centang1, 1: centang2, 2: centang2Biru}
   end;
 
-  TRecTCPSendUserRoleTelegram = record
+  TRecTCPSendTelegram = record
     pid                 : TPacketID;
     SessionID           : Integer;
     OrderID             : Byte;
@@ -1908,7 +1908,7 @@ const
   CPID_CMD_RECONNECT_FILESHARING          = CPID_TCP + 16;
   CPID_CMD_RECONNECT_SITUATIONBOARD       = CPID_TCP + 17;
   CPID_CMD_RECONNECT_OVERLAY              = CPID_TCP + 18;
-  CPID_CMD_USER_ROLE_TELEGRAM             = CPID_TCP + 19;
+  CPID_CMD_SEND_TELEGRAM                  = CPID_TCP + 19;
     SEND_TELEGRAMM = 0;
     READ_TELEGRAMM = 1;
   CPID_TCP_MAX              	            = CPID_TCP + 20;

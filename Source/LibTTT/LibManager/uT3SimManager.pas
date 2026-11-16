@@ -42,7 +42,7 @@ type
 
     {Telegram}
     {Cicil Cantik}
-    procedure OnSyncUserTelegram(const rec: TRecTCPSendUserRoleTelegram);
+    procedure OnSyncUserTelegram(const rec: TRecTCPSendTelegram);
 
 
   protected
@@ -87,8 +87,8 @@ type
     procedure OnSyncUserState(const rec: TRecTCP_UserState); virtual;
 
     {Cicil Cantik}
-    procedure OnUserRoleTelegramChange(const rec : TRecTCPSendUserRoleTelegram); virtual;
-    procedure OnFileSyncTelegram(const rec : TRecTCPSendUserRoleTelegram); virtual;
+    procedure OnSendTelegram(const rec : TRecTCPSendTelegram); virtual;
+//    procedure OnFileSyncTelegram(const rec : TRecTCPSendTelegram); virtual;
 
     {$ENDREGION}
 
@@ -549,42 +549,6 @@ begin
     SEND_FILE_OPENED :
     begin
       EventManager.OnUpdateFileSyncOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
-    end;
-  end;
-end;
-
-procedure TT3SimManager.OnFileSyncTelegram(const rec: TRecTCPSendUserRoleTelegram);
-var
-  i : Integer;
-  TelegramTemp : TTelegram;
-
-begin
-  case rec.OrderID of
-    SEND_CHAT :
-    begin
-      TelegramTemp := TTelegram.Create;
-
-      TelegramTemp.IdTelegram := GetSerialChatID;
-      TelegramTemp.IdUserRoleSendingTelegram := rec.SenderUserRoleId;
-      TelegramTemp.IdUserRoleReceiveTelegram := rec.ReceiverUserRoleId;
-      TelegramTemp.TelegramMessage := rec.TelegramMessage;
-      TelegramTemp.TelegramStatus := rec.TelegramStatus;
-
-      SimTelegram.TelegramList.Add(TelegramTemp);
-    end;
-
-    READ_CHAT :
-    begin
-
-      for i := 0 to SimTelegram.TelegramList.Count - 1  do
-      begin
-        TelegramTemp := SimTelegram.TelegramList.Items[i];
-
-        if (TelegramTemp.IdUserRoleSendingTelegram = rec.ReceiverUserRoleId) and (TelegramTemp.IdUserRoleReceiveTelegram = rec.SenderUserRoleId) then
-          TelegramTemp.TelegramStatus := 2;
-      end;
-
-//      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
     end;
   end;
 end;
@@ -1217,7 +1181,7 @@ begin
 
 end;
 
-procedure TT3SimManager.OnSyncUserTelegram(const rec: TRecTCPSendUserRoleTelegram);
+procedure TT3SimManager.OnSyncUserTelegram(const rec: TRecTCPSendTelegram);
 var
   TelegramTemp : TTelegram;
 
@@ -1271,7 +1235,7 @@ begin
   end;
 end;
 
-procedure TT3SimManager.OnUserRoleTelegramChange(const rec: TRecTCPSendUserRoleTelegram);
+procedure TT3SimManager.OnSendTelegram(const rec: TRecTCPSendTelegram);
 var
   i : Integer;
   TelegramTemp : TTelegram;
@@ -1286,8 +1250,10 @@ begin
       TelegramTemp.IdUserRoleSendingTelegram := rec.SenderUserRoleId;
       TelegramTemp.IdUserRoleReceiveTelegram := rec.ReceiverUserRoleId;
       TelegramTemp.TelegramMessage := rec.TelegramMessage;
+      TelegramTemp. TelegramAddres := rec.TelegramAddres;
       TelegramTemp.TelegramStatus := rec.TelegramStatus;
 
+      {menyimpan ke list container}
       SimTelegram.TelegramList.Add(TelegramTemp);
     end;
 

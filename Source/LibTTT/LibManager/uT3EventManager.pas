@@ -26,7 +26,7 @@ type
     procedure OnUpdateFileSharingChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); virtual;
 
     {Cicil Cantik}
-    procedure OnUpdateUserRoleTelegramChange(IdSender, IdReceiver : integer); virtual;
+    procedure OnUpdateTelegram(IdSender, IdReceiver : integer); virtual;
     procedure OnShowNotificationTelegram(status : Byte); virtual;
 
     // File Opened Notifikasi
@@ -88,7 +88,7 @@ begin
 
 end;
 
-procedure TT3EventManager.OnUpdateUserRoleTelegramChange(IdSender,
+procedure TT3EventManager.OnUpdateTelegram(IdSender,
   IdReceiver: integer);
 begin
 

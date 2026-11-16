@@ -200,6 +200,7 @@ end;
 
 procedure TfrmTelegram.btnKirimClick(Sender: TObject);
 var
+  rec : TRecTCPSendTelegram;
 //  DateTimeNowTemp  : string;
 //  SentPath         : string;
 //  SenderFolderName : string;
@@ -215,7 +216,7 @@ var
 //
 //  ReceiverID  : Integer;
 //  recsend : TRecTCPSendChatUserRole;
-  rec : TRecTCPSendUserRoleTelegram;
+
 //  SourceFile, DestFile: string;
 begin
   {$REGION ' CICIL CANTIK '}
@@ -574,7 +575,7 @@ begin
     else
       li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
 
-      li.SubItems.Add(TelegramTemp.)
+//      li.SubItems.Add(TelegramTemp.)
     {Ngeprint Telegram yg kamu kirim}
     if TelegramTemp.TelegramStatus = 0 then
       li.SubItems.Add('Belum Terbaca ')

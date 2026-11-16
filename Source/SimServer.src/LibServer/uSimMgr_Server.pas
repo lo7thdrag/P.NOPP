@@ -65,7 +65,7 @@ type
     procedure netRecv_CmdRemote(apRec: PAnsiChar; aSize: word);
 
     {Cicil Cantik}
-    procedure netRecv_CmdTelegramUserRole(apRec: PAnsiChar; aSize: Word);
+    procedure netRecv_CmdSendTelegram(apRec: PAnsiChar; aSize: Word);
 //    procedure netRecv_CmdClientStateInfo(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
@@ -282,8 +282,8 @@ begin
 
   VNetServer.RegisterTCPPacket(CPID_TCP_REQUEST, SizeOf(TRecTCP_Request), netRecv_TCPRequest);
 
-  {Cicil Cantik}
-  VNetServer.RegisterTCPPacket(CPID_CMD_USER_ROLE_TELEGRAM, SizeOf(TRecTCPSendUserRoleTelegram), netRecv_CmdTelegramUserRole);
+  {Cicil Cantik Send Telegram}
+  VNetServer.RegisterTCPPacket(CPID_CMD_SEND_TELEGRAM, SizeOf(TRecTCPSendTelegram), netRecv_CmdSendTelegram);
   {$ENDREGION}
 
   VNetServer.StartListen;
@@ -491,17 +491,17 @@ begin
 
 end;
 
-procedure TSimMgr_Server.netRecv_CmdTelegramUserRole(apRec: PAnsiChar;aSize: Word);
+procedure TSimMgr_Server.netRecv_CmdSendTelegram(apRec: PAnsiChar;aSize: Word);
 var
-  rec : ^TrecTCPSendUserRoleTelegram;
+  rec : ^TRecTCPSendTelegram;
   sIP : String;
 begin
    rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnUserRoleTelegramChange(rec^);
+  OnSendTelegram(rec^);
 
-  VNetServer.SendBroadcastCommand(CPID_CMD_USER_ROLE_TELEGRAM, apRec);
+  VNetServer.SendBroadcastCommand(CPID_CMD_SEND_TELEGRAM, apRec);
 
 end;
 

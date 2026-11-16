@@ -27,7 +27,7 @@ type
     procedure OnUpdateFileSharingChange(IdSender : Integer; IdReceiver : Integer; FileName : string; FilePath: string); override;
 
     {CICIL CANTIK}
-    procedure OnUpdateUserRoleTelegramChange(IdSender, IdReceiver : integer); override;
+    procedure OnUpdateTelegram(IdSender, IdReceiver : integer); override;
     procedure OnShowNotificationTelegram(status : Byte); override;
 
     // File Opened Notifikasi
@@ -141,11 +141,10 @@ begin
 //    frmDisplayArea.ShowChatPopupNotify(IdSender, IdReceiver);
 end;
 
-procedure TT3ClientEventManager.OnUpdateUserRoleTelegramChange(IdSender, IdReceiver: integer);
+procedure TT3ClientEventManager.OnUpdateTelegram(IdSender, IdReceiver: integer);
 begin
   inherited;
 
-//  frmDisplayArea.UpdateClientHistoryTelegram(IdSender, IdReceiver);
   if Assigned(frmTelegram) then
   begin
     frmTelegram.UpdateInboxTelegram;
