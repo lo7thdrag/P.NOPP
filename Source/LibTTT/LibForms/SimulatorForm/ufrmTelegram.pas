@@ -441,21 +441,31 @@ procedure TfrmTelegram.lblOpenClick(Sender: TObject);
 var
   rec : TRecTCPSendTelegram;
   path: string;
+
+  sourceFileTemp : string;
+
 begin
-  rec.OrderID := READ_TELEGRAMM;
-  rec.TelegramId := FSelectedTelegram.IdTelegram;
-  rec.SenderUserRoleId := FSelectedTelegram.IdUserRoleSendingTelegram;
-  rec.ReceiverUserRoleId := FSelectedTelegram.IdUserRoleReceiveTelegram;
-  rec.TelegramStatus := 1; {centang1}
+  if FSelectedTelegram.TelegramStatus <> 1 then
+  begin
+    rec.OrderID := READ_TELEGRAMM;
+    rec.TelegramId := FSelectedTelegram.IdTelegram;
+    rec.SenderUserRoleId := FSelectedTelegram.IdUserRoleSendingTelegram;
+    rec.ReceiverUserRoleId := FSelectedTelegram.IdUserRoleReceiveTelegram;
+    rec.TelegramStatus := 1; {centang1}
 
-  simMgrClient.netSend_CmdSendTelegram(rec);
+    simMgrClient.netSend_CmdSendTelegram(rec);
+  end;
 
-//  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
-//
-//  if not TDirectory.Exists(path) then
-//    TDirectory.CreateDirectory(path);
-//
-//  ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW);
+  sourceFileTemp := FSelectedTelegram.TelegramAddres;
+
+  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
+
+  if not TDirectory.Exists(path) then
+    TDirectory.CreateDirectory(path);
+
+  CopyFile(PChar(SourceFile), PChar(path), False);
+
+  ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.lblOpenSentClick(Sender: TObject);
