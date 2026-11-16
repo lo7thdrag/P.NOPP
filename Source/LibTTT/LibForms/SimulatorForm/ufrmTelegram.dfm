@@ -34,8 +34,8 @@ object frmTelegram: TfrmTelegram
       Tag = 3
       Left = 673
       Top = 21
-      Width = 155
-      Height = 29
+      Width = 181
+      Height = 32
       Cursor = crHandPoint
       Caption = 'Send Telegram'
       Font.Charset = ANSI_CHARSET
@@ -508,8 +508,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 147
         Top = 8
-        Width = 159
-        Height = 29
+        Width = 183
+        Height = 32
         Cursor = crHandPoint
         Caption = 'Inbox Telegram'
         Font.Charset = ANSI_CHARSET
@@ -563,8 +563,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 150
         Top = 14
-        Width = 154
-        Height = 29
+        Width = 174
+        Height = 32
         Cursor = crHandPoint
         Caption = 'Sent Telegram'
         Font.Charset = ANSI_CHARSET
@@ -1074,15 +1074,12 @@ object frmTelegram: TfrmTelegram
         Color = 3023637
         ParentBackground = False
         TabOrder = 0
-        ExplicitTop = 61
-        ExplicitWidth = 435
-        ExplicitHeight = 436
         object lblTo: TLabel
           Tag = 3
           Left = 32
           Top = 37
-          Width = 96
-          Height = 22
+          Width = 168
+          Height = 23
           Cursor = crHandPoint
           Caption = 'Send To'#9'  : '
           Font.Charset = ANSI_CHARSET
@@ -1152,8 +1149,8 @@ object frmTelegram: TfrmTelegram
           Tag = 3
           Left = 32
           Top = 120
-          Width = 93
-          Height = 22
+          Width = 106
+          Height = 23
           Cursor = crHandPoint
           Caption = 'File Name : '
           Font.Charset = ANSI_CHARSET
@@ -1167,11 +1164,11 @@ object frmTelegram: TfrmTelegram
           Left = 32
           Top = 64
           Width = 369
-          Height = 27
+          Height = 25
           Font.Charset = ANSI_CHARSET
           Font.Color = clBackground
           Font.Height = -16
-          Font.Name = 'Tahoma'
+          Font.Name = 'Jefferies'
           Font.Style = []
           ParentFont = False
           TabOrder = 0
@@ -1737,8 +1734,8 @@ object frmTelegram: TfrmTelegram
             Tag = 3
             Left = 39
             Top = 8
-            Width = 73
-            Height = 18
+            Width = 87
+            Height = 19
             Cursor = crHandPoint
             Caption = 'Choose File'
             Font.Charset = ANSI_CHARSET
@@ -1750,9 +1747,9 @@ object frmTelegram: TfrmTelegram
             OnClick = lblPilihFileClick
           end
         end
-        object lstbxTelegramFileName: TListBox
+        object lstbxTelegramFileName1: TListBox
           Left = 32
-          Top = 148
+          Top = 276
           Width = 369
           Height = 37
           Font.Charset = DEFAULT_CHARSET
@@ -1763,6 +1760,7 @@ object frmTelegram: TfrmTelegram
           ItemHeight = 19
           ParentFont = False
           TabOrder = 2
+          Visible = False
         end
         object pnlSend: TPanel
           Left = 167
@@ -2155,8 +2153,8 @@ object frmTelegram: TfrmTelegram
             Tag = 3
             Left = 29
             Top = 5
-            Width = 37
-            Height = 23
+            Width = 48
+            Height = 24
             Cursor = crHandPoint
             Caption = 'Send'
             Font.Charset = ANSI_CHARSET
@@ -2167,6 +2165,19 @@ object frmTelegram: TfrmTelegram
             ParentFont = False
             OnClick = btnKirimClick
           end
+        end
+        object edtTelegramFileName: TEdit
+          Left = 32
+          Top = 149
+          Width = 369
+          Height = 25
+          Font.Charset = ANSI_CHARSET
+          Font.Color = clBackground
+          Font.Height = -16
+          Font.Name = 'Jefferies'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 4
         end
       end
     end
@@ -2186,8 +2197,8 @@ object frmTelegram: TfrmTelegram
       Tag = 3
       Left = 42
       Top = 14
-      Width = 131
-      Height = 40
+      Width = 150
+      Height = 42
       Cursor = crHandPoint
       Caption = 'Telegram'
       Font.Charset = ANSI_CHARSET
@@ -3026,8 +3037,8 @@ object frmTelegram: TfrmTelegram
           Tag = 3
           Left = 50
           Top = 12
-          Width = 71
-          Height = 21
+          Width = 87
+          Height = 22
           Cursor = crHandPoint
           Alignment = taCenter
           Caption = 'Restricted'
@@ -3855,8 +3866,8 @@ object frmTelegram: TfrmTelegram
           Tag = 3
           Left = 50
           Top = 10
-          Width = 83
-          Height = 42
+          Width = 100
+          Height = 44
           Cursor = crHandPoint
           Alignment = taCenter
           Caption = 'Confidential'#13#10
@@ -4685,8 +4696,8 @@ object frmTelegram: TfrmTelegram
         Tag = 3
         Left = 47
         Top = 12
-        Width = 90
-        Height = 17
+        Width = 105
+        Height = 18
         Cursor = crHandPoint
         Caption = 'Send Telegram'
         Font.Charset = ANSI_CHARSET
@@ -5533,8 +5544,8 @@ object frmTelegram: TfrmTelegram
           Tag = 3
           Left = 44
           Top = 12
-          Width = 96
-          Height = 17
+          Width = 102
+          Height = 18
           Cursor = crHandPoint
           Caption = 'Draft Telegram'
           Font.Charset = ANSI_CHARSET
@@ -6367,8 +6378,8 @@ object frmTelegram: TfrmTelegram
           Tag = 3
           Left = 47
           Top = 17
-          Width = 91
-          Height = 17
+          Width = 104
+          Height = 18
           Cursor = crHandPoint
           Caption = 'Inbox Telegram'
           Font.Charset = ANSI_CHARSET
@@ -7201,8 +7212,8 @@ object frmTelegram: TfrmTelegram
           Tag = 3
           Left = 49
           Top = 15
-          Width = 89
-          Height = 17
+          Width = 100
+          Height = 18
           Cursor = crHandPoint
           Caption = 'Sent Telegram'
           Font.Charset = ANSI_CHARSET

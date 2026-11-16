@@ -43,7 +43,7 @@ type
     btnClosePanelSendTelegram: TImageButton;
     lblFile: TLabel;
     pnlBase: TPanel;
-    lstbxTelegramFileName: TListBox;
+    lstbxTelegramFileName1: TListBox;
     AdvGroupBox2: TAdvGroupBox;
     lblSendTelegram: TLabel;
     pnlSend: TPanel;
@@ -62,6 +62,7 @@ type
     imgbtnOpenInbox: TImageButton;
     lblOpenSent: TLabel;
     ODTelegram: TOpenDialog;
+    edtTelegramFileName: TEdit;
     procedure btnBuatTelegramTerbatasClick(Sender: TObject);
     procedure btnBuatTelegramRahasiaClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
@@ -89,7 +90,7 @@ type
 
     ipTelegramSentTo : string;
 
-    SourceFile, DestFolder, DestFile: string;
+    SourceFile, DestFolder, DestFile, FileName: string;
   public
     { Public declarations }
     fileNameArray : array of string;
@@ -193,7 +194,7 @@ begin
   cbbxTo.ItemIndex := -1;
   SetLength(fileNameArray,0);
   SetLength(pathFileArray,0);
-  lstbxTelegramFileName.Clear;
+//  lstbxTelegramFileName.Clear;
   frmTelegram.Width := 214;
 end;
 
@@ -228,12 +229,13 @@ begin
     rec.ReceiverUserRoleId := FSelectedUserTelegram.FData.UserRoleIndex;
     rec.TelegramAddres := DestFolder;
     FillChar(rec.TelegramMessage, SizeOf(rec.TelegramMessage), 0);
+    rec.TelegramMessage := FileName;
     rec.TelegramStatus := 0; {centang1}
 
     simMgrClient.netSend_CmdSendTelegram(rec);
     {$ENDREGION}
 
-    ShowMessage('File berhasil dikirim dari D:\Send ke D:\Inbox!');
+    ShowMessage('File berhasil dikirim ');
   end
   else
   begin
@@ -414,7 +416,7 @@ end;
 procedure TfrmTelegram.FormShow(Sender: TObject);
 begin
   pnlSendTelegram.Visible := False;
-  lstbxTelegramFileName.Clear;
+//  lstbxTelegramFileName.Clear;
   frmTelegram.Width := 214;
 
   FLastFileCount := 0;
@@ -487,6 +489,8 @@ begin
       DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
       SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + cbbxTo.Text + '\' + DateTimeNowTemp;
 
+      FileName := ExtractFileName(SourceFile);
+
       if not DirectoryExists(SentPath) then
         ForceDirectories(SentPath);
 
@@ -495,10 +499,11 @@ begin
       if not DirectoryExists(DestFolder) then
         ForceDirectories(DestFolder);
 
-      DestFile := DestFolder + '\' + ExtractFileName(SourceFile);
+      DestFile := DestFolder + '\' + FileName;
 
-      lstbxTelegramFileName.Clear;
-      lstbxTelegramFileName.Items.AddStrings(ExtractFileName(SourceFile));
+      edtTelegramFileName.Clear;
+      edtTelegramFileName.Text := FileName;
+
     end
     else
     begin
@@ -534,8 +539,8 @@ end;
 
 procedure TfrmTelegram.UpdateFilenameComboBox;
 begin
-  lstbxTelegramFileName.Clear;
-  lstbxTelegramFileName.Items.AddStrings(TArray<string>(fileNameArray));
+//  lstbxTelegramFileName.Clear;
+//  lstbxTelegramFileName.Items.AddStrings(TArray<string>(fileNameArray));
 //  lstbxTelegramFileName.Items.AddStrings(TArray<string>(fileNameArray));
 end;
 
