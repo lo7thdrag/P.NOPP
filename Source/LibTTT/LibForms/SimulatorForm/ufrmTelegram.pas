@@ -575,7 +575,8 @@ begin
     else
       li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
 
-//      li.SubItems.Add(TelegramTemp.)
+    li.SubItems.Add(TelegramTemp.TelegramMessage);
+
     {Ngeprint Telegram yg kamu kirim}
     if TelegramTemp.TelegramStatus = 0 then
       li.SubItems.Add('Belum Terbaca ')
@@ -626,6 +627,8 @@ begin
       li.Caption := userTemp.FData.UserRoleIdentifier
     else
       li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
+
+    li.SubItems.Add(TelegramTemp.TelegramMessage);
 
     {Ngeprint Telegram yg kamu kirim}
     if TelegramTemp.TelegramStatus = 0 then
