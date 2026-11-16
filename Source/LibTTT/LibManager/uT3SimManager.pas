@@ -1259,16 +1259,10 @@ begin
 
     READ_TELEGRAMM :
     begin
+      TelegramTemp := SimTelegram.GetTelegramById(rec.TelegramId);
 
-      for i := 0 to SimChatting.ChattingList.Count - 1  do
-      begin
-        TelegramTemp := SimChatting.ChattingList.Items[i];
-
-        if (TelegramTemp.IdUserRoleSendingTelegram = rec.ReceiverUserRoleId) and (TelegramTemp.IdUserRoleReceiveTelegram = rec.SenderUserRoleId) then
-          TelegramTemp.TelegramStatus := 2;
-      end;
-
-//      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
+      if Assigned(TelegramTemp) then
+        TelegramTemp.TelegramStatus := rec.TelegramStatus;
     end;
   end;
 end;

@@ -88,6 +88,8 @@ type
     FLastFileName : string;
     FSelectedUserTelegram : TUserRole;
 
+    FSelectedIdTelegram : Integer;
+
     ipTelegramSentTo : string;
 
     SourceFile, DestFolder, DestFile, FileName: string;
@@ -225,7 +227,7 @@ begin
   if CopyFile(PChar(SourceFile), PChar(DestFile), False) then
   begin
     {$REGION ' Send Paket '}
-    rec.OrderID := 0;
+    rec.OrderID := SEND_TELEGRAMM;
     rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
     rec.ReceiverUserRoleId := FSelectedUserTelegram.FData.UserRoleIndex;
     rec.TelegramAddres := DestFolder;
@@ -234,6 +236,7 @@ begin
     rec.TelegramStatus := 0; {centang1}
 
     simMgrClient.netSend_CmdSendTelegram(rec);
+    edtTelegramFileName.Text := '';
     {$ENDREGION}
 
     ShowMessage('File berhasil dikirim ');
@@ -436,14 +439,21 @@ end;
 
 procedure TfrmTelegram.lblOpenClick(Sender: TObject);
 var
+  rec : TRecTCPSendTelegram;
   path: string;
 begin
-  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
+  rec.OrderID := READ_TELEGRAMM;
+  rec.TelegramId := FSelectedIdTelegram;
+  rec.TelegramStatus := 1; {centang1}
 
-  if not TDirectory.Exists(path) then
-    TDirectory.CreateDirectory(path);
+  simMgrClient.netSend_CmdSendTelegram(rec);
 
-  ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW);
+//  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
+//
+//  if not TDirectory.Exists(path) then
+//    TDirectory.CreateDirectory(path);
+//
+//  ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmTelegram.lblOpenSentClick(Sender: TObject);
@@ -523,6 +533,15 @@ procedure TfrmTelegram.lvInboxSelectItem(Sender: TObject; Item: TListItem; Selec
 begin
   imgbtnOpen.Enabled := Selected;
   lblOpen.Enabled := Selected;
+
+  if Selected then
+  begin
+    if (Item = nil) or (Item.Data = nil) then
+    Exit;
+
+    FSelectedIdTelegram := TTelegram(Item.Data).IdTelegram;
+
+  end;
 end;
 
 procedure TfrmTelegram.lvSentSelectItem(Sender: TObject; Item: TListItem;
@@ -583,18 +602,8 @@ begin
     else
       li.SubItems.Add('Terbaca ');
 
-//    {Ngeprint Telegram yg ngirim}
-//    if (TelegramTemp.IdUserRoleSendingTelegram = FSelectedUserTelegram.FData.UserRoleIndex) then
-//    begin
-//      tempList := lvInbox.Items.Add;
-//      tempList.Caption := (FSelectedUserTelegram.FData.UserRoleAcronim + ' - ' + FSelectedUserTelegram.FSubRoleData.SubRoleIdentifier + ' : ' );
-//
-//    {Ngeprint Telegram yg kamu kirim}
-//      if TelegramTemp.TelegramStatus = 0 then
-//        tempList.SubItems.Add('Send ')
-//      else
-//        tempList.SubItems.Add('Read ');
-//    end;
+    li.SubItems.AddObject(userTemp.FData.UserRoleIdentifier, TelegramTemp);
+
   end;
 end;
 
