@@ -473,7 +473,7 @@ begin
 
   OpenDialog := TOpenDialog.Create(Self);
   try
-    TelegramPath := IncludeTrailingPathDelimiter(vGameDataSetting.Telegram);
+    TelegramPath := IncludeTrailingPathDelimiter(vGameDataSetting.FileTelegram);
 
     OpenDialog.InitialDir := TelegramPath;
     OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
