@@ -90,7 +90,7 @@ type
     ImgPath : string;
     FileTransfer : string;
     FileSharing : string;
-    Telegram : string;
+    FileTelegram : string;
     RemotePort : integer ;
     RemoteScreen : integer ;
     TacticalScreen : Integer;
