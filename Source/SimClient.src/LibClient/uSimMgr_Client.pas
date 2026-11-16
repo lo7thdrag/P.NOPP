@@ -50,6 +50,7 @@ type
 
     {CICIL CANTIK}
     procedure netRecv_CmdTelegramUserRole(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdSyncFileTelegram(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     procedure FGameThread_OnRunning(const dt: double); override;
@@ -307,6 +308,9 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransferToteDisplay);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing),netRecv_CmdSyncFileSharing);
    VNetClient.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
+
+   {CICIL TELEGRAM}
+   VNetClient.RegisterTCPPacket(CPID_CMD_USER_ROLE_TELEGRAM, SizeOf(TRecTCPSendUserRoleTelegram),netRecv_CmdSyncFileTelegram);
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserState),netRecv_CmdSyncUserState);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdSyncChatUserRole);
@@ -665,6 +669,18 @@ begin
     Exit;
 
   OnFileSharingChange(rec^);
+end;
+
+procedure TSimMgr_Client.netRecv_CmdSyncFileTelegram(apRec: PAnsiChar;
+  aSize: word);
+var
+  rec : ^TRecTCPFileSync;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnFileSyncTelegram(rec^);
 end;
 
 procedure TSimMgr_Client.netRecv_CmdSyncFileTransferToteDisplay(apRec: PAnsiChar; aSize: word);

@@ -88,6 +88,7 @@ type
 
     {Cicil Cantik}
     procedure OnUserRoleTelegramChange(const rec : TRecTCPSendUserRoleTelegram); virtual;
+    procedure OnFileSyncTelegram(const rec : TRecTCPSendUserRoleTelegram); virtual;
 
     {$ENDREGION}
 
@@ -477,20 +478,24 @@ begin
   case rec.OrderID of
     SEND_FILE_INFO :
     begin
-      FileInfo := TFileSyncData.Create;
 
-      FileInfo.FileName := rec.FileName;
-      FileInfo.FileSize := rec.FileSize;
-      FileInfo.OwnerIP  := rec.SenderIP;
 
-      SimFileSendTelegram.AddFile(FileInfo);
 
-      FilePath := vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.SenderName + '\' + rec.FolderName + '\' + rec.FileName;
 
-      ForceDirectories(ExtractFileDir(FilePath));
-
-      FS := TFileStream.Create(FilePath, fmCreate);
-      FS.Free;
+//      FileInfo := TFileSyncData.Create;
+//
+//      FileInfo.FileName := rec.FileName;
+//      FileInfo.FileSize := rec.FileSize;
+//      FileInfo.OwnerIP  := rec.SenderIP;
+//
+//      SimFileSendTelegram.AddFile(FileInfo);
+//
+//      FilePath := vGameDataSetting.LocalDirectory + '\Telegram\INBOX\' + rec.SenderName + '\' + rec.FolderName + '\' + rec.FileName;
+//
+//      ForceDirectories(ExtractFileDir(FilePath));
+//
+//      FS := TFileStream.Create(FilePath, fmCreate);
+//      FS.Free;
     end;
 
 
@@ -544,6 +549,42 @@ begin
     SEND_FILE_OPENED :
     begin
       EventManager.OnUpdateFileSyncOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName);
+    end;
+  end;
+end;
+
+procedure TT3SimManager.OnFileSyncTelegram(const rec: TRecTCPSendUserRoleTelegram);
+var
+  i : Integer;
+  TelegramTemp : TTelegram;
+
+begin
+  case rec.OrderID of
+    SEND_CHAT :
+    begin
+      TelegramTemp := TTelegram.Create;
+
+      TelegramTemp.IdTelegram := GetSerialChatID;
+      TelegramTemp.IdUserRoleSendingTelegram := rec.SenderUserRoleId;
+      TelegramTemp.IdUserRoleReceiveTelegram := rec.ReceiverUserRoleId;
+      TelegramTemp.TelegramMessage := rec.TelegramMessage;
+      TelegramTemp.TelegramStatus := rec.TelegramStatus;
+
+      SimTelegram.TelegramList.Add(TelegramTemp);
+    end;
+
+    READ_CHAT :
+    begin
+
+      for i := 0 to SimTelegram.TelegramList.Count - 1  do
+      begin
+        TelegramTemp := SimTelegram.TelegramList.Items[i];
+
+        if (TelegramTemp.IdUserRoleSendingTelegram = rec.ReceiverUserRoleId) and (TelegramTemp.IdUserRoleReceiveTelegram = rec.SenderUserRoleId) then
+          TelegramTemp.TelegramStatus := 2;
+      end;
+
+//      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
     end;
   end;
 end;
