@@ -216,6 +216,29 @@ type
 
   end;
 
+  TFileTransfer = class
+
+  private
+    FIdFileTransfer : Integer;
+    FIdUserRoleSendingFileTransfer : Integer;
+    FIdUserRoleReceiveFileTransfer : Integer;
+    FFileTransferMessage : string;
+    FFileTransferStatus : Byte; {0: , 1: , 2: }
+    FFileTransferAddres : string;
+
+  public
+    constructor Create;
+    destructor Destroy;override;
+
+    property IdFileTransfer: Integer read FIdFileTransfer write FIdFileTransfer;
+    property IdUserRoleSendingFileTransfer: Integer read FIdUserRoleSendingFileTransfer write FIdUserRoleSendingFileTransfer;
+    property IdUserRoleReceiveFileTransfer: Integer read FIdUserRoleReceiveFileTransfer write FIdUserRoleReceiveFileTransfer;
+    property FileTransferMessage: string read FFileTransferMessage write FFileTransferMessage;
+    property FileTransferStatus: Byte read FFileTransferStatus write FFileTransferStatus;
+    property FileTransferAddres: string read FFileTransferAddres write FFileTransferAddres;
+
+  end;
+
   // file send telegram
   TFileSyncData = class
   private
@@ -237,6 +260,19 @@ type
   end;
 
   TFileSendTelegramContainer  = class
+  private
+    FFileSendList : TObjectList;
+    FFileStream   : TFileStream;
+    FCurrentFile  : string;
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    procedure AddFile(FileData: TFileSyncData);
+    procedure RemoveFile(FileData: TFileSyncData);
+  end;
+
+  TFileSendFileTransferContainer  = class
   private
     FFileSendList : TObjectList;
     FFileStream   : TFileStream;
@@ -346,6 +382,21 @@ type
     function GetTelegramByReceiver(IdReceiver : Integer; var telegramList : TList): Boolean;
 
     property TelegramList : TList read FTelegramList write FTelegramList;
+  end;
+
+  TFileTransferContainer = class
+  private
+    FFileTransferList : TList;
+
+  public
+    constructor Create;
+    destructor  Destroy; override;
+
+    function GetFileTransferById(FileTransferId : Integer):TFileTransfer;
+    function GetFileTransferBySender(IdSender : Integer; var FileTransferList : TList): Boolean;
+    function GetFileTransferByReceiver(IdReceiver : Integer; var telegramList : TList): Boolean;
+
+    property FileTransferList : TList read FFileTransferList write FFileTransferList;
   end;
 
   TGame_Area_Definition = class
@@ -3231,6 +3282,65 @@ begin
   inherited;
 end;
 
+constructor TFileTransferContainer.Create;
+begin
+
+end;
+
+destructor TFileTransferContainer.Destroy;
+begin
+
+  inherited;
+end;
+
+function TFileTransferContainer.GetFileTransferById(FileTransferId: Integer): TFileTransfer;
+var
+  i : Integer;
+  FileTransferTemp : TFileTransfer;
+begin
+  Result := nil;
+
+  for i := 0 to FFileTransferList.Count - 1 do
+  begin
+    FileTransferTemp := FFileTransferList.Items[i];
+
+    if FileTransferTemp.FIdFileTransfer = FileTransferId then
+    begin
+      Result := FileTransferTemp;
+      Break;
+    end;
+  end;
+end;
+
+function TFileTransferContainer.GetFileTransferByReceiver(IdReceiver: Integer; var telegramList: TList): Boolean;
+var
+  i : Integer;
+  FileTransferTemp : TFileTransfer;
+begin
+  for i := 0 to FFileTransferList.Count - 1 do
+  begin
+    FileTransferTemp := FFileTransferList.Items[i];
+
+    if (FileTransferTemp.FIdUserRoleReceiveFileTransfer = IdReceiver) then
+      FileTransferList.Add(FileTransferTemp);
+  end;
+end;
+
+function TFileTransferContainer.GetFileTransferBySender(IdSender: Integer; var FileTransferList: TList): Boolean;
+var
+  i : Integer;
+  FileTransferTemp : TFileTransfer;
+begin
+  for i := 0 to FFileTransferList.Count - 1 do
+  begin
+    FileTransferTemp := FFileTransferList.Items[i];
+
+    if FileTransferTemp.FIdUserRoleSendingFileTransfer = IdSender then
+      FileTransferList.Add(FileTransferTemp);
+
+  end;
+end;
+
 function TTelegramContainer.GetTelegramById(TelegramId: Integer): TTelegram;
 var
   i : Integer;
@@ -3290,6 +3400,66 @@ destructor TTelegram.Destroy;
 begin
 
   inherited;
+end;
+
+function TFileTransferContainer.GetTelegramByReceiver(IdReceiver: Integer;
+  var telegramList: TList): Boolean;
+begin
+
+end;
+
+function TFileTransferContainer.GetTelegramBySender(IdSender: Integer;
+  var telegramList: TList): Boolean;
+begin
+
+end;
+
+{ TFileSendFileTransferContainer }
+
+procedure TFileSendFileTransferContainer.AddFile(FileData: TFileSyncData);
+begin
+ if not Assigned(FileData) then
+    Exit;
+
+  if not Assigned(FFileSendList) then
+    Exit;
+
+  FFileSendList.Add(FileData);
+end;
+
+constructor TFileSendFileTransferContainer.Create;
+begin
+  inherited;
+
+  FFileSendList := TObjectList.Create(True);
+  FFileStream := nil;
+  FCurrentFile := '';
+end;
+
+destructor TFileSendFileTransferContainer.Destroy;
+begin
+  if Assigned(FFileStream) then
+  begin
+    FFileStream.Free;
+    FFileStream := nil;
+  end;
+
+  if Assigned(FFileSendList) then
+  begin
+    FFileSendList.Free;
+    FFileSendList := nil;
+  end;
+
+  inherited;
+end;
+
+procedure TFileSendFileTransferContainer.RemoveFile(FileData: TFileSyncData);
+begin
+  if Assigned(FileData) then
+  begin
+    FFileSendList.Remove(FileData);
+    FileData.Free;
+  end;
 end;
 
 end.

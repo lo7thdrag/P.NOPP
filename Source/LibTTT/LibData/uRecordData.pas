@@ -135,6 +135,18 @@ type
     TelegramStatus      : Byte; {0: , 1: , 2: }
   end;
 
+  TRecTCPSendFileTransfer = record
+    pid                 : TPacketID;
+    SessionID           : Integer;
+    OrderID             : Byte;
+    SenderUserRoleId    : Integer;
+    ReceiverUserRoleId  : Integer;
+    FileTransferId      : Integer;
+    FileTransferAddres  : string[255];
+    FileTransferMessage : string[255];
+    FileTransferStatus  : Byte; {0: , 1: , 2: }
+  end;
+
   //CPID_FILE_SEND_TELEGRAM
   TRecTCPFileSync = record
     pid        : TPacketID;
@@ -1890,12 +1902,15 @@ const
     SEND_FILE_DATA    = 2;
     SEND_FILE_FINISH  = 3;
     SEND_FILE_OPENED  = 4;
-  CPID_CMD_FILE_TRANSFER                  = CPID_TCP + 11;
-    SEND_FILE_TRANSFER_REQUEST = 0;
-    SEND_FILE_TRANSFER_INFO    = 1;
-    SEND_FILE_TRANSFER_DATA    = 2;
-    SEND_FILE_TRANSFER_FINISH  = 3;
-    SEND_FILE_TRANSFER_OPENED  = 4;
+  CPID_CMD_SEND_FILE_TRANSFER                  = CPID_TCP + 11;
+  {0 dan 1 dari cicil seterusnya tak sesuaikan}
+    SEND_FILE_TRANSFER = 0;
+    READ_FILE_TRANSFER = 1;
+    SEND_FILE_TRANSFER_REQUEST = 1;
+    SEND_FILE_TRANSFER_INFO    = 2;
+    SEND_FILE_TRANSFER_DATA    = 3;
+    SEND_FILE_TRANSFER_FINISH  = 4;
+    SEND_FILE_TRANSFER_OPENED  = 5;
   CPID_CMD_FILE_SHARING                   = CPID_TCP + 12;
     SEND_FILE_SHARING_REQUEST = 0;
     SEND_FILE_SHARING_INFO    = 1;
@@ -1911,7 +1926,7 @@ const
   CPID_CMD_SEND_TELEGRAM                  = CPID_TCP + 19;
     SEND_TELEGRAMM = 0;
     READ_TELEGRAMM = 1;
-  CPID_TCP_MAX              	            = CPID_TCP + 20;
+  CPID_TCP_MAX              	            = CPID_TCP + 21;
 
   {$ENDREGION}
 
@@ -1949,7 +1964,7 @@ const
   'CPID_CMD_RECONNECT_FILESHARING         ',   // + 16
   'CPID_CMD_RECONNECT_SITUATIONBOARD      ',   // + 17
   'CPID_CMD_RECONNECT_OVERLAY             ',   // + 18
-  'CPID_CMD_USER_ROLE_TELEGRAM            '     // +19
+  'CPID_CMD_SEND_TELEGRAM            '    // +19
 );
 
 begin

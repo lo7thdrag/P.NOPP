@@ -385,6 +385,7 @@ type
     FSelectedPengguna : TUserRole;
     FSelectedUserChat : TUserRole;
     FSelectedUserTelegram : TUserRole;
+    FSelectedUserFileTransfer : TUserRole;
     FSelectedFileBeranda : TFile_Data;
     FSelectedFileReferensi : TFile_Data;
     FSelectedGameArea : TGame_Area_Definition;
@@ -406,20 +407,24 @@ type
     function GetRoleIndex(id : string):Integer;
 
   public
-    ChatOpen      : Boolean;
-    TelegramOpen  : Boolean;
-    ChatPage      : Byte; {0: userpage; 1: chatpage}
-    TelegramPage  : Byte; {0: userpage; 1: chatpage}
+    ChatOpen          : Boolean;
+    TelegramOpen      : Boolean;
+    FileTransferOpen  : Boolean;
+    ChatPage          : Byte; {0: userpage; 1: chatpage}
+    TelegramPage      : Byte; {0: userpage; 1: chatpage}
+    FileTransferPage  : Byte; {0: userpage; 1: chatpage}
 
     function GetUserNameById(Id: Integer): string;
     function GetLastChatMessage(IdSender, IdReceiver: Integer): string;
 
     {Cicil Cantik}
     function GetLastTelegramMessage(IdSender, IdReceiver: Integer): string;
+    function GetLastFileTransferMessage(IdSender, IdReceiver: Integer): string;
 
     procedure UpdateClientHistoryTelegram(IdSender, IdReceiver : Integer);
     procedure UpdateClientTelegram;
     procedure ShowNotificationTelegram;
+    procedure ShowNotifikasiFileTransfer;
 
     procedure UpdateDataAset;
 
@@ -1049,6 +1054,29 @@ begin
     begin
       chat := tempList.Items[tempList.Count - 1];
       Result := chat.ChatMessage;
+    end;
+  finally
+    tempList.Free;
+  end;
+
+end;
+
+function TfrmDisplayArea.GetLastFileTransferMessage(IdSender, IdReceiver: Integer): string;
+var
+  tempList: TList;
+  i: Integer;
+  FileTransfer: TFileTransfer;
+begin
+  Result := '';
+
+  tempList := TList.Create;
+  try
+    SimManager.SimFileTransfer.GetFileTransferBySender(IdSender, tempList);
+
+    if tempList.Count > 0 then
+    begin
+      FileTransfer := tempList.Items[tempList.Count - 1];
+      Result := FileTransfer.FileTransferMessage;
     end;
   finally
     tempList.Free;
@@ -2751,7 +2779,7 @@ begin
 end;
 
 procedure TfrmDisplayArea.ShowNotificationTelegram;
-  var
+var
   i : Integer;
   TelegramTemp : TTelegram;
   flagTemp : Boolean;
@@ -2780,6 +2808,40 @@ begin
 
     if flagTemp then
       simMgrClient.SendChatRead(FSelectedUserChat.FData.UserRoleIndex);
+  end;
+
+end;
+
+procedure TfrmDisplayArea.ShowNotifikasiFileTransfer;
+var
+  i : Integer;
+  FileTransferTemp : TFileTransfer;
+  flagTemp : Boolean;
+
+begin
+  imgNotifikasiFil.Visible := not TelegramOpen;
+
+  if FileTransferOpen and (FileTransferPage = 1) then
+  begin
+
+    if not Assigned(FSelectedUserFileTransfer) then
+      Exit;
+
+    flagTemp := False;
+    for i := 0 to SimManager.SimTelegram.TelegramList.Count - 1  do
+    begin
+      FileTransferTemp := SimManager.SimTelegram.TelegramList.Items[i];
+
+      if (FileTransferTemp.IdUserRoleSendingFileTransfer = FSelectedUserFileTransfer.FData.UserRoleIndex) and
+         (FileTransferTemp.IdUserRoleReceiveFileTransfer = simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex) and
+         (FileTransferTemp.FileTransferStatus <> 2) then
+      begin
+        flagTemp := True;
+      end;
+    end;
+
+    if flagTemp then
+      simMgrClient.SendFileTransferRead(FSelectedUserFileTransfer.FData.UserRoleIndex);
   end;
 
 end;

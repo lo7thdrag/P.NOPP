@@ -52,6 +52,8 @@ type
     procedure netRecv_CmdTelegramUserRole(apRec: PAnsiChar; aSize: word);
 //    procedure netRecv_CmdSyncFileTelegram(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSendTelegram(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdSendFileTransfer(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdFileTransferUserRole(apRec: PAnsiChar; aSize: word);
     {$ENDREGION}
 
     procedure FGameThread_OnRunning(const dt: double); override;
@@ -109,6 +111,9 @@ type
     {Cicil Cantik}
     procedure OnSendTelegram(const rec : TRecTCPSendTelegram); override;
 
+    procedure OnSendFileTransfer(const rec : TRecTCPSendFileTransfer); override;
+    procedure SendFileTransferRead(SenderID: Integer);
+
     // buat chat read
     procedure SendChatRead(SenderID: Integer);
 
@@ -139,6 +144,7 @@ type
 
     {Cicil Cantik}
     procedure netSend_CmdSendTelegram(r : TRecTCPSendTelegram);
+    procedure netSend_CmdSendFileTransfer(r : TRecTCPSendFileTransfer);
     {$ENDREGION}
 
     property MyConsoleData: TConsoleData read FConsoleData;
@@ -306,12 +312,15 @@ begin
 //   VNetClient.RegisterTCPPacket(CPID_CMD_SEND_TELEGRAM, SizeOf(TRecTCPSendTelegram),netRecv_CmdTelegramUserRole);
    VNetClient.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape),netRecv_CmdOverlayShape);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync),netRecv_CmdSyncSendFileTelegram);
-   VNetClient.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransferToteDisplay);
+//   VNetClient.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransferToteDisplay);
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing),netRecv_CmdSyncFileSharing);
    VNetClient.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
 
    {CICIL TELEGRAM}
    VNetClient.RegisterTCPPacket(CPID_CMD_SEND_TELEGRAM, SizeOf(TRecTCPSendTelegram),netRecv_CmdSendTelegram);
+
+   {CICIL File Sharing}
+   VNetClient.RegisterTCPPacket(CPID_CMD_SEND_FILE_TRANSFER, SizeOf(TRecTCPSendFileTransfer),netRecv_CmdSendFileTransfer);
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserState),netRecv_CmdSyncUserState);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPSendChatUserRole),netRecv_CmdSyncChatUserRole);
@@ -337,6 +346,23 @@ begin
   rec.ChatMessage := '';
 
   netSend_CmdSendMessage(rec);
+end;
+
+procedure TSimMgr_Client.SendFileTransferRead(SenderID: Integer);
+var
+  rec : TRecTCPSendFileTransfer;
+begin
+  FillChar(rec, SizeOf(rec), 0);
+
+  rec.SessionID := 0;
+  rec.OrderID   := READ_CHAT;
+
+  rec.SenderUserRoleId   :=  MyConsoleData.UserRoleData.FData.UserRoleIndex;
+  rec.ReceiverUserRoleId := SenderID;
+  rec.FileTransferId := 0;
+  rec.FileTransferMessage := '';
+
+  netSend_CmdSendFileTransfer(rec);
 end;
 
 procedure TSimMgr_Client.StopNetwork;
@@ -511,6 +537,18 @@ begin
 //  VNetClient.SendCommand(CPID_CMD_CLIENT_STATE_INFO, @rec);
 end;
 
+procedure TSimMgr_Client.netRecv_CmdFileTransferUserRole(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCPSendFileTransfer;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnSendFileTransfer(rec^);
+
+end;
+
 procedure TSimMgr_Client.netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);
 var
   r: ^TRecCmd_GameCtrl;
@@ -634,6 +672,17 @@ begin
 
 end;
 
+procedure TSimMgr_Client.netRecv_CmdSendFileTransfer(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCPSendTelegram;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnSendFileTransfer(rec^);
+end;
+
 procedure TSimMgr_Client.netRecv_CmdSendTelegram(apRec: PAnsiChar; aSize: word);
 var
   rec : ^TRecTCPSendTelegram;
@@ -699,13 +748,13 @@ var
   rec : ^TRecTCPFileTransfer;
   sIP : String;
 begin
-  rec := @apRec^;
-  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
-
-  if rec^.SenderUserRoleId = MyConsoleData.UserRoleData.FData.UserRoleIndex then
-    Exit;
-
-  OnFileFileTransferChange(rec^);
+//  rec := @apRec^;
+//  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+//
+//  if rec^.SenderUserRoleId = MyConsoleData.UserRoleData.FData.UserRoleIndex then
+//    Exit;
+//
+//  OnFileFileTransferChange(rec^);
 end;
 
 procedure TSimMgr_Client.netRecv_CmdSyncSendFileTelegram(apRec: PAnsiChar; aSize: word);
@@ -889,8 +938,8 @@ end;
 
 procedure TSimMgr_Client.netSend_CmdFileTransferToteDisplay(r: TRecTCPFileTransfer);
 begin
-  r.SessionID := FSessionID;
-  VNetClient.SendCommand(CPID_CMD_FILE_TRANSFER, @r);
+//  r.SessionID := FSessionID;
+//  VNetClient.SendCommand(CPID_CMD_FILE_TRANSFER, @r);
 end;
 
 procedure TSimMgr_Client.netSend_CmdGameState(r: TRecCmd_GameCtrl);
@@ -915,6 +964,12 @@ procedure TSimMgr_Client.netSend_CmdRemote(r: TRecTCPSendRemote);
 begin
   r.SessionID := FSessionID;
   VNetClient.SendCommand(CPID_CMD_REMOTE, @r);
+end;
+
+procedure TSimMgr_Client.netSend_CmdSendFileTransfer(r: TRecTCPSendFileTransfer);
+begin
+  r.SessionID := FSessionID;
+  VNetClient.SendCommand(CPID_CMD_SEND_FILE_TRANSFER, @r);
 end;
 
 procedure TSimMgr_Client.netSend_CmdSendMessage(r: TRecTCPSendChatUserRole);
@@ -1039,6 +1094,45 @@ begin
       if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
       begin
         TT3ClientEventManager(EventManager).OnUpdateUserRoleChatChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+      end;
+    end;
+  end;
+end;
+
+procedure TSimMgr_Client.OnSendFileTransfer(const rec: TRecTCPSendFileTransfer);
+begin
+  inherited;
+
+  case rec.OrderID of
+    SEND_FILE_TRANSFER :
+    begin
+      {console yg nrima update Telegram}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateFileTransfer(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+        TT3ClientEventManager(EventManager).OnShowNotificationFileTransfer(rec.OrderID);
+      end;
+
+      {console yg ngirim update Telegram}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateFileTransfer(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+      end;
+    end;
+
+    READ_FILE_TRANSFER :
+    begin
+
+      {console yg baca update Telegram}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.ReceiverUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateFileTransfer(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
+      end;
+
+      {console yg ngirim update Telegram}
+      if (MyConsoleData.UserRoleData.FData.UserRoleIndex = rec.SenderUserRoleId) then
+      begin
+        TT3ClientEventManager(EventManager).OnUpdateFileTransfer(rec.SenderUserRoleId, rec.ReceiverUserRoleId);
       end;
     end;
   end;

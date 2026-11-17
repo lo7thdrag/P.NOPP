@@ -19,6 +19,7 @@ type
     FTabSituationBoardID  : Integer;
     FChatId : Integer;
     FTelegramId : Integer;
+    FFileTransferId : Integer;
 
     procedure FGameThread_OnTerminate(sender: TObject);
     procedure FGameThread_OnRunning(const dt: double); virtual;
@@ -40,9 +41,11 @@ type
     procedure OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);
     procedure OnSyncUserChat(const rec: TRecTCPSendChatUserRole);
 
-    {Telegram}
     {Cicil Cantik}
+    {Telegram}
     procedure OnSyncUserTelegram(const rec: TRecTCPSendTelegram);
+    {File Sharing}
+    procedure OnSyncUserFileTransfer(const rec: TRecTCPSendFileTransfer);
 
 
   protected
@@ -64,7 +67,8 @@ type
     SimTelegram : TTelegramContainer; {load saat running}
     SimOverlay : TOverlayTabContainer; {load saat running}
     SimFileSendTelegram : TFileSendTelegramCOntainer;
-    SimFileTransfer : TFileSendTransferContainer;
+    SimFileSendFileTransfer : TFileSendFileTransferCOntainer;
+    SimFileTransfer : TFileTransferContainer;
 
     EventManager    : TT3EventManager;
 
@@ -88,6 +92,7 @@ type
 
     {Cicil Cantik}
     procedure OnSendTelegram(const rec : TRecTCPSendTelegram); virtual;
+    procedure OnSendFileTransfer(const rec : TRecTCPSendFileTransfer); virtual;
 //    procedure OnFileSyncTelegram(const rec : TRecTCPSendTelegram); virtual;
 
     {$ENDREGION}
@@ -98,6 +103,7 @@ type
 
     {Cicil Cantik}
     function GetSerialTelegramID : Integer;
+    function GetSerialFileTransferID : Integer;
 
     procedure GameStart; override;
     procedure GamePause; override;
@@ -148,7 +154,9 @@ begin
 
   SimChatting := TChattingContainer.Create;
   SimTelegram := TTelegramContainer.Create;
+  SimFileTransfer := TTelegramContainer.Create;
   SimFileSendTelegram := TFileSendTelegramContainer.Create;
+  SimFileSendFileTransfer := TFileSendFileTransferContainer.Create;
 //  SimOverlay.Converter := Converter;
 end;
 
@@ -170,6 +178,7 @@ begin
   SimTelegram.Free;
   SimFileSendTelegram.Free;
   SimFileTransfer.Free;
+  SimFileSendFileTransfer.Free;
 
   inherited;
 end;
@@ -313,78 +322,78 @@ var
   FilePath : string;
   FS       : TFileStream;
 begin
-  case rec.OrderID of
-    SEND_FILE_TRANSFER_INFO:
-    begin
-      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
-
-      ForceDirectories(ExtractFileDir(FilePath));
-
-      FS := TFileStream.Create(FilePath,fmCreate);
-
-      try
-        { File dibuat kosong }
-      finally
-        FS.Free;
-      end;
-    end;
-
-    SEND_FILE_TRANSFER_DATA:
-    begin
-      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
-
-      if not FileExists(FilePath) then
-        Exit;
-
-      FS := TFileStream.Create(FilePath, fmOpenReadWrite or fmShareDenyNone);
-
-      try
-        FS.Position := rec.Position;
-
-        FS.WriteBuffer(rec.Data,rec.DataSize);
-      finally
-        FS.Free;
-      end;
-    end;
-
-    SEND_FILE_TRANSFER_FINISH:
-    begin
-      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
-
-      if not FileExists(FilePath) then
-      begin
-        ShowMessage('File tidak ditemukan:' + #13#10 + FilePath);
-        Exit;
-      end;
-
-      FS := TFileStream.Create(FilePath, fmOpenRead or fmShareDenyNone);
-
-      {$REGION 'Debug untuk cek ukuran file'}
+//  case rec.OrderID of
+//    SEND_FILE_TRANSFER_INFO:
+//    begin
+//      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
+//
+//      ForceDirectories(ExtractFileDir(FilePath));
+//
+//      FS := TFileStream.Create(FilePath,fmCreate);
+//
 //      try
-//        ShowMessage('FILE TRANSFER FINISH' + #13#10 + 'File     : ' + rec.FileName + #13#10 +
-//          'Actual   : ' + IntToStr(FS.Size) + ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
-//
-//        if FS.Size <> rec.FileSize then
-//        begin
-//          ShowMessage('FILE TRANSFER TIDAK LENGKAP!' + #13#10 + 'File     : ' + rec.FileName + #13#10 +
-//            'Actual   : ' + IntToStr(FS.Size) + ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
-//
-//          Exit;
-//        end;
-//
+//        { File dibuat kosong }
 //      finally
 //        FS.Free;
 //      end;
-      {$ENDREGION}
-
-      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, FilePath);
-    end;
-
-    SEND_FILE_TRANSFER_OPENED:
-    begin
-      EventManager.OnUpdateFileTransferOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
-    end;
-  end;
+//    end;
+//
+//    SEND_FILE_TRANSFER_DATA:
+//    begin
+//      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
+//
+//      if not FileExists(FilePath) then
+//        Exit;
+//
+//      FS := TFileStream.Create(FilePath, fmOpenReadWrite or fmShareDenyNone);
+//
+//      try
+//        FS.Position := rec.Position;
+//
+//        FS.WriteBuffer(rec.Data,rec.DataSize);
+//      finally
+//        FS.Free;
+//      end;
+//    end;
+//
+//    SEND_FILE_TRANSFER_FINISH:
+//    begin
+//      FilePath := vGameDataSetting.LocalDirectory + '\File Transfer\' + rec.FolderName + '\' + rec.FileName;
+//
+//      if not FileExists(FilePath) then
+//      begin
+//        ShowMessage('File tidak ditemukan:' + #13#10 + FilePath);
+//        Exit;
+//      end;
+//
+//      FS := TFileStream.Create(FilePath, fmOpenRead or fmShareDenyNone);
+//
+//      {$REGION 'Debug untuk cek ukuran file'}
+////      try
+////        ShowMessage('FILE TRANSFER FINISH' + #13#10 + 'File     : ' + rec.FileName + #13#10 +
+////          'Actual   : ' + IntToStr(FS.Size) + ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
+////
+////        if FS.Size <> rec.FileSize then
+////        begin
+////          ShowMessage('FILE TRANSFER TIDAK LENGKAP!' + #13#10 + 'File     : ' + rec.FileName + #13#10 +
+////            'Actual   : ' + IntToStr(FS.Size) + ' byte' + #13#10 + 'Expected : ' + IntToStr(rec.FileSize) + ' byte');
+////
+////          Exit;
+////        end;
+////
+////      finally
+////        FS.Free;
+////      end;
+//      {$ENDREGION}
+//
+//      EventManager.OnUpdateFileTransferChange(rec.SenderUserRoleId, rec.ReceiverUserRoleId, rec.FileName, FilePath);
+//    end;
+//
+//    SEND_FILE_TRANSFER_OPENED:
+//    begin
+//      EventManager.OnUpdateFileTransferOpened(rec.SenderUserRoleId, rec.ReceiverUserRoleId,rec.FileName);
+//    end;
+//  end;
 end;
 
 procedure TT3SimManager.OnFileSharingChange(const rec: TRecTCPFileSharing);
@@ -1163,6 +1172,24 @@ begin
 
 end;
 
+procedure TT3SimManager.OnSyncUserFileTransfer( const rec: TRecTCPSendFileTransfer);
+var
+  FileTransferTemp : TFileTransfer;
+
+begin
+  SimFileTransfer.FileTransferList.Clear;
+
+  FileTransferTemp := TFileTransfer.Create;
+
+  FileTransferTemp.IdFileTransfer := rec.FileTransferId;
+  FileTransferTemp.IdUserRoleSendingFileTransfer := rec.SenderUserRoleId;
+  FileTransferTemp.IdUserRoleReceiveFileTransfer:= rec.ReceiverUserRoleId;
+  FileTransferTemp.FileTransferMessage := rec.FileTransferMessage;
+
+  SimFileTransfer.FileTransferList.Add(FileTransferTemp);
+
+end;
+
 procedure TT3SimManager.OnSyncUserState(const rec: TRecTCP_UserState);
 var
   userRoleTemp : TUserRole;
@@ -1231,6 +1258,38 @@ begin
       end;
 
 //      EventManager.OnUserRoleChatRead(rec.SenderUserRoleId);
+    end;
+  end;
+end;
+
+procedure TT3SimManager.OnSendFileTransfer(const rec: TRecTCPSendFileTransfer);
+var
+  i : Integer;
+  FileTransferTemp : TFileTransfer;
+
+begin
+  case rec.OrderID of
+    SEND_FILE_TRANSFER :
+    begin
+      FileTransferTemp := TFileTransfer.Create;
+
+      FileTransferTemp.IdFileTransfer := GetSerialFileTransferID;
+      FileTransferTemp.IdUserRoleSendingFileTransfer := rec.SenderUserRoleId;
+      FileTransferTemp.IdUserRoleReceiveFileTransfer := rec.ReceiverUserRoleId;
+      FileTransferTemp.FileTransferMessage := rec.FileTransferMessage;
+      FileTransferTemp.FileTransferAddres := rec.FileTransferAddres;
+      FileTransferTemp.FileTransferStatus := rec.FileTransferStatus;
+
+      {menyimpan ke list container}
+      SimTelegram.TelegramList.Add(FileTransferTemp);
+    end;
+
+    READ_FILE_TRANSFER :
+    begin
+      FileTransferTemp := SimTelegram.GetTelegramById(rec.FileTransferId);
+
+      if Assigned(FileTransferTemp) then
+        FileTransferTemp.FileTransferStatus := rec.FileTransferStatus;
     end;
   end;
 end;
@@ -1327,6 +1386,12 @@ function TT3SimManager.GetSerialChatID: Integer;
 begin
   Result := FChatId;
   Inc(FChatId);
+end;
+
+function TT3SimManager.GetSerialFileTransferID: Integer;
+begin
+  Result := FFileTransferId;
+  Inc(FFileTransferId);
 end;
 
 function TT3SimManager.GetSerialShapeID: Integer;

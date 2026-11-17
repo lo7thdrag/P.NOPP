@@ -29,6 +29,9 @@ type
     procedure OnUpdateTelegram(IdSender, IdReceiver : integer); virtual;
     procedure OnShowNotificationTelegram(status : Byte); virtual;
 
+    procedure OnUpdateFileTransfer(IdSender, IdReceiver : integer); virtual;
+    procedure OnShowNotificationFileTransfer(status : Byte); virtual;
+
     // File Opened Notifikasi
     procedure OnUpdateFileSyncOpened(IdSender, IdReceiver: Integer; FileName: string); virtual;
     procedure OnUpdateFileTransferOpened(IdSender, IdReceiver: Integer; FileName: string); virtual;
@@ -59,6 +62,11 @@ begin
 end;
 
 procedure TT3EventManager.OnUpdateFileSyncOpened(IdSender, IdReceiver: Integer; FileName: string);
+begin
+
+end;
+
+procedure TT3EventManager.OnUpdateFileTransfer(IdSender, IdReceiver: integer);
 begin
 
 end;
@@ -105,6 +113,11 @@ begin
 end;
 
 procedure TT3EventManager.OnShowNotificationChat(status : Byte);
+begin
+
+end;
+
+procedure TT3EventManager.OnShowNotificationFileTransfer(status: Byte);
 begin
 
 end;

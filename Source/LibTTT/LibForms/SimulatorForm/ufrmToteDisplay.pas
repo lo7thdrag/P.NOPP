@@ -77,8 +77,11 @@ type
     procedure btnDeleteClick(Sender: TObject);
     procedure btnClearClick(Sender: TObject);
     procedure btnRefreshUserListClick(Sender: TObject);
-    procedure UpdateFile;
     procedure UpdateUserList;
+    procedure UpdateFile;
+
+    {CICIL CANTIK}
+    procedure UpdateFileTransfer;
     {$ENDREGION}
 
     procedure FormShow(Sender: TObject);
@@ -647,6 +650,49 @@ begin
     li.SubItems.Add(fileTemp.FData.Directory_Path);
 
     li.Data := fileTemp;
+  end;
+end;
+
+procedure TfrmToteDisplay.UpdateFileTransfer;
+var
+  tempList : TList;
+  li : TListItem;
+  i : Integer;
+  FileTransfer : TFileTransfer;
+  namaRole : string;
+
+  userTemp : TUserRole;
+begin
+
+  tempList := TList.Create;
+
+  SimManager.SimFileTransfer.GetFileTransferByReceiver(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
+
+  lvFileTransfer.Clear;
+
+  for i := 0 to tempList.Count - 1 do
+  begin
+    FileTransfer := tempList.Items[i];
+
+    li := lvFileTransfer.Items.Add;
+
+    userTemp := SimManager.SimUserRole.getUserRoleByID(FileTransfer.IdUserRoleSendingFileTransfer);
+
+    if Assigned(userTemp) then
+      li.Caption := userTemp.FData.UserRoleIdentifier
+    else
+      li.Caption := FileTransfer.IdUserRoleSendingFileTransfer.ToString;
+
+    li.SubItems.Add(FileTransfer.FileTransferMessage);
+
+    {Ngeprint Telegram yg kamu kirim}
+    if FileTransfer.FileTransferStatus = 0 then
+      li.SubItems.Add('Belum Terbaca ')
+    else
+      li.SubItems.Add('Terbaca ');
+
+    li.Data := FileTransfer;
+
   end;
 end;
 

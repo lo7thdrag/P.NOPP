@@ -8,7 +8,7 @@ uses
 
   {Project Uses}
   uConstantaData, uT3Listener, uT3EventManager, uT3SimManager, uBaseCoordSystem, uDataTypes, uClassData, uRecordData,
-  ufrmSituationBoard, ufrmDisplayArea, ufPopChat, ufrmTelegram;
+  ufrmSituationBoard, ufrmDisplayArea, ufPopChat, ufrmTelegram, ufrmToteDisplay;
 
 type
   TT3ClientEventManager = class(TT3EventManager)
@@ -29,6 +29,9 @@ type
     {CICIL CANTIK}
     procedure OnUpdateTelegram(IdSender, IdReceiver : integer); override;
     procedure OnShowNotificationTelegram(status : Byte); override;
+
+    procedure OnUpdateFileTransfer(IdSender, IdReceiver : integer); override;
+    procedure OnShowNotificationFileTransfer(status : Byte); override;
 
     // File Opened Notifikasi
     procedure OnUpdateFileSyncOpened(IdSender, IdReceiver: Integer; FileName: string); override;
@@ -53,6 +56,16 @@ begin
   end;
 end;
 
+procedure TT3ClientEventManager.OnShowNotificationFileTransfer(status: Byte);
+begin
+  inherited;
+  if Assigned(frmDisplayArea) then
+  begin
+    if status = SEND_FILE_TRANSFER then
+      frmDisplayArea.ShowNotifikasiFileTransfer;
+  end;
+end;
+
 procedure TT3ClientEventManager.OnShowNotificationTelegram(status: Byte);
 begin
   inherited;
@@ -60,6 +73,15 @@ begin
   begin
     if status = SEND_TELEGRAMM then
       frmDisplayArea.ShowNotificationTelegram;
+  end;
+end;
+
+procedure TT3ClientEventManager.OnUpdateFileTransfer(IdSender, IdReceiver: integer);
+begin
+  inherited;
+    if Assigned(frmToteDisplay) then
+  begin
+    frmToteDisplay.UpdateFileTransfer;
   end;
 end;
 
