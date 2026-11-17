@@ -81,8 +81,8 @@ begin
   if cbbxShareTo.ItemIndex = -1 then
     Exit;
 
-  userRoleTemp := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]);
-  SelectedUserRoleIP := userRoleTemp.ConsoleIP;
+  FSelectedUserFileTransfer := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]);
+  SelectedUserRoleIP := FSelectedUserFileTransfer.ConsoleIP;
 end;
 
 procedure TfrmFileManager.FormShow(Sender: TObject);

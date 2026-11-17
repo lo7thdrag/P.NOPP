@@ -3284,12 +3284,12 @@ end;
 
 constructor TFileTransferContainer.Create;
 begin
-
+  FileTransferList := TList.Create;
 end;
 
 destructor TFileTransferContainer.Destroy;
 begin
-
+  FileTransferList.Free;
   inherited;
 end;
 
