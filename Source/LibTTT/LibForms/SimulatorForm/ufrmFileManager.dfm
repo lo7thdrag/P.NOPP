@@ -2,7 +2,7 @@ object frmFileManager: TfrmFileManager
   Left = 0
   Top = 0
   BorderStyle = bsNone
-  ClientHeight = 508
+  ClientHeight = 318
   ClientWidth = 370
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -19,13 +19,14 @@ object frmFileManager: TfrmFileManager
     Left = 0
     Top = 0
     Width = 370
-    Height = 508
+    Height = 318
     Align = alClient
     BevelOuter = bvNone
     Color = 5981737
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
+    ExplicitHeight = 508
     object pnlTop: TPanel
       Left = 0
       Top = 0
@@ -58,16 +59,19 @@ object frmFileManager: TfrmFileManager
       Left = 0
       Top = 48
       Width = 370
-      Height = 460
+      Height = 270
       Align = alClient
       BevelOuter = bvNone
       Color = 3023637
       ParentBackground = False
       ShowCaption = False
       TabOrder = 1
+      ExplicitTop = 54
+      ExplicitWidth = 321
+      ExplicitHeight = 454
       object lblShareTo: TLabel
-        Left = 16
-        Top = 32
+        Left = 14
+        Top = 13
         Width = 76
         Height = 21
         Caption = 'Share to : '
@@ -79,8 +83,8 @@ object frmFileManager: TfrmFileManager
         ParentFont = False
       end
       object lblNamaFile: TLabel
-        Left = 16
-        Top = 109
+        Left = 14
+        Top = 93
         Width = 83
         Height = 21
         Caption = 'File Name : '
@@ -92,18 +96,24 @@ object frmFileManager: TfrmFileManager
         ParentFont = False
       end
       object cbbxShareTo: TComboBox
-        Left = 98
-        Top = 33
-        Width = 255
-        Height = 21
+        Left = 14
+        Top = 39
+        Width = 343
+        Height = 25
         Hint = 'Choose with whom you want to share file'
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
         TabOrder = 0
         OnDropDown = cbbxShareToDropDown
         OnSelect = cbbxShareToSelect
       end
       object pnlChooseFile: TPanel
-        Left = 114
-        Top = 70
+        Left = 212
+        Top = 159
         Width = 151
         Height = 32
         BevelOuter = bvNone
@@ -112,7 +122,7 @@ object frmFileManager: TfrmFileManager
         ParentBackground = False
         TabOrder = 1
         object imgbtnChooseFile: TImageButton
-          Left = 1
+          Left = 7
           Top = 1
           Width = 138
           Height = 31
@@ -659,7 +669,7 @@ object frmFileManager: TfrmFileManager
         end
         object lblPilihFile: TLabel
           Tag = 3
-          Left = 43
+          Left = 49
           Top = 7
           Width = 73
           Height = 18
@@ -675,22 +685,22 @@ object frmFileManager: TfrmFileManager
         end
       end
       object lstbxFileShareName: TListBox
-        Left = 16
-        Top = 132
-        Width = 337
-        Height = 255
-        Font.Charset = DEFAULT_CHARSET
+        Left = 14
+        Top = 119
+        Width = 343
+        Height = 25
+        Font.Charset = ANSI_CHARSET
         Font.Color = clWindowText
         Font.Height = -16
-        Font.Name = 'Tahoma'
+        Font.Name = 'Jefferies'
         Font.Style = []
-        ItemHeight = 19
+        ItemHeight = 17
         ParentFont = False
         TabOrder = 2
       end
       object pnlShare: TPanel
         Left = 132
-        Top = 407
+        Top = 221
         Width = 105
         Height = 40
         BevelOuter = bvNone

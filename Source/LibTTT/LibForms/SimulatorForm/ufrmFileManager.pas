@@ -42,6 +42,9 @@ type
     FSelectedFileSharing : TFile_Data;
     FSelectedConsole      : TUserRole;
     SaveUserList          : TStringList;
+
+    SourceFile, DestFolder, DestFile, FileName: string;
+    FSelectedUserFileTransfer : TUserRole;
   public
     { Public declarations }
     SelectedUserRoleIP : string;
@@ -131,143 +134,172 @@ end;
 
 procedure TfrmFileManager.imgbtnShareClick(Sender: TObject);
 var
-  rec : TRecTCPFileSharing;
-
-  userRoleTemp : TUserRole;
-
-  FS : TFileStream;
-
-  bufferSize : Integer;
-  FolderTemp : string;
-
-  TotalSent : Int64;
-  ChunkNo   : Integer;
-  FileSize  : Int64;
-
-  i : Integer;
+  rec : TRecTCPSendFileTransfer;
+//  rec : TRecTCPFileSharing;
+//
+//  userRoleTemp : TUserRole;
+//
+//  FS : TFileStream;
+//
+//  bufferSize : Integer;
+//  FolderTemp : string;
+//
+//  TotalSent : Int64;
+//  ChunkNo   : Integer;
+//  FileSize  : Int64;
+//
+//  i : Integer;
 begin
-  if cbbxShareTo.ItemIndex = -1 then
+  {$REGION ' CICIL CANTIK '}
+
+  {$REGION ' Send File '}
+  if CopyFile(PChar(SourceFile), PChar(DestFile), False) then
   begin
-    ShowMessage('Select receiver');
-    Exit;
-  end;
+    {$REGION ' Send Paket '}
+    rec.OrderID := SEND_FILE_TRANSFER;
+    rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+    rec.ReceiverUserRoleId := FSelectedUserFileTransfer.FData.UserRoleIndex;
+    rec.FileTransferAddres := DestFolder;
+    FillChar(rec.FileTransferMessage, SizeOf(rec.FileTransferMessage), 0);
+    rec.FileTransferMessage := FileName;
+    rec.FileTransferStatus := 0; {centang1}
 
-  if Length(pathFileArray) = 0 then
+    simMgrClient.netSend_CmdSendFileTransfer(rec);
+    {$ENDREGION}
+
+    ShowMessage('File berhasil dikirim ');
+  end
+  else
   begin
-    ShowMessage('Select file first');
-    Exit;
+    ShowMessage('Gagal menyalin file. Kode error Windows: ' + IntToStr(GetLastError));
   end;
+  {$ENDREGION}
 
-  userRoleTemp := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]);
-
-  if not Assigned(userRoleTemp) then
-  begin
-    ShowMessage('Receiver not found');
-    Exit;
-  end;
-
-  for i := 0 to High(pathFileArray) do
-  begin
-
-    if not FileExists(pathFileArray[i]) then
-    begin
-      Continue;
-    end;
-
-    FolderTemp := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' +  simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier +
-                '\' + FormatDateTime('dd-mm-yy_hh-nn-ss', Now);
-
-    TotalSent := 0;
-    ChunkNo   := 0;
-    FileSize  := 0;
-
-    try
-      {$REGION 'Send Info'}
-      FillChar(rec, SizeOf(rec), 0);
-
-      rec.OrderID    := SEND_FILE_SHARING_INFO;
-      rec.FileName   := fileNameArray[i];
-      rec.FolderName := FolderTemp;
-
-      FS := TFileStream.Create(pathFileArray[i], fmOpenRead or fmShareDenyNone);
-
-      try
-        FileSize     := FS.Size;
-        rec.FileSize := FileSize;
-      finally
-        FS.Free;
-      end;
-
-      rec.SenderIP           := simMgrClient.MyConsoleData.UserRoleData.ConsoleIP;
-      rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-      rec.ReceiverUserRoleId := userRoleTemp.FData.UserRoleIndex;
-
-      simMgrClient.netSend_CmdFileSharing(rec);
-      {$ENDREGION}
-
-      {$REGION 'Send File Data'}
-      FS := TFileStream.Create(pathFileArray[i],fmOpenRead or fmShareDenyNone);
-
-      try
-        while FS.Position < FS.Size do
-        begin
-          FillChar(rec, SizeOf(rec),0);
-
-          bufferSize := FS.Read(rec.Data,SizeOf(rec.Data));
-
-          if bufferSize <= 0 then
-            Break;
-
-          Inc(ChunkNo);
-
-          Inc(TotalSent, bufferSize);
-
-          rec.OrderID    := SEND_FILE_SHARING_DATA;
-          rec.FileName   := fileNameArray[i];
-          rec.FolderName := folderTemp;
-          rec.Position   := FS.Position - bufferSize;
-          rec.DataSize   := bufferSize;
-
-          rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-          rec.ReceiverUserRoleId := userRoleTemp.FData.UserRoleIndex;
-
-          simMgrClient.netSend_CmdFileSharing(rec);
-        end;
-      finally
-        FS.Free;
-      end;
-      {$ENDREGION}
-
-      if TotalSent <> FileSize then
-      begin
-        ShowMessage('File tidak selesai dibaca!' + #13#10 + 'File : ' + fileNameArray[i] + #13#10 + 'File Size  : ' + IntToStr(FileSize) +
-                    ' byte' + #13#10 + 'Total Sent : ' + IntToStr(TotalSent) +' byte' + #13#10 + 'Chunk  : ' + IntToStr(ChunkNo));
-
-        Continue;
-      end;
-
-      {$REGION 'Send Finish'}
-      FillChar(rec, SizeOf(rec), 0);
-      rec.OrderID    := SEND_FILE_SHARING_FINISH;
-      rec.FileName   := fileNameArray[i];
-      rec.FolderName := FolderTemp;
-      rec.FileSize   := FileSize;
-
-      rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-      rec.ReceiverUserRoleId := userRoleTemp.FData.UserRoleIndex;
-
-      simMgrClient.netSend_CmdFileSharing(rec);
-
-//      ShowMessage('File berhasil dikirim!' + #13#10 + 'File  : ' + fileNameArray[i] + #13#10 + 'Size  : ' + IntToStr(TotalSent) +
-//                  ' byte' + #13#10 + 'Chunk : ' + IntToStr(ChunkNo));
-      {$ENDREGION}
-    except
-      on E: Exception do
-      begin
-        ShowMessage('Transfer failed : ' + #13#10 + 'File : ' + fileNameArray[i] + #13#10 + E.Message);
-      end;
-    end;
-  end;
+  {$ENDREGION}
+  {$REGION ' DENTA '}
+//  if cbbxShareTo.ItemIndex = -1 then
+//  begin
+//    ShowMessage('Select receiver');
+//    Exit;
+//  end;
+//
+//  if Length(pathFileArray) = 0 then
+//  begin
+//    ShowMessage('Select file first');
+//    Exit;
+//  end;
+//
+//  userRoleTemp := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]);
+//
+//  if not Assigned(userRoleTemp) then
+//  begin
+//    ShowMessage('Receiver not found');
+//    Exit;
+//  end;
+//
+//  for i := 0 to High(pathFileArray) do
+//  begin
+//
+//    if not FileExists(pathFileArray[i]) then
+//    begin
+//      Continue;
+//    end;
+//
+//    FolderTemp := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' +  simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier +
+//                '\' + FormatDateTime('dd-mm-yy_hh-nn-ss', Now);
+//
+//    TotalSent := 0;
+//    ChunkNo   := 0;
+//    FileSize  := 0;
+//
+//    try
+//      {$REGION 'Send Info'}
+//      FillChar(rec, SizeOf(rec), 0);
+//
+//      rec.OrderID    := SEND_FILE_SHARING_INFO;
+//      rec.FileName   := fileNameArray[i];
+//      rec.FolderName := FolderTemp;
+//
+//      FS := TFileStream.Create(pathFileArray[i], fmOpenRead or fmShareDenyNone);
+//
+//      try
+//        FileSize     := FS.Size;
+//        rec.FileSize := FileSize;
+//      finally
+//        FS.Free;
+//      end;
+//
+//      rec.SenderIP           := simMgrClient.MyConsoleData.UserRoleData.ConsoleIP;
+//      rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+//      rec.ReceiverUserRoleId := userRoleTemp.FData.UserRoleIndex;
+//
+//      simMgrClient.netSend_CmdFileSharing(rec);
+//      {$ENDREGION}
+//
+//      {$REGION 'Send File Data'}
+//      FS := TFileStream.Create(pathFileArray[i],fmOpenRead or fmShareDenyNone);
+//
+//      try
+//        while FS.Position < FS.Size do
+//        begin
+//          FillChar(rec, SizeOf(rec),0);
+//
+//          bufferSize := FS.Read(rec.Data,SizeOf(rec.Data));
+//
+//          if bufferSize <= 0 then
+//            Break;
+//
+//          Inc(ChunkNo);
+//
+//          Inc(TotalSent, bufferSize);
+//
+//          rec.OrderID    := SEND_FILE_SHARING_DATA;
+//          rec.FileName   := fileNameArray[i];
+//          rec.FolderName := folderTemp;
+//          rec.Position   := FS.Position - bufferSize;
+//          rec.DataSize   := bufferSize;
+//
+//          rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+//          rec.ReceiverUserRoleId := userRoleTemp.FData.UserRoleIndex;
+//
+//          simMgrClient.netSend_CmdFileSharing(rec);
+//        end;
+//      finally
+//        FS.Free;
+//      end;
+//      {$ENDREGION}
+//
+//      if TotalSent <> FileSize then
+//      begin
+//        ShowMessage('File tidak selesai dibaca!' + #13#10 + 'File : ' + fileNameArray[i] + #13#10 + 'File Size  : ' + IntToStr(FileSize) +
+//                    ' byte' + #13#10 + 'Total Sent : ' + IntToStr(TotalSent) +' byte' + #13#10 + 'Chunk  : ' + IntToStr(ChunkNo));
+//
+//        Continue;
+//      end;
+//
+//      {$REGION 'Send Finish'}
+//      FillChar(rec, SizeOf(rec), 0);
+//      rec.OrderID    := SEND_FILE_SHARING_FINISH;
+//      rec.FileName   := fileNameArray[i];
+//      rec.FolderName := FolderTemp;
+//      rec.FileSize   := FileSize;
+//
+//      rec.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+//      rec.ReceiverUserRoleId := userRoleTemp.FData.UserRoleIndex;
+//
+//      simMgrClient.netSend_CmdFileSharing(rec);
+//
+////      ShowMessage('File berhasil dikirim!' + #13#10 + 'File  : ' + fileNameArray[i] + #13#10 + 'Size  : ' + IntToStr(TotalSent) +
+////                  ' byte' + #13#10 + 'Chunk : ' + IntToStr(ChunkNo));
+//      {$ENDREGION}
+//    except
+//      on E: Exception do
+//      begin
+//        ShowMessage('Transfer failed : ' + #13#10 + 'File : ' + fileNameArray[i] + #13#10 + E.Message);
+//      end;
+//    end;
+//  end;
+  {$ENDREGION}
 end;
 
 procedure TfrmFileManager.UpdateFilenameComboBox;

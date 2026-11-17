@@ -45570,10 +45570,10 @@ object frmDisplayArea: TfrmDisplayArea
             Tag = 4
             Left = 55
             Top = 10
-            Width = 71
+            Width = 80
             Height = 16
             Cursor = crHandPoint
-            Caption = 'File Sharing'
+            Caption = 'File Transfer'
             Color = 12826787
             Font.Charset = ANSI_CHARSET
             Font.Color = 12826787
