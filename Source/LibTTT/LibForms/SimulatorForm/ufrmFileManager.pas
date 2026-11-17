@@ -19,11 +19,12 @@ type
     imgbtnChooseFile: TImageButton;
     pnlChooseFile: TPanel;
     lblPilihFile: TLabel;
-    lstbxFileShareName: TListBox;
+    lstbxFileShareName1: TListBox;
     lblNamaFile: TLabel;
     imgbtnShare: TImageButton;
     pnlShare: TPanel;
     Label1: TLabel;
+    lstbxFileShareName: TEdit;
     procedure cbbxShareToDropDown(Sender: TObject);
     procedure cbbxShareToSelect(Sender: TObject);
     procedure imgbtnChooseFileClick(Sender: TObject);
@@ -370,7 +371,7 @@ end;
 procedure TfrmFileManager.UpdateFilenameComboBox;
 begin
   lstbxFileShareName.Clear;
-  lstbxFileShareName.Items.AddStrings(TArray<string>(fileNameArray));
+//  lstbxFileShareName.Items.AddStrings(TArray<string>(fileNameArray));
 end;
 
 procedure TfrmFileManager.UpdateUserListFileSharing;

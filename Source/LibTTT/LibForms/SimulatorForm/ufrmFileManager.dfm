@@ -67,8 +67,6 @@ object frmFileManager: TfrmFileManager
       ShowCaption = False
       TabOrder = 1
       ExplicitTop = 54
-      ExplicitWidth = 321
-      ExplicitHeight = 454
       object lblShareTo: TLabel
         Left = 14
         Top = 13
@@ -684,7 +682,7 @@ object frmFileManager: TfrmFileManager
           OnClick = imgbtnChooseFileClick
         end
       end
-      object lstbxFileShareName: TListBox
+      object lstbxFileShareName1: TListBox
         Left = 14
         Top = 119
         Width = 343
@@ -697,6 +695,7 @@ object frmFileManager: TfrmFileManager
         ItemHeight = 17
         ParentFont = False
         TabOrder = 2
+        Visible = False
       end
       object pnlShare: TPanel
         Left = 132
@@ -1100,6 +1099,19 @@ object frmFileManager: TfrmFileManager
           ParentFont = False
           OnClick = imgbtnShareClick
         end
+      end
+      object lstbxFileShareName: TEdit
+        Left = 14
+        Top = 119
+        Width = 343
+        Height = 25
+        Font.Charset = ANSI_CHARSET
+        Font.Color = clBackground
+        Font.Height = -16
+        Font.Name = 'Jefferies'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 4
       end
     end
   end
