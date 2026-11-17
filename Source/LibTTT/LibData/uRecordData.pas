@@ -1964,7 +1964,8 @@ const
   'CPID_CMD_RECONNECT_FILESHARING         ',   // + 16
   'CPID_CMD_RECONNECT_SITUATIONBOARD      ',   // + 17
   'CPID_CMD_RECONNECT_OVERLAY             ',   // + 18
-  'CPID_CMD_SEND_TELEGRAM            '    // +19
+  'CPID_CMD_SEND_TELEGRAM                 ',   // + 19
+  'CPID_TCP_MAX                           '    // + 20
 );
 
 begin

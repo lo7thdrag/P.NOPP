@@ -154,7 +154,7 @@ begin
 
   SimChatting := TChattingContainer.Create;
   SimTelegram := TTelegramContainer.Create;
-  SimFileTransfer := TTelegramContainer.Create;
+  SimFileTransfer := TFileTransferContainer.Create;
   SimFileSendTelegram := TFileSendTelegramContainer.Create;
   SimFileSendFileTransfer := TFileSendFileTransferContainer.Create;
 //  SimOverlay.Converter := Converter;
@@ -1286,7 +1286,7 @@ begin
 
     READ_FILE_TRANSFER :
     begin
-      FileTransferTemp := SimTelegram.GetTelegramById(rec.FileTransferId);
+      FileTransferTemp := SimFileTransfer.GetFileTransferById(rec.FileTransferId);
 
       if Assigned(FileTransferTemp) then
         FileTransferTemp.FileTransferStatus := rec.FileTransferStatus;

@@ -674,7 +674,7 @@ end;
 
 procedure TSimMgr_Client.netRecv_CmdSendFileTransfer(apRec: PAnsiChar; aSize: word);
 var
-  rec : ^TRecTCPSendTelegram;
+  rec : ^TRecTCPSendFileTransfer;
   sIP : String;
 begin
   rec := @apRec^;

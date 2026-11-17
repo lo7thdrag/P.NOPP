@@ -3402,18 +3402,6 @@ begin
   inherited;
 end;
 
-function TFileTransferContainer.GetTelegramByReceiver(IdReceiver: Integer;
-  var telegramList: TList): Boolean;
-begin
-
-end;
-
-function TFileTransferContainer.GetTelegramBySender(IdSender: Integer;
-  var telegramList: TList): Boolean;
-begin
-
-end;
-
 { TFileSendFileTransferContainer }
 
 procedure TFileSendFileTransferContainer.AddFile(FileData: TFileSyncData);
@@ -3460,6 +3448,19 @@ begin
     FFileSendList.Remove(FileData);
     FileData.Free;
   end;
+end;
+
+{ TFileTransfer }
+
+constructor TFileTransfer.Create;
+begin
+
+end;
+
+destructor TFileTransfer.Destroy;
+begin
+
+  inherited;
 end;
 
 end.
