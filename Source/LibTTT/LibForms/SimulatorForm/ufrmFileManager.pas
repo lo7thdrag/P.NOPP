@@ -91,33 +91,53 @@ begin
 end;
 
 procedure TfrmFileManager.imgbtnChooseFileClick(Sender: TObject);
-var
+{$REGION ' CAECILIA '}
+  var
   OpenDialog   : TOpenDialog;
   i            : Integer;
-  FilePath     : string;
+  TelegramPath : string;
 
+  ReceiverID, SenderFolderName, DateTimeNowTemp, SentPath : string;
 begin
+    if cbbxShareTo.ItemIndex = -1 then
+  begin
+    ShowMessage('Choose who you want to share file to!');
+    Exit;
+  end;
+
   OpenDialog := TOpenDialog.Create(Self);
   try
-    FilePath := IncludeTrailingPathDelimiter(vGameDataSetting.FileSharing);
+    TelegramPath := IncludeTrailingPathDelimiter(vGameDataSetting.FileTelegram);
 
-    OpenDialog.InitialDir := FilePath;
+    OpenDialog.InitialDir := TelegramPath;
     OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
-    OpenDialog.Filter     := 'All Files (*.*)|*.*';
-
-    SetLength(fileNameArray, 0);
-    SetLength(pathFileArray, 0);
+    OpenDialog.Filter     := 'Dokumen Word (*.doc, *.docx)|*.doc;*.docx|File Word (*.doc, *.docx)|*.doc;*.docx|';
 
     if OpenDialog.Execute then
     begin
-      SetLength(pathFileArray, OpenDialog.Files.Count);
-      SetLength(fileNameArray, OpenDialog.Files.Count);
+      SourceFile := OpenDialog.FileName;
 
-      for i := 0 to OpenDialog.Files.Count - 1 do
-      begin
-        pathFileArray[i] := OpenDialog.Files[i];
-        fileNameArray[i] := ExtractFileName(OpenDialog.Files[i]);
-      end;
+      ReceiverID       := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]).ConsoleIP;
+      SenderFolderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
+
+      DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
+      SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\' + cbbxShareTo.Text + '\' + DateTimeNowTemp;
+
+      FileName := ExtractFileName(SourceFile);
+
+      if not DirectoryExists(SentPath) then
+        ForceDirectories(SentPath);
+
+      DestFolder := TelegramPath + SenderFolderName + '\' + DateTimeNowTemp;
+
+      if not DirectoryExists(DestFolder) then
+        ForceDirectories(DestFolder);
+
+      DestFile := DestFolder + '\' + FileName;
+
+      lstbxFileShareName.Clear;
+      lstbxFileShareName.Text := FileName;
+
     end
     else
     begin
@@ -129,8 +149,51 @@ begin
     OpenDialog.Free;
   end;
 
-  UpdateFilenameComboBox;
+//  UpdateFilenameComboBox;
 end;
+{$ENDREGION}
+{$REGION ' DENTA '}
+//var
+//  OpenDialog   : TOpenDialog;
+//  i            : Integer;
+//  FilePath     : string;
+//
+//begin
+//  OpenDialog := TOpenDialog.Create(Self);
+//  try
+//    FilePath := IncludeTrailingPathDelimiter(vGameDataSetting.FileSharing);
+//
+//    OpenDialog.InitialDir := FilePath;
+//    OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
+//    OpenDialog.Filter     := 'All Files (*.*)|*.*';
+//
+//    SetLength(fileNameArray, 0);
+//    SetLength(pathFileArray, 0);
+//
+//    if OpenDialog.Execute then
+//    begin
+//      SetLength(pathFileArray, OpenDialog.Files.Count);
+//      SetLength(fileNameArray, OpenDialog.Files.Count);
+//
+//      for i := 0 to OpenDialog.Files.Count - 1 do
+//      begin
+//        pathFileArray[i] := OpenDialog.Files[i];
+//        fileNameArray[i] := ExtractFileName(OpenDialog.Files[i]);
+//      end;
+//    end
+//    else
+//    begin
+//      ShowMessage('Choose file was cancelled');
+//      Exit;
+//    end;
+//
+//  finally
+//    OpenDialog.Free;
+//  end;
+//
+//  UpdateFilenameComboBox;
+//end;
+{$ENDREGION}
 
 procedure TfrmFileManager.imgbtnShareClick(Sender: TObject);
 var
@@ -173,6 +236,8 @@ begin
   begin
     ShowMessage('Gagal menyalin file. Kode error Windows: ' + IntToStr(GetLastError));
   end;
+
+  lstbxFileShareName.Text := '';
   {$ENDREGION}
 
   {$ENDREGION}

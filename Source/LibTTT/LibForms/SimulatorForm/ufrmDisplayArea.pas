@@ -2592,7 +2592,7 @@ begin
   pnlResources.Height := 250;
 
   {ini untuk Services}
-  pnlVideoConference.Height := 0;
+  pnlVideoConference.Height := 35;
   pnlToteDisplay.Height := 35;
   pnlSituationBoardController.Height := 35;
   pnlServices.Height := 285;
