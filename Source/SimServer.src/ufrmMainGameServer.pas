@@ -103,11 +103,11 @@ begin
 
   lblSession.Caption := IntToStr(SimManager.SessionID);
 
-  if not TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM') then
-    Exit;
-  if not TDirectory.Exists('D:\Telegram\removeDir.bat') then
-    Exit;
-  ShellExecute(0, 'open', ('D:\Telegram\removeDir.bat'), nil, nil, SW_SHOW);
+//  if not TDirectory.Exists(vGameDataSetting.FileDirectory + '\\' + 'TELEGRAM') then
+//    Exit;
+//  if not TDirectory.Exists('D:\Telegram\removeDir.bat') then
+//    Exit;
+//  ShellExecute(0, 'open', ('D:\Telegram\removeDir.bat'), nil, nil, SW_SHOW);
 end;
 
 function TfrmMainGameServer.GetTargetListView(const AConsoleName: string): TListView;
