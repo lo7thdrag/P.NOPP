@@ -81,7 +81,7 @@ begin
       FillChar(recTransfer, SizeOf(recTransfer), 0);
 
       recTransfer.OrderID            := SEND_FILE_TRANSFER_OPENED;
-      recTransfer.FileName           := ExtractFileName(FFileName);
+//      recTransfer.FileName           := ExtractFileName(FFileName);
       recTransfer.SenderUserRoleId   := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
       recTransfer.ReceiverUserRoleId := FSenderID;
 

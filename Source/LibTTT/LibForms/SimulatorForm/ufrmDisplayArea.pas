@@ -2452,8 +2452,8 @@ end;
 
 procedure TfrmDisplayArea.btnSendChatClick(Sender: TObject);
 var
-//i : Integer;
-rec : TRecTCPSendChatUserRole;
+rec : TRecTCPChatting;
+
 begin
    rec.OrderID := 0;
    rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
@@ -2848,7 +2848,7 @@ end;
 
 procedure TfrmDisplayArea.LogOutClick(Sender: TObject);
 var
-  rec : TRecTCP_UserState;
+  rec : TRecTCP_UserRole;
 
 begin
   if Assigned(simMgrClient.MyConsoleData) then

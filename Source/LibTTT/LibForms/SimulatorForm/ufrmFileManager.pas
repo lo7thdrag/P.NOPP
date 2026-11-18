@@ -198,7 +198,7 @@ end;
 
 procedure TfrmFileManager.imgbtnShareClick(Sender: TObject);
 var
-  rec : TRecTCPSendFileTransfer;
+  rec : TRecTCPFileTransfer;
 //  rec : TRecTCPFileSharing;
 //
 //  userRoleTemp : TUserRole;

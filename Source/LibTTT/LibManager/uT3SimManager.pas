@@ -39,13 +39,13 @@ type
     function GetConsoleIdentification : Boolean;
 
     procedure OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);
-    procedure OnSyncUserChat(const rec: TRecTCPSendChatUserRole);
+    procedure OnSyncUserChat(const rec: TRecTCPChatting);
 
     {Cicil Cantik}
     {Telegram}
-    procedure OnSyncUserTelegram(const rec: TRecTCPSendTelegram);
+    procedure OnSyncUserTelegram(const rec: TRecTCPTelegram);
     {File Sharing}
-    procedure OnSyncUserFileTransfer(const rec: TRecTCPSendFileTransfer);
+    procedure OnSyncUserFileTransfer(const rec: TRecTCPFileTransfer);
 
 
   protected
@@ -66,8 +66,8 @@ type
     SimChatting : TChattingContainer; {load saat running}
     SimTelegram : TTelegramContainer; {load saat running}
     SimOverlay : TOverlayTabContainer; {load saat running}
-    SimFileSendTelegram : TFileSendTelegramCOntainer;
-    SimFileSendFileTransfer : TFileSendFileTransferCOntainer;
+//    SimFileSendTelegram : TFileSendTelegramCOntainer;
+//    SimFileSendFileTransfer : TFileSendFileTransferCOntainer;
     SimFileTransfer : TFileTransferContainer;
 
     EventManager    : TT3EventManager;
@@ -81,18 +81,21 @@ type
     procedure LoadConsoleID; virtual;
     procedure LoadDataAsset(const vSet: TGameDataSetting); virtual;
 
-    procedure OnUserStateChange(const rec : TRecTCP_UserState); virtual;
+    procedure OnUserStateChange(const rec : TRecTCP_UserRole); virtual;
+    procedure OnChattingProcess(const rec : TRecTCPChatting); virtual;
+    procedure OnTelegramProcess(const rec : TRecTCPTelegram); virtual;
+
     procedure OnSituationBoardTabPropertiesChange(const rec : TRecTCPSendSituationBoardTabProperties); virtual;
-    procedure OnUserRoleChatChange(const rec : TRecTCPSendChatUserRole); virtual;
+
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); virtual;
     procedure OnFileSyncChange(const rec: TRecTCPFileSync);
     procedure OnFileFileTransferChange(const rec : TRecTCPFileTransfer);
     procedure OnFileSharingChange(const rec : TRecTCPFileSharing);
-    procedure OnSyncUserState(const rec: TRecTCP_UserState); virtual;
+    procedure OnSyncUserRole(const rec: TRecTCP_UserRole); virtual;
 
     {Cicil Cantik}
-    procedure OnSendTelegram(const rec : TRecTCPSendTelegram); virtual;
-    procedure OnSendFileTransfer(const rec : TRecTCPSendFileTransfer); virtual;
+
+    procedure OnFileTransferProcess(const rec : TRecTCPFileTransfer); virtual;
 //    procedure OnFileSyncTelegram(const rec : TRecTCPSendTelegram); virtual;
 
     {$ENDREGION}
@@ -155,8 +158,8 @@ begin
   SimChatting := TChattingContainer.Create;
   SimTelegram := TTelegramContainer.Create;
   SimFileTransfer := TFileTransferContainer.Create;
-  SimFileSendTelegram := TFileSendTelegramContainer.Create;
-  SimFileSendFileTransfer := TFileSendFileTransferContainer.Create;
+//  SimFileSendTelegram := TFileSendTelegramContainer.Create;
+//  SimFileSendFileTransfer := TFileSendFileTransferContainer.Create;
 //  SimOverlay.Converter := Converter;
 end;
 
@@ -176,9 +179,9 @@ begin
   SimTabProperties.Free;
   SimChatting.Free;
   SimTelegram.Free;
-  SimFileSendTelegram.Free;
+//  SimFileSendTelegram.Free;
   SimFileTransfer.Free;
-  SimFileSendFileTransfer.Free;
+//  SimFileSendFileTransfer.Free;
 
   inherited;
 end;
@@ -1154,12 +1157,11 @@ begin
   SimOverlay.TabList.Add(tabOverlayTemp);
 end;
 
-procedure TT3SimManager.OnSyncUserChat(const rec: TRecTCPSendChatUserRole);
+procedure TT3SimManager.OnSyncUserChat(const rec: TRecTCPChatting);
 var
   chatTemp : Tchatting;
 
 begin
-  SimChatting.ChattingList.Clear;
 
   chatTemp := TChatting.Create;
 
@@ -1172,7 +1174,7 @@ begin
 
 end;
 
-procedure TT3SimManager.OnSyncUserFileTransfer( const rec: TRecTCPSendFileTransfer);
+procedure TT3SimManager.OnSyncUserFileTransfer( const rec: TRecTCPFileTransfer);
 var
   FileTransferTemp : TFileTransfer;
 
@@ -1190,7 +1192,7 @@ begin
 
 end;
 
-procedure TT3SimManager.OnSyncUserState(const rec: TRecTCP_UserState);
+procedure TT3SimManager.OnSyncUserRole(const rec: TRecTCP_UserRole);
 var
   userRoleTemp : TUserRole;
 
@@ -1208,7 +1210,7 @@ begin
 
 end;
 
-procedure TT3SimManager.OnSyncUserTelegram(const rec: TRecTCPSendTelegram);
+procedure TT3SimManager.OnSyncUserTelegram(const rec: TRecTCPTelegram);
 var
   TelegramTemp : TTelegram;
 
@@ -1226,7 +1228,7 @@ begin
 
 end;
 
-procedure TT3SimManager.OnUserRoleChatChange(const rec: TRecTCPSendChatUserRole);
+procedure TT3SimManager.OnChattingProcess(const rec: TRecTCPChatting);
 var
   i : Integer;
   chatTemp : Tchatting;
@@ -1262,7 +1264,7 @@ begin
   end;
 end;
 
-procedure TT3SimManager.OnSendFileTransfer(const rec: TRecTCPSendFileTransfer);
+procedure TT3SimManager.OnFileTransferProcess(const rec: TRecTCPFileTransfer);
 var
   i : Integer;
   FileTransferTemp : TFileTransfer;
@@ -1294,7 +1296,7 @@ begin
   end;
 end;
 
-procedure TT3SimManager.OnSendTelegram(const rec: TRecTCPSendTelegram);
+procedure TT3SimManager.OnTelegramProcess(const rec: TRecTCPTelegram);
 var
   i : Integer;
   TelegramTemp : TTelegram;
@@ -1326,7 +1328,7 @@ begin
   end;
 end;
 
-procedure TT3SimManager.OnUserStateChange(const rec: TRecTCP_UserState);
+procedure TT3SimManager.OnUserStateChange(const rec: TRecTCP_UserRole);
 var
   userRoleTemp : TUserRole;
 

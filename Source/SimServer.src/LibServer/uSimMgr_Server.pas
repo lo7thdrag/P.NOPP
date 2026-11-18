@@ -55,19 +55,18 @@ type
 
     {$REGION ' Receive TCP '}
     procedure netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);
-    procedure netRecv_CmdUserState(apRec: PAnsiChar; aSize: Word);
+    procedure netRecv_CmdUserRole(apRec: PAnsiChar; aSize: Word);
+    procedure netRecv_CmdChatting(apRec: PAnsiChar; aSize: Word);
+    procedure netRecv_CmdTelegram(apRec: PAnsiChar; aSize: Word);
+    procedure netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);
+
+
     procedure netRecv_CmdSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
-    procedure netRecv_CmdChatUserRole(apRec: PAnsiChar; aSize: Word);
+
     procedure netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: Word);
-    procedure netRecv_CmdFileSendTelegram(apRec: PAnsiChar; aSize: Word);
-//    procedure netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);
+//    procedure netRecv_CmdFileSendTelegram(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdFileSharing(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdRemote(apRec: PAnsiChar; aSize: word);
-//    procedure netRecv_CmdClientStateInfo(apRec: PAnsiChar; aSize: word);
-
-    {Cicil Cantik}
-    procedure netRecv_CmdSendTelegram(apRec: PAnsiChar; aSize: Word);
-    procedure netRecv_CmdSendFileTransfer(apRec: PAnsiChar; aSize: Word);
 
     {$ENDREGION}
 
@@ -94,7 +93,7 @@ type
     procedure LoadConsoleID; override;
     procedure LoadDataAsset(const vSet: TGameDataSetting); override;
 
-    procedure OnUserStateChange(const rec : TRecTCP_UserState); override;
+    procedure OnUserStateChange(const rec : TRecTCP_UserRole); override;
     {$ENDREGION}
 
     procedure FNetServerOnClientConnect(const S: string);
@@ -203,7 +202,7 @@ procedure TSimMgr_Server.FNetServerOnClientDisConnect(const S: string);
 var
   consoleInfoTemp : TConsoleInfo;
   userRoleDataTemp : TUserRole;
-  rec : TRecTCP_UserState;
+  rec : TRecTCP_UserRole;
 
 begin
   consoleInfoTemp := SimConsole.GetConsoleInfo(s);
@@ -223,7 +222,7 @@ begin
 
       OnUserStateChange(rec);
 
-      VNetServer.SendBroadcastCommand(CPID_CMD_USER_STATE, @rec);
+      VNetServer.SendBroadcastCommand(CPID_CMD_USER_ROLE, @rec);
     end;
 
   end;
@@ -259,34 +258,36 @@ begin
   FNetSender.DInterval := vNetServerSetting.SendInterval;
 
   {$REGION ' UDP SECTION '}
-//  VNetServer.RegisterUDPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),nil);
-//  VNetServer.RegisterUDPPacket(CPID_CMD_CLIENT_STATE_INFO, SizeOf(TRecUDP_ClientState_Info),nil);
+
   {$ENDREGION}
 
   {$REGION ' TCP SECTION '}
-//  VNetServer.RegisterTCPPacket(CPID_CMD_CLIENT_STATE_INFO, SizeOf(TRecTCP_ClientState_Info), nil);
-//  VNetServer.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
+
   VNetServer.RegisterTCPPacket(CPID_CMD_GAME_CTRL, SizeOf(TRecCmd_GameCtrl),netRecv_CmdGameControl);
-  VNetServer.RegisterTCPPacket(CPID_CMD_USER_STATE, SizeOf(TRecTCP_UserState), netRecv_CmdUserState);
+  VNetServer.RegisterTCPPacket(CPID_CMD_USER_ROLE, SizeOf(TRecTCP_UserRole), netRecv_CmdUserRole);
+  VNetServer.RegisterTCPPacket(CPID_CMD_CHATTING, SizeOf(TRecTCPChatting), netRecv_CmdChatting);
+  VNetServer.RegisterTCPPacket(CPID_CMD_TELEGRAM, SizeOf(TRecTCPTelegram), netRecv_CmdTelegram);
+  VNetServer.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer), netRecv_CmdFileTransfer);
+
   VNetServer.RegisterTCPPacket(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
-  VNetServer.RegisterTCPPacket(CPID_CMD_CHAT_USER_ROLE, SizeOf(TrecTCPSendChatUserRole), netRecv_CmdChatUserRole);
+
   VNetServer.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape), netRecv_CmdOverlayShape);
-  VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync), netRecv_CmdFileSendTelegram);
+//  VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync), netRecv_CmdFileSendTelegram);
 //  VNetServer.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer), netRecv_CmdFileTransfer);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing), netRecv_CmdFileSharing);
   VNetServer.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_Reconnect), netRecv_CmdReconnect);
 
-  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserState),nil);
-  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPSendChatUserRole),nil);
+  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserRole),nil);
+  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPChatting),nil);
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_SITUATIONBOARD, SizeOf(TRecTCPSendSituationBoardTabProperties),nil);
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_OVERLAY, SizeOf(TRecTCPSendSituationBoardTabProperties),nil);
 
   VNetServer.RegisterTCPPacket(CPID_TCP_REQUEST, SizeOf(TRecTCP_Request), netRecv_TCPRequest);
 
   {Cicil Cantik}
-  VNetServer.RegisterTCPPacket(CPID_CMD_SEND_TELEGRAM, SizeOf(TRecTCPSendTelegram), netRecv_CmdSendTelegram);
-  VNetServer.RegisterTCPPacket(CPID_CMD_SEND_FILE_TRANSFER, SizeOf(TRecTCPSendFileTransfer), netRecv_CmdSendFileTransfer);
+
+
   {$ENDREGION}
 
   VNetServer.StartListen;
@@ -299,30 +300,30 @@ begin
   Result := inherited;
 end;
 
-procedure TSimMgr_Server.netRecv_CmdChatUserRole(apRec: PAnsiChar; aSize: Word);
+procedure TSimMgr_Server.netRecv_CmdChatting(apRec: PAnsiChar; aSize: Word);
 var
-  rec : ^TrecTCPSendChatUserRole;
+  rec : ^TRecTCPChatting;
   sIP : String;
 begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnUserRoleChatChange(rec^);
+  OnChattingProcess(rec^);
 
-  VNetServer.SendBroadcastCommand(CPID_CMD_CHAT_USER_ROLE, apRec);
+  VNetServer.SendBroadcastCommand(CPID_CMD_CHATTING, apRec);
 
 end;
 
-procedure TSimMgr_Server.netRecv_CmdFileSendTelegram(apRec: PAnsiChar;aSize: Word);
-var
-  rec : ^TRecTCPFileSync;
-  sIP : String;
-begin
-  rec := @apRec^;
-  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
-
-  VNetServer.SendBroadcastCommand(CPID_CMD_FILE_SYNC,  apRec);
-end;
+//procedure TSimMgr_Server.netRecv_CmdFileSendTelegram(apRec: PAnsiChar;aSize: Word);
+//var
+//  rec : ^TRecTCPFileSync;
+//  sIP : String;
+//begin
+//  rec := @apRec^;
+//  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+//
+//  VNetServer.SendBroadcastCommand(CPID_CMD_FILE_SYNC,  apRec);
+//end;
 
 procedure TSimMgr_Server.netRecv_CmdFileSharing(apRec: PAnsiChar; aSize: Word);
 var
@@ -387,8 +388,8 @@ var
   chatTemp : TChatting;
   tabPropertiesTemp : TTabProperties;
 
-  recUserTemp : TRecTCP_UserState;
-  recChatTemp : TRecTCPSendChatUserRole;
+  recUserTemp : TRecTCP_UserRole;
+  recChatTemp : TRecTCPChatting;
   recTabTemp: TRecTCPSendSituationBoardTabProperties;
 
 begin
@@ -422,6 +423,7 @@ begin
       recChatTemp.SenderUserRoleId := chatTemp.IdUserRoleSending;
       recChatTemp.ReceiverUserRoleId := chatTemp.IdUserRoleReceive;
       recChatTemp.ChatMessage := chatTemp.ChatMessage;
+      recChatTemp.ChatStatus  := chatTemp.ChatStatus;
 
       VNetServer.SendTo(CPID_CMD_RECONNECT_CHATTING, @recChatTemp, sIP);
     end;
@@ -494,37 +496,37 @@ begin
 
 end;
 
-procedure TSimMgr_Server.netRecv_CmdSendFileTransfer(apRec: PAnsiChar; aSize: Word);
+procedure TSimMgr_Server.netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);
 var
-  rec : ^TRecTCPSendFileTransfer;
+  rec : ^TRecTCPFileTransfer;
   sIP : String;
 begin
    rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnSendFileTransfer(rec^);
+  OnFileTransferProcess(rec^);
 
-  VNetServer.SendBroadcastCommand(CPID_CMD_SEND_FILE_TRANSFER, apRec);
+  VNetServer.SendBroadcastCommand(CPID_CMD_FILE_TRANSFER, apRec);
 
 end;
 
-procedure TSimMgr_Server.netRecv_CmdSendTelegram(apRec: PAnsiChar;aSize: Word);
+procedure TSimMgr_Server.netRecv_CmdTelegram(apRec: PAnsiChar;aSize: Word);
 var
-  rec : ^TRecTCPSendTelegram;
+  rec : ^TRecTCPTelegram;
   sIP : String;
 begin
    rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnSendTelegram(rec^);
+  OnTelegramProcess(rec^);
 
-  VNetServer.SendBroadcastCommand(CPID_CMD_SEND_TELEGRAM, apRec);
+  VNetServer.SendBroadcastCommand(CPID_CMD_TELEGRAM, apRec);
 
 end;
 
-procedure TSimMgr_Server.netRecv_CmdUserState(apRec: PAnsiChar; aSize: Word);
+procedure TSimMgr_Server.netRecv_CmdUserRole(apRec: PAnsiChar; aSize: Word);
 var
-  rec : ^TRecTCP_UserState;
+  rec : ^TRecTCP_UserRole;
   sIP : String;
 begin
   rec := @apRec^;
@@ -532,7 +534,7 @@ begin
 
   OnUserStateChange(rec^);
 
-  VNetServer.SendBroadcastCommand(CPID_CMD_USER_STATE, apRec);
+  VNetServer.SendBroadcastCommand(CPID_CMD_USER_ROLE, apRec);
 end;
 
 procedure TSimMgr_Server.netRecv_TCPRequest(apRec: PAnsiChar; aSize: Word);
@@ -643,7 +645,7 @@ begin
   {$ENDREGION}
 end;
 
-procedure TSimMgr_Server.OnUserStateChange(const rec: TRecTCP_UserState);
+procedure TSimMgr_Server.OnUserStateChange(const rec: TRecTCP_UserRole);
 begin
   inherited;
   TT3ServerEventManager(EventManager).OnUpdateUserStateChange(rec.OrderID);

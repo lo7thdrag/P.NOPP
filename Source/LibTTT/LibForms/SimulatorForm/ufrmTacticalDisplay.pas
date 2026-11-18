@@ -526,6 +526,12 @@ begin
   if SimManager.GetGameState then
   begin
     rec.ConsoleIP := simMgrClient.MyConsoleData.IpAdrres;
+
+    simMgrClient.SimChatting.ChattingList.Clear;
+    simMgrClient.SimTelegram.TelegramList.Clear;
+    simMgrClient.SimOverlay.TabList.Clear;
+//    simMgrClient.SimFileTransfer.ChattingList.Clear;
+
     simMgrClient.netSend_CmdReconnect(rec);
 
 //    FTimerbutton := 1;
@@ -592,7 +598,7 @@ end;
 
 procedure TfrmTacticalDisplay.btnLoginClick(Sender: TObject);
 var
-  rec : TRecTCP_UserState;
+  rec : TRecTCP_UserRole;
   userRoleTemp : TUserRole;
 
 begin
@@ -644,7 +650,7 @@ end;
 
 procedure TfrmTacticalDisplay.btnLogoutClick(Sender: TObject);
 var
-  rec : TRecTCP_UserState;
+  rec : TRecTCP_UserRole;
 
 begin
   if Assigned(simMgrClient.MyConsoleData) then

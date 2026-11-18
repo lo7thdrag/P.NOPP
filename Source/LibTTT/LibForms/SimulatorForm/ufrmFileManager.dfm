@@ -26,7 +26,6 @@ object frmFileManager: TfrmFileManager
     ParentBackground = False
     ShowCaption = False
     TabOrder = 0
-    ExplicitHeight = 508
     object pnlTop: TPanel
       Left = 0
       Top = 0
@@ -66,7 +65,6 @@ object frmFileManager: TfrmFileManager
       ParentBackground = False
       ShowCaption = False
       TabOrder = 1
-      ExplicitTop = 54
       object lblShareTo: TLabel
         Left = 14
         Top = 13

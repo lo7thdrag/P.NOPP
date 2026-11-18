@@ -202,7 +202,7 @@ end;
 
 procedure TfrmTelegram.btnKirimClick(Sender: TObject);
 var
-  rec : TRecTCPSendTelegram;
+  rec : TRecTCPTelegram;
 //  DateTimeNowTemp  : string;
 //  SentPath         : string;
 //  SenderFolderName : string;
@@ -439,7 +439,7 @@ end;
 
 procedure TfrmTelegram.lblOpenClick(Sender: TObject);
 var
-  rec : TRecTCPSendTelegram;
+  rec : TRecTCPTelegram;
   path: string;
 
   sourceFileTemp : string;

@@ -265,7 +265,7 @@ end;
 
 procedure TfrmToteDisplay.btnLogout1Click(Sender: TObject);
 var
-  rec : TRecTCP_UserState;
+  rec : TRecTCP_UserRole;
   consoleInfoTemp : TConsoleInfo;
   consoleListTemp: TUserRole;
 begin
@@ -463,7 +463,7 @@ end;
 procedure TfrmToteDisplay.btnSendClick(Sender: TObject);
 {$REGION ' CICIL CANTIK'}
 var
-  rec : TRecTCPSendFileTransfer;
+  rec : TRecTCPFileTransfer;
 begin
   {$REGION ' Send File '}
   if CopyFile(PChar(SourceFile), PChar(DestFile), False) then

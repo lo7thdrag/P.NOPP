@@ -57,8 +57,8 @@ type
     ConsoleIP   : string[20];
   end;
 
-  // CPID_CMD_LOGIN
-  TRecTCP_UserState = record
+  // CPID_CMD_USER_ROLE
+  TRecTCP_UserRole = record
     pid         : TPacketID;
     SessionID   : Integer;
     OrderID     : Integer;
@@ -111,8 +111,8 @@ type
     OverlayTab  : Integer;
   end;
 
-  //CPID_CHAT_USER_ROLE_CMD
-  TRecTCPSendChatUserRole = record
+  //CPID_CMD_CHATTING
+  TRecTCPChatting = record
     pid                 : TPacketID;
     SessionID           : Integer;
     OrderID             : Byte;
@@ -123,7 +123,8 @@ type
     ChatStatus          : Byte; {0: centang1, 1: centang2, 2: centang2Biru}
   end;
 
-  TRecTCPSendTelegram = record
+  //CPID_CMD_TELEGRAM
+  TRecTCPTelegram = record
     pid                 : TPacketID;
     SessionID           : Integer;
     OrderID             : Byte;
@@ -135,7 +136,8 @@ type
     TelegramStatus      : Byte; {0: , 1: , 2: }
   end;
 
-  TRecTCPSendFileTransfer = record
+  //CPID_CMD_FILE_TRANSFER
+  TRecTCPFileTransfer = record
     pid                 : TPacketID;
     SessionID           : Integer;
     OrderID             : Byte;
@@ -167,22 +169,22 @@ type
   end;
 
   //CPID_FILE_TRANSFER_TOTEDISPLAY
-  TRecTCPFileTransfer = record
-    pid        : TPacketID;
-    SessionID  : Integer;
-    OrderID    : Byte;
-    FileName   : string[255];
-    FileSize   : Int64;
-    Position   : Int64;
-    DataSize   : Word;
-    Data       : array[0..8191] of Byte;
-    SenderIP   : string[255];
-    FolderName : string[255];
-    SenderName : string[255];
-
-    SenderUserRoleId    : Integer;
-    ReceiverUserRoleId  : Integer;
-  end;
+//  TRecTCPFileTransfer = record
+//    pid        : TPacketID;
+//    SessionID  : Integer;
+//    OrderID    : Byte;
+//    FileName   : string[255];
+//    FileSize   : Int64;
+//    Position   : Int64;
+//    DataSize   : Word;
+//    Data       : array[0..8191] of Byte;
+//    SenderIP   : string[255];
+//    FolderName : string[255];
+//    SenderName : string[255];
+//
+//    SenderUserRoleId    : Integer;
+//    ReceiverUserRoleId  : Integer;
+//  end;
 
   TRecTCPFileSharing = record
     pid        : TPacketID;
@@ -1876,7 +1878,7 @@ const
   CPID_CMD_GAME_CTRL                      = CPID_TCP + 1;
     CORD_ID_start = 1;
     CORD_ID_pause = 2;
-  CPID_CMD_USER_STATE                     = CPID_TCP + 2;
+  CPID_CMD_USER_ROLE                     = CPID_TCP + 2;
     CORD_ID_LOGIN = 1;
     CORD_ID_LOGOUT = 2;
   CPID_TCP_REQUEST                        = CPID_TCP + 3;
@@ -1889,7 +1891,7 @@ const
     NEW_TAB = 0;
     EDIT_TAB = 1;
     DELETE_TAB = 2;
-  CPID_CMD_CHAT_USER_ROLE                 = CPID_TCP + 6;
+  CPID_CMD_CHATTING                       = CPID_TCP + 6;
     SEND_CHAT = 0;
     READ_CHAT = 1;
   CPID_CMD_OVERLAYSHAPE                   = CPID_TCP + 7;
@@ -1902,7 +1904,7 @@ const
     SEND_FILE_DATA    = 2;
     SEND_FILE_FINISH  = 3;
     SEND_FILE_OPENED  = 4;
-  CPID_CMD_SEND_FILE_TRANSFER                  = CPID_TCP + 11;
+  CPID_CMD_FILE_TRANSFER                  = CPID_TCP + 11;
   {0 dan 1 dari cicil seterusnya tak sesuaikan}
     SEND_FILE_TRANSFER = 0;
     READ_FILE_TRANSFER = 1;
@@ -1923,7 +1925,7 @@ const
   CPID_CMD_RECONNECT_FILESHARING          = CPID_TCP + 16;
   CPID_CMD_RECONNECT_SITUATIONBOARD       = CPID_TCP + 17;
   CPID_CMD_RECONNECT_OVERLAY              = CPID_TCP + 18;
-  CPID_CMD_SEND_TELEGRAM                  = CPID_TCP + 19;
+  CPID_CMD_TELEGRAM                       = CPID_TCP + 19;
     SEND_TELEGRAMM = 0;
     READ_TELEGRAMM = 1;
   CPID_TCP_MAX              	            = CPID_TCP + 21;
@@ -1951,7 +1953,7 @@ const
   'CPID_TCP_REQUEST                       ',   // + 3
   'CPID_CMD_REMOTE                        ',   // + 4
   'CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES ',   // + 5
-  'CPID_CMD_CHAT_USER_ROLE                ',   // + 6
+  'CPID_CMD_CHATTING                      ',   // + 6
   'CPID_CMD_OVERLAYSHAPE                  ',   // + 7
   'CPID_CMD_TELEGRAM_USER_ROLE            ',   // + 8
   'CPID_CMD_RECONNECT                     ',   // + 9
@@ -1964,7 +1966,7 @@ const
   'CPID_CMD_RECONNECT_FILESHARING         ',   // + 16
   'CPID_CMD_RECONNECT_SITUATIONBOARD      ',   // + 17
   'CPID_CMD_RECONNECT_OVERLAY             ',   // + 18
-  'CPID_CMD_SEND_TELEGRAM                 ',   // + 19
+  'CPID_CMD_TELEGRAM                      ',   // + 19
   'CPID_TCP_MAX                           '    // + 20
 );
 
