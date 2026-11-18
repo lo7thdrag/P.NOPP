@@ -456,16 +456,17 @@ begin
     simMgrClient.netSend_CmdSendTelegram(rec);
   end;
 
-  sourceFileTemp := FSelectedTelegram.TelegramAddres;
+  sourceFileTemp := FSelectedTelegram.TelegramAddres + '\' + FSelectedTelegram.TelegramMessage;
 
-  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX';
+  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX\';
 
   if not TDirectory.Exists(path) then
     TDirectory.CreateDirectory(path);
 
-  CopyFile(PChar(SourceFile), PChar(path), False);
-
-  ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW);
+  if CopyFile(PChar(sourceFileTemp), PChar(path), False) then
+    ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW)
+  else
+    ShowMessage('Data gagal di buka');
 end;
 
 procedure TfrmTelegram.lblOpenSentClick(Sender: TObject);
@@ -498,7 +499,7 @@ begin
   try
     TelegramPath := IncludeTrailingPathDelimiter(vGameDataSetting.FileTelegram);
 
-    OpenDialog.InitialDir := TelegramPath;
+//    OpenDialog.InitialDir := TelegramPath;
     OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
     OpenDialog.Filter     := 'Dokumen Word (*.doc, *.docx)|*.doc;*.docx|File Word (*.doc, *.docx)|*.doc;*.docx|';
 

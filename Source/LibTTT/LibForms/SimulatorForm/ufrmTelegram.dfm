@@ -1666,7 +1666,7 @@ object frmTelegram: TfrmTelegram
             Left = 29
             Top = 5
             Width = 37
-            Height = 24
+            Height = 23
             Cursor = crHandPoint
             Caption = 'Send'
             Font.Charset = ANSI_CHARSET
