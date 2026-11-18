@@ -98,9 +98,9 @@ begin
    //Application.MainFormOnTaskbar := True;
 
     Application.CreateForm(TfrmMainGameServer, frmMainGameServer);
-  Application.CreateForm(TfrmDatabaseLogin, frmDatabaseLogin);
-  Application.CreateForm(TdmINWO, dmINWO);
-  uScriptSimServer.BeginGame_Server;
+    Application.CreateForm(TfrmDatabaseLogin, frmDatabaseLogin);
+    Application.CreateForm(TdmINWO, dmINWO);
+    uScriptSimServer.BeginGame_Server;
 
     Randomize;
 
