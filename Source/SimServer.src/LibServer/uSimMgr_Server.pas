@@ -34,9 +34,6 @@ type
 
     procedure setBroadcastData(const Value: boolean);
     function getBroadcastData: boolean;
-    procedure netRecv_CmdReconnect(apRec: PAnsiChar; aSize: word);
-    procedure netRecv_TCPRequest(apRec: PAnsiChar; aSize: Word);
-//    procedure netRecv_CmdSYNCH(apRec: PAnsiChar; aSize: Word);
 
   protected
     FSendCounter: integer;
@@ -44,29 +41,27 @@ type
 
     // send UDP
     procedure NetSendUDP_BroadCast(sender: TObject);
-//    procedure netSendUDP_GameTime(sender: TObject);
 
     //send TCP
-//    procedure NetSendTCP_Sycnh_Platform();
 
     {$REGION ' Receive UDP '}
 
     {$ENDREGION}
 
     {$REGION ' Receive TCP '}
+    procedure netRecv_TCPRequest(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdUserRole(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdChatting(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdTelegram(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);
 
-
     procedure netRecv_CmdSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
-
     procedure netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: Word);
-//    procedure netRecv_CmdFileSendTelegram(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdFileSharing(apRec: PAnsiChar; aSize: Word);
     procedure netRecv_CmdRemote(apRec: PAnsiChar; aSize: word);
+
+    procedure netRecv_CmdReconnect(apRec: PAnsiChar; aSize: word);
 
     {$ENDREGION}
 
@@ -93,7 +88,7 @@ type
     procedure LoadConsoleID; override;
     procedure LoadDataAsset(const vSet: TGameDataSetting); override;
 
-    procedure OnUserStateChange(const rec : TRecTCP_UserRole); override;
+    procedure OnUserRoleProcess(const rec : TRecTCP_UserRole); override;
     {$ENDREGION}
 
     procedure FNetServerOnClientConnect(const S: string);
@@ -220,7 +215,7 @@ begin
       rec.ConsoleIP := userRoleDataTemp.ConsoleIP;
       rec.UserRoleInUse := False;
 
-      OnUserStateChange(rec);
+      OnUserRoleProcess(rec);
 
       VNetServer.SendBroadcastCommand(CPID_CMD_USER_ROLE, @rec);
     end;
@@ -270,12 +265,11 @@ begin
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer), netRecv_CmdFileTransfer);
 
   VNetServer.RegisterTCPPacket(CPID_CMD_SITUATIONBOARD_TAB_PROPERTIES, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSituationBoardTabProperties);
-
   VNetServer.RegisterTCPPacket(CPID_CMD_OVERLAYSHAPE, SizeOf(TRecTCPSendOverlayShape), netRecv_CmdOverlayShape);
-//  VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SYNC, SizeOf(TRecTCPFileSync), netRecv_CmdFileSendTelegram);
-//  VNetServer.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer), netRecv_CmdFileTransfer);
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing), netRecv_CmdFileSharing);
   VNetServer.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
+
+  {Reconnect}
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_Reconnect), netRecv_CmdReconnect);
 
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserRole),nil);
@@ -314,17 +308,6 @@ begin
 
 end;
 
-//procedure TSimMgr_Server.netRecv_CmdFileSendTelegram(apRec: PAnsiChar;aSize: Word);
-//var
-//  rec : ^TRecTCPFileSync;
-//  sIP : String;
-//begin
-//  rec := @apRec^;
-//  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
-//
-//  VNetServer.SendBroadcastCommand(CPID_CMD_FILE_SYNC,  apRec);
-//end;
-
 procedure TSimMgr_Server.netRecv_CmdFileSharing(apRec: PAnsiChar; aSize: Word);
 var
   rec : ^TRecTCPFileSharing;
@@ -335,17 +318,6 @@ begin
 
   VNetServer.SendBroadcastCommand(CPID_CMD_FILE_SHARING,  apRec);
 end;
-
-//procedure TSimMgr_Server.netRecv_CmdFileTransfer(apRec: PAnsiChar; aSize: Word);
-//var
-//  rec : ^TRecTCPFileTransfer;
-//  sIP : String;
-//begin
-////  rec := @apRec^;
-////  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
-////
-////  VNetServer.SendBroadcastCommand(CPID_CMD_FILE_TRANSFER,  apRec);
-//end;
 
 procedure TSimMgr_Server.netRecv_CmdGameControl(apRec: PAnsiChar; aSize: word);
 var
@@ -533,7 +505,7 @@ begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnUserStateChange(rec^);
+  OnUserRoleProcess(rec^);
 
   VNetServer.SendBroadcastCommand(CPID_CMD_USER_ROLE, apRec);
 end;
@@ -646,7 +618,7 @@ begin
   {$ENDREGION}
 end;
 
-procedure TSimMgr_Server.OnUserStateChange(const rec: TRecTCP_UserRole);
+procedure TSimMgr_Server.OnUserRoleProcess(const rec: TRecTCP_UserRole);
 begin
   inherited;
   TT3ServerEventManager(EventManager).OnUpdateUserStateChange(rec.OrderID);

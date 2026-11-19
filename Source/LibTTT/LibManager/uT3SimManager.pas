@@ -81,7 +81,7 @@ type
     procedure LoadConsoleID; virtual;
     procedure LoadDataAsset(const vSet: TGameDataSetting); virtual;
 
-    procedure OnUserStateChange(const rec : TRecTCP_UserRole); virtual;
+    procedure OnUserRoleProcess(const rec : TRecTCP_UserRole); virtual;
     procedure OnChattingProcess(const rec : TRecTCPChatting); virtual;
     procedure OnTelegramProcess(const rec : TRecTCPTelegram); virtual;
 
@@ -1328,7 +1328,7 @@ begin
   end;
 end;
 
-procedure TT3SimManager.OnUserStateChange(const rec: TRecTCP_UserRole);
+procedure TT3SimManager.OnUserRoleProcess(const rec: TRecTCP_UserRole);
 var
   userRoleTemp : TUserRole;
 

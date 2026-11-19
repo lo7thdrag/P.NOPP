@@ -107,7 +107,7 @@ type
 
     procedure LoadConsoleID; override;
     procedure LoadDataAsset(const vSet: TGameDataSetting); override;
-    procedure OnUserStateChange(const rec : TRecTCP_UserRole); override;
+    procedure OnUserRoleProcess(const rec : TRecTCP_UserRole); override;
     procedure OnChattingProcess(const rec : TRecTCPChatting); override;
     procedure OnTelegramProcess(const rec : TRecTCPTelegram); override;
     procedure OnFileTransferProcess(const rec : TRecTCPFileTransfer); override;
@@ -321,13 +321,7 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing),netRecv_CmdSyncFileSharing);
    VNetClient.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
 
-//   VNetClient.RegisterTCPPacket(CPID_CMD_SEND_TELEGRAM, SizeOf(TRecTCPSendTelegram),netRecv_CmdTelegramUserRole);
-//   VNetClient.RegisterTCPPacket(CPID_CMD_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransferToteDisplay);
-
-   {CICIL TELEGRAM}
-
-
-   {CICIL File Sharing}
+   {Reconnect}
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_Reconnect), nil);
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserRole),netRecv_CmdSyncUserRole);
@@ -593,7 +587,7 @@ begin
   rec := @apRec^;
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
-  OnUserStateChange(rec^);
+  OnUserRoleProcess(rec^);
 
 end;
 
@@ -1185,7 +1179,7 @@ begin
   end;
 end;
 
-procedure TSimMgr_Client.OnUserStateChange(const rec: TRecTCP_UserRole);
+procedure TSimMgr_Client.OnUserRoleProcess(const rec: TRecTCP_UserRole);
 var
   userRoleTemp : TUserRole;
 
