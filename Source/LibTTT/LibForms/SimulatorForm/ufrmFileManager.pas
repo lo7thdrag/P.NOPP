@@ -271,8 +271,9 @@ begin
   TargetDir := DestFolder;
   if not ForceDirectories(TargetDir) then
   begin
-    ShowMessage('Gagal membuat folder tujuan: ' + TargetDir);
-    Exit;
+    ShowMessage(
+    'Gagal membuat folder tujuan: "' + TargetDir + '"' + sLineBreak +
+    'Kode Error: ' + IntToStr(GetLastError) + ' - ' + SysErrorMessage(GetLastError));
   end;
   if CopyFile(PChar(SourceFile), PChar(DestFile), False) then
   begin
