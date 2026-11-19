@@ -394,7 +394,7 @@ type
 
     function GetFileTransferById(FileTransferId : Integer):TFileTransfer;
     function GetFileTransferBySender(IdSender : Integer; var FileTransferList : TList): Boolean;
-    function GetFileTransferByReceiver(IdReceiver : Integer; var telegramList : TList): Boolean;
+    function GetFileTransferByReceiver(IdReceiver : Integer; var fileTransferList : TList): Boolean;
 
     property FileTransferList : TList read FFileTransferList write FFileTransferList;
   end;
@@ -3312,7 +3312,7 @@ begin
   end;
 end;
 
-function TFileTransferContainer.GetFileTransferByReceiver(IdReceiver: Integer; var telegramList: TList): Boolean;
+function TFileTransferContainer.GetFileTransferByReceiver(IdReceiver: Integer; var fileTransferList: TList): Boolean;
 var
   i : Integer;
   FileTransferTemp : TFileTransfer;
@@ -3322,7 +3322,7 @@ begin
     FileTransferTemp := FFileTransferList.Items[i];
 
     if (FileTransferTemp.FIdUserRoleReceiveFileTransfer = IdReceiver) then
-      FileTransferList.Add(FileTransferTemp);
+      fileTransferList.Add(FileTransferTemp);
   end;
 end;
 

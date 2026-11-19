@@ -1285,7 +1285,7 @@ begin
       FileTransferTemp.FileTransferStatus := rec.FileTransferStatus;
 
       {menyimpan ke list container}
-      SimTelegram.TelegramList.Add(FileTransferTemp);
+      SimFileTransfer.FileTransferList.Add(FileTransferTemp);
     end;
 
     READ_FILE_TRANSFER :

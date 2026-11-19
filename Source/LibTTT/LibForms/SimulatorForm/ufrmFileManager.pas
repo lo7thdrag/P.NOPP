@@ -63,6 +63,7 @@ type
       Selected: Boolean);
     procedure lblOpenInboxClick(Sender: TObject);
     procedure lblOpenSentClick(Sender: TObject);
+    procedure btnCloseInboxClick(Sender: TObject);
   private
     FConsoleList  : TList;
     FFileTransfer : TList;
@@ -107,6 +108,16 @@ implementation
 
 { TFileManager }
 
+procedure TfrmFileManager.btnCloseInboxClick(Sender: TObject);
+begin
+  ipFileTransferSentTo := '';
+  pnlSend.Visible := False;
+  cbbxShareTo.ItemIndex := -1;
+  SetLength(fileNameArray,0);
+  SetLength(pathFileArray,0);
+  frmFileManager.Width := 214;
+end;
+
 procedure TfrmFileManager.cbbxShareToDropDown(Sender: TObject);
 begin
   UpdateUserListFileSharing;
@@ -135,7 +146,7 @@ procedure TfrmFileManager.imgbtnChooseFileClick(Sender: TObject);
 var
   OpenDialog   : TOpenDialog;
   i            : Integer;
-  TelegramPath : string;
+  FileTransfer : string;
 
   ReceiverID, SenderFolderName, DateTimeNowTemp, SentPath : string;
 begin
@@ -147,9 +158,9 @@ begin
 
   OpenDialog := TOpenDialog.Create(Self);
   try
-    TelegramPath := IncludeTrailingPathDelimiter(vGameDataSetting.FileTransfer);
+    FileTransfer := IncludeTrailingPathDelimiter(vGameDataSetting.FileTransfer);
 
-    OpenDialog.InitialDir := TelegramPath;
+    OpenDialog.InitialDir := FileTransfer;
     OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
     OpenDialog.Filter     := 'Dokumen Word (*.doc, *.docx)|*.doc;*.docx|File Word (*.doc, *.docx)|*.doc;*.docx|';
 
@@ -168,7 +179,7 @@ begin
       if not DirectoryExists(SentPath) then
         ForceDirectories(SentPath);
 
-      DestFolder := TelegramPath + SenderFolderName + '\' + DateTimeNowTemp;
+      DestFolder := FileTransfer + SenderFolderName + '\' + DateTimeNowTemp;
 
       if not DirectoryExists(DestFolder) then
         ForceDirectories(DestFolder);
