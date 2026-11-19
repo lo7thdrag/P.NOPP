@@ -6,14 +6,12 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, System.IOUtils,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, ImageButton, Vcl.ExtCtrls, uClassData, uT3SimManager, uSimMgr_Client,
 
-  uRecordData, uLibSetting;
+  uRecordData, uLibSetting, AdvGroupBox, Vcl.ComCtrls;
 
 type
   TfrmFileManager = class(TForm)
     pnlMainFileManager: TPanel;
-    lblFileSharing: TLabel;
-    pnlTop: TPanel;
-    pnlBottom: TPanel;
+    pnlSend: TPanel;
     lblShareTo: TLabel;
     cbbxShareTo: TComboBox;
     imgbtnChooseFile: TImageButton;
@@ -25,11 +23,42 @@ type
     pnlShare: TPanel;
     Label1: TLabel;
     lstbxFileShareName: TEdit;
+    pnlLeft: TPanel;
+    lblFileTransfer: TLabel;
+    AdvGroupBox2: TAdvGroupBox;
+    pnSend: TPanel;
+    pnlTelegramMasuk: TPanel;
+    ImgBtnTelegramMasuk: TImageButton;
+    lblBtnTelegramMasuk: TLabel;
+    pnlTelegramTerkirim: TPanel;
+    ImgBtnTelegramTerkirim: TImageButton;
+    lblBtnTelegramTerkirim: TLabel;
+    imgBtnKirimTelegram: TImageButton;
+    lblSendFileTransfer: TLabel;
+    pnlInbox: TPanel;
+    lblInbox: TLabel;
+    btnCloseInbox: TImageButton;
+    btnCloseSend: TImageButton;
+    lvInbox: TListView;
+    Label2: TLabel;
+    imgbtnOpenInbox: TImageButton;
+    lblOpenInbox: TLabel;
+    pnlSent: TPanel;
+    lblSent: TLabel;
+    btnCloseSent: TImageButton;
+    imgOpenSent: TImageButton;
+    lblOpenSent: TLabel;
+    lvSent: TListView;
     procedure cbbxShareToDropDown(Sender: TObject);
     procedure cbbxShareToSelect(Sender: TObject);
     procedure imgbtnChooseFileClick(Sender: TObject);
     procedure imgbtnShareClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
+    procedure lblSendFileTransferClick(Sender: TObject);
+    procedure lblBtnTelegramMasukClick(Sender: TObject);
+    procedure lblBtnTelegramTerkirimClick(Sender: TObject);
+    procedure lvSentSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
   private
     FConsoleList  : TList;
     FFileTransfer : TList;
@@ -39,6 +68,7 @@ type
     fileNameTemp    : string;
 
     consolenameTemp : string;
+    ipFileTransferSentTo : string;
 
     FSelectedFileSharing : TFile_Data;
     FSelectedConsole      : TUserRole;
@@ -57,6 +87,10 @@ type
 
     procedure UpdateUserListFileSharing;
     procedure UpdateFilenameComboBox;
+
+    {Cicil Cantik}
+    procedure UpdateSentFileTransfer;
+    procedure UpdateInboxFileTransfer;
   end;
 
 var
@@ -368,10 +402,139 @@ begin
   {$ENDREGION}
 end;
 
+procedure TfrmFileManager.lblBtnTelegramMasukClick(Sender: TObject);
+begin
+  pnlSent.Visible := False;
+  pnlSend.Visible := False;
+  pnlInbox.Visible := True;
+  pnlInbox.BringToFront;
+  frmFileManager.Width := 672;
+
+  UpdateInboxFileTransfer;
+end;
+
+procedure TfrmFileManager.lblBtnTelegramTerkirimClick(Sender: TObject);
+begin
+  pnlInbox.Visible := False;
+  pnlSend.Visible := False;
+  pnlSent.Visible := True;
+  pnlSent.BringToFront;
+  frmFileManager.Width := 672;
+
+  UpdateSentFileTransfer;
+end;
+
+procedure TfrmFileManager.lblSendFileTransferClick(Sender: TObject);
+begin
+  pnlInbox.Visible := False;
+  pnlSent.Visible := False;
+  pnlSend.Visible := True;
+  pnlSend.BringToFront;
+  cbbxShareTo.ItemIndex := -1;
+  ipFileTransferSentTo := '';
+  frmFileManager.Width := 672;
+end;
+
+procedure TfrmFileManager.lvSentSelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+  if Selected then
+  begin
+    if (Item = nil) or (Item.Data = nil) then
+    Exit;
+
+    lblOpenSent.Enabled := True;
+    imgOpenSent.Enabled := True;
+  end;
+end;
+
 procedure TfrmFileManager.UpdateFilenameComboBox;
 begin
   lstbxFileShareName.Clear;
 //  lstbxFileShareName.Items.AddStrings(TArray<string>(fileNameArray));
+end;
+
+procedure TfrmFileManager.UpdateInboxFileTransfer;
+var
+  tempList : TList;
+  li : TListItem;
+  i : Integer;
+  FileTransferTemp : TFileTransfer;
+  namaRole : string;
+
+  userTemp : TUserRole;
+begin
+
+  tempList := TList.Create;
+
+  SimManager.SimFileTransfer.GetFileTransferByReceiver(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
+
+  lvInbox.Clear;
+
+  for i := 0 to tempList.Count - 1 do
+  begin
+    FileTransferTemp := tempList.Items[i];
+
+    li := lvInbox.Items.Add;
+
+    userTemp := SimManager.SimUserRole.getUserRoleByID(FileTransferTemp.IdUserRoleSendingFileTransfer);
+
+    if Assigned(userTemp) then
+      li.Caption := userTemp.FData.UserRoleIdentifier
+    else
+      li.Caption := FileTransferTemp.IdUserRoleSendingFileTransfer.ToString;
+
+    li.SubItems.Add(FileTransferTemp.FileTransferMessage);
+
+    {Ngeprint Telegram yg kamu kirim}
+    if FileTransferTemp.FileTransferStatus = 0 then
+      li.SubItems.Add('Belum Terbaca ')
+    else
+      li.SubItems.Add('Terbaca ');
+
+    li.Data := FileTransferTemp;
+
+  end;
+end;
+
+procedure TfrmFileManager.UpdateSentFileTransfer;
+var
+  tempList : TList;
+  li : TListItem;
+  i : Integer;
+  FileTransferTemp : TFileTransfer;
+  namaRole : string;
+
+  userTemp : TUserRole;
+begin
+
+  tempList := TList.Create;
+
+  SimManager.SimFileTransfer.GetFileTransferBySender(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
+
+  lvSent.Clear;
+
+  for i := 0 to tempList.Count - 1 do
+  begin
+    FileTransferTemp := tempList.Items[i];
+
+    li := lvSent.Items.Add;
+
+    userTemp := SimManager.SimUserRole.getUserRoleByID(FileTransferTemp.IdUserRoleSendingFileTransfer);
+
+    if Assigned(userTemp) then
+      li.Caption := userTemp.FData.UserRoleIdentifier
+    else
+      li.Caption := FileTransferTemp.IdUserRoleSendingFileTransfer.ToString;
+
+    li.SubItems.Add(FileTransferTemp.FileTransferMessage);
+
+    {Ngeprint Telegram yg kamu kirim}
+    if FileTransferTemp.FileTransferStatus = 0 then
+      li.SubItems.Add('Terkirim ')
+    else
+      li.SubItems.Add('Terbaca ');
+  end;
 end;
 
 procedure TfrmFileManager.UpdateUserListFileSharing;

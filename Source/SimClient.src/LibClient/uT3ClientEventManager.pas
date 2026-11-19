@@ -42,7 +42,7 @@ type
 implementation
 
 uses
-  ufrmTacticalDisplay ;
+  ufrmTacticalDisplay, ufrmFileManager;
 
 { TT3ClientEventManager }
 
@@ -79,9 +79,15 @@ end;
 procedure TT3ClientEventManager.OnUpdateFileTransfer(IdSender, IdReceiver: integer);
 begin
   inherited;
-    if Assigned(frmToteDisplay) then
+  if Assigned(frmToteDisplay) then
   begin
     frmToteDisplay.UpdateFileTransfer;
+  end;
+
+  if Assigned(frmFileManager) then
+  begin
+    frmFileManager.UpdateSentFileTransfer;
+    frmFileManager.UpdateInboxFileTransfer;
   end;
 end;
 
