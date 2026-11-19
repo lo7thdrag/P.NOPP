@@ -43755,12 +43755,14 @@ object frmDisplayArea: TfrmDisplayArea
           BevelInner = bvNone
           BevelOuter = bvNone
           BorderStyle = bsNone
+          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clCaptionText
           Font.Height = -11
           Font.Name = 'Tahoma'
           Font.Style = []
           ParentFont = False
+          ScrollBars = ssVertical
           TabOrder = 0
         end
         object lstUserChat: TListBox
@@ -43798,7 +43800,6 @@ object frmDisplayArea: TfrmDisplayArea
             Top = 4
             Width = 359
             Height = 24
-            Enabled = False
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -13

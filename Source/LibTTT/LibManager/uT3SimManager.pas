@@ -31,6 +31,14 @@ type
 
     procedure CreateMapConverter(Map : TMap);
 
+    procedure OnSyncUserChat(const rec: TRecTCPChatting); virtual;
+    procedure OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties); virtual;
+    {Cicil Cantik}
+    {Telegram}
+    procedure OnSyncUserTelegram(const rec: TRecTCPTelegram); virtual;
+    {File Sharing}
+    procedure OnSyncUserFileTransfer(const rec: TRecTCPFileTransfer); virtual;
+
   private
 
     FReg       : TRegistry;
@@ -38,14 +46,7 @@ type
 
     function GetConsoleIdentification : Boolean;
 
-    procedure OnSyncSituationBoardTabProperties(const rec: TRecTCPSendSituationBoardTabProperties);
-    procedure OnSyncUserChat(const rec: TRecTCPChatting);
 
-    {Cicil Cantik}
-    {Telegram}
-    procedure OnSyncUserTelegram(const rec: TRecTCPTelegram);
-    {File Sharing}
-    procedure OnSyncUserFileTransfer(const rec: TRecTCPFileTransfer);
 
 
   protected
@@ -1169,6 +1170,7 @@ begin
   chatTemp.IdUserRoleSending := rec.SenderUserRoleId;
   chatTemp.IdUserRoleReceive := rec.ReceiverUserRoleId;
   chatTemp.ChatMessage := rec.ChatMessage;
+  chatTemp.ChatStatus := rec.ChatStatus;
 
   SimChatting.ChattingList.Add(chatTemp);
 

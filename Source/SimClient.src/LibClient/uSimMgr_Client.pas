@@ -118,8 +118,8 @@ type
 
     procedure netOnConnected(sender: TObject);
     procedure OnSyncUserRole(const rec : TRecTCP_UserRole); override;
-    procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); // override;
-    procedure OnSyncUserChat(const rec : TRecTCPChatting); // override;
+    procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); //override;
+    procedure OnSyncUserChat(const rec : TRecTCPChatting); override;
     procedure OnSyncFileSendTelegram(const rec : TRecTCPFileSync);
     procedure OnSyncFileTransferToteDisplay(const rec : TRecTCPFileTransfer);
     procedure OnSyncFileSharing(const rec : TRecTCPFileSharing);
