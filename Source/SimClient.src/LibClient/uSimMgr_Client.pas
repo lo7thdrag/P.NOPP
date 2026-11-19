@@ -116,11 +116,6 @@ type
 
     procedure OnOverlayShape(const rec : TRecTCPSendOverlayShape); override;
 
-    procedure SendFileTransferRead(SenderID: Integer);
-
-    // buat chat read
-    procedure SendChatRead(SenderID: Integer);
-
     procedure netOnConnected(sender: TObject);
     procedure OnSyncUserRole(const rec : TRecTCP_UserRole); override;
     procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); // override;
@@ -149,6 +144,10 @@ type
     {Cicil Cantik}
     procedure netSend_CmdSendTelegram(r : TRecTCPTelegram);
     procedure netSend_CmdSendFileTransfer(r : TRecTCPFileTransfer);
+
+    procedure SendFileTransferRead(SenderID: Integer);
+    procedure SendChatRead(SenderID: Integer);
+
     {$ENDREGION}
 
     property MyConsoleData: TConsoleData read FConsoleData;
@@ -793,18 +792,6 @@ begin
   OnSyncUserRole(rec^);
 
 end;
-
-//procedure TSimMgr_Client.netRecv_CmdTelegramUserRole(apRec: PAnsiChar; aSize: word);
-//var
-//  rec : ^TRecTCPTelegram;
-//  sIP : String;
-//begin
-//  rec := @apRec^;
-//  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
-//
-//  OnTelegramProcess(rec^);
-//
-//end;
 
 procedure TSimMgr_Client.netRecv_CmdOverlayShape(apRec: PAnsiChar; aSize: word);
 var
