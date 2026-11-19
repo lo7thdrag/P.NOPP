@@ -43798,6 +43798,7 @@ object frmDisplayArea: TfrmDisplayArea
             Top = 4
             Width = 359
             Height = 24
+            Enabled = False
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
             Font.Height = -13

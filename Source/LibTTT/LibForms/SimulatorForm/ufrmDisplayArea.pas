@@ -2276,12 +2276,19 @@ end;
 
 procedure TfrmDisplayArea.ObrolanClick(Sender: TObject);
 begin
-  pnlRight.Width := 430;
-  pnlMainChatting.BringToFront;
-  lblNamaChat.Caption := 'CHAT';
-  ChatOpen := True;
-  imgNotifikasi.Visible := False;
-  UpdateClientChatting;
+  if pnlRight.Width > 0 then
+  begin
+    btnCloseChatClick(Sender)
+  end
+  else
+  begin
+    pnlRight.Width := 430;
+    pnlMainChatting.BringToFront;
+    lblNamaChat.Caption := 'CHAT';
+    ChatOpen := True;
+    imgNotifikasi.Visible := False;
+    UpdateClientChatting;
+  end;
 end;
 
 procedure TfrmDisplayArea.btnCloseChatClick(Sender: TObject);
