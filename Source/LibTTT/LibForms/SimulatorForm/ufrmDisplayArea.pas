@@ -364,6 +364,7 @@ type
     procedure cbbSearchSelect(Sender: TObject);
     procedure lvAssetSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
     procedure edtCariKeyPress(Sender: TObject; var Key: Char);
+    procedure edtChatBoxKeyPress(Sender: TObject; var Key: Char);
 
   private
     iconName : string;
@@ -725,6 +726,14 @@ begin
   if Key = #13 then
   begin
     UpdateDataFile;
+  end;
+end;
+
+procedure TfrmDisplayArea.edtChatBoxKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    btnSendChatClick(nil);
   end;
 end;
 

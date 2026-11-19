@@ -43623,40 +43623,6 @@ object frmDisplayArea: TfrmDisplayArea
           Color = clBackground
           TabOrder = 1
         end
-        object pnlBottomChat: TPanel
-          Left = 8
-          Top = 888
-          Width = 414
-          Height = 34
-          Align = alBottom
-          BevelOuter = bvNone
-          Color = clBackground
-          TabOrder = 2
-          Visible = False
-          object edtChatBox: TEdit
-            Left = 0
-            Top = 4
-            Width = 359
-            Height = 24
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -13
-            Font.Name = 'Tahoma'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 0
-            OnMouseEnter = btnSendChatClick
-          end
-          object btnSendChat: TButton
-            Left = 365
-            Top = 1
-            Width = 49
-            Height = 30
-            Caption = 'Send'
-            TabOrder = 1
-            OnClick = btnSendChatClick
-          end
-        end
         object pnlHeaderChat: TPanel
           Left = 8
           Top = 8
@@ -43764,8 +43730,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblNamaChat: TLabel
               Left = 0
               Top = 0
-              Width = 7
-              Height = 22
+              Width = 344
+              Height = 20
               Align = alClient
               Alignment = taCenter
               Caption = ' '
@@ -43775,6 +43741,8 @@ object frmDisplayArea: TfrmDisplayArea
               Font.Name = 'Jefferies'
               Font.Style = []
               ParentFont = False
+              ExplicitWidth = 7
+              ExplicitHeight = 22
             end
           end
         end
@@ -43814,6 +43782,40 @@ object frmDisplayArea: TfrmDisplayArea
           ParentFont = False
           TabOrder = 4
           OnDblClick = lstUserChatDblClick
+        end
+        object pnlBottomChat: TPanel
+          Left = 8
+          Top = 888
+          Width = 414
+          Height = 34
+          Align = alBottom
+          BevelOuter = bvNone
+          Color = clBackground
+          TabOrder = 2
+          Visible = False
+          object edtChatBox: TEdit
+            Left = 0
+            Top = 4
+            Width = 359
+            Height = 24
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -13
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 0
+            OnKeyPress = edtChatBoxKeyPress
+          end
+          object btnSendChat: TButton
+            Left = 365
+            Top = 1
+            Width = 49
+            Height = 30
+            Caption = 'Send'
+            TabOrder = 1
+            OnClick = btnSendChatClick
+          end
         end
       end
     end
