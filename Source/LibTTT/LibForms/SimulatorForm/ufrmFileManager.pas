@@ -249,6 +249,7 @@ end;
 procedure TfrmFileManager.imgbtnShareClick(Sender: TObject);
 var
   rec : TRecTCPFileTransfer;
+  TargetDir: string;
 //  rec : TRecTCPFileSharing;
 //
 //  userRoleTemp : TUserRole;
@@ -267,8 +268,14 @@ begin
   {$REGION ' CICIL CANTIK '}
 
   {$REGION ' Send File '}
-//  if CopyFile(PChar(SourceFile), PChar(DestFile), False) then
-//  begin
+  TargetDir := DestFolder;
+  if not ForceDirectories(TargetDir) then
+  begin
+    ShowMessage('Gagal membuat folder tujuan: ' + TargetDir);
+    Exit;
+  end;
+  if CopyFile(PChar(SourceFile), PChar(DestFile), False) then
+  begin
     {$REGION ' Send Paket '}
     rec.OrderID := SEND_FILE_TRANSFER;
     rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
@@ -283,11 +290,11 @@ begin
     {$ENDREGION}
 
     ShowMessage('File berhasil dikirim ');
-//  end
-//  else
-//  begin
-//    ShowMessage('Gagal menyalin file. Kode error Windows: ' + IntToStr(GetLastError));
-//  end;
+  end
+  else
+  begin
+    ShowMessage('Gagal menyalin file. Kode error Windows: ' + IntToStr(GetLastError));
+  end;
 
   {$ENDREGION}
 
