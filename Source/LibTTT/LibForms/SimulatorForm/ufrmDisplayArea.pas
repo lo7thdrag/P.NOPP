@@ -2276,6 +2276,7 @@ end;
 
 procedure TfrmDisplayArea.ObrolanClick(Sender: TObject);
 begin
+
   pnlRight.Width := 430;
   pnlMainChatting.BringToFront;
   lblNamaChat.Caption := 'CHAT';
