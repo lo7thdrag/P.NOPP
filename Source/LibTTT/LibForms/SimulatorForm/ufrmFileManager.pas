@@ -29,10 +29,10 @@ type
     pnSend: TPanel;
     pnlTelegramMasuk: TPanel;
     ImgBtnTelegramMasuk: TImageButton;
-    lblBtnTelegramMasuk: TLabel;
+    lblBtnFileTransferMasuk: TLabel;
     pnlTelegramTerkirim: TPanel;
     ImgBtnTelegramTerkirim: TImageButton;
-    lblBtnTelegramTerkirim: TLabel;
+    lblBtnFileTransferTerkirim: TLabel;
     imgBtnKirimTelegram: TImageButton;
     lblSendFileTransfer: TLabel;
     pnlInbox: TPanel;
@@ -55,9 +55,11 @@ type
     procedure imgbtnShareClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure lblSendFileTransferClick(Sender: TObject);
-    procedure lblBtnTelegramMasukClick(Sender: TObject);
-    procedure lblBtnTelegramTerkirimClick(Sender: TObject);
+    procedure lblBtnFileTransferMasukClick(Sender: TObject);
+    procedure lblBtnFileTransferTerkirimClick(Sender: TObject);
     procedure lvSentSelectItem(Sender: TObject; Item: TListItem;
+      Selected: Boolean);
+    procedure lvInboxSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
   private
     FConsoleList  : TList;
@@ -76,6 +78,7 @@ type
 
     SourceFile, DestFolder, DestFile, FileName: string;
     FSelectedUserFileTransfer : TUserRole;
+    FSelectedFileTransfer : TFileTransfer;
   public
     { Public declarations }
     SelectedUserRoleIP : string;
@@ -402,7 +405,7 @@ begin
   {$ENDREGION}
 end;
 
-procedure TfrmFileManager.lblBtnTelegramMasukClick(Sender: TObject);
+procedure TfrmFileManager.lblBtnFileTransferMasukClick(Sender: TObject);
 begin
   pnlSent.Visible := False;
   pnlSend.Visible := False;
@@ -413,7 +416,7 @@ begin
   UpdateInboxFileTransfer;
 end;
 
-procedure TfrmFileManager.lblBtnTelegramTerkirimClick(Sender: TObject);
+procedure TfrmFileManager.lblBtnFileTransferTerkirimClick(Sender: TObject);
 begin
   pnlInbox.Visible := False;
   pnlSend.Visible := False;
@@ -433,6 +436,22 @@ begin
   cbbxShareTo.ItemIndex := -1;
   ipFileTransferSentTo := '';
   frmFileManager.Width := 672;
+end;
+
+procedure TfrmFileManager.lvInboxSelectItem(Sender: TObject; Item: TListItem;
+  Selected: Boolean);
+begin
+  lblOpenInbox.Enabled := Selected;
+  imgbtnOpenInbox.Enabled := Selected;
+
+  if Selected then
+  begin
+    if (Item = nil) or (Item.Data = nil) then
+    Exit;
+
+    FSelectedFileTransfer := TFileTransfer(lvInbox.Selected.Data);
+
+  end;
 end;
 
 procedure TfrmFileManager.lvSentSelectItem(Sender: TObject; Item: TListItem;
