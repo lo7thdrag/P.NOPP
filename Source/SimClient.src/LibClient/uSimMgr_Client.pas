@@ -328,7 +328,7 @@ begin
 
 
    {CICIL File Sharing}
-
+   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_Reconnect), nil);
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserRole),netRecv_CmdSyncUserRole);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPChatting),netRecv_CmdSyncChatting);
