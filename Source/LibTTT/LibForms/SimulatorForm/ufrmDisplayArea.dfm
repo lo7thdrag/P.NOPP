@@ -43755,7 +43755,6 @@ object frmDisplayArea: TfrmDisplayArea
           BevelInner = bvNone
           BevelOuter = bvNone
           BorderStyle = bsNone
-          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clCaptionText
           Font.Height = -11

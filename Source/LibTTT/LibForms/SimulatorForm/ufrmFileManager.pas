@@ -6,7 +6,7 @@ uses
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics, System.IOUtils,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, ImageButton, Vcl.ExtCtrls, uClassData, uT3SimManager, uSimMgr_Client,
 
-  uRecordData, uLibSetting, AdvGroupBox, Vcl.ComCtrls;
+  uRecordData, uLibSetting, AdvGroupBox, Vcl.ComCtrls, Winapi.ShellAPI;
 
 type
   TfrmFileManager = class(TForm)
@@ -61,6 +61,8 @@ type
       Selected: Boolean);
     procedure lvInboxSelectItem(Sender: TObject; Item: TListItem;
       Selected: Boolean);
+    procedure lblOpenInboxClick(Sender: TObject);
+    procedure lblOpenSentClick(Sender: TObject);
   private
     FConsoleList  : TList;
     FFileTransfer : TList;
@@ -145,7 +147,7 @@ begin
 
   OpenDialog := TOpenDialog.Create(Self);
   try
-    TelegramPath := IncludeTrailingPathDelimiter(vGameDataSetting.FileTelegram);
+    TelegramPath := IncludeTrailingPathDelimiter(vGameDataSetting.FileTransfer);
 
     OpenDialog.InitialDir := TelegramPath;
     OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
@@ -158,7 +160,7 @@ begin
       ReceiverID       := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]).ConsoleIP;
       SenderFolderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
 
-      DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
+      DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh:nn:ss', Now);
       SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\' + cbbxShareTo.Text + '\' + DateTimeNowTemp;
 
       FileName := ExtractFileName(SourceFile);
@@ -266,6 +268,7 @@ begin
     rec.FileTransferStatus := 0; {centang1}
 
     simMgrClient.netSend_CmdSendFileTransfer(rec);
+    lstbxFileShareName.Text := '';
     {$ENDREGION}
 
     ShowMessage('File berhasil dikirim ');
@@ -275,7 +278,6 @@ begin
     ShowMessage('Gagal menyalin file. Kode error Windows: ' + IntToStr(GetLastError));
   end;
 
-  lstbxFileShareName.Text := '';
   {$ENDREGION}
 
   {$ENDREGION}
@@ -425,6 +427,50 @@ begin
   frmFileManager.Width := 672;
 
   UpdateSentFileTransfer;
+end;
+
+procedure TfrmFileManager.lblOpenInboxClick(Sender: TObject);
+var
+  rec : TRecTCPFileTransfer;
+  path: string;
+
+  sourceFileTemp : string;
+
+begin
+  if FSelectedFileTransfer.FileTransferStatus <> 1 then
+  begin
+    rec.OrderID := READ_FILE_TRANSFER;
+    rec.FileTransferId := FSelectedFileTransfer.IdFileTransfer;
+    rec.SenderUserRoleId := FSelectedFileTransfer.IdUserRoleSendingFileTransfer;
+    rec.ReceiverUserRoleId := FSelectedFileTransfer.IdUserRoleReceiveFileTransfer;
+    rec.FileTransferStatus := 1; {centang1}
+
+    simMgrClient.netSend_CmdSendFileTransfer(rec);
+  end;
+
+  sourceFileTemp := FSelectedFileTransfer.FileTransferAddres + '\' + FSelectedFileTransfer.FileTransferMessage;
+
+  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\INBOX\';
+
+  if not TDirectory.Exists(path) then
+    TDirectory.CreateDirectory(path);
+
+  if CopyFile(PChar(sourceFileTemp), PChar(path), False) then
+    ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW)
+  else
+    ShowMessage('Data gagal di buka');
+end;
+
+procedure TfrmFileManager.lblOpenSentClick(Sender: TObject);
+var
+  SentPath: string;
+begin
+  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\SENT';
+
+  if not TDirectory.Exists(SentPath) then
+    TDirectory.CreateDirectory(SentPath);
+
+  ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW);
 end;
 
 procedure TfrmFileManager.lblSendFileTransferClick(Sender: TObject);
