@@ -127,7 +127,7 @@ end;
 
 procedure TfrmFileManager.imgbtnChooseFileClick(Sender: TObject);
 {$REGION ' CAECILIA '}
-  var
+var
   OpenDialog   : TOpenDialog;
   i            : Integer;
   TelegramPath : string;

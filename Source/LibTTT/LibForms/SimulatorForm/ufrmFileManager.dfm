@@ -2226,6 +2226,7 @@ object frmFileManager: TfrmFileManager
             Top = 1
             Width = 158
             Height = 40
+            OnClick = lblSendFileTransferClick
             Picture.Data = {
               02630000424D026300000000000042000000280000009E000000280000000100
               200003000000C0620000130B0000130B000000000000000000000000FF0000FF
@@ -3058,6 +3059,7 @@ object frmFileManager: TfrmFileManager
             Top = 5
             Width = 158
             Height = 40
+            OnClick = lblBtnTelegramMasukClick
             Picture.Data = {
               02630000424D026300000000000042000000280000009E000000280000000100
               200003000000C0620000130B0000130B000000000000000000000000FF0000FF
@@ -3890,6 +3892,7 @@ object frmFileManager: TfrmFileManager
             Top = 4
             Width = 161
             Height = 40
+            OnClick = lblBtnTelegramTerkirimClick
             Picture.Data = {
               02630000424D026300000000000042000000280000009E000000280000000100
               200003000000C0620000130B0000130B000000000000000000000000FF0000FF
