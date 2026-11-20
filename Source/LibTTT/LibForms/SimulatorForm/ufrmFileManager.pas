@@ -281,17 +281,6 @@ begin
 
     simMgrClient.netSend_CmdSendFileTransfer(rec);
     lstbxFileShareName.Text := '';
-    {$REGION ' Send Paket '}
-//    rec.OrderID := SEND_FILE_TRANSFER;
-//    rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
-//    rec.ReceiverUserRoleId := FSelectedUserFileTransfer.FData.UserRoleIndex;
-//    rec.FileTransferAddres := DestFolder;
-//    FillChar(rec.FileTransferMessage, SizeOf(rec.FileTransferMessage), 0);
-//    rec.FileTransferMessage := FileName;
-//    rec.FileTransferStatus := 0; {centang1}
-//
-//    simMgrClient.netSend_CmdSendFileTransfer(rec);
-//    lstbxFileShareName.Text := '';
     {$ENDREGION}
 
     ShowMessage('File berhasil dikirim ');
