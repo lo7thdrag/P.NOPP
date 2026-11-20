@@ -146,7 +146,7 @@ procedure TfrmFileManager.imgbtnChooseFileClick(Sender: TObject);
 var
   OpenDialog   : TOpenDialog;
   i            : Integer;
-  FileTransfer : string;
+  FileTransferPath : string;
 
   ReceiverID, SenderFolderName, DateTimeNowTemp, SentPath : string;
 begin
@@ -158,9 +158,9 @@ begin
 
   OpenDialog := TOpenDialog.Create(Self);
   try
-    FileTransfer := IncludeTrailingPathDelimiter(vGameDataSetting.FileTransfer);
+    FileTransferPath := IncludeTrailingPathDelimiter(vGameDataSetting.FileTransfer);
 
-    OpenDialog.InitialDir := FileTransfer;
+//    OpenDialog.InitialDir := TelegramPath;
     OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
     OpenDialog.Filter     := 'Dokumen Word (*.doc, *.docx)|*.doc;*.docx|File Word (*.doc, *.docx)|*.doc;*.docx|';
 
@@ -171,15 +171,15 @@ begin
       ReceiverID       := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]).ConsoleIP;
       SenderFolderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
 
-      DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh:nn:ss', Now);
-      SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\' + cbbxShareTo.Text + '\' + DateTimeNowTemp;
+      DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
+      SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\SENT\' + cbbxShareTo.Text + '\' + DateTimeNowTemp;
 
       FileName := ExtractFileName(SourceFile);
 
       if not DirectoryExists(SentPath) then
         ForceDirectories(SentPath);
 
-      DestFolder := FileTransfer + SenderFolderName + '\' + DateTimeNowTemp;
+      DestFolder := FileTransferPath + SenderFolderName + '\' + DateTimeNowTemp;
 
       if not DirectoryExists(DestFolder) then
         ForceDirectories(DestFolder);
@@ -268,26 +268,30 @@ begin
   {$REGION ' CICIL CANTIK '}
 
   {$REGION ' Send File '}
-  TargetDir := DestFolder;
-  if not ForceDirectories(TargetDir) then
-  begin
-    ShowMessage(
-    'Gagal membuat folder tujuan: "' + TargetDir + '"' + sLineBreak +
-    'Kode Error: ' + IntToStr(GetLastError) + ' - ' + SysErrorMessage(GetLastError));
-  end;
   if CopyFile(PChar(SourceFile), PChar(DestFile), False) then
   begin
-    {$REGION ' Send Paket '}
+    FillChar(rec, SizeOf(rec), 0);
+
     rec.OrderID := SEND_FILE_TRANSFER;
     rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
     rec.ReceiverUserRoleId := FSelectedUserFileTransfer.FData.UserRoleIndex;
     rec.FileTransferAddres := DestFolder;
-    FillChar(rec.FileTransferMessage, SizeOf(rec.FileTransferMessage), 0);
     rec.FileTransferMessage := FileName;
-    rec.FileTransferStatus := 0; {centang1}
+    rec.FileTransferStatus := 0; { centang 1 }
 
     simMgrClient.netSend_CmdSendFileTransfer(rec);
     lstbxFileShareName.Text := '';
+    {$REGION ' Send Paket '}
+//    rec.OrderID := SEND_FILE_TRANSFER;
+//    rec.SenderUserRoleId := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex;
+//    rec.ReceiverUserRoleId := FSelectedUserFileTransfer.FData.UserRoleIndex;
+//    rec.FileTransferAddres := DestFolder;
+//    FillChar(rec.FileTransferMessage, SizeOf(rec.FileTransferMessage), 0);
+//    rec.FileTransferMessage := FileName;
+//    rec.FileTransferStatus := 0; {centang1}
+//
+//    simMgrClient.netSend_CmdSendFileTransfer(rec);
+//    lstbxFileShareName.Text := '';
     {$ENDREGION}
 
     ShowMessage('File berhasil dikirim ');

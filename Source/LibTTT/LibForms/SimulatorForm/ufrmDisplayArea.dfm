@@ -43730,8 +43730,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblNamaChat: TLabel
               Left = 0
               Top = 0
-              Width = 344
-              Height = 20
+              Width = 7
+              Height = 22
               Align = alClient
               Alignment = taCenter
               Caption = ' '
@@ -43741,8 +43741,6 @@ object frmDisplayArea: TfrmDisplayArea
               Font.Name = 'Jefferies'
               Font.Style = []
               ParentFont = False
-              ExplicitWidth = 7
-              ExplicitHeight = 22
             end
           end
         end
