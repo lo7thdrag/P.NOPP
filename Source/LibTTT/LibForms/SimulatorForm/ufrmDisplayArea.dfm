@@ -63960,7 +63960,7 @@ object frmDisplayArea: TfrmDisplayArea
           ParentBackground = False
           TabOrder = 1
           object lblCommunicationAddres: TLabel
-            Left = 159
+            Left = 20
             Top = 581
             Width = 159
             Height = 21
