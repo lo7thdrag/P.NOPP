@@ -149,7 +149,6 @@ type
     pnlHeaderBeranda: TPanel;
     Panel22: TPanel;
     Panel23: TPanel;
-    Memo1: TMemo;
     Label6: TLabel;
     pnlHeaderPengguna: TPanel;
     Label7: TLabel;
@@ -223,6 +222,7 @@ type
     imgNotifikasi: TImage;
     imgNotifikasiTel: TImage;
     imgNotifikasiFil: TImage;
+    lvCommunicatonAdrres: TListView;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -241,6 +241,7 @@ type
     procedure lvFileDataSelectItem(Sender: TObject; Item: TListItem;Selected: Boolean);
     procedure pnlBerandaManajemenShow;
     procedure UpdateDataFile;
+    procedure UpdatelvCommunicationAddres;
     {$ENDREGION}
 
     {$REGION ' Asset Procedure '}
@@ -448,7 +449,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, uConsoleData;
 
 {$R *.dfm}
 
@@ -598,6 +599,7 @@ begin
   CalendarView1.Date := Now;
 
   UpdateDataFile;
+  UpdatelvCommunicationAddres;
 end;
 
 procedure TfrmDisplayArea.btnDownloadClick(Sender: TObject);
@@ -1883,6 +1885,34 @@ begin
     li.Data := gameAreaTemp;
   end;
 
+end;
+
+procedure TfrmDisplayArea.UpdatelvCommunicationAddres;
+var
+  i : Integer;
+  consoleListTemp : TUserRole;
+  consoleInfoTemp : TConsoleInfo;
+  li : TListItem;
+begin
+  lvCommunicatonAdrres.Items.Clear;
+
+  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count-1 do
+  begin
+    li := lvCommunicatonAdrres.Items.Add;
+    li.Caption := consoleInfoTemp.ConsoleName;
+
+    consoleListTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
+
+    if Assigned(consoleListTemp) then
+    begin
+      if consoleListTemp.isInUse then
+      begin
+        li.SubItems.Add(consoleListTemp.FData.UserRoleAcronim);
+      end;
+    end;
+
+    li.Data := consoleListTemp;
+  end;
 end;
 
 procedure TfrmDisplayArea.DeleteGameAreaDirectory(const aPathName,aFileName: string);

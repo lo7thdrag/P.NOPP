@@ -231,10 +231,10 @@ end;
 procedure TfrmToteDisplay.lvConsoleListCustomDrawItem(Sender: TCustomListView;
   Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
 begin
-  if Item.Index mod 2 = 0 then
-    Sender.Canvas.Brush.Color := RGB(48, 109, 143)   // Baris Genap
-  else
-    Sender.Canvas.Brush.Color := RGB(11, 37, 50);
+//  if Item.Index mod 2 = 0 then
+//    Sender.Canvas.Brush.Color := RGB(48, 109, 143)   // Baris Genap
+//  else
+//    Sender.Canvas.Brush.Color := RGB(11, 37, 50);
 end;
 
 procedure TfrmToteDisplay.lvConsoleListSelectItem(Sender: TObject;
@@ -339,6 +339,62 @@ begin
 end;
 
 procedure TfrmToteDisplay.btnAddClick(Sender: TObject);
+{$REGION ' CAECILIA '}
+//var
+//  OpenDialog   : TOpenDialog;
+//  i            : Integer;
+//  FileTransfer : string;
+//
+//  ReceiverID, SenderFolderName, DateTimeNowTemp, SentPath : string;
+//begin
+//
+//  OpenDialog := TOpenDialog.Create(Self);
+//  try
+//    FileTransfer := IncludeTrailingPathDelimiter(vGameDataSetting.FileTransfer);
+//
+//    OpenDialog.InitialDir := FileTransfer;
+//    OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
+//    OpenDialog.Filter     := 'All Files (*.*)|*.*';
+//
+//    if OpenDialog.Execute then
+//    begin
+//      SourceFile := OpenDialog.FileName;
+//
+////      ReceiverID       := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]).ConsoleIP;
+//      SenderFolderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
+//
+//      DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh:nn:ss', Now);
+//      SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\' + lstUserSend.Text + '\' + DateTimeNowTemp;
+//
+//      FileName := ExtractFileName(SourceFile);
+//
+//      if not DirectoryExists(SentPath) then
+//        ForceDirectories(SentPath);
+//
+//      DestFolder := FileTransfer + SenderFolderName + '\' + DateTimeNowTemp;
+//
+//      if not DirectoryExists(DestFolder) then
+//        ForceDirectories(DestFolder);
+//
+//      DestFile := DestFolder + '\' + FileName;
+//
+//    end
+//    else
+//    begin
+//      ShowMessage('Choose file was cancelled');
+//      Exit;
+//    end;
+//
+//  finally
+//    OpenDialog.Free;
+//    UpdateFileTransfer
+//  end;
+//
+////  UpdateFilenameComboBox;
+//end;
+{$ENDREGION}
+
+{$REGION ' DENTA '}
 var
   openDialog   : TOpenDialog;
   saveFileTemp : TFile_Data;
@@ -372,6 +428,7 @@ begin
   openDialog.Free;
   UpdateFileTransfer;
 end;
+{$ENDREGION}
 
 procedure TfrmToteDisplay.btnDeleteClick(Sender: TObject);
 var

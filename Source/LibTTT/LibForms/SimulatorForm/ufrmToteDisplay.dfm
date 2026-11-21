@@ -363543,7 +363543,7 @@ object frmToteDisplay: TfrmToteDisplay
             item
               Alignment = taCenter
               Caption = 'Operation'
-              Width = 539
+              Width = 510
             end>
           Font.Charset = ANSI_CHARSET
           Font.Color = clWindowText
