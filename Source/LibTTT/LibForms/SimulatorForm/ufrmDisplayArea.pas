@@ -223,6 +223,8 @@ type
     imgNotifikasiTel: TImage;
     imgNotifikasiFil: TImage;
     lvCommunicatonAdrres: TListView;
+    lblCommunicationAddres: TLabel;
+    imgRefresh: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -366,6 +368,7 @@ type
     procedure lvAssetSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
     procedure edtCariKeyPress(Sender: TObject; var Key: Char);
     procedure edtChatBoxKeyPress(Sender: TObject; var Key: Char);
+    procedure imgRefreshClick(Sender: TObject);
 
   private
     iconName : string;
@@ -599,7 +602,6 @@ begin
   CalendarView1.Date := Now;
 
   UpdateDataFile;
-  UpdatelvCommunicationAddres;
 end;
 
 procedure TfrmDisplayArea.btnDownloadClick(Sender: TObject);
@@ -1890,28 +1892,33 @@ end;
 procedure TfrmDisplayArea.UpdatelvCommunicationAddres;
 var
   i : Integer;
-  consoleListTemp : TUserRole;
-  consoleInfoTemp : TConsoleInfo;
+  userTemp : TUserRole;
+//  consoleInfoTemp : TConsoleInfo;
   li : TListItem;
+  consoleTemp : string;
+
 begin
   lvCommunicatonAdrres.Items.Clear;
 
-  for i := 0 to simMgrClient.SimConsole.ConsoleList.Count-1 do
+  for i := 0 to SimManager.SimUserRole.UserList.Count-1 do
   begin
-    li := lvCommunicatonAdrres.Items.Add;
-    li.Caption := consoleInfoTemp.ConsoleName;
 
-    consoleListTemp := SimManager.SimUserRole.getUserRoleByIPAddress(consoleInfoTemp.IPAddress);
+    userTemp := SimManager.SimUserRole.UserList[i];
 
-    if Assigned(consoleListTemp) then
+    if Assigned(userTemp) then
     begin
-      if consoleListTemp.isInUse then
+      if userTemp.isInUse then
       begin
-        li.SubItems.Add(consoleListTemp.FData.UserRoleAcronim);
+        li := lvCommunicatonAdrres.Items.Add;
+        li.Caption := userTemp.FData.UserRoleIdentifier;
+
+        consoleTemp := SimManager.SimConsole.GetConsoleName(userTemp.ConsoleIP);
+
+        li.SubItems.Add(consoleTemp);
+
+        li.Data := userTemp;
       end;
     end;
-
-    li.Data := consoleListTemp;
   end;
 end;
 
@@ -2252,6 +2259,11 @@ begin
   except
     Exception.Create('Error');
   end;
+end;
+
+procedure TfrmDisplayArea.imgRefreshClick(Sender: TObject);
+begin
+  UpdatelvCommunicationAddres;
 end;
 
 procedure TfrmDisplayArea.SituationBoardControllerClick(Sender: TObject);

@@ -41860,7 +41860,6 @@ object frmDisplayArea: TfrmDisplayArea
       Align = alRight
       BevelOuter = bvNone
       TabOrder = 6
-      ExplicitLeft = 1457
     end
     object pnlRight: TPanel
       Left = 1887
@@ -41881,7 +41880,6 @@ object frmDisplayArea: TfrmDisplayArea
         Color = clBlack
         ParentBackground = False
         TabOrder = 1
-        ExplicitWidth = 430
         object imgMsWord: TImage
           Left = 15
           Top = 66
@@ -43615,7 +43613,6 @@ object frmDisplayArea: TfrmDisplayArea
         Color = 15979925
         ParentBackground = False
         TabOrder = 0
-        ExplicitWidth = 430
         object pnlSparatorchat: TPanel
           Left = 8
           Top = 873
@@ -43733,8 +43730,8 @@ object frmDisplayArea: TfrmDisplayArea
             object lblNamaChat: TLabel
               Left = 0
               Top = 0
-              Width = 7
-              Height = 22
+              Width = 344
+              Height = 20
               Align = alClient
               Alignment = taCenter
               Caption = ' '
@@ -43744,6 +43741,8 @@ object frmDisplayArea: TfrmDisplayArea
               Font.Name = 'Jefferies'
               Font.Style = []
               ParentFont = False
+              ExplicitWidth = 7
+              ExplicitHeight = 22
             end
           end
         end
@@ -45915,7 +45914,6 @@ object frmDisplayArea: TfrmDisplayArea
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 2
-      ExplicitWidth = 1177
       object pnlMenejemenAsset: TPanel
         Left = 0
         Top = 0
@@ -45924,7 +45922,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 6
-        ExplicitWidth = 1177
         object pnlHeaderAsset: TPanel
           Left = 0
           Top = 0
@@ -45933,7 +45930,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1177
           object Label18: TLabel
             Tag = 1
             Left = 0
@@ -45962,7 +45958,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1177
           DesignSize = (
             1607
             63)
@@ -46734,7 +46729,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnAddAssetClick
-            ExplicitLeft = 802
           end
           object btnEditAsset: TRzBmpButton
             Left = 1357
@@ -47436,7 +47430,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnEditAssetClick
-            ExplicitLeft = 927
           end
           object btnDeleteAsset: TRzBmpButton
             Left = 1482
@@ -48138,7 +48131,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 5
             OnClick = btnDeleteAssetClick
-            ExplicitLeft = 1052
           end
         end
         object pnlListAsset: TPanel
@@ -48200,7 +48192,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 4
-        ExplicitWidth = 1177
         object pnlCariReferensi: TPanel
           Left = 0
           Top = 60
@@ -48209,7 +48200,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1177
           DesignSize = (
             1607
             63)
@@ -48970,7 +48960,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 2
             OnClick = btnUploadReferensiClick
-            ExplicitLeft = 927
           end
           object btnDownloadReferensi: TRzBmpButton
             Left = 1486
@@ -49673,7 +49662,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnDownloadReferensiClick
-            ExplicitLeft = 1056
           end
           object btnDeleteReferensi: TRzBmpButton
             Left = 1229
@@ -50376,7 +50364,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnRemoveReferensiClick
-            ExplicitLeft = 799
           end
         end
         object pnlListReferensi: TPanel
@@ -50387,7 +50374,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1177
           object lvReferensi: TListView
             Left = 0
             Top = 0
@@ -50432,7 +50418,6 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvReferensiSelectItem
-            ExplicitWidth = 1177
           end
         end
         object pnlHeaderReferensi: TPanel
@@ -50443,7 +50428,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1177
           object Label13: TLabel
             Tag = 1
             Left = 0
@@ -50473,7 +50457,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 1
-        ExplicitWidth = 1177
         object pnlCariPengguna: TPanel
           Left = 0
           Top = 60
@@ -50482,7 +50465,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1177
           DesignSize = (
             1607
             63)
@@ -51255,7 +51237,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnAddClick
-            ExplicitLeft = 802
           end
           object btnEditUser: TRzBmpButton
             Left = 1357
@@ -51957,7 +51938,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnEditClick
-            ExplicitLeft = 927
           end
           object btnDeleteUser: TRzBmpButton
             Left = 1482
@@ -52659,7 +52639,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 5
             OnClick = btnDeleteClick
-            ExplicitLeft = 1052
           end
         end
         object pnlListPengguna: TPanel
@@ -52670,7 +52649,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1177
           object lvUserRole: TListView
             Left = 0
             Top = 0
@@ -52725,7 +52703,6 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvUserRoleSelectItem
-            ExplicitWidth = 1177
           end
         end
         object pnlHeaderPengguna: TPanel
@@ -52736,7 +52713,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1177
           object Label7: TLabel
             Tag = 1
             Left = 0
@@ -52767,7 +52743,6 @@ object frmDisplayArea: TfrmDisplayArea
         BevelOuter = bvNone
         Color = clBackground
         TabOrder = 0
-        ExplicitWidth = 1177
       end
       object pnlMenejemenPeta: TPanel
         Left = 0
@@ -52777,7 +52752,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 3
-        ExplicitWidth = 1177
         object pnlCariPeta: TPanel
           Left = 0
           Top = 60
@@ -52786,7 +52760,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1177
           DesignSize = (
             1607
             63)
@@ -53521,7 +53494,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 1
             OnClick = btnAddMapClick
-            ExplicitLeft = 680
           end
           object btnEdit: TRzBmpButton
             Left = 1235
@@ -54223,7 +54195,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 2
             OnClick = btnEditMapClick
-            ExplicitLeft = 805
           end
           object btnPreview: TRzBmpButton
             Left = 1360
@@ -54925,7 +54896,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnPreviewClick
-            ExplicitLeft = 930
           end
           object btnDeleteMap: TRzBmpButton
             Left = 1485
@@ -55627,7 +55597,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnDeleteMapClick
-            ExplicitLeft = 1055
           end
         end
         object pnlListPeta: TPanel
@@ -55638,7 +55607,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 1177
           object lvGameArea: TListView
             Left = 0
             Top = 0
@@ -55668,7 +55636,6 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvGameAreaSelectItem
-            ExplicitWidth = 1177
           end
         end
         object pnlHeaderPeta: TPanel
@@ -55679,7 +55646,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1177
           object Label16: TLabel
             Tag = 1
             Left = 0
@@ -55709,7 +55675,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 2
-        ExplicitWidth = 1177
         object pnlCariSimbolTaktis: TPanel
           Left = 0
           Top = 60
@@ -55718,7 +55683,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 0
-          ExplicitWidth = 1177
           DesignSize = (
             1607
             63)
@@ -56835,7 +56799,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 3
             OnClick = btnAddTacticalSymbolClick
-            ExplicitLeft = 682
           end
           object btnEditTacticalSymbol: TRzBmpButton
             Left = 1237
@@ -57537,7 +57500,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 4
             OnClick = btnEditTacticalSymbolClick
-            ExplicitLeft = 807
           end
           object btnDownloadTacticalSymbol: TRzBmpButton
             Left = 1362
@@ -58239,7 +58201,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 5
             OnClick = btnUnduhClick
-            ExplicitLeft = 932
           end
           object btnDeleteTacticalSymbol: TRzBmpButton
             Left = 1487
@@ -58941,7 +58902,6 @@ object frmDisplayArea: TfrmDisplayArea
             Anchors = [akTop, akRight]
             TabOrder = 6
             OnClick = btnDeleteTacticalSymbolClick
-            ExplicitLeft = 1057
           end
         end
         object pnlHeaderSimbolTaktis: TPanel
@@ -58952,7 +58912,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 2
-          ExplicitWidth = 1177
           object Label15: TLabel
             Tag = 1
             Left = 0
@@ -58981,7 +58940,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alClient
           BevelOuter = bvNone
           TabOrder = 1
-          ExplicitWidth = 758
           object lvTacticalSymbol: TListView
             Left = 0
             Top = 0
@@ -59021,7 +58979,6 @@ object frmDisplayArea: TfrmDisplayArea
             TabOrder = 0
             ViewStyle = vsReport
             OnSelectItem = lvTacticalSymbolleSelectItem
-            ExplicitWidth = 758
           end
         end
         object pnlRightTactical: TPanel
@@ -59033,7 +58990,6 @@ object frmDisplayArea: TfrmDisplayArea
           BevelWidth = 3
           BorderStyle = bsSingle
           TabOrder = 3
-          ExplicitLeft = 768
           object imgPreview: TImage
             Left = 34
             Top = 80
@@ -61584,7 +61540,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alRight
           BevelOuter = bvNone
           TabOrder = 4
-          ExplicitLeft = 758
         end
       end
       object pnlMenejemenBeranda: TPanel
@@ -61595,7 +61550,6 @@ object frmDisplayArea: TfrmDisplayArea
         Align = alClient
         BevelOuter = bvNone
         TabOrder = 5
-        ExplicitWidth = 1177
         object pnlMdmMainLeft: TPanel
           Left = 0
           Top = 60
@@ -64005,7 +63959,153 @@ object frmDisplayArea: TfrmDisplayArea
           Color = 3287589
           ParentBackground = False
           TabOrder = 1
-          ExplicitWidth = 47
+          object lblCommunicationAddres: TLabel
+            Left = 159
+            Top = 581
+            Width = 159
+            Height = 21
+            Caption = 'Communication Addres'
+            Font.Charset = ANSI_CHARSET
+            Font.Color = clWhite
+            Font.Height = -21
+            Font.Name = 'Deusex'
+            Font.Style = []
+            ParentFont = False
+          end
+          object imgRefresh: TImage
+            Left = 427
+            Top = 574
+            Width = 30
+            Height = 30
+            Picture.Data = {
+              07544269746D6170660F0000424D660F00000000000036000000280000002400
+              0000240000000100180000000000300F0000120B0000120B0000000000000000
+              0000221A13221A13221A13221A13221A13221A13221A13231B134E3E1F876B2B
+              B18B31CB9E33D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A4
+              33D4A433D4A433CEA136BE983E9F8242625232231B14221A13221A13221A1322
+              1A13221A13221A13221A13221A13221A13221A13221A13221A13221A13221A13
+              59461FB48D2FD4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A4
+              33D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A433C2
+              9B3D725E38221A13221A13221A13221A13221A13221A13221A13221A13221A13
+              221A13221A132C2315997729D4A433D4A433C4972F916F226149174130103627
+              0C36270C35280C35270C36270D35270C35280C36270C36270C36280C38290D46
+              3611614917916F22C4972FD4A433D4A433AD8C3F33291C221A13221A13221A13
+              221A13221A13221A13221A13221A13332816B48C2DD4A433CB9D317A5E1D3C2C
+              0E38290D38290E38290D37290E38290D38290D37290D38290D38290D38290D38
+              290D37290D37290D38290D37290D38290D38290D3B2C0E795D1DCB9D31D4A433
+              C198383D311F221A13221A13221A13221A13221A13221A132C2214B18A2CD4A4
+              33BE922E523E143B2B0E3A2B0E3A2B0E3A2B0E3A2B0E3A2B0E3A2B0E3A2B0E3A
+              2B0E3A2B0E3A2A0E3A2A0E3A2B0E3A2B0E3A2A0E3A2B0E3A2B0E3A2B0E3B2B0E
+              3A2B0E3A2B0E523E14BD922DD4A433BD953632271A221A13221A13221A13221A
+              13221A13967427D4A433B98F2D4635113C2D0F3C2D0F3D2D0F3D2D0F3D2D0F3D
+              2D0F3D2D0F3D2C0F3D2D0F3D2C0F3D2D0F3C2C0F3D2D0F3D2C0F3D2D0F3C2C0F
+              3D2D0F3C2D0F3C2C0F3D2D0F3C2D0F3D2D0F3D2C0F463511BE932ED4A433A483
+              34221A13221A13221A13221A1354411AD4A433CB9D31523D153F2F103F2F103F
+              2F10402F103F2F103F2F103F2F103F2F103F2F103F2E103F2F10402F103F2F10
+              3F2F103F2E103F2E103F2F103F2F103F2E103F2F103F2E103F2E103F2F103F2E
+              103F2E10554015CC9E31D4A433614E26221A13221A13231B13B1892BD4A4337F
+              611F423111423111413111413111413111423111423011423011423111423111
+              4230114131124131114130114231114231114230114230114131114231114230
+              11423111413111423111423111423111423111836520D4A433B99031231B1322
+              1A13483717D4A433C4972F473614443312443312453312453313443312443312
+              4433134433124433134533124433124533124533134433124533124433124433
+              1344331345331244331244331344331244331344331245331344331245331249
+              3713C4972FD4A433503F1F221A13806321D4A433967325473513473513473513
+              473514473513473513483513483513473513473514473513483514473513503D
+              1C655232645133503D1C47351347351347351447351448351447351447351348
+              35134835144835134735144735138F6E24D4A433886B28221A13AD852AD4A433
+              6E541C4A37154A37154A37154A37144937144A37154A37144A38144A37144A37
+              144B3815897458D0B8A2FAE0CFFDE3D2FDE3D2FBE1D0D4BCA78B76594B381549
+              38154A38154A37144A37144A37154A38154A37144A37154A37146A511BD4A433
+              B18A2D221A13CC9E31D4A4335A44184D3A164C39164D39154C39164D39154C3A
+              164D39164D3A164D391564502ED8BFAAFDE3D2FDE3D2FDE3D2FDE3D2FDE3D2FD
+              E3D2FDE3D2FDE3D2D5BCA7614E2C4D39154D39154C3A154D3A164D3A154C3A16
+              4D39154D3915533F17D4A433CE9F32221A13D4A433D2A233513C17503B174F3C
+              17503C16503B17503C164F3B17503B174F3C17503B178D7759FBE1D0FDE3D2FD
+              E3D2EDD3C0CBB39CD2B9A3F1D8C5FDE3D2FDE3D2FDE3D2EAD1BD624E2C4F3C16
+              503C17503C16503C16503C16503C174F3C164F3B17CFA032D4A433291F14D4A4
+              33CC9E31533D18523D18523D17533E17533E18523E18533D18523E18533F186B
+              5532523E18947D5FEED4C18C7456533F18523E17523E1855401C8B7455EED4C1
+              FDE3D2FDE3D2D5BCA6533F19523E18523E18533D18523D18533E18533E18533D
+              17CC9E31D4A4332B2114D4A433CD9E3155401856401955401955401955401855
+              40195540195540198F7859EFD6C3735D3A5540195C4620554018564019554019
+              554019563F185540196D5733F0D7C4FDE3D2FDE3D28C75555540195540195540
+              19554018554019554019554019CD9E31D4A4332B2114D4A433CD9E3258421A58
+              421A58421A58421A57421A58421A58421A58421AD0B7A0FDE3D2EFD6C368512B
+              57421A58421A58431A58421A58421A58421A58421A58421A9A8264FDE3D2FDE3
+              D2BEA68C58431A58421A58421A58421A58421A58421A584219CD9E32D4A4332B
+              2114D4A433CD9E325A441B5A451B5B441B5A451B5A441B5A441B5A451B5D471E
+              F6DCCAFDE3D2F2D8C55E471F5B441B5A441B5A451B5A441B5A451B5A441B5B44
+              1B5A441B5D461EC7AE95E7CEBA8069455B441B5B441B5B451B5B441B5A441B5A
+              441B5A441BCD9E32D4A4332B2114D4A433CD9F325E461C5E471D5D471C5D461C
+              5E461C5E461C5D471C6D552EFDE3D2FDE3D2D6BDA65D461C5D461C5D471C5E46
+              1C5E471C5E471C5D461D5D471C5E471C5D461C5D461C5D461C5D461C5D471C5D
+              461C5D471C5D461C5E471D5D471C5E471CCD9E32D4A4332B2014D4A433CD9F32
+              60491D60491D60481D60491D60481D60491D60491D715932FDE3D2FDE3D2DBC1
+              AA60481D60481E60481E60491D60481D60481D60481D60491E60491E60491D60
+              491D725A3267502660481D60491E60481D60481D60481D60481D60481ECD9F32
+              D4A4332B2014D4A433CD9F32634A1E634B1E634B1E634B1E634B1E624B1E634B
+              1F664D22F9DFCDFDE3D2F2D8C5654D21624B1F634A1F634B1F634A1E634B1E63
+              4B1F634B1E745B33A78E6EDCC2ABFCE2D1B59B7D634A1E634A1F634B1E634B1E
+              624A1F634A1F634B1FCD9F32D4A4332B2014D4A433CD9F32664D20654D1F664D
+              1F664C1F654C1F664D20664C20654D1FD5BCA3FDE3D2FDE3D29C8260664D1F66
+              4D1F664D1F664D1F664D1F796036D8BEA6FCE2D1FDE3D2FDE3D2FDE3D2C0A68A
+              654D1F664D20654D1F654D20664D1F664C1F664C20CE9F32D4A4332B2014D4A4
+              33CE9F32684F21685021684F21684F21694F20694F20684F20694F209C825EFD
+              E3D2FDE3D2F1D7C480663C694F20684F20684F20684F208A714AF8DECCFDE3D2
+              FDE3D2FDE3D2FDE3D2C9AF93684F21694F21684F20684F20694F21694F20684F
+              20CE9F32D4A4332B2014D4A433CE9F326B51226C51226C52216C51226C52226B
+              51216C52216B51226C5322DCC2ABFDE3D2FDE3D2F1D7C49D835E6C52236B5221
+              6C51226E5425B99F80FDE3D2FDE3D2FDE3D2FDE3D2D0B79C6B51226C51226C52
+              216C51226C52226B51226B5122CE9F32D4A4332B2014D4A433D2A3336F55236F
+              54236E53236E54236F54236F54236E54236F53236F54237E6436EDD3BFFDE3D2
+              FDE3D2FDE3D2F1D7C3D8BDA4DAC0A7F3D9C6FDE3D2FDE3D2FDE3D2FDE3D2FDE3
+              D2D6BCA36F54236F54236E54236E54236E54236F53236F5423D0A132D4A43329
+              1F13CD9E32D4A4337A5D25715625715624725624725624725624725624715624
+              72562471562584693CE2C7B0FDE3D2FDE3D2FDE3D2FDE3D2FDE3D2FDE3D2FDE3
+              D2FDE3D2DEC3ABA0855EE8CEB8CFB59972562472562571562472562472562472
+              5624765A26D4A433CD9F31221A13B0892ED4A4338E6C29745925745925745825
+              755825745825755825745826745826745825755825775A28A98D67E0C5ADFBE1
+              D0FDE3D2FDE3D2FBE1D0DEC3ABA78C65755A26755925765A28765B2875592574
+              58267458257458267559267558258A6A28D4A433AD862A221A13876927D4A433
+              AC842E785A26775B26785B27785B26775B27775B26775A27785B27775B27785A
+              26775B27785A27785B277A5D2A8A6D3E8B6F407E602E775B26785A27785B2678
+              5B27785B27785B27785B27785B26785B27785B26775B27785A26A7812DD4A433
+              816421221A134E3E1DD4A433CA9C327D5F287B5D287B5D287B5D287A5D287A5D
+              287B5D287B5D277A5D287A5D287A5D277B5D287B5D277A5D287A5D287B5D287A
+              5D287B5D287B5D287A5D287B5D277A5E287A5D287B5D287A5D277A5D277A5D28
+              7B5D287E5F28CA9C32D4A433493817221A13231B13B68E30D4A433A27D2D7E60
+              297D60297D5F297D5F287D60297E5F287D5F297E5F287D5F297D5F297E60297D
+              5F297D5F297E5F297E60297D60297D5F297D5F297D60297D5F297D5F297D5F29
+              7E60297D5F297D5F297E5F297E5F29A47E2ED4A433B38A2B231B13221A13221A
+              135C4923D4A433CFA0338C6A2B80622A81612A81612B80622A80612A80622A80
+              622B80612A80622A80612A81622A81612A80622A80622A80622A80622A80622A
+              80612A80622A81622A80622A80612A80612A80622A80622A8C6C2BCFA033D4A4
+              33554219221A13221A13221A13221A139E7D2FD4A433C6993288682C83642B83
+              632C83632B83632B83642B84642B83642B83642B84642B83642B83642B83632C
+              83642B84642C83642C83642B83642B83642B83632B83642B83642C83642C8363
+              2B88682CC89B32D4A433957425221A13221A13221A13221A13221A132E2418B8
+              9033D4A433C99B3291702D86662C86662C86662C86662D86652D85662C86662D
+              85662C86662C86662D86652D86662D86662C86662C86662C86662C86662C8666
+              2C86662C86652C86662C926F2DC89B32D4A433B1892B2C2214221A13221A1322
+              1A13221A13221A13221A13382D1BBA9234D4A433D0A133A982308B692D88682D
+              88682D88682D89682D89682E88682E89682D88682D88682D89672D89682D8868
+              2E89672D88682D89682D89672D88682D8A682DA88230D0A033D4A433B38B2C32
+              2715221A13221A13221A13221A13221A13221A13221A13221A132F2518A28034
+              D4A433D4A433CD9E33B68C319F7A30916F2E8B6A2E8B6A2E8B692E8B6A2E8B6A
+              2E8B6A2E8B6A2F8B6A2E8B6A2F8B6A2F8C6B2E93702F9F7A2FB58B31CD9E32D4
+              A433D4A4339674272B2214221A13221A13221A13221A13221A13221A13221A13
+              221A13221A13221A13221A13614E28B99135D4A433D4A433D4A433D4A433D4A4
+              33D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4
+              A433D4A433D4A433D4A433B18A2D56431C221A13221A13221A13221A13221A13
+              221A13221A13221A13221A13221A13221A13221A13221A13221A13231B135142
+              248D7131B48E35CB9E34D4A433D4A433D4A433D4A433D4A433D4A433D4A433D4
+              A433D4A433D4A433D4A433C89B31AC862D8165254A3A1B231B13221A13221A13
+              221A13221A13221A13221A13221A13221A13}
+            Stretch = True
+            Transparent = True
+            OnClick = imgRefreshClick
+          end
           object AdvWatch1: TAdvWatch
             Left = 20
             Top = 300
@@ -64033,7 +64133,6 @@ object frmDisplayArea: TfrmDisplayArea
             Settings.Auto = True
             Time = 45535.058385011570000000
             Version = '1.2.1.1'
-            ExplicitWidth = 7
           end
           object CalendarView1: TCalendarView
             Left = 20
@@ -64061,7 +64160,6 @@ object frmDisplayArea: TfrmDisplayArea
             HeaderInfo.Font.Style = []
             ParentFont = False
             TabOrder = 1
-            ExplicitWidth = 7
           end
           object Panel22: TPanel
             Left = 20
@@ -64071,7 +64169,6 @@ object frmDisplayArea: TfrmDisplayArea
             Align = alTop
             BevelOuter = bvNone
             TabOrder = 2
-            ExplicitWidth = 7
           end
           object Panel23: TPanel
             Left = 20
@@ -64081,14 +64178,12 @@ object frmDisplayArea: TfrmDisplayArea
             Align = alTop
             BevelOuter = bvNone
             TabOrder = 3
-            ExplicitWidth = 7
           end
           object lvCommunicatonAdrres: TListView
             Left = 20
-            Top = 580
+            Top = 610
             Width = 437
-            Height = 270
-            Align = alClient
+            Height = 240
             BevelInner = bvNone
             BevelOuter = bvNone
             BorderStyle = bsNone
@@ -64102,6 +64197,7 @@ object frmDisplayArea: TfrmDisplayArea
                 Caption = 'Console'
                 Width = 217
               end>
+            Enabled = False
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -16
@@ -64133,7 +64229,6 @@ object frmDisplayArea: TfrmDisplayArea
           Align = alTop
           BevelOuter = bvNone
           TabOrder = 3
-          ExplicitWidth = 1177
           object Label6: TLabel
             Tag = 1
             Left = 0
