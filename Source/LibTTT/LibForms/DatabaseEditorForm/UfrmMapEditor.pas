@@ -412,7 +412,7 @@ begin
   FileSource := ExtractFilePath(ParamStr(0)) + 'ConfigureLayerENC.txt';
   FListFiltered.SaveToFile(FileSource);
 
-  FolderPath := dbEditSett.MapGSTGame + '\' + edtName.Text;
+  FolderPath := IncludeTrailingPathDelimiter(dbEditSett.MapGSTGame) + edtName.Text;
   if not DirectoryExists(FolderPath) then
     ForceDirectories(FolderPath);
 
@@ -748,8 +748,8 @@ begin
   FListMapIndex := TStringList.Create;
   FListFiltered := TStringList.Create;
 
-  if FileExists(dbEditSett.MapSourcePathENC + '\ENC\mapindex.ini') then
-    FListMapIndex.LoadFromFile(dbEditSett.MapSourcePathENC + '\ENC\mapindex.ini');
+  if FileExists(IncludeTrailingPathDelimiter(dbEditSett.MapSourcePathENC) + 'ENC\mapindex.ini') then
+  FListMapIndex.LoadFromFile(IncludeTrailingPathDelimiter(dbEditSett.MapSourcePathENC) + 'ENC\mapindex.ini');
 
   chklstArea.Items := FListMapIndex;
 

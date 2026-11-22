@@ -330,8 +330,15 @@ procedure TfrmMapPreview.FormShow(Sender: TObject);
 var
   aGeoset, ENCGeoset, VektorGeoset, GameAreaName: string;
 begin
-  LoadMap(dbEditSett.MapGSTGame + '\' + SelectedGameArea.FData.Game_Area_Identifier + '\' + SelectedGameArea.FData.Game_Area_Identifier + '.gst');
+//  LoadMap(dbEditSett.MapGSTGame + '\' + SelectedGameArea.FData.Game_Area_Identifier + '\' + SelectedGameArea.FData.Game_Area_Identifier + '.gst');
+  if Trim(dbEditSett.MapGSTGame) = '' then
+    LoadFF_AppDBSetting('Setting.ini', dbEditSett);
 
+  aGeoset := IncludeTrailingPathDelimiter(dbEditSett.MapGSTGame) +
+             SelectedGameArea.FData.Game_Area_Identifier + '\' +
+             SelectedGameArea.FData.Game_Area_Identifier + '.gst';
+
+  LoadMap(aGeoset);
   FConverter.FMap := ENCMap;
 
   cbSetScale.ItemIndex := cbSetScale.Items.Count - 1;
