@@ -59,7 +59,7 @@ type
     imgbtnOpen: TImageButton;
     lblOpen: TLabel;
     Label3: TLabel;
-    imgbtnOpenInbox: TImageButton;
+    imgbtnOpenSent: TImageButton;
     lblOpenSent: TLabel;
     ODTelegram: TOpenDialog;
     edtTelegramFileName: TEdit;
@@ -560,13 +560,16 @@ end;
 procedure TfrmTelegram.lvSentSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
+  imgbtnOpen.Enabled := Selected;
+  lblOpen.Enabled := Selected;
+
   if Selected then
   begin
     if (Item = nil) or (Item.Data = nil) then
     Exit;
 
-    imgbtnOpen.Enabled := True;
-    lblOpen.Enabled := True;
+    FSelectedTelegram := TTelegram(lvSent.Selected.Data);
+
   end;
 end;
 

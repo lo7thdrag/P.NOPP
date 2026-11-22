@@ -340,94 +340,100 @@ end;
 
 procedure TfrmToteDisplay.btnAddClick(Sender: TObject);
 {$REGION ' CAECILIA '}
-//var
-//  OpenDialog   : TOpenDialog;
-//  i            : Integer;
-//  FileTransfer : string;
-//
-//  ReceiverID, SenderFolderName, DateTimeNowTemp, SentPath : string;
-//begin
-//
-//  OpenDialog := TOpenDialog.Create(Self);
-//  try
-//    FileTransfer := IncludeTrailingPathDelimiter(vGameDataSetting.FileTransfer);
-//
-//    OpenDialog.InitialDir := FileTransfer;
-//    OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
-//    OpenDialog.Filter     := 'All Files (*.*)|*.*';
-//
-//    if OpenDialog.Execute then
-//    begin
-//      SourceFile := OpenDialog.FileName;
-//
-////      ReceiverID       := TUserRole(cbbxShareTo.Items.Objects[cbbxShareTo.ItemIndex]).ConsoleIP;
-//      SenderFolderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
-//
-//      DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh:nn:ss', Now);
-//      SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\' + lstUserSend.Text + '\' + DateTimeNowTemp;
-//
-//      FileName := ExtractFileName(SourceFile);
-//
-//      if not DirectoryExists(SentPath) then
-//        ForceDirectories(SentPath);
-//
-//      DestFolder := FileTransfer + SenderFolderName + '\' + DateTimeNowTemp;
-//
-//      if not DirectoryExists(DestFolder) then
-//        ForceDirectories(DestFolder);
-//
-//      DestFile := DestFolder + '\' + FileName;
-//
-//    end
-//    else
-//    begin
-//      ShowMessage('Choose file was cancelled');
-//      Exit;
-//    end;
-//
-//  finally
-//    OpenDialog.Free;
-//    UpdateFileTransfer
-//  end;
-//
-////  UpdateFilenameComboBox;
-//end;
+var
+  OpenDialog   : TOpenDialog;
+  i            : Integer;
+  li           : TListItem;
+  FileTransferPath : string;
+
+  ReceiverID, SenderFolderName, DateTimeNowTemp, SentPath : string;
+begin
+    if cbbConsole.ItemIndex = -1 then
+  begin
+    ShowMessage('Choose who you want to share file to!');
+    Exit;
+  end;
+
+  OpenDialog := TOpenDialog.Create(Self);
+  try
+    FileTransferPath := IncludeTrailingPathDelimiter(vGameDataSetting.FileTransfer);
+
+//    OpenDialog.InitialDir := TelegramPath;
+    OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
+    OpenDialog.Filter     := 'All Files (*.*)|*.*';
+
+    if OpenDialog.Execute then
+    begin
+      SourceFile := OpenDialog.FileName;
+
+      ReceiverID       := TUserRole(cbbConsole.Items.Objects[cbbConsole.ItemIndex]).ConsoleIP;
+      SenderFolderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
+
+      DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
+      SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\SENT\' + cbbConsole.Text + '\' + DateTimeNowTemp;
+
+      FileName := ExtractFileName(SourceFile);
+
+      if not DirectoryExists(SentPath) then
+        ForceDirectories(SentPath);
+
+      DestFolder := FileTransferPath + SenderFolderName + '\' + DateTimeNowTemp;
+
+      if not DirectoryExists(DestFolder) then
+        ForceDirectories(DestFolder);
+
+      DestFile := DestFolder + '\' + FileName;
+      UpdateFileTransfer;
+
+    end
+    else
+    begin
+      ShowMessage('Choose file was cancelled');
+      Exit;
+    end;
+
+  finally
+    OpenDialog.Free;
+  end;
+
+//  UpdateFilenameComboBox;
+end;
 {$ENDREGION}
 
 {$REGION ' DENTA '}
-var
-  openDialog   : TOpenDialog;
-  saveFileTemp : TFile_Data;
-  i : Integer;
-begin
-  openDialog := TOpenDialog.Create(self);
-  openDialog.InitialDir := GetCurrentDir;
-  openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
-  openDialog.Filter := 'All Files (*.*)|*.*';
-
-  if openDialog.Execute then
-  begin
-    for i := 0 to openDialog.Files.Count - 1 do
-    begin
-      addressTemp  := openDialog.Files[i];
-      fileNameTemp := ExtractFileName(openDialog.Files[i]);
-
-      saveFileTemp := TFile_Data.Create;
-      saveFileTemp.FData.Nama_File := fileNameTemp;
-      saveFileTemp.FData.Directory_Path := addressTemp;
-
-      FFileTransfer.Add(saveFileTemp);
-
-      btnSend.Visible := True;
-      btnSend.Enabled := True;
-    end;
-  end
-  else
-  ShowMessage('Save file was cancelled');
-
-  openDialog.Free;
-  UpdateFileTransfer;
-end;
+//var
+//  openDialog   : TOpenDialog;
+//  saveFileTemp : TFile_Data;
+//  i : Integer;
+//begin
+//  openDialog := TOpenDialog.Create(self);
+//  openDialog.InitialDir := GetCurrentDir;
+//  openDialog.Options := openDialog.Options + [ofAllowMultiSelect];
+//  openDialog.Filter := 'All Files (*.*)|*.*';
+//
+//  if openDialog.Execute then
+//  begin
+//    for i := 0 to openDialog.Files.Count - 1 do
+//    begin
+//      addressTemp  := openDialog.Files[i];
+//      fileNameTemp := ExtractFileName(openDialog.Files[i]);
+//
+//      saveFileTemp := TFile_Data.Create;
+//      saveFileTemp.FData.Nama_File := fileNameTemp;
+//      saveFileTemp.FData.Directory_Path := addressTemp;
+//
+//      FFileTransfer.Add(saveFileTemp);
+//
+//      btnSend.Visible := True;
+//      btnSend.Enabled := True;
+//    end;
+//  end
+//  else
+//  ShowMessage('Save file was cancelled');
+//
+//  openDialog.Free;
+//  UpdateFileTransfer;
+//end;
 {$ENDREGION}
 
 procedure TfrmToteDisplay.btnDeleteClick(Sender: TObject);
@@ -543,9 +549,6 @@ begin
   begin
     ShowMessage('Gagal menyalin file. Kode error Windows: ' + IntToStr(GetLastError));
   end;
-  {$ENDREGION}
-
-//   edtChatBox.Clear;
   {$ENDREGION}
 end;
 {$ENDREGION}
@@ -748,47 +751,92 @@ begin
 end;
 
 procedure TfrmToteDisplay.UpdateFileTransfer;
+{$REGION ' CICIL CANTIK '}
 var
   tempList : TList;
   li : TListItem;
   i : Integer;
-  FileTransfer : TFileTransfer;
-  namaRole : string;
-
   userTemp : TUserRole;
-begin
+  FileTransferTemp : TFileTransfer;
 
+begin
   tempList := TList.Create;
 
-  SimManager.SimFileTransfer.GetFileTransferByReceiver(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
+  SimManager.SimFileTransfer.GetFileTransferBySender(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
 
   lvFileTransfer.Clear;
 
   for i := 0 to tempList.Count - 1 do
   begin
-    FileTransfer := tempList.Items[i];
+    FileTransferTemp := tempList.Items[i];
 
     li := lvFileTransfer.Items.Add;
 
-    userTemp := SimManager.SimUserRole.getUserRoleByID(FileTransfer.IdUserRoleSendingFileTransfer);
+    userTemp := SimManager.SimUserRole.getUserRoleByID(FileTransferTemp.IdUserRoleSendingFileTransfer);
 
     if Assigned(userTemp) then
       li.Caption := userTemp.FData.UserRoleIdentifier
     else
-      li.Caption := FileTransfer.IdUserRoleSendingFileTransfer.ToString;
+      li.Caption := FileTransferTemp.IdUserRoleSendingFileTransfer.ToString;
 
-    li.SubItems.Add(FileTransfer.FileTransferMessage);
+
+    li.SubItems.Add(FileTransferTemp.FileTransferMessage);
 
     {Ngeprint Telegram yg kamu kirim}
-    if FileTransfer.FileTransferStatus = 0 then
+    if FileTransferTemp.FileTransferStatus = 0 then
       li.SubItems.Add('Belum Terbaca ')
     else
       li.SubItems.Add('Terbaca ');
 
-    li.Data := FileTransfer;
+    li.Data := FileTransferTemp;
 
   end;
 end;
+{$ENDREGION}
+
+{$REGION ' DENTA '}
+//var
+//  tempList : TList;
+//  li : TListItem;
+//  i : Integer;
+//  FileTransfer : TFileTransfer;
+//  namaRole : string;
+//
+//  userTemp : TUserRole;
+//begin
+//
+//  tempList := TList.Create;
+//
+//  SimManager.SimFileTransfer.GetFileTransferByReceiver(simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleIndex, tempList);
+//
+//  lvFileTransfer.Clear;
+//
+//  for i := 0 to tempList.Count - 1 do
+//  begin
+//    FileTransfer := tempList.Items[i];
+//
+//    li := lvFileTransfer.Items.Add;
+//
+//    userTemp := SimManager.SimUserRole.getUserRoleByID(FileTransfer.IdUserRoleSendingFileTransfer);
+//
+//    if Assigned(userTemp) then
+//      li.Caption := userTemp.FData.UserRoleIdentifier
+//    else
+//      li.Caption := FileTransfer.IdUserRoleSendingFileTransfer.ToString;
+//
+//    li.SubItems.Add(FileTransfer.FileTransferMessage);
+//
+//    {Ngeprint Telegram yg kamu kirim}
+//    if FileTransfer.FileTransferStatus = 0 then
+//      li.SubItems.Add('Belum Terbaca ')
+//    else
+//      li.SubItems.Add('Terbaca ');
+//
+//    li.Data := FileTransfer;
+//
+//  end;
+//end;
+{$ENDREGION}
 
 procedure TfrmToteDisplay.btnRefreshUserListClick(Sender: TObject);
 var

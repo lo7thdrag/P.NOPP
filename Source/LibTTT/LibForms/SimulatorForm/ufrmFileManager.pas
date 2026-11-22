@@ -162,7 +162,7 @@ begin
 
 //    OpenDialog.InitialDir := TelegramPath;
     OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
-    OpenDialog.Filter     := 'Dokumen Word (*.doc, *.docx)|*.doc;*.docx|File Word (*.doc, *.docx)|*.doc;*.docx|';
+    OpenDialog.Filter     := 'All Files (*.*)|*.*';
 
     if OpenDialog.Execute then
     begin
@@ -515,13 +515,16 @@ end;
 procedure TfrmFileManager.lvSentSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
+  lblOpenSent.Enabled := Selected;
+  imgOpenSent.Enabled := Selected;
+
   if Selected then
   begin
     if (Item = nil) or (Item.Data = nil) then
     Exit;
 
-    lblOpenSent.Enabled := True;
-    imgOpenSent.Enabled := True;
+    FSelectedFileTransfer := TFileTransfer(lvSent.Selected.Data);
+
   end;
 end;
 
