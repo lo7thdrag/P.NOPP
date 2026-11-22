@@ -269,18 +269,17 @@ begin
   VNetServer.RegisterTCPPacket(CPID_CMD_FILE_SHARING, SizeOf(TRecTCPFileSharing), netRecv_CmdFileSharing);
   VNetServer.RegisterTCPPacket(CPID_CMD_REMOTE, SizeOf(TRecTCPSendRemote), netRecv_CmdRemote);
 
+  VNetServer.RegisterTCPPacket(CPID_TCP_REQUEST, SizeOf(TRecTCP_Request), netRecv_TCPRequest);
+
   {Reconnect}
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT, SizeOf(TRecTCP_Reconnect), netRecv_CmdReconnect);
 
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserRole),nil);
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPChatting),nil);
+  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_TELEGRAM, SizeOf(TRecTCPTelegram),nil);
+  VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),nil);
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_SITUATIONBOARD, SizeOf(TRecTCPSendSituationBoardTabProperties),nil);
   VNetServer.RegisterTCPPacket(CPID_CMD_RECONNECT_OVERLAY, SizeOf(TRecTCPSendSituationBoardTabProperties),nil);
-
-  VNetServer.RegisterTCPPacket(CPID_TCP_REQUEST, SizeOf(TRecTCP_Request), netRecv_TCPRequest);
-
-  {Cicil Cantik}
-
 
   {$ENDREGION}
 
@@ -358,10 +357,14 @@ var
 
   userRoleTemp : TUserRole;
   chatTemp : TChatting;
+  telegramTemp : TTelegram;
+  filetransferTemp : TFileTransfer;
   tabPropertiesTemp : TTabProperties;
 
   recUserTemp : TRecTCP_UserRole;
   recChatTemp : TRecTCPChatting;
+  recTelegramTemp : TRecTCPTelegram;
+  recFileTransferTemp : TRecTCPFileTransfer;
   recTabTemp: TRecTCPSendSituationBoardTabProperties;
 
 begin
@@ -399,6 +402,44 @@ begin
       recChatTemp.ChatStatus  := chatTemp.ChatStatus;
 
       VNetServer.SendTo(CPID_CMD_RECONNECT_CHATTING, @recChatTemp, sIP);
+    end;
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Syncronizing Telegram '}
+  for i := 0 to SimManager.SimTelegram.TelegramList.Count - 1 do
+  begin
+    telegramTemp := SimManager.SimTelegram.TelegramList[i];
+
+    if Assigned(telegramTemp) then
+    begin
+      recTelegramTemp.TelegramId := telegramTemp.IdTelegram;
+      recTelegramTemp.SenderUserRoleId := telegramTemp.IdUserRoleSendingTelegram;
+      recTelegramTemp.ReceiverUserRoleId := telegramTemp.IdUserRoleReceiveTelegram;
+      recTelegramTemp.TelegramAddres := telegramTemp.TelegramAddres;
+      recTelegramTemp.TelegramMessage := telegramTemp.TelegramMessage;
+      recTelegramTemp.TelegramStatus := telegramTemp.TelegramStatus;
+
+      VNetServer.SendTo(CPID_CMD_RECONNECT_TELEGRAM, @recTelegramTemp, sIP);
+    end;
+  end;
+  {$ENDREGION}
+
+  {$REGION ' Syncronizing File Transfer '}
+  for i := 0 to SimManager.SimFileTransfer.FileTransferList.Count - 1 do
+  begin
+    filetransferTemp := SimManager.SimFileTransfer.FileTransferList[i];
+
+    if Assigned(filetransferTemp) then
+    begin
+      recFileTransferTemp.FileTransferId := filetransferTemp.IdFileTransfer;
+      recFileTransferTemp.SenderUserRoleId := filetransferTemp.IdUserRoleSendingFileTransfer;
+      recFileTransferTemp.ReceiverUserRoleId := filetransferTemp.IdUserRoleReceiveFileTransfer;
+      recFileTransferTemp.FileTransferAddres := filetransferTemp.FileTransferAddres;
+      recFileTransferTemp.FileTransferMessage := filetransferTemp.FileTransferMessage;
+      recFileTransferTemp.FileTransferStatus := filetransferTemp.FileTransferStatus;
+
+      VNetServer.SendTo(CPID_CMD_RECONNECT_FILE_TRANSFER, @recFileTransferTemp, sIP);
     end;
   end;
   {$ENDREGION}

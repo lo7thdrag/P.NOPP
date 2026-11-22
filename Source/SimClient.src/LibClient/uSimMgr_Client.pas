@@ -45,6 +45,8 @@ type
     procedure netRecv_CmdSyncUserRole(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSyncSituationBoardTabProperties(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSyncChatting(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdSyncTelegram(apRec: PAnsiChar; aSize: word);
+    procedure netRecv_CmdSyncFileTransfer(apRec: PAnsiChar; aSize: word);
 
     procedure netRecv_CmdSyncSendFileTelegram(apRec: PAnsiChar; aSize: word);
     procedure netRecv_CmdSyncFileTransferToteDisplay(apRec: PAnsiChar; aSize: word);
@@ -120,6 +122,8 @@ type
     procedure OnSyncUserRole(const rec : TRecTCP_UserRole); override;
     procedure OnSyncSituationBoardTabProperties(const rec : TRecTCPSendSituationBoardTabProperties); //override;
     procedure OnSyncUserChat(const rec : TRecTCPChatting); override;
+    procedure OnSyncUserTelegram(const rec : TRecTCPTelegram); override;
+    procedure OnSyncUserFileTransfer(const rec : TRecTCPFileTransfer); override;
     procedure OnSyncFileSendTelegram(const rec : TRecTCPFileSync);
     procedure OnSyncFileTransferToteDisplay(const rec : TRecTCPFileTransfer);
     procedure OnSyncFileSharing(const rec : TRecTCPFileSharing);
@@ -325,6 +329,8 @@ begin
 
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserRole),netRecv_CmdSyncUserRole);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPChatting),netRecv_CmdSyncChatting);
+   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_TELEGRAM, SizeOf(TRecTCPTelegram),netRecv_CmdSyncTelegram);
+   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransfer());
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_SITUATIONBOARD, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSyncSituationBoardTabProperties);
 //   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_OVERLAY, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSyncSituationBoardTabProperties);
   {$ENDREGION}
@@ -744,6 +750,19 @@ end;
 //  OnFileSyncTelegram(rec^);
 //end;
 
+procedure TSimMgr_Client.netRecv_CmdSyncFileTransfer(apRec: PAnsiChar;
+  aSize: word);
+var
+  rec : ^TRecTCPFileTransfer;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnSyncUserFIleTransfer(rec^);
+
+end;
+
 procedure TSimMgr_Client.netRecv_CmdSyncFileTransferToteDisplay(apRec: PAnsiChar; aSize: word);
 var
   rec : ^TRecTCPFileTransfer;
@@ -778,6 +797,18 @@ begin
   sIP := LongIp_To_StrIp(rec^.pid.ipSender);
 
   OnSyncSituationBoardTabProperties(rec^);
+
+end;
+
+procedure TSimMgr_Client.netRecv_CmdSyncTelegram(apRec: PAnsiChar; aSize: word);
+var
+  rec : ^TRecTCPTelegram;
+  sIP : String;
+begin
+  rec := @apRec^;
+  sIP := LongIp_To_StrIp(rec^.pid.ipSender);
+
+  OnSyncUserTelegram(rec^);
 
 end;
 
@@ -1043,7 +1074,19 @@ begin
   //
 end;
 
+procedure TSimMgr_Client.OnSyncUserFileTransfer(const rec: TRecTCPFileTransfer);
+begin
+  inherited;
+  //
+end;
+
 procedure TSimMgr_Client.OnSyncUserRole(const rec: TRecTCP_UserRole);
+begin
+  inherited;
+  //
+end;
+
+procedure TSimMgr_Client.OnSyncUserTelegram(const rec: TRecTCPTelegram);
 begin
   inherited;
   //

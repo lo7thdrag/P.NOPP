@@ -120,7 +120,7 @@ type
     ReceiverUserRoleId  : Integer;
     ChatId              : Integer;
     ChatMessage         : string[255];
-    ChatStatus          : Byte; {0: centang1, 1: centang2, 2: centang2Biru}
+    ChatStatus          : Byte; {0: send, 1: read}
   end;
 
   //CPID_CMD_TELEGRAM
@@ -133,7 +133,7 @@ type
     TelegramId          : Integer;
     TelegramAddres      : string[255];
     TelegramMessage     : string[255];
-    TelegramStatus      : Byte; {0: , 1: , 2: }
+    TelegramStatus      : Byte; {0: send, 1: read}
   end;
 
   //CPID_CMD_FILE_TRANSFER
@@ -146,7 +146,7 @@ type
     FileTransferId      : Integer;
     FileTransferAddres  : string[255];
     FileTransferMessage : string[255];
-    FileTransferStatus  : Byte; {0: , 1: , 2: }
+    FileTransferStatus  : Byte; {0: send, 1: read}
   end;
 
   //CPID_FILE_SEND_TELEGRAM
@@ -1922,7 +1922,7 @@ const
   CPID_CMD_RECONNECT_USER                 = CPID_TCP + 13;
   CPID_CMD_RECONNECT_CHATTING             = CPID_TCP + 14;
   CPID_CMD_RECONNECT_TELEGRAM             = CPID_TCP + 15;
-  CPID_CMD_RECONNECT_FILESHARING          = CPID_TCP + 16;
+  CPID_CMD_RECONNECT_FILE_TRANSFER        = CPID_TCP + 16;
   CPID_CMD_RECONNECT_SITUATIONBOARD       = CPID_TCP + 17;
   CPID_CMD_RECONNECT_OVERLAY              = CPID_TCP + 18;
   CPID_CMD_TELEGRAM                       = CPID_TCP + 19;

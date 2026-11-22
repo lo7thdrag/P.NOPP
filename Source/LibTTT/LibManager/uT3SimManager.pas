@@ -67,8 +67,6 @@ type
     SimChatting : TChattingContainer; {load saat running}
     SimTelegram : TTelegramContainer; {load saat running}
     SimOverlay : TOverlayTabContainer; {load saat running}
-//    SimFileSendTelegram : TFileSendTelegramCOntainer;
-//    SimFileSendFileTransfer : TFileSendFileTransferCOntainer;
     SimFileTransfer : TFileTransferContainer;
 
     EventManager    : TT3EventManager;
