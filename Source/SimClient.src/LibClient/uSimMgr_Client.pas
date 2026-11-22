@@ -356,7 +356,7 @@ begin
   FillChar(rec, SizeOf(rec), 0);
 
   rec.SessionID := 0;
-  rec.OrderID   := READ_CHAT;
+  rec.OrderID   := READ_FILE_TRANSFER;
 
   rec.SenderUserRoleId   :=  MyConsoleData.UserRoleData.FData.UserRoleIndex;
   rec.ReceiverUserRoleId := SenderID;

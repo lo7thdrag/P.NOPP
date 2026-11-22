@@ -149,7 +149,6 @@ type
     pnlHeaderBeranda: TPanel;
     Panel22: TPanel;
     Panel23: TPanel;
-    Memo1: TMemo;
     Label6: TLabel;
     pnlHeaderPengguna: TPanel;
     Label7: TLabel;
@@ -223,6 +222,9 @@ type
     imgNotifikasi: TImage;
     imgNotifikasiTel: TImage;
     imgNotifikasiFil: TImage;
+    lvCommunicatonAdrres: TListView;
+    lblCommunicationAddres: TLabel;
+    imgRefresh: TImage;
 
     procedure btnAOTCClick(Sender: TObject);
 
@@ -241,6 +243,7 @@ type
     procedure lvFileDataSelectItem(Sender: TObject; Item: TListItem;Selected: Boolean);
     procedure pnlBerandaManajemenShow;
     procedure UpdateDataFile;
+    procedure UpdatelvCommunicationAddres;
     {$ENDREGION}
 
     {$REGION ' Asset Procedure '}
@@ -365,6 +368,7 @@ type
     procedure lvAssetSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
     procedure edtCariKeyPress(Sender: TObject; var Key: Char);
     procedure edtChatBoxKeyPress(Sender: TObject; var Key: Char);
+    procedure imgRefreshClick(Sender: TObject);
 
   private
     iconName : string;
@@ -448,7 +452,7 @@ var
 implementation
 
 uses
-  uDataModule;
+  uDataModule, uConsoleData;
 
 {$R *.dfm}
 
@@ -1885,6 +1889,39 @@ begin
 
 end;
 
+procedure TfrmDisplayArea.UpdatelvCommunicationAddres;
+var
+  i : Integer;
+  userTemp : TUserRole;
+//  consoleInfoTemp : TConsoleInfo;
+  li : TListItem;
+  consoleTemp : string;
+
+begin
+  lvCommunicatonAdrres.Items.Clear;
+
+  for i := 0 to SimManager.SimUserRole.UserList.Count-1 do
+  begin
+
+    userTemp := SimManager.SimUserRole.UserList[i];
+
+    if Assigned(userTemp) then
+    begin
+      if userTemp.isInUse then
+      begin
+        li := lvCommunicatonAdrres.Items.Add;
+        li.Caption := userTemp.FData.UserRoleIdentifier;
+
+        consoleTemp := SimManager.SimConsole.GetConsoleName(userTemp.ConsoleIP);
+
+        li.SubItems.Add(consoleTemp);
+
+        li.Data := userTemp;
+      end;
+    end;
+  end;
+end;
+
 procedure TfrmDisplayArea.DeleteGameAreaDirectory(const aPathName,aFileName: string);
 var
   F : TSearchRec;
@@ -2222,6 +2259,11 @@ begin
   except
     Exception.Create('Error');
   end;
+end;
+
+procedure TfrmDisplayArea.imgRefreshClick(Sender: TObject);
+begin
+  UpdatelvCommunicationAddres;
 end;
 
 procedure TfrmDisplayArea.SituationBoardControllerClick(Sender: TObject);
