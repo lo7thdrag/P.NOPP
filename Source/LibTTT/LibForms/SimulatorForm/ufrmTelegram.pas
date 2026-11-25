@@ -481,18 +481,18 @@ begin
   if not Assigned(FSelectedSentTelegram) then
     Exit;
 
-  sourceFileTemp := FSelectedSentTelegram.TelegramAddres + '\' + FSelectedInboxTelegram.TelegramMessage;
+  sourceFileTemp := FSelectedSentTelegram.TelegramAddres + '\' + FSelectedSentTelegram.TelegramMessage;
 
-  ShowMessage(sourceFileTemp);
-
-  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\';
-
-  ShowMessage(SentPath);
+  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' ;
 
   if not TDirectory.Exists(SentPath) then
     TDirectory.CreateDirectory(SentPath);
 
-  if CopyFile(PChar(sourceFileTemp), PChar(SentPath), False) then
+  SentPath := SentPath + FSelectedSentTelegram.TelegramMessage;
+
+  CopyFile(PWideChar(sourceFileTemp), PWideChar(SentPath), False);
+
+  if CopyFile(PWideChar(sourceFileTemp), PWideChar(SentPath), False) then
     ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW)
   else
     ShowMessage('Data gagal di buka');
