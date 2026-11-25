@@ -560,8 +560,8 @@ end;
 procedure TfrmTelegram.lvSentSelectItem(Sender: TObject; Item: TListItem;
   Selected: Boolean);
 begin
-  imgbtnOpen.Enabled := Selected;
-  lblOpen.Enabled := Selected;
+  imgbtnOpenSent.Enabled := Selected;
+  lblOpenSent.Enabled := Selected;
 
   if Selected then
   begin

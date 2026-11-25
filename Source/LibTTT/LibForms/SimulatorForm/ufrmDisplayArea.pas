@@ -2584,7 +2584,7 @@ begin
     else
       frmTelegram.Show;
 
-    imgNotifikasi.Visible := False;
+    imgNotifikasiTel.Visible := False;
   finally
   end;
 end;
@@ -2621,8 +2621,7 @@ begin
 //  finally
 //  end;
 
-  if not Assigned(frmFileManager) then
-    frmFileManager := TfrmFileManager.Create(Self);
+
 
 //  try
 //    with frmFileManager do
@@ -2632,11 +2631,16 @@ begin
 //  finally
 //  end;
 
+  if not Assigned(frmFileManager) then
+    frmFileManager := TfrmFileManager.Create(Self);
+
   try
     if frmFileManager.Showing then
       frmFileManager.Close
     else
       frmFileManager.Show;
+
+    imgNotifikasiFil.Visible := False;
   finally
   end;
 end;
