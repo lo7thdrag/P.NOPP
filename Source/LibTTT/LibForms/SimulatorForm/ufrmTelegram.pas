@@ -88,7 +88,8 @@ type
     FLastFileName : string;
     FSelectedUserTelegram : TUserRole;
 
-    FSelectedTelegram : TTelegram;
+    FSelectedInboxTelegram : TTelegram;
+    FSelectedSentTelegram : TTelegram;
 
     ipTelegramSentTo : string;
 
@@ -445,18 +446,21 @@ var
   sourceFileTemp : string;
 
 begin
-  if FSelectedTelegram.TelegramStatus <> 1 then
+  if not Assigned(FSelectedInboxTelegram) then
+    Exit;
+
+  if FSelectedInboxTelegram.TelegramStatus <> 1 then
   begin
     rec.OrderID := READ_TELEGRAMM;
-    rec.TelegramId := FSelectedTelegram.IdTelegram;
-    rec.SenderUserRoleId := FSelectedTelegram.IdUserRoleSendingTelegram;
-    rec.ReceiverUserRoleId := FSelectedTelegram.IdUserRoleReceiveTelegram;
+    rec.TelegramId := FSelectedInboxTelegram.IdTelegram;
+    rec.SenderUserRoleId := FSelectedInboxTelegram.IdUserRoleSendingTelegram;
+    rec.ReceiverUserRoleId := FSelectedInboxTelegram.IdUserRoleReceiveTelegram;
     rec.TelegramStatus := 1; {centang1}
 
     simMgrClient.netSend_CmdSendTelegram(rec);
   end;
 
-  sourceFileTemp := FSelectedTelegram.TelegramAddres + '\' + FSelectedTelegram.TelegramMessage;
+  sourceFileTemp := FSelectedInboxTelegram.TelegramAddres + '\' + FSelectedInboxTelegram.TelegramMessage;
 
   path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX\';
 
@@ -471,14 +475,23 @@ end;
 
 procedure TfrmTelegram.lblOpenSentClick(Sender: TObject);
 var
-  SentPath: string;
+  SentPath, sourceFileTemp: string;
+
 begin
-  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT';
+  if not Assigned(FSelectedSentTelegram) then
+    Exit;
+
+  sourceFileTemp := FSelectedSentTelegram.TelegramAddres + '\' + FSelectedInboxTelegram.TelegramMessage;
+
+  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\';
 
   if not TDirectory.Exists(SentPath) then
     TDirectory.CreateDirectory(SentPath);
 
-  ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW);
+  if CopyFile(PChar(sourceFileTemp), PChar(SentPath), False) then
+    ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW)
+  else
+    ShowMessage('Data gagal di buka');
 end;
 
 procedure TfrmTelegram.lblPilihFileClick(Sender: TObject);
@@ -552,7 +565,7 @@ begin
     if (Item = nil) or (Item.Data = nil) then
     Exit;
 
-    FSelectedTelegram := TTelegram(lvInbox.Selected.Data);
+    FSelectedInboxTelegram := TTelegram(lvInbox.Selected.Data);
 
   end;
 end;
@@ -568,7 +581,7 @@ begin
     if (Item = nil) or (Item.Data = nil) then
     Exit;
 
-    FSelectedTelegram := TTelegram(lvSent.Selected.Data);
+    FSelectedSentTelegram := TTelegram(lvSent.Selected.Data);
 
   end;
 end;
