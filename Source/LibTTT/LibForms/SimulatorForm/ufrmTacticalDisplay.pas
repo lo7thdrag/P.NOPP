@@ -990,7 +990,7 @@ end;
 
 procedure TfrmTacticalDisplay.RunClientApp;
 begin
-  KillClientApp;
+//  KillClientApp;
 
   if not GetApp then
   begin
