@@ -330,7 +330,7 @@ begin
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_USER, SizeOf(TRecTCP_UserRole),netRecv_CmdSyncUserRole);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_CHATTING, SizeOf(TRecTCPChatting),netRecv_CmdSyncChatting);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_TELEGRAM, SizeOf(TRecTCPTelegram),netRecv_CmdSyncTelegram);
-   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransfer());
+   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_FILE_TRANSFER, SizeOf(TRecTCPFileTransfer),netRecv_CmdSyncFileTransfer);
    VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_SITUATIONBOARD, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSyncSituationBoardTabProperties);
 //   VNetClient.RegisterTCPPacket(CPID_CMD_RECONNECT_OVERLAY, SizeOf(TRecTCPSendSituationBoardTabProperties),netRecv_CmdSyncSituationBoardTabProperties);
   {$ENDREGION}

@@ -9,7 +9,7 @@ uses
   RzButton, jpeg, System.ImageList, Vcl.Imaging.pngimage, RzBmpBtn, Printers, Math,
 
   {Project Uses}
-  uNetBaseSocket, uClassData, uRecordData, uConstantaData, uConsoleData,uBaseCoordSystem, uCoordConvertor, uLibSetting, uSimObjects,
+  uNetBaseSocket, uExecuter, uClassData, uRecordData, uConstantaData, uConsoleData,uBaseCoordSystem, uCoordConvertor, uLibSetting, uSimObjects,
   uSimMgr_Client, uT3SimManager, ufrmDisplayArea, ufrmSituationBoard, ufrmTelegram, ufrmToteDisplay ;
 
 type
@@ -85,10 +85,16 @@ type
     procedure btnMonitorClick(Sender: TObject);
 
   private
+    FAppGame : TAppExecute;
 //    FTimerbutton : Integer;
     FSelectedSubRole : TSubRole;
     FselectedUserRole : TUserRole;
     FIsLoadData : Boolean;
+
+    function GetApp: Boolean;
+
+    procedure RunClientApp();
+    procedure KillClientApp();
 
     procedure AddCbbSubRole(tipeTahapan : Integer; UseConsoleFilter: Boolean = False);
     procedure AddUserRoleLogin(SubRoleId : integer);
@@ -529,8 +535,9 @@ begin
 
     simMgrClient.SimChatting.ChattingList.Clear;
     simMgrClient.SimTelegram.TelegramList.Clear;
+    simMgrClient.SimFileTransfer.FileTransferList.Clear;
+    simMgrClient.SimTabProperties.TabList.Clear;
     simMgrClient.SimOverlay.TabList.Clear;
-//    simMgrClient.SimFileTransfer.ChattingList.Clear;
 
     simMgrClient.netSend_CmdReconnect(rec);
 
@@ -813,6 +820,10 @@ begin
   FSelectedSubRole := TSubRole.Create;
   FselectedUserRole := TUserRole.Create;
 
+  FAppGame    := TAppExecute.Create;
+  FAppGame.OnStartExecute := nil;
+  FAppGame.OnEndExecute   := nil;
+
   Show;
 end;
 
@@ -841,6 +852,36 @@ begin
 
 end;
 
+function TfrmTacticalDisplay.GetApp: Boolean;
+var
+  connector, killer :THandle;
+  stamped : LongBool;
+  exe : TProcessEntry32;
+  IDExe : Integer;
+  flag : Boolean;
+
+begin
+
+  Result := False;
+
+  connector := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  exe.dwSize := sizeOf(exe);
+  stamped := Process32First(connector, exe);
+
+  while stamped do
+  begin
+    stamped := Process32Next(connector, exe);
+
+    if exe.szExeFile = 'RemoteViewer.exe' then
+    begin
+      IDExe := exe.th32ProcessID;
+      Result := True;
+      Break
+    end;
+
+  end;
+end;
+
 procedure TfrmTacticalDisplay.Image6Click(Sender: TObject);
 begin
   simMgrClient.CekGameState;
@@ -858,6 +899,45 @@ begin
   height := Screen.Monitors[vGameDataSetting.TacticalScreen].height;
   left := Screen.Monitors[vGameDataSetting.TacticalScreen].left;
   top := Screen.Monitors[vGameDataSetting.TacticalScreen].top;
+end;
+
+procedure TfrmTacticalDisplay.KillClientApp;
+var
+  connector, killer :THandle;
+  stamped : LongBool;
+  exe : TProcessEntry32;
+  IDExe : Integer;
+  flag : Boolean;
+
+begin
+
+  connector := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
+  exe.dwSize := sizeOf(exe);
+  stamped := Process32First(connector, exe);
+
+  flag := False;
+  while stamped do
+  begin
+    stamped := Process32Next(connector, exe);
+
+    if exe.szExeFile = 'RemoteViewer.exe' then
+    begin
+      IDExe := exe.th32ProcessID;
+      flag := True;
+      Break
+    end;
+
+  end;
+
+  if flag then
+  begin
+    killer := OpenProcess(PROCESS_TERMINATE, False, IDExe );
+
+    if TerminateProcess(killer, 0) then
+    begin
+//      LogMemo.Lines.Add('Kill ' + vNetSetting.Clientapp);
+    end
+  end;
 end;
 
 procedure TfrmTacticalDisplay.lstUserRoleLoginDblClick(Sender: TObject);
@@ -906,6 +986,19 @@ begin
   end;
 
   pnlBackgroundLogin.BringToFront;
+end;
+
+procedure TfrmTacticalDisplay.RunClientApp;
+begin
+  KillClientApp;
+
+  if not GetApp then
+  begin
+    FAppGame.FExecFname := 'RemoteViewer.exe';
+    FAppGame.Executes;
+  end
+  else
+    ShowMessage('Remote Viewer Sedang berjalan');
 end;
 
 procedure TfrmTacticalDisplay.SetWallpaperHome;
@@ -1023,19 +1116,14 @@ begin
     begin
       if simMgrClient.MyConsoleData.Group = cgSituationBoard then
       begin
-        Label5.Visible := False;
-        pnlBackgroundLogin.BringToFront;
-        pnlSituationBoard.BringToFront;
-        pnlLogo.Visible := True;
+        RunClientApp;
       end
       else if simMgrClient.MyConsoleData.Group = cgWasdal then
       begin
         Label5.Visible := False;
         pnlBackgroundLogin.BringToFront;
         pnlSituationBoard.BringToFront;
-  //      pnlSituationBoard.Visible := False;
         pnlLogin.Visible := False;
-  //      pnlLogo.Visible := True;
       end
       else
       begin
