@@ -1117,6 +1117,8 @@ begin
       if simMgrClient.MyConsoleData.Group = cgSituationBoard then
       begin
         RunClientApp;
+
+        Exit;
       end
       else if simMgrClient.MyConsoleData.Group = cgWasdal then
       begin

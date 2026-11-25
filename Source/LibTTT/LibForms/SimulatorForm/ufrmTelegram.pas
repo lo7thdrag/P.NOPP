@@ -483,7 +483,11 @@ begin
 
   sourceFileTemp := FSelectedSentTelegram.TelegramAddres + '\' + FSelectedInboxTelegram.TelegramMessage;
 
+  ShowMessage(sourceFileTemp);
+
   SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\';
+
+  ShowMessage(SentPath);
 
   if not TDirectory.Exists(SentPath) then
     TDirectory.CreateDirectory(SentPath);
@@ -524,12 +528,12 @@ begin
       SenderFolderName := simMgrClient.MyConsoleData.UserRoleData.FData.UserRoleAcronim + '-' + simMgrClient.MyConsoleData.UserRoleData.FSubRoleData.SubRoleIdentifier;
 
       DateTimeNowTemp := FormatDateTime('dd-mm-yy_hh;nn;ss', Now);
-      SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + cbbxTo.Text + '\' + DateTimeNowTemp;
+//      SentPath        := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' + cbbxTo.Text + '\' + DateTimeNowTemp;
 
       FileName := ExtractFileName(SourceFile);
 
-      if not DirectoryExists(SentPath) then
-        ForceDirectories(SentPath);
+//      if not DirectoryExists(SentPath) then
+//        ForceDirectories(SentPath);
 
       DestFolder := TelegramPath + SenderFolderName + '\' + DateTimeNowTemp;
 
@@ -582,7 +586,6 @@ begin
     Exit;
 
     FSelectedSentTelegram := TTelegram(lvSent.Selected.Data);
-
   end;
 end;
 
@@ -659,20 +662,25 @@ begin
 
     li := lvSent.Items.Add;
 
-    userTemp := SimManager.SimUserRole.getUserRoleByID(TelegramTemp.IdUserRoleSendingTelegram);
+    if Assigned(TelegramTemp) then
+    begin
+      userTemp := SimManager.SimUserRole.getUserRoleByID(TelegramTemp.IdUserRoleReceiveTelegram);
 
-    if Assigned(userTemp) then
-      li.Caption := userTemp.FData.UserRoleIdentifier
-    else
-      li.Caption := TelegramTemp.IdUserRoleSendingTelegram.ToString;
+      if Assigned(userTemp) then
+        li.Caption := userTemp.FData.UserRoleIdentifier
+      else
+        li.Caption := TelegramTemp.IdUserRoleReceiveTelegram.ToString;
 
-    li.SubItems.Add(TelegramTemp.TelegramMessage);
+      li.SubItems.Add(TelegramTemp.TelegramMessage);
 
-    {Ngeprint Telegram yg kamu kirim}
-    if TelegramTemp.TelegramStatus = 0 then
-      li.SubItems.Add('Terkirim ')
-    else
-      li.SubItems.Add('Terbaca ');
+      {Ngeprint Telegram yg kamu kirim}
+      if TelegramTemp.TelegramStatus = 0 then
+        li.SubItems.Add('Terkirim ')
+      else
+        li.SubItems.Add('Terbaca ');
+
+      li.Data := TelegramTemp;
+    end;
   end;
 end;
 

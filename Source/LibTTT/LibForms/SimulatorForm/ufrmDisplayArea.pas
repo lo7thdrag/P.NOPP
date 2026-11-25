@@ -2656,7 +2656,11 @@ begin
   {ini untuk Services}
   pnlVideoConference.Height := 35;
   pnlToteDisplay.Height := 35;
-  pnlSituationBoardController.Height := 35;
+
+  if simMgrClient.MyConsoleData.Group = cgInstructor then
+    pnlSituationBoardController.Height := 0
+  else
+    pnlSituationBoardController.Height := 35;
   pnlServices.Height := 285;
 
   btnUploadReferensi.Visible := True;
