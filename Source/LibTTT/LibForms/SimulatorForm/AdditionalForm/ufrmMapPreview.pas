@@ -93,13 +93,27 @@ end;
 
 
 procedure TfrmMapPreview.btnCenterGameClick(Sender: TObject);
+var
+  long, lat: Double;
 begin
-  UpAllToolbarButton;
-  btnCenterGame.Down := True;
-  FMapCursor := mcGameCenter;
+  if not Assigned(FSelectedGameArea) then
+    Exit;
 
-  ENCMap.CurrentTool := miArrowTool;
-  ENCMap.MousePointer := miCrossCursor;
+  long := FSelectedGameArea.FData.Game_Centre_Long;
+  lat := FSelectedGameArea.FData.Game_Centre_Lat;
+
+  if (long <> 0) or (lat <> 0) then
+  begin
+    try
+      ENCMap.ZoomTo(ENCMap.Zoom, long, lat);
+    except
+      on E: Exception do
+        ;
+    end;
+  end;
+
+  // Agar tombol bekerja sekali tekan untuk me-reset posisi tengah peta
+  btnCenterGame.Down := False;
 end;
 
 procedure TfrmMapPreview.btnDecreaseClick(Sender: TObject);
@@ -328,26 +342,39 @@ end;
 
 procedure TfrmMapPreview.FormShow(Sender: TObject);
 var
-  aGeoset, ENCGeoset, VektorGeoset, GameAreaName: string;
+  aGeoset: string;
 begin
-//  LoadMap(dbEditSett.MapGSTGame + '\' + SelectedGameArea.FData.Game_Area_Identifier + '\' + SelectedGameArea.FData.Game_Area_Identifier + '.gst');
+  WindowState := wsMaximized;
+  if not Assigned(FSelectedGameArea) then Exit;
+
   if Trim(dbEditSett.MapGSTGame) = '' then
     LoadFF_AppDBSetting('Setting.ini', dbEditSett);
 
   aGeoset := IncludeTrailingPathDelimiter(dbEditSett.MapGSTGame) +
-             SelectedGameArea.FData.Game_Area_Identifier + '\' +
-             SelectedGameArea.FData.Game_Area_Identifier + '.gst';
+             FSelectedGameArea.FData.Game_Area_Identifier + '\' +
+             FSelectedGameArea.FData.Game_Area_Identifier + '.gst';
 
   LoadMap(aGeoset);
   FConverter.FMap := ENCMap;
 
-  cbSetScale.ItemIndex := cbSetScale.Items.Count - 1;
-  cbSetScaleChange(Sender);
+  try
+    ENCMap.ZoomTo(
+      32,
+      FSelectedGameArea.FData.Game_Centre_Long,
+      FSelectedGameArea.FData.Game_Centre_Lat
+    );
+  except
+    on E: Exception do ;
+  end;
 
-  cbSetScale.Text := cbSetScale.Items.Strings[cbSetScale.ItemIndex];
-  btnSelect.OnClick(btnSelect);
+  cbSetScale.OnChange := nil;
+  cbSetScale.ItemIndex := cbSetScale.Items.IndexOf('32');
+  cbSetScale.Text := '32';
+  cbSetScale.OnChange := cbSetScaleChange;
 
-  cbSetScaleChange(Sender);
+  if Assigned(btnSelect.OnClick) then
+    btnSelect.OnClick(btnSelect);
+
 end;
 
 procedure TfrmMapPreview.LoadMap(Geoset: String);
