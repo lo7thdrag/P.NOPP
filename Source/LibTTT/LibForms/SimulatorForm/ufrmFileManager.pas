@@ -463,7 +463,7 @@ begin
 
   sourceFileTemp := FSelectedInboxFileTransfer.FileTransferAddres + '\' + FSelectedInboxFileTransfer.FileTransferMessage;
 
-  Inboxpath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX\' ;
+  Inboxpath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\INBOX\' ;
 
   if not TDirectory.Exists(Inboxpath) then
     TDirectory.CreateDirectory(Inboxpath);
@@ -488,7 +488,7 @@ begin
 
   sourceFileTemp := FSelectedSentFileTransfer.FileTransferAddres + '\' + FSelectedSentFileTransfer.FileTransferMessage;
 
-  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' ;
+  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\SENT\' ;
 
   if not TDirectory.Exists(SentPath) then
     TDirectory.CreateDirectory(SentPath);
