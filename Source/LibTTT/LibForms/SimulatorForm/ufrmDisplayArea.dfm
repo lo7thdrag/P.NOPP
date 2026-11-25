@@ -64197,13 +64197,13 @@ object frmDisplayArea: TfrmDisplayArea
                 Caption = 'Console'
                 Width = 217
               end>
-            Enabled = False
             Font.Charset = ANSI_CHARSET
             Font.Color = clBlack
             Font.Height = -16
             Font.Name = 'Jefferies'
             Font.Style = []
             GridLines = True
+            ReadOnly = True
             RowSelect = True
             ParentFont = False
             StateImages = ilClientStateColor

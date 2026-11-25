@@ -441,9 +441,7 @@ end;
 procedure TfrmTelegram.lblOpenClick(Sender: TObject);
 var
   rec : TRecTCPTelegram;
-  path: string;
-
-  sourceFileTemp : string;
+  Inboxpath, sourceFileTemp : string;
 
 begin
   if not Assigned(FSelectedInboxTelegram) then
@@ -462,13 +460,17 @@ begin
 
   sourceFileTemp := FSelectedInboxTelegram.TelegramAddres + '\' + FSelectedInboxTelegram.TelegramMessage;
 
-  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX\';
+  Inboxpath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX\' ;
 
-  if not TDirectory.Exists(path) then
-    TDirectory.CreateDirectory(path);
+  if not TDirectory.Exists(Inboxpath) then
+    TDirectory.CreateDirectory(Inboxpath);
 
-  if CopyFile(PChar(sourceFileTemp), PChar(path), False) then
-    ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW)
+  Inboxpath := Inboxpath + FSelectedInboxTelegram.TelegramMessage;
+
+  CopyFile(PWideChar(sourceFileTemp), PWideChar(Inboxpath), False);
+
+  if CopyFile(PWideChar(sourceFileTemp), PWideChar(Inboxpath), False) then
+    ShellExecute(0, 'open', PChar(Inboxpath), nil, nil, SW_SHOW)
   else
     ShowMessage('Data gagal di buka');
 end;

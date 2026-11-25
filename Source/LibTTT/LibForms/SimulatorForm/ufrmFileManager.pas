@@ -65,6 +65,9 @@ type
     procedure lblOpenSentClick(Sender: TObject);
     procedure btnCloseInboxClick(Sender: TObject);
   private
+    FSelectedInboxFileTransfer : TFileTransfer;
+    FSelectedSentFileTransfer : TFileTransfer;
+
     FConsoleList  : TList;
     FFileTransfer : TList;
 
@@ -444,9 +447,7 @@ end;
 procedure TfrmFileManager.lblOpenInboxClick(Sender: TObject);
 var
   rec : TRecTCPFileTransfer;
-  path: string;
-
-  sourceFileTemp : string;
+  Inboxpath, sourceFileTemp : string;
 
 begin
   if FSelectedFileTransfer.FileTransferStatus <> 1 then
@@ -460,29 +461,46 @@ begin
     simMgrClient.netSend_CmdSendFileTransfer(rec);
   end;
 
-  sourceFileTemp := FSelectedFileTransfer.FileTransferAddres + '\' + FSelectedFileTransfer.FileTransferMessage;
+  sourceFileTemp := FSelectedInboxFileTransfer.FileTransferAddres + '\' + FSelectedInboxFileTransfer.FileTransferMessage;
 
-  path := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\INBOX\';
+  Inboxpath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\INBOX\' ;
 
-  if not TDirectory.Exists(path) then
-    TDirectory.CreateDirectory(path);
+  if not TDirectory.Exists(Inboxpath) then
+    TDirectory.CreateDirectory(Inboxpath);
 
-  if CopyFile(PChar(sourceFileTemp), PChar(path), False) then
-    ShellExecute(0, 'open', PChar(path), nil, nil, SW_SHOW)
+  Inboxpath := Inboxpath + FSelectedInboxFileTransfer.FileTransferMessage;
+
+  CopyFile(PWideChar(sourceFileTemp), PWideChar(Inboxpath), False);
+
+  if CopyFile(PWideChar(sourceFileTemp), PWideChar(Inboxpath), False) then
+    ShellExecute(0, 'open', PChar(Inboxpath), nil, nil, SW_SHOW)
   else
     ShowMessage('Data gagal di buka');
 end;
 
 procedure TfrmFileManager.lblOpenSentClick(Sender: TObject);
 var
-  SentPath: string;
+  SentPath, sourceFileTemp: string;
+
 begin
-  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'File Transfer\SENT';
+  if not Assigned(FSelectedSentFileTransfer) then
+    Exit;
+
+  sourceFileTemp := FSelectedSentFileTransfer.FileTransferAddres + '\' + FSelectedSentFileTransfer.FileTransferMessage;
+
+  SentPath := IncludeTrailingPathDelimiter(vGameDataSetting.LocalDirectory) + 'Telegram\SENT\' ;
 
   if not TDirectory.Exists(SentPath) then
     TDirectory.CreateDirectory(SentPath);
 
-  ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW);
+  SentPath := SentPath + FSelectedSentFileTransfer.FileTransferMessage;
+
+  CopyFile(PWideChar(sourceFileTemp), PWideChar(SentPath), False);
+
+  if CopyFile(PWideChar(sourceFileTemp), PWideChar(SentPath), False) then
+    ShellExecute(0, 'open', PChar(SentPath), nil, nil, SW_SHOW)
+  else
+    ShowMessage('Data gagal di buka');
 end;
 
 procedure TfrmFileManager.lblSendFileTransferClick(Sender: TObject);
