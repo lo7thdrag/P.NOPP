@@ -2,10 +2,10 @@ object frmBrowseMap: TfrmBrowseMap
   Left = 0
   Top = 0
   BorderIcons = []
-  BorderStyle = bsSingle
+  BorderStyle = bsNone
   Caption = ' Select Map'
-  ClientHeight = 733
-  ClientWidth = 1308
+  ClientHeight = 762
+  ClientWidth = 1314
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,73 +14,27 @@ object frmBrowseMap: TfrmBrowseMap
   Font.Style = []
   FormStyle = fsStayOnTop
   OldCreateOrder = False
-  Position = poScreenCenter
   WindowState = wsMaximized
+  OnResize = FormResize
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object mpLayer: TMap
-    Left = 387
-    Top = 39
-    Width = 921
-    Height = 694
-    ParentColor = False
-    Align = alClient
-    TabOrder = 0
-    OnMapViewChanged = mpLayerMapViewChanged
-    ExplicitLeft = 263
-    ExplicitTop = -110
-    ExplicitWidth = 864
-    ExplicitHeight = 599
-    ControlData = {
-      8A1A0600305F0000BA470000010000000F0000FF0D47656F44696374696F6E61
-      727905456D70747900E8030000000000000000000002000E001E000000000000
-      0000000000000000000000000000000000000000000600010000040000500001
-      010000640000000001F4010000050000800C000000000000000000000000FFFF
-      FF000100000000000000000000000000000000000000000000000352E30B918F
-      CE119DE300AA004BB85101000000900150870A0005417269616C000352E30B91
-      8FCE119DE300AA004BB8510100000090015C790C0005417269616C0000000000
-      00000000000000000000000000000000000000000000000000000000000000FF
-      FFFF000000000000000001370000000000FFFFFF000000000000000352E30B91
-      8FCE119DE300AA004BB851010000009001DC7C010005417269616C000352E30B
-      918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D626F
-      6C730000000000000001000100FFFFFF000200FFFFFF00000000000001000000
-      01000118010000A025910401000000C00593041C000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000002
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      8076C000000000008056C0000000000080764000000000008056400100000018
-      010000A025910401000000B3EF556B1C00000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000200000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000000000000000000000
-      0000000000000000000000000000000000000000000000C0059304000000007B
-      D798760500000000000000C808930459685FB9F0F19700000000000000000000
-      000088B3400000000000408F400001000001}
-  end
   object PanelLeft: TPanel
     Left = 0
-    Top = 39
+    Top = 0
     Width = 387
-    Height = 694
+    Height = 762
     Align = alLeft
     BevelOuter = bvNone
     BorderWidth = 5
-    Color = 5918252
+    Color = 2826773
     ParentBackground = False
-    TabOrder = 1
+    TabOrder = 0
     object grp1: TGroupBox
       Left = 5
       Top = 5
       Width = 377
-      Height = 642
+      Height = 710
       Align = alClient
       Caption = 'Filename'
       Color = 15131105
@@ -97,7 +51,7 @@ object frmBrowseMap: TfrmBrowseMap
         Left = 2
         Top = 18
         Width = 373
-        Height = 622
+        Height = 690
         Align = alClient
         Color = clWhite
         Font.Charset = DEFAULT_CHARSET
@@ -106,18 +60,19 @@ object frmBrowseMap: TfrmBrowseMap
         Font.Name = 'Tahoma'
         Font.Style = []
         ParentFont = False
+        ScrollWidth = 550
         TabOrder = 0
         OnClick = lstGSTGameClick
       end
     end
     object Panel1: TPanel
       Left = 5
-      Top = 647
+      Top = 715
       Width = 377
       Height = 42
       Align = alBottom
       BevelOuter = bvNone
-      Color = 5918252
+      Color = 2826773
       ParentBackground = False
       TabOrder = 1
       DesignSize = (
@@ -157,149 +112,220 @@ object frmBrowseMap: TfrmBrowseMap
       end
     end
   end
-  object PanelTop: TPanel
-    Left = 0
+  object pnlMain: TPanel
+    Left = 387
     Top = 0
-    Width = 1308
-    Height = 39
-    Align = alTop
+    Width = 927
+    Height = 762
+    Align = alClient
     BevelOuter = bvNone
-    Color = 5918252
-    ParentBackground = False
-    TabOrder = 2
-    object toolbar2: TToolBar
+    Caption = 'pnlMain'
+    ShowCaption = False
+    TabOrder = 1
+    object PanelTop: TPanel
       Left = 0
       Top = 0
-      Width = 1308
+      Width = 927
       Height = 39
-      Align = alClient
-      AutoSize = True
-      ButtonHeight = 38
-      ButtonWidth = 39
-      Caption = 'toolbar2'
-      Images = ImageList1
+      Align = alTop
+      BevelOuter = bvNone
+      Color = 2826773
+      ParentBackground = False
       TabOrder = 0
-      object btn1: TToolButton
+      object toolbar2: TToolBar
+        Left = 185
+        Top = 0
+        Width = 742
+        Height = 39
+        Align = alClient
+        AutoSize = True
+        ButtonHeight = 38
+        ButtonWidth = 39
+        Caption = 'toolbar2'
+        Images = ImageList1
+        TabOrder = 0
+        object btn1: TToolButton
+          Left = 0
+          Top = 0
+          Width = 8
+          Caption = 'btn1'
+          ImageIndex = 36
+          Style = tbsSeparator
+          Visible = False
+        end
+        object btnNormal: TToolButton
+          Left = 8
+          Top = 0
+          Cursor = crHandPoint
+          Hint = 'Select Point'
+          ImageIndex = 31
+          ParentShowHint = False
+          ShowHint = True
+          Style = tbsCheck
+          OnClick = btnNormalClick
+        end
+        object btnPan: TToolButton
+          Left = 47
+          Top = 0
+          Cursor = crHandPoint
+          Hint = 'Delete Point'
+          ImageIndex = 13
+          ParentShowHint = False
+          ShowHint = True
+          Style = tbsCheck
+          OnClick = btnPanClick
+        end
+        object btn2: TToolButton
+          Left = 86
+          Top = 0
+          Width = 8
+          Caption = 'btn2'
+          ImageIndex = 36
+          Style = tbsSeparator
+          Visible = False
+        end
+        object btnDecreaseScale: TToolButton
+          Left = 94
+          Top = 0
+          Cursor = crHandPoint
+          Hint = 'Decrease Scale'
+          ImageIndex = 1
+          ParentShowHint = False
+          ShowHint = True
+          Style = tbsCheck
+          OnClick = btnDecreaseScaleClick
+        end
+        object cbbSetScale: TComboBox
+          Left = 133
+          Top = 0
+          Width = 90
+          Height = 21
+          Hint = 'Map Scales'
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 0
+          OnChange = cbbSetScaleChange
+          Items.Strings = (
+            '1'
+            '2'
+            '4'
+            '8'
+            '16'
+            '32'
+            '64'
+            '128'
+            '256'
+            '512'
+            '1024')
+        end
+        object btnIncreaseScale: TToolButton
+          Left = 223
+          Top = 0
+          Cursor = crHandPoint
+          Hint = 'Increase Scale'
+          ImageIndex = 2
+          ParentShowHint = False
+          ShowHint = True
+          Style = tbsCheck
+          OnClick = btnIncreaseScaleClick
+        end
+        object btn3: TToolButton
+          Left = 262
+          Top = 0
+          Width = 8
+          Caption = 'btn3'
+          ImageIndex = 36
+          Style = tbsSeparator
+          Visible = False
+        end
+        object btnZoom: TToolButton
+          Left = 270
+          Top = 0
+          Cursor = crHandPoint
+          Hint = 'Zoom'
+          ImageIndex = 37
+          ParentShowHint = False
+          ShowHint = True
+          Style = tbsCheck
+          OnClick = btnZoomClick
+        end
+        object btnZoomOut: TToolButton
+          Left = 309
+          Top = 0
+          Cursor = crHandPoint
+          Hint = 'Zoom Out'
+          ImageIndex = 36
+          OnClick = btnZoomOutClick
+        end
+        object btnDragFilter: TToolButton
+          Left = 348
+          Top = 0
+          Cursor = crSizeAll
+          Hint = 'Game Center'
+          ImageIndex = 6
+          ParentShowHint = False
+          ShowHint = True
+          Style = tbsCheck
+          OnClick = btnDragFilterClick
+        end
+      end
+      object pnlAlignToolbar: TPanel
         Left = 0
         Top = 0
-        Width = 8
-        Caption = 'btn1'
-        ImageIndex = 36
-        Style = tbsSeparator
+        Width = 185
+        Height = 39
+        Align = alLeft
+        BevelOuter = bvNone
+        Caption = 'pnlAlignToolbar'
+        ShowCaption = False
+        TabOrder = 1
       end
-      object btnNormal: TToolButton
-        Left = 8
-        Top = 0
-        Cursor = crHandPoint
-        Hint = 'Select Point'
-        ImageIndex = 31
-        ParentShowHint = False
-        ShowHint = True
-        Style = tbsCheck
-        OnClick = btnNormalClick
-      end
-      object btnPan: TToolButton
-        Left = 47
-        Top = 0
-        Cursor = crHandPoint
-        Hint = 'Delete Point'
-        ImageIndex = 13
-        ParentShowHint = False
-        ShowHint = True
-        Style = tbsCheck
-        OnClick = btnPanClick
-      end
-      object btn2: TToolButton
-        Left = 86
-        Top = 0
-        Width = 8
-        Caption = 'btn2'
-        ImageIndex = 36
-        Style = tbsSeparator
-      end
-      object btnDecreaseScale: TToolButton
-        Left = 94
-        Top = 0
-        Cursor = crHandPoint
-        Hint = 'Decrease Scale'
-        ImageIndex = 1
-        ParentShowHint = False
-        ShowHint = True
-        Style = tbsCheck
-        OnClick = btnDecreaseScaleClick
-      end
-      object cbbSetScale: TComboBox
-        Left = 133
-        Top = 0
-        Width = 90
-        Height = 21
-        Hint = 'Map Scales'
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 0
-        OnChange = cbbSetScaleChange
-        Items.Strings = (
-          '1'
-          '2'
-          '4'
-          '8'
-          '16'
-          '32'
-          '64'
-          '128'
-          '256'
-          '512'
-          '1024')
-      end
-      object btnIncreaseScale: TToolButton
-        Left = 223
-        Top = 0
-        Cursor = crHandPoint
-        Hint = 'Increase Scale'
-        ImageIndex = 2
-        ParentShowHint = False
-        ShowHint = True
-        Style = tbsCheck
-        OnClick = btnIncreaseScaleClick
-      end
-      object btn3: TToolButton
-        Left = 262
-        Top = 0
-        Width = 8
-        Caption = 'btn3'
-        ImageIndex = 36
-        Style = tbsSeparator
-      end
-      object btnZoom: TToolButton
-        Left = 270
-        Top = 0
-        Cursor = crHandPoint
-        Hint = 'Zoom'
-        ImageIndex = 37
-        ParentShowHint = False
-        ShowHint = True
-        Style = tbsCheck
-        OnClick = btnZoomClick
-      end
-      object btnZoomOut: TToolButton
-        Left = 309
-        Top = 0
-        Cursor = crHandPoint
-        Hint = 'Zoom Out'
-        ImageIndex = 36
-        OnClick = btnZoomOutClick
-      end
-      object btnDragFilter: TToolButton
-        Left = 348
-        Top = 0
-        Cursor = crSizeAll
-        Hint = 'Game Center'
-        ImageIndex = 6
-        ParentShowHint = False
-        ShowHint = True
-        Style = tbsCheck
-        OnClick = btnDragFilterClick
-      end
+    end
+    object mpLayer: TMap
+      Left = 0
+      Top = 39
+      Width = 927
+      Height = 723
+      ParentColor = False
+      Align = alClient
+      TabOrder = 1
+      OnMapViewChanged = mpLayerMapViewChanged
+      ExplicitLeft = 263
+      ExplicitTop = -110
+      ExplicitWidth = 864
+      ExplicitHeight = 599
+      ControlData = {
+        8A1A0600CF5F0000B94A0000010000000F0000FF0D47656F44696374696F6E61
+        727905456D70747900E8030000000000000000000002000E001E000000000000
+        0000000000000000000000000000000000000000000600010000040000500001
+        010000640000000001F4010000050000800C000000000000000000000000FFFF
+        FF000100000000000000000000000000000000000000000000000352E30B918F
+        CE119DE300AA004BB85101000000900180FC0A0005417269616C000352E30B91
+        8FCE119DE300AA004BB8510100000090015C790C0005417269616C0000000000
+        00000000000000000000000000000000000000000000000000000000000000FF
+        FFFF000000000000000001370000000000FFFFFF000000000000000352E30B91
+        8FCE119DE300AA004BB851010000009001DC7C010005417269616C000352E30B
+        918FCE119DE300AA004BB851010200009001A42C02000B4D61702053796D626F
+        6C730000000000000001000100FFFFFF000200FFFFFF00000000000001000000
+        01000118010000D821582B01000000000000001C000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000002
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        8076C000000000008056C0000000000080764000000000008056400100000018
+        010000D821582B01000000000000001C00000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000200000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        0000000000000000000000000000000000000000000000000000000000000000
+        000088B3400000000000408F400001000001}
     end
   end
   object ImageList1: TImageList

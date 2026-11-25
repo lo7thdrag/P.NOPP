@@ -32,6 +32,8 @@ type
     Panel1: TPanel;
     btnCancel: TButton;
     btnOk: TButton;
+    pnlMain: TPanel;
+    pnlAlignToolbar: TPanel;
     procedure FormShow(Sender: TObject);
     procedure btnCancelClick(Sender: TObject);
     procedure lstGSTGameClick(Sender: TObject);
@@ -45,6 +47,7 @@ type
     procedure btnZoomOutClick(Sender: TObject);
     procedure btnDragFilterClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
+    procedure FormResize(Sender: TObject);
   private
     FLyrDraw : CMapXLayer;
 
@@ -273,6 +276,11 @@ begin
   end
   else cbbSetScale.ItemIndex := cbbSetScale.ItemIndex -1 ;
   mpLayer.OnMapViewChanged := mpLayerMapViewChanged;
+end;
+
+procedure TfrmBrowseMap.FormResize(Sender: TObject);
+begin
+  pnlAlignToolbar.Width := ((PanelTop.Width div 2) - Round(193.5));
 end;
 
 procedure TfrmBrowseMap.FormShow(Sender: TObject);
