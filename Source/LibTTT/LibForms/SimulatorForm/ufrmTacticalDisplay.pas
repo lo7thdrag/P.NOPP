@@ -60,6 +60,7 @@ type
     lblPbLoadSystem: TLabel;
     imgSetting: TImage;
     btnMonitor: TButton;
+    imgViewer: TImage;
 
     procedure FormCreate(Sender: TObject);
     procedure btnShowPasswordClick(Sender: TObject);
@@ -83,6 +84,7 @@ type
     procedure Image6Click(Sender: TObject);
     procedure tmrPBSituationBoardTimer(Sender: TObject);
     procedure btnMonitorClick(Sender: TObject);
+    procedure imgViewerClick(Sender: TObject);
 
   private
     FAppGame : TAppExecute;
@@ -891,6 +893,11 @@ begin
   lblPb.Visible := True;
 end;
 
+procedure TfrmTacticalDisplay.imgViewerClick(Sender: TObject);
+begin
+  RunClientApp;
+end;
+
 procedure TfrmTacticalDisplay.Initialize;
 var
   i : Integer;
@@ -983,14 +990,15 @@ end;
 procedure TfrmTacticalDisplay.RunClientApp;
 begin
 //  KillClientApp;
+  Self.SendToBack;
 
   if not GetApp then
   begin
     FAppGame.FExecFname := 'RemoteViewer.exe';
     FAppGame.Executes;
-  end
-  else
-    ShowMessage('Remote Viewer Sedang berjalan');
+  end;
+//  else
+//    ShowMessage('Remote Viewer Sedang berjalan');
 end;
 
 procedure TfrmTacticalDisplay.SetWallpaperHome;
@@ -1108,8 +1116,7 @@ begin
     begin
       if simMgrClient.MyConsoleData.Group = cgSituationBoard then
       begin
-        RunClientApp;
-
+        imgViewer.Visible := True;
         Exit;
       end
       else if simMgrClient.MyConsoleData.Group = cgWasdal then
