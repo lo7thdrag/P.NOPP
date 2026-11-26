@@ -358,7 +358,6 @@ begin
   try
     FileTransferPath := IncludeTrailingPathDelimiter(vGameDataSetting.FileTransfer);
 
-//    OpenDialog.InitialDir := TelegramPath;
     OpenDialog.Options    := OpenDialog.Options + [ofAllowMultiSelect];
     OpenDialog.Filter     := 'All Files (*.*)|*.*';
 
