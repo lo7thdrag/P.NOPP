@@ -43820,24 +43820,6 @@ object frmTacticalDisplay: TfrmTacticalDisplay
       Stretch = True
       ExplicitHeight = 61
     end
-    object lblConsoleName: TLabel
-      Left = 2
-      Top = 183
-      Width = 1916
-      Height = 81
-      Alignment = taCenter
-      AutoSize = False
-      Caption = 'Wasdal 1 Station Tengah'
-      Color = clWhite
-      Font.Charset = ANSI_CHARSET
-      Font.Color = clWhite
-      Font.Height = -96
-      Font.Name = 'Deusex'
-      Font.Style = [fsBold]
-      ParentColor = False
-      ParentFont = False
-      Transparent = True
-    end
     object lblPbLoadSystem: TLabel
       Left = 342
       Top = 361
@@ -44087,6 +44069,24 @@ object frmTacticalDisplay: TfrmTacticalDisplay
         B497}
       Stretch = True
       Visible = False
+    end
+    object lblConsoleName: TLabel
+      Left = 2
+      Top = 183
+      Width = 1916
+      Height = 81
+      Alignment = taCenter
+      AutoSize = False
+      Caption = 'Wasdal 1 Station Tengah'
+      Color = clWhite
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWhite
+      Font.Height = -96
+      Font.Name = 'Deusex'
+      Font.Style = [fsBold]
+      ParentColor = False
+      ParentFont = False
+      Transparent = True
     end
     object pnlButton: TPanel
       Left = 32
