@@ -617,6 +617,7 @@ begin
   {$Region ' Select '}
   if FMapCursor = mcSelect then
   begin
+    FIsMouseDown := True;
     FSelectionStartX := X;
     FSelectionStartY := Y;
     FSelectionEndX := X;
@@ -652,11 +653,10 @@ begin
 
   {$Region ' Set Game Center '}
 
-  if FMapCursor = mcGameCenter then
+ if FMapCursor = mcGameCenter then
   begin
-
-    FConverter.ConvertToMap(X, Y, FSelectedGameArea.FData.Game_Centre_Long, FSelectedGameArea.FData.Game_Centre_Lat);
-
+    if Assigned(FSelectedGameArea) then
+      FConverter.ConvertToMap(X, Y, FSelectedGameArea.FData.Game_Centre_Long, FSelectedGameArea.FData.Game_Centre_Lat);
   end;
   {$ENDREGION}
 end;

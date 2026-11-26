@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls, ComCtrls, ToolWin, CheckLst, ExtCtrls, OleCtrls, StrUtils,
   MapXLib_TLB, ImgList, uLibSetting, uMapXHandler, System.ImageList,
 
-  uRecordData, uT3SimManager, uSimMgr_Client;
+  uRecordData, uT3SimManager, uSimMgr_Client, uClassData;
 
 type
   TfrmBrowseMap = class(TForm)
@@ -50,9 +50,11 @@ type
     procedure FormResize(Sender: TObject);
   private
     FLyrDraw : CMapXLayer;
+    FSelectedGameArea : TGame_Area_Definition;
 
     procedure GetFilename(const dir : string; list : TStrings);
     procedure Load_Map(geoSet : string);
+    function GetCenterFromLayer(out cx, cy: Double): Boolean;
 
   public
     TabId : Integer;
@@ -68,7 +70,7 @@ var
 implementation
 
 uses
-  ufrmSituationBoard;
+  System.Win.ComObj,ufrmSituationBoard;
 {$R *.dfm}
 
 procedure InitOleVariant(var TheVar: OleVariant);
@@ -113,23 +115,31 @@ begin
 end;
 
 procedure TfrmBrowseMap.btnDragFilterClick(Sender: TObject);
+var
+  long, lat: Double;
 begin
-  btnNormal.Down        := False;
-  btnPan.Down           := false;
-  btnDecreaseScale.Down := false;
-  btnIncreaseScale.Down := false;
-  btnZoom.Down          := false;
-  btnZoomOut.Down              := false;
-  btnDragFilter.Down    := True;
+  btnDragFilter.Down := False;
 
-  if btnDragFilter.Down then
+  long := 0;
+  lat  := 0;
+
+  if Assigned(FSelectedGameArea) then
   begin
-    mpLayer.CurrentTool   := miArrowTool;
-    mpLayer.MousePointer  := miCrossCursor;
-
-    mpLayer.ZoomTo(3072, mpLayer.CenterX, mpLayer.CenterY);
+    long := FSelectedGameArea.FData.Game_Centre_Long;
+    lat  := FSelectedGameArea.FData.Game_Centre_Lat;
   end;
-end;
+
+  if ((long = 0) and (lat = 0)) and not GetCenterFromLayer(long, lat) then
+    Exit;
+
+  mpLayer.OnMapViewChanged := nil;
+  try
+    mpLayer.ZoomTo(mpLayer.Zoom, long, lat);
+    mpLayer.Refresh;
+  finally
+    mpLayer.OnMapViewChanged := mpLayerMapViewChanged;
+  end;
+  end;
 
 procedure TfrmBrowseMap.btnIncreaseScaleClick(Sender: TObject);
 begin
@@ -307,6 +317,29 @@ begin
     dirP := 'C:\Program Files (x24)\Docs\Map\GameArea';
 
   GetFilename(dirP, lstGSTGame.Items);
+end;
+
+function TfrmBrowseMap.GetCenterFromLayer(out cx, cy: Double): Boolean;
+var
+  i: Integer;
+begin
+  Result := False;
+
+  for i := 1 to mpLayer.Layers.Count do
+  begin
+    if SameText(mpLayer.Layers.Item(i).Name, 'LYR_DRAW') then
+      Continue;
+
+    try
+      cx := (mpLayer.Layers.Item(i).Bounds.XMin + mpLayer.Layers.Item(i).Bounds.XMax) / 2;
+      cy := (mpLayer.Layers.Item(i).Bounds.YMin + mpLayer.Layers.Item(i).Bounds.YMax) / 2;
+      Result := True;
+      Exit;
+    except
+      on EOleException do
+        ;
+    end;
+  end;
 end;
 
 procedure TfrmBrowseMap.GetFilename(const dir: string; list: TStrings);
