@@ -240,6 +240,12 @@ begin
 
   ENCMap.CurrentTool := miArrowTool;
   ENCMap.MousePointer := miArrowCursor;
+//  UpAllToolbarButton;
+//  btnMultiSelect.Down := True;
+//  FMapCursor := mcMultiSelect;
+//
+//  ENCMap.CurrentTool := miArrowTool;
+//  ENCMap.MousePointer := miArrowCursor;
 
 //  btnout.ImageIndex := 8;
 end;
@@ -599,18 +605,21 @@ begin
 end;
 
 procedure TfrmMapEditor.ENCMapMouseDown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
-var
-  castX, castY : single;
-  i : Integer;
-  layer : CMapXLayer;
+//var
+//  castX, castY : single;
+//  i : Integer;
+//  layer : CMapXLayer;
 begin
+if Button <> mbLeft then
+    Exit;
+
   {$Region ' Set Zoom '}
   if btnZoom.Down then
   begin
     FIsMouseDown := True;
-
     FZoomRectStart := Types.Point(X, Y);
     FZoomRectEnd := Types.Point(X, Y);
+    Exit;
   end;
   {$ENDREGION}
 
@@ -622,6 +631,8 @@ begin
     FSelectionStartY := Y;
     FSelectionEndX := X;
     FSelectionEndY := Y;
+    FSelectionRectStart := Types.Point(X, Y);
+    FSelectionRectEnd := Types.Point(X, Y);
   end;
   {$ENDREGION}
 
@@ -629,31 +640,22 @@ begin
   if FMapCursor = mcMultiSelect then
   begin
     FIsMouseDown := True;
-
     FListFiltered.Clear;
 
     FSelectionStartX := X;
     FSelectionStartY := Y;
     FSelectionEndX := X;
     FSelectionEndY := Y;
+    FSelectionRectStart := Types.Point(X, Y);
+    FSelectionRectEnd := Types.Point(X, Y);
 
-//    for i := 1 to ENCmap.Layers.Count do
-//    begin
-//      layer := ENCmap.Layers.Item(i);
-//
-//      if (layer.Name = 'Indonesia_Coastline_Darat') or (layer.Name = 'LYR_DRAW') then
-//        Continue;
-//
-//      layer.OverrideStyle := False;
-//    end;
-//
-//    ENCmap.Repaint;
+    SetMapArea;
+    ENCMap.Repaint;
   end;
   {$ENDREGION}
 
   {$Region ' Set Game Center '}
-
- if FMapCursor = mcGameCenter then
+  if FMapCursor = mcGameCenter then
   begin
     if Assigned(FSelectedGameArea) then
       FConverter.ConvertToMap(X, Y, FSelectedGameArea.FData.Game_Centre_Long, FSelectedGameArea.FData.Game_Centre_Lat);
@@ -661,15 +663,27 @@ begin
   {$ENDREGION}
 end;
 
+
 procedure TfrmMapEditor.ENCMapMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
-var
-  centerX, centerY : Double;
+//var
+//  centerX, centerY : Double;
 
 begin
-  {$Region ' Set Zoom '}
+ {$Region ' Set Zoom '}
   if btnZoom.Down and FIsMouseDown then
   begin
     FZoomRectEnd := Types.Point(X, Y);
+    ENCMap.Repaint;
+    Exit;
+  end;
+  {$ENDREGION}
+
+  {$Region ' Select & Multiselect '}
+  if FIsMouseDown and ((FMapCursor = mcSelect) or (FMapCursor = mcMultiSelect)) then
+  begin
+    FSelectionEndX := X;
+    FSelectionEndY := Y;
+    FSelectionRectEnd := Types.Point(X, Y);
     ENCMap.Repaint;
   end;
   {$ENDREGION}
@@ -697,20 +711,37 @@ end;
 
 procedure TfrmMapEditor.ENCMapMouseUp(Sender: TObject; Button: TMouseButton;
   Shift: TShiftState; X, Y: Integer);
-var
-  X1, Y1, X2, Y2: Integer;
-  MapX1, MapY1, MapX2, MapY2: Double;
-  CenterMapX, CenterMapY: Double;
-  RectWidth, RectHeight: Double;
-  ScreenRatio, RectRatio: Double;
-  NewZoom: Double;
+//var
+//  X1, Y1, X2, Y2: Integer;
+//  MapX1, MapY1, MapX2, MapY2: Double;
+//  CenterMapX, CenterMapY: Double;
+//  RectWidth, RectHeight: Double;
+//  ScreenRatio, RectRatio: Double;
+//  NewZoom: Double;
 begin
-  {$ENDREGION}
+ if Button <> mbLeft then
+    Exit;
+
+  {$Region ' Set Zoom '}
   if btnZoom.Down and FIsMouseDown then
   begin
     FIsMouseDown := False;
-    FZoomRectEnd:= Types.Point(X, Y);
+    FZoomRectEnd := Types.Point(X, Y);
     ENCMap.OnMapViewChanged := ENCMapMapViewChanged;
+    ENCMap.Repaint;
+    Exit;
+  end;
+  {$ENDREGION}
+
+  {$Region ' Select & Multiselect '}
+  if FIsMouseDown and ((FMapCursor = mcSelect) or (FMapCursor = mcMultiSelect)) then
+  begin
+    FIsMouseDown := False;
+    FSelectionEndX := X;
+    FSelectionEndY := Y;
+    FSelectionRectEnd := Types.Point(X, Y);
+
+    SelectionArea;
     ENCMap.Repaint;
   end;
 

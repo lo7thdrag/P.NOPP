@@ -216,11 +216,18 @@ begin
   if (cbSetScale.ItemIndex < 0) or (cbSetScale.ItemIndex >= cbSetScale.Items.Count) then
     Exit;
 
-  s := cbSetScale.Items[cbSetScale.ItemIndex];
-  z := StrToFloatDef(s, 0); // Jika gagal konversi, default ke 0
+  if (cbSetScale.ItemIndex <= 500) then
+  begin
+    s := cbSetScale.Items[cbSetScale.ItemIndex];
+    try
+      z := StrToFloatDef(s, 0); // Jika gagal konversi, default ke 0
+      ENCMap.ZoomTo(z, ENCMap.CenterX, ENCMap.CenterY);
+    finally
 
-  if z > 0 then
-    ENCMap.ZoomTo(z, ENCMap.CenterX, ENCMap.CenterY);
+    end;
+  end
+  else cbSetScale.ItemIndex := cbSetScale.ItemIndex - 1;
+//    ENCMap.ZoomTo(z, ENCMap.CenterX, ENCMap.CenterY);
 end;
 
 procedure TfrmMapPreview.ENCMapDrawUserLayer(ASender: TObject;
@@ -258,8 +265,8 @@ begin
   begin
      if ENCMap.Zoom <= 0.125 then tempZoom := 0.125;
      if (ENCMap.Zoom > 0.125) AND (ENCMap.Zoom < 1) then tempZoom := ENCMap.Zoom;
-     if (ENCMap.Zoom >= 1) AND (ENCMap.Zoom <= 3500) then tempZoom := round(ENCMap.Zoom);
-     if ENCMap.Zoom > 3500 then tempZoom := 3500;
+     if (ENCMap.Zoom >= 1) AND (ENCMap.Zoom <= 2500) then tempZoom := round(ENCMap.Zoom);
+     if ENCMap.Zoom > 2500 then tempZoom := 2500;
 
      ENCMap.OnMapViewChanged := nil;
      ENCMap.ZoomTo(tempZoom, ENCMap.CenterX, ENCMap.CenterY);
